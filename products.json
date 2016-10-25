@@ -1,17 +1,23 @@
 [{
     "Name": "Velton's Coffee - Treehouse Drip Blend Coffee",
     "Description": "Velton's Treehouse Blend Coffee is produced by a small roastery focused on quality control at every turn. Only the highest quality beans are considered. All of Velton's coffee is roasted in small batches, hand blended, and promptly packaged in the highest quality bags (with one-way degassing valve) to ensure maximum freshness.",
-    "Price": 6.00
+    "Price": 6.00,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Nutty"]
 },
 {
     "Name": "Caffe Ladro - Ladro Espresso - 12 ounces",
     "Description": "Try a sip of Seattle, embodied in Caffe Ladro's signature espresso blend. Ladro Espresso is a little spot of sunshine on a stormy day. By itself it is creamy and sweet with mild chocolate flavor. In a milk-based drink it adds layers of flavor without the addition of sweetener or syrups. It makes a balanced espresso or a full-bodied drip coffee.",
-    "Price": 5.00
+    "Price": 5.00,
+    "Origin": 
 },
 {
     "Name": "Anchorhead Coffee Narwhal House Blend - Whole Bean - 10oz",
     "Description": "Anchorhead’s signature house blend- this coffee will greet you with a the pleasant aroma of ripe cherry. This translates beautifully to your cup where you will also find notes a rich chocolate and creamy nougat. Reminiscent of an old school favorite treat- cherry cordial- this blend is truly a delight.",
     "Price": 14.00
+    "Roast": "Medium",
+
 },
 {
     "Name": "Slate Coffee Roasters Cream and Sugar Drip Coffee Blend",
