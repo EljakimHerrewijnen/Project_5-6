@@ -8,6 +8,7 @@ def index():
 
 @app.route('/brands/<name>')
 def brands(name):
+    
     return render_template('brands.html', name=name)
 
 
