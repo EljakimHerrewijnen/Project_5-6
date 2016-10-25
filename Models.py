@@ -24,6 +24,9 @@ class Product:
             jsonFile["Image"]
         )
 
+    def description_contains(self, expression):
+        return expression in self.description
+
     def has_aromas(self, aromas, match_all = False):
         if (match_all):
             return set(aromas) == set(self.aromas)
@@ -55,29 +58,7 @@ class Product:
         for item in jsonData:
             products.append(Product._fromJson(item))
         return products
-
-    @staticmethod
-    def get_by_name(name, products = None):
-        if (products == None):
-            products = Product.get_all()
-        products = filter(lambda product: product.has_name(name), products)
-        return products
-
-    @staticmethod
-    def get_by_price(min, max, products = None):
-        if (products == None):
-            products = Product.get_all()
-        products = filter(lambda product: product.has_price(min, max), products)
-        return products
-
-    @staticmethod
-    def get_by_aromas(selected_aromas, products = None):
-        if (not products):
-            products = Product.get_all()
-        products = filter(lambda product: product.has_aromas(selected_aromas, False), products)
-        return products
-
-
+        
     def __dict__(self):
         result = { 'Name': self.name, 'Description': self.description, 'Price': self.price, 'Roast': self.roast, 'Origin': self.origin, 'Aromas': self.aromas, 'Image': self.image }
         return result
