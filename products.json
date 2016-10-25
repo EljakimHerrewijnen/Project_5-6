@@ -5,7 +5,7 @@
     "Price": 6.00,
     "Roast": "Medium",
     "Origin": "Americas",
-    "Aromas": ["Nutty"],
+    "Aromas": ["Nutty", "Fruity"],
     "Image": "Images/50.jpg"
 },
 {
@@ -15,7 +15,7 @@
     "Price": 5.00,
     "Roast": "Medium",
     "Origin": "Americas",
-    "Aromas": ["Chocolate"],
+    "Aromas": ["Chocolate", "Spicy", "Nutty"],
     "Image": "Images/51.jpg"
 },
 {
@@ -25,7 +25,7 @@
     "Price": 14.00,
     "Roast": "Medium",
     "Origin": "Africa",
-    "Aromas": ["Chocolate, Fruity"],
+    "Aromas": ["Chocolate", "Fruity"],
     "Image": "Images/52.jpg"
 },
 {
@@ -35,7 +35,7 @@
     "Price": 15.00,
     "Roast": "Dark",
     "Origin": "Asia",
-    "Aromas": ["Chocolate, Nutty"],
+    "Aromas": ["Chocolate", "Nutty"],
     "Image": "Images/53.jpg"
 },
 {
@@ -105,7 +105,7 @@
     "Price": 21.85,
     "Roast": "Medium",
     "Origin": "Africa",
-    "Aromas": ["Chocolate, Spicy"],
+    "Aromas": ["Chocolate", "Spicy"],
     "Image": "Images/60.jpg"
 },
 {
@@ -125,7 +125,7 @@
     "Price": 24.99,
     "Roast": "Light",
     "Origin": "Americas",
-    "Aromas": ["Spicy, Chocolate"],
+    "Aromas": ["Spicy", "Chocolate"],
     "Image": "Images/62.jpg"
 },
 {
@@ -145,7 +145,7 @@
     "Price": 26.95,
     "Roast": "Light",
     "Origin": "Americas",
-    "Aromas": ["Chocolate, Fruity"],
+    "Aromas": ["Chocolate", "Fruity"],
     "Image": "Images/64.jpg"
 },
 {
@@ -155,7 +155,7 @@
     "Price": 25.95,
     "Roast": "Dark",
     "Origin": "Asia",
-    "Aromas": ["Nutty, Chocolate"],
+    "Aromas": ["Nutty", "Chocolate"],
     "Image": "Images/65.jpg"
 },
 {
@@ -165,7 +165,7 @@
     "Price": 20.95,
     "Roast": "Light",
     "Origin": "Africa",
-    "Aromas": ["Nutty, Fruity"],
+    "Aromas": ["Nutty", "Fruity"],
     "Image": "Images/66.jpg"
 },
 {
@@ -175,7 +175,7 @@
     "Price": 19.99,
     "Roast": "Medium",
     "Origin": "Africa",
-    "Aromas": ["Nutty, Spicy"],
+    "Aromas": ["Nutty", "Spicy"],
     "Image": "Images/67.jpg"
 },
 {
@@ -185,7 +185,7 @@
     "Price": 14.99,
     "Roast": "Medium",
     "Origin": "Americas",
-    "Aromas": ["Chocolate, Spicy"],
+    "Aromas": ["Chocolate", "Spicy"],
     "Image": "Images/68.jpg"
 },
 {
@@ -195,7 +195,7 @@
     "Price": 15.00,
     "Roast": "Dark",
     "Origin": "Africa",
-    "Aromas": ["Spicy, Fruity"],
+    "Aromas": ["Spicy", "Fruity"],
     "Image": "Images/69.jpg"
 },
 {
@@ -205,7 +205,7 @@
     "Price": 17.99,
     "Roast": "Light",
     "Origin": "Asia",
-    "Aromas": ["Chocolate, Fruity"],
+    "Aromas": ["Chocolate", "Fruity"],
     "Image": "Images/70.jpg"
 },
 {
@@ -215,7 +215,7 @@
     "Price": 12.99,
     "Roast": "Dark",
     "Origin": "Africa",
-    "Aromas": ["Chocolate, Fruity, Nutty"],
+    "Aromas": ["Chocolate", "Fruity", "Nutty"],
     "Image": "Images/71.jpg"
 },
 {
