@@ -10,13 +10,16 @@
     "Name": "Caffe Ladro - Ladro Espresso - 12 ounces",
     "Description": "Try a sip of Seattle, embodied in Caffe Ladro's signature espresso blend. Ladro Espresso is a little spot of sunshine on a stormy day. By itself it is creamy and sweet with mild chocolate flavor. In a milk-based drink it adds layers of flavor without the addition of sweetener or syrups. It makes a balanced espresso or a full-bodied drip coffee.",
     "Price": 5.00,
-    "Origin": 
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Chocolate"]
 },
 {
     "Name": "Anchorhead Coffee Narwhal House Blend - Whole Bean - 10oz",
     "Description": "Anchorhead’s signature house blend- this coffee will greet you with a the pleasant aroma of ripe cherry. This translates beautifully to your cup where you will also find notes a rich chocolate and creamy nougat. Reminiscent of an old school favorite treat- cherry cordial- this blend is truly a delight.",
-    "Price": 14.00
-    "Roast": "Medium",
+    "Price": 14.00,
+    
+    "Aromas": ["Chocolate, Fruity"]
 
 },
 {
