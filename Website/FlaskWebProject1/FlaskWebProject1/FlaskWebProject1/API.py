@@ -27,7 +27,7 @@ def ProductsRouteHandler():
             products = filter(lambda product: product.has_price(0, float(maxPrice)), products)
         
     if (aromas):
-        products = filter(lambda product: product.has_aromas(aromas.split(" "), False), products)
+        products = filter(lambda product: product.has_aromas(aromas.split(" "), True), products)
 
     if (origin):
         products = filter(lambda product: product.has_origin(origin), products)
