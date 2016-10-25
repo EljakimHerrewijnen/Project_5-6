@@ -35,12 +35,12 @@ class Product:
                 return True
         return False
     
-    def has_price(min = 0, max = 100):
-        return 0 <= self.price <= 100
+    def has_price(self, min = 0, max = 100):
+        return min <= self.price <= max
 
     def has_name(self, name, partial_match = True):
         if (partial_match):
-            name in self.name
+            return name in self.name
         return name == self.name
 
     def has_origin(self, origin):

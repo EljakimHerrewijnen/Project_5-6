@@ -11,20 +11,29 @@ def ProductsRouteHandler():
     minPrice = request.args.get("Min")
     maxPrice = request.args.get("Max")
     origin = request.args.get("Origin")
-    aromas = request.args.get("Aromas").split(" ")
+    aromas = request.args.get("Aromas")
+    description = request.args.get("Description")
 
     products = Models.Product.get_all()
     if (name):
-        products = filter(lambda product: product.has_name(Name), products)
+        products = filter(lambda product: product.has_name(name), products)
 
-    if (minPrice and maxPrice):
-        products = filter(lambda product: product.has_price(minPrice, maxPrice), products)
-
+    if (minPrice or maxPrice):
+        if (minPrice and maxPrice):
+            products = filter(lambda product: product.has_price(float(minPrice), float(maxPrice)), products)
+        elif (minPrice):
+            products = filter(lambda product: product.has_price(float(minPrice)), products)
+        else:
+            products = filter(lambda product: product.has_price(0, float(maxPrice)), products)
+        
     if (aromas):
-        products = filter(lambda product: product.has_aromas(aromas, False), products)
+        products = filter(lambda product: product.has_aromas(aromas.split(" "), False), products)
 
     if (origin):
         products = filter(lambda product: product.has_origin(origin), products)
+
+    if (description):
+        products = filter(lambda product: product.description_contains(description), products)
 
     return "<pre>" + Models.Product.ArrayToJson(products)
 
