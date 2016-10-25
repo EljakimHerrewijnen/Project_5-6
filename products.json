@@ -1,4 +1,254 @@
 [{
+    "ID": 1,
+    "Name": "Olympia Coffee Roasting - El Salvador Ricardo Ariz - Pacamara",
+    "Description": "This single origin is the product of a close relationship between Olympia Coffee and the grower, Ricardo Ariz. Over the years both have worked together to continue improving everything from the coffee cherries themselves to how the harvested cherries are processed. This varietal in particular takes a lot of extra attention and care, making it also more expensive. For Ricardo, it's all worth it because, put simply, \"It makes an awesome cup\". Enjoy this delicious coffee with us as we continue to follow along on this amazing process.",
+    "Price": 19.00,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Nutty", "Chocolate"],
+    "Image": "Images/1.jpg"
+},
+{
+    "ID": 2,
+    "Name": "Olympia Coffee Roasting - Kenya Tegu Reserve",
+    "Description": "One of the best selections coming from the Tegu Washing Station located close to Mount Kenya, this amazing single origin coffee represents the hard work and dedication of the farmers behind it. As a group the Tegu farmers work to maximize their returns on coffee by working together to raise quality standards. Through continued training and education their efforts pay off year after year and this new crop is no exception. With delicious notes of citrus and summer fruits, this coffee is sure to be a new favorite.",
+    "Price": 23.50,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Fruity"],
+    "Image": "Images/2.jpg"
+},
+{
+    "ID": 3,
+    "Name": "Olympia Coffee Roasting - Ethiopia Banko Natural",
+    "Description": "Back this season! Intensely fruity and juicy, this single origin coffee is a stunning example of how delicious naturally processed coffee can be. Organic and fair trade, it is grown by the Banko Dhadhato Cooperative in an area where the cooler weather slows the maturation and increases the complexity of flavors resulting in a spectacular cup. One of our favorite seasonal coffees that we look forward to each year!",
+    "Price": 18.50,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Nutty"],
+    "Image": "Images/3.jpg"
+},
+{
+    "ID": 4,
+    "Name": "Olympia Coffee Roasting Big Truck Espresso",
+    "Description": "Olympia Coffee Roasting Co. devotes constant attention to their favorite espresso blend. The components may change based on the season, but the flavor remains the same. This delicious organic espresso has a dense, velvety body with notes of sweet chocolate and ripe berries.",
+    "Price": 15.80,
+    "Roast": "Medium",
+    "Origin": "Asia",
+    "Aromas": ["Fruity", "Chocolate"],
+    "Image": "Images/4.jpg"
+},
+{
+    "ID": 5,
+    "Name": "Spotted Cow Ethiopia Guji",
+    "Description": "Our second naturally processed coffee from the Guji/Sidama region of Ethiopia this year! Produced by a privately owned mill with coffees contributed by nearly 700 farmers, only the best coffee cherries were selected for the final, certified Grade 1 product. With strong notes of blueberry and the sweetness of dark chocolate, this coffee is delicious brewed hot or this summer try it brewed over ice for a tasty treat.",
+    "Price": 19.00,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Chocolate", "Fruity"],
+    "Image": "Images/5.jpg"
+},
+{
+    "ID": 6,
+    "Name": "Spotted Cow Coffee Weathervane Blend - 12oz",
+    "Description": "You don't need a weathervane to know which direction the wind is blowing for Spotted Cow Coffee's Weathervane blend! With notes of chocolate and berry when brewed with a Chemex, as well as dark chocolate and slight hints of tobacco when brewed with a Technivorm, all winds point to delicious with Spotted Cow's Weathervane blend!",
+    "Price": 14.50,
+    "Roast": "Dark",
+    "Origin": "Asia",
+    "Aromas": ["Nutty"],
+    "Image": "Images/6.jpg"
+},
+{
+    "ID": 7,
+    "Name": "Spotted Cow Coffee Farmhouse Espresso Blend - 12oz",
+    "Description": "Spotted Cow Coffee's Farmhouse Espresso blend brings the smooth and fruity side of farm living to your freshly brewed espresso. With prominent notes of blueberry and more subtle hints of melon and cherry (thanks SCG tasters!), you may find yourself longing for the laid-back easy lifestyle of good ol' country living.",
+    "Price": 14.50,
+    "Roast": "Medium",
+    "Origin": "Asia",
+    "Aromas": ["Chocolate", "Fruity"],
+    "Image": "Images/7.jpg"
+},
+{
+    "ID": 8,
+    "Name": "Intelligentsia Coffee - Honduras La Tortuga",
+    "Description": "Living up to its namesake, La Tortuga - the turtle - shows that slow and steady wins the race when it comes to quality coffee production!",
+    "Price": 18.00,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Fruity", "Nutty"],
+    "Image": "Images/8.jpg"
+},
+{
+    "ID": 9,
+    "Name": "Intelligentsia Coffee - House Blend",
+    "Description": "Intelligentsia's signature House Blend of Latin American coffees perfect for your morning brew. A beautiful balance of fruit and sweetness, this coffee showcases the flavors of the region while also producing a consistently delicious cup that you can rely on. Approachable for coffee drinkers of all types, notes of milk chocolate and fruit make an amazing pair that is sure to delight.",
+    "Price": 15.00,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Chocolate", "Fruity"],
+    "Image": "Images/9.jpg"
+},
+{
+    "ID": 10,
+    "Name": "Intelligentsia Coffee Black Cat Decaffeinated Espresso",
+    "Description": "Enjoy the flavor, nuance and overall excellence that is Intelligentsia's Black Cat espresso without the jolt of caffeine. Perfect for an afternoon cup, evening dinner party or whenever you need a caffeine break. Sourced and blended with the same dedication as its caffeinated counterparts, this coffee is packed with delicious notes of chocolate, fruit and nuts for a well balanced, delicious cup.",
+    "Price": 17.00,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Chocolate", "Nutty", "Fruity"],
+    "Image": "Images/10.jpg"
+},
+{
+    "ID": 11,
+    "Name": "Intelligentsia Coffee Black Cat Analog Espresso",
+    "Description": "Reminiscent of a classic Italian style espresso, Intelligentsia's Analog blend is known for its smoothness and reliability- both in taste and performance. Designed to be comforting and approachable for coffee drinkers of all types, this blend is versatile enough for everything from a syrupy ristretto to your daily pour over. It also pairs beautifully with milk for a rich velvety latte.",
+    "Price": 15.00,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Chocolate", "Spicy"],
+    "Image": "Images/11.jpg"
+},
+{
+    "ID": 12,
+    "Name": "Intelligentsia Coffee Black Cat Classic Espresso",
+    "Description": "Intelligentsia's flagship espresso, know for it's clean, sweet and complex profile, it demonstrates their foundation and style as a roaster. A mixture of washed and naturally processed coffees sourced for the perfect combination of flavor and texture, this blend is part of their Black Cat Project and is constantly evolving in their quest for excellence. With notes of caramel and citrus it shines beautifully as espresso but can also hold its own when paired with milk in a cappuccino or latte.",
+    "Price": 15.00,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Chocolate", "Fruity"],
+    "Image": "Images/12.jpg"
+},
+{
+    "ID": 13,
+    "Name": "Equator Coffee Fair Trade Organic Jaguar Espresso",
+    "Description": "With rich notes of bittersweet chocolate that are supported by caramel and hazelnut accents, Equator's Jaguar Espresso is sure to please the dark roast lover in your life.",
+    "Price": 15.00,
+    "Roast": "Dark",
+    "Origin": "Americas",
+    "Aromas": ["Spicy"],
+    "Image": "Images/13.jpg"
+},
+{
+    "ID": 14,
+    "Name": "Equator Coffee Equator Blend",
+    "Description": "Giving off tastes from all equatorial regions, the Equator Blend will give you a full bodied flavor with a smooth finish. With notes of cedar, almond, berry and nutmeg, it'll be a world party in your mouth.",
+    "Price": 13.00,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Nutty"],
+    "Image": "Images/14.jpg"
+},
+{
+    "ID": 15,
+    "Name": "Equator Coffee Fair Trade Organic Mocha Java",
+    "Description": "A complex blend of flavors, the Mocha Java hails tastes from the Arabian Peninsula, Africa and Indonesia. With flavors of aged wood, fruit, bittersweet chocolate and spice, this blend has been highly recommended by many reviewers.",
+    "Price": 15.00,
+    "Roast": "Dark",
+    "Origin": "Asia",
+    "Aromas": ["Nutty"],
+    "Image": "Images/15.jpg"
+},
+{
+    "ID": 16,
+    "Name": "Equator Coffee Tigerwalk Espresso",
+    "Description": "A light but fruitful roast, Equator Coffee's Tigerwalk Espresso brings you a tart but sweet espresso blend of beans from Mexico, Guatemala and Rwanda. A balance of sweet and creamy espresso, this blend features a hint of cherry-toned chocolate, strawberries and lemon.",
+    "Price": 15.00,
+    "Roast": "Light",
+    "Origin": "Americas",
+    "Aromas": ["Nutty"],
+    "Image": "Images/16.jpg"
+},
+{
+    "ID": 17,
+    "Name": "Supersonic Coffee - Ethiopia Guji Natural",
+    "Description": "The second natural process coffee ever in Supersonic's line-up! A rare treat that we are excited to share.",
+    "Price": 17.91,
+    "Roast": "Light",
+    "Origin": "Africa",
+    "Aromas": ["Fruity"],
+    "Image": "Images/17.jpg"
+},
+{
+    "ID": 18,
+    "Name": "Supersonic Coffee Concorde Espresso Blend",
+    "Description": "A seasonal blend of coffees from two countries, it makes a sweet, luscious espresso with notes of dark chocolate and grapefruit. Paired with steamed milk, it makes a delicious cappuccino or latte.",
+    "Price": 15.93,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Chocolate", "Fruity"],
+    "Image": "Images/18.jpg"
+},
+{
+    "ID": 19,
+    "Name": "49th Parallel Coffee- Cascara- Coffee Cherry Tea",
+    "Description": "Did you know coffee comes from a cherry like fruit? The delicious \"pit\" (coffee bean) is removed and processed for roasting, while the fruit is typically used to help renourish the coffee plants. In some parts of the world though, they dry the best fruit husks (cascara in Spanish) and brew them like tea! This particular cascara comes from the Finca La Florida in El Salvador and is dried for 24 hours and carefully sorted. Delicious steeped hot or even cold brewed overnight, we are loving this for summer! Try it as iced tea, an Arnold Palmer or maybe even a mixed drink for a unique treat!",
+    "Price": 7.50,
+    "Roast": "Light",
+    "Origin": "Africa",
+    "Aromas": ["Fruity", "Nutty"],
+    "Image": "Images/19.jpg"
+},
+{
+    "ID": 20,
+    "Name": "49th Parallel Coffee- Honduras Piedras Amarillas",
+    "Description": "Another shining example of Honduran coffee to be enjoyed this season. Produced by a small farm that only recently took the steps to make sure their coffee was appreciated for its amazing quality and uniquness. This marks only the third season that their coffee is being sold to specialty roasters, like 49th Parallel, and we can't wait to see what the future holds for this growing farm. With notes of stone fruit and berries, this coffee is a special treat that really stands out from the rest.",
+    "Price": 20.00,
+    "Roast": "Light",
+    "Origin": "Americas",
+    "Aromas": ["Fruity"],
+    "Image": "Images/20.jpg"
+},
+{
+    "ID": 21,
+    "Name": "49th Parallel Coffee - Kenya Muburi",
+    "Description": "Grown in a region known for its fertile clay soil, this single origin coffee is a stellar example from Kenya. The coffee cherries ripen slowly in the shade of eucalyptus and other indigenous trees giving the resulting coffee beans a vibrant fruity flavor profile. Combine that with the amazing attention to detail that the members of the Muburi cooperative give each step of the process and we get to enjoy an truly exceptional cup!",
+    "Price": 21.00,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Fruity"],
+    "Image": "Images/21.jpg"
+},
+{
+    "ID": 22,
+    "Name": "49th Parallel Coffee- Epic Espresso",
+    "Description": "The result of 49th Parallel's search for the best, sweetest espresso, Epic Espresso is just that... epic! Roasted lighter than most espresso blends to showcase the floral notes and bright acidity, this coffee is noted for is complexity and balance of acidity and sweetness. 49th Parallel is constantly working to improve its excellence, which is shown in the quality of your cup. Enjoy!",
+    "Price": 18.00,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Fruity", "Nutty"],
+    "Image": "Images/22.jpg"
+},
+{
+    "ID": 23,
+    "Name": "49th Parallel Coffee- Longitude 123 W",
+    "Description": "Perfect for all types of brewed coffee, this seasonal blend provides a clean cup with sweet notes of caramel. Blended with only the freshest coffees each season, Longitude 123 Degrees W is sure to be a crowd pleaser no matter how you brew it. You may even want to try experimenting with it as espresso, we won't judge.",
+    "Price": 15.00,
+    "Roast": "Medium",
+    "Origin": "Medium",
+    "Aromas": ["Fruity", "Nutty"],
+    "Image": "Images/23.jpg"
+},
+{
+    "ID": 24,
+    "Name": "Victrola Coffee Roasters Triborough Organic",
+    "Description": "Well balanced, heavy bodied espresso with delicate floral sweetness and a buttery caramel mouthfeel. A delicious organic espresso to sit back and enjoy- perfect for shots of espresso or mixed with your favorite frothed milk.",
+    "Price": 13.25,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Chocolate"],
+    "Image": "Images/24.jpg"
+},
+{
+    "ID": 25,
+    "Name": "Victrola Coffee Roasters Streamline Espresso",
+    "Description": "Delicious notes of juicy blueberry and blackberry melt into flavors of hazelnut, chocolate and brown sugar with a buttery mouthfeel. This complex blend is both intense and satisfying as the components work together harmoniously.",
+    "Price": 12.50,
+    "Roast": "Dark",
+    "Origin": "Americas",
+    "Aromas": ["Nutty", "Chocolate", "Fruity"],
+    "Image": "Images/25.jpg"
+},
+{
     "ID": 50,
     "Name": "Velton's Coffee - Treehouse Drip Blend Coffee",
     "Description": "Velton's Treehouse Blend Coffee is produced by a small roastery focused on quality control at every turn. Only the highest quality beans are considered. All of Velton's coffee is roasted in small batches, hand blended, and promptly packaged in the highest quality bags (with one-way degassing valve) to ensure maximum freshness.",
