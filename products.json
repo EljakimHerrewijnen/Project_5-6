@@ -1,4 +1,5 @@
 [{
+    "ID": 50,
     "Name": "Velton's Coffee - Treehouse Drip Blend Coffee",
     "Description": "Velton's Treehouse Blend Coffee is produced by a small roastery focused on quality control at every turn. Only the highest quality beans are considered. All of Velton's coffee is roasted in small batches, hand blended, and promptly packaged in the highest quality bags (with one-way degassing valve) to ensure maximum freshness.",
     "Price": 6.00,
@@ -7,6 +8,7 @@
     "Aromas": ["Nutty"]
 },
 {
+    "ID": 51,
     "Name": "Caffe Ladro - Ladro Espresso - 12 ounces",
     "Description": "Try a sip of Seattle, embodied in Caffe Ladro's signature espresso blend. Ladro Espresso is a little spot of sunshine on a stormy day. By itself it is creamy and sweet with mild chocolate flavor. In a milk-based drink it adds layers of flavor without the addition of sweetener or syrups. It makes a balanced espresso or a full-bodied drip coffee.",
     "Price": 5.00,
@@ -15,45 +17,76 @@
     "Aromas": ["Chocolate"]
 },
 {
+    "ID": 52,
     "Name": "Anchorhead Coffee Narwhal House Blend - Whole Bean - 10oz",
     "Description": "Anchorhead’s signature house blend- this coffee will greet you with a the pleasant aroma of ripe cherry. This translates beautifully to your cup where you will also find notes a rich chocolate and creamy nougat. Reminiscent of an old school favorite treat- cherry cordial- this blend is truly a delight.",
     "Price": 14.00,
-    
+    "Roast": "Medium",
+    "Origin": "Africa",
     "Aromas": ["Chocolate, Fruity"]
 
 },
 {
+    "ID": 53,
     "Name": "Slate Coffee Roasters Cream and Sugar Drip Coffee Blend",
     "Description": "Put down the cream and toss the sugar, because Slate Coffee's Cream and Sugar drip coffee blend has arrived to be your everything. For those that have been considering giving up the extras and switching to strictly coffee, Slate's Cream and Sugar blend is a good place to start! Roasted to be an easy drinking coffee, you may detect hints of dark chocolate, toasted almond and sweet caramel through this crowd pleaser.",
-    "Price": 15.00
+    "Price": 15.00,
+    "Roast": "Dark",
+    "Origin": "Asia",
+    "Aromas": ["Chocolate, Nutty"]
+    
 },
 {
+    "ID": 54,
     "Name": "Verve Coffee Roasters The 1950 Blend",
     "Description": "A delicious blend with a flavor profile that takes you back in time with notes of brown sugar, clove and peach. It has a dense sweetness and complexity that is perfect when paired with milk or even as espresso.",
-    "Price": 15.00
+    "Price": 15.00,
+    "Roast": "Light",
+    "Origin": "Americas",
+    "Aromas": ["Fruity"]
 },
 {
+    "ID": 55,
     "Name": "Counter Culture Coffee Big Trouble",
     "Description": "Deliciously sweet, this clean low-acid coffee is named not for its difficulty to brew, but for the challenge the Counter Culture coffee buyers face in sourcing just the right beans for this blend. Designed to remind you of a traditional Italian espresso, Big Trouble combines those chocolatey, nutty flavors loved by so many to create an amazing cup no matter how it is brewed- pour over, french press, espresso- choose your favorite!",
-    "Price": 15.25
+    "Price": 15.25,
+    "Roast": "Dark",
+    "Origin": "Asia",
+    "Aromas": ["Nutty"]
 },
 {
+    "ID": 56,
     "Name": "Counter Culture Coffee Fast Forward",
     "Description": "Developed to introduce coffee drinkers to new coffees from Latin America, Counter Culture's Fast Forward is a blend only the freshest coffees specially selected for a sweet and nutty flavor profile. For those coffee drinkers that like coffee with a little lighter body and a simple consistency to their brew.",
-    "Price": 14.75
+    "Price": 14.75,
+    "Roast": "Light",
+    "Origin": "Americas",
+    "Aromas": ["Nutty"]
 },
 {
+    "ID": 57,
     "Name": "Elm Coffee Roasters - Nine Swans",
     "Description": "A seasonal blend of coffees that is sourced and roasted to be approachable for coffee drinkers that enjoy espresso or brewed coffee. Sweet and full-bodied with notes of chocolate and fruit, it is sure to be a crowd pleaser or a delicious everyday cup.",
-    "Price": 14.33
+    "Price": 14.33,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Chocolate"]
 },
 {
+    "ID": 58,
     "Name": "Velton's Coffee - Three Ravens Blend - Decaf Espresso",
     "Description": "Velton's Three Ravens Blend Decaf Espresso is produced by a small roastery focused on quality control at every turn. Only the highest quality beans are considered. All of Velton's coffee is roasted in small batches, hand blended, and promptly packaged in the highest quality bags (with one-way degassing valve) to ensure maximum freshness.",
-    "Price": 27.50
+    "Price": 27.50,
+    "Roast": "Medium",
+    "Origin": "Africa",
+    "Aromas": ["Spicy"]
 },
 {
+    "ID": 59,
     "Name": "Middle Fork Roasters Back Pedal Brew - Whole Bean",
     "Description": "Back Pedal Brew by Middle Fork Roasters is a blend of Brazilian and Sumatran coffee beans. This popular medium roast coffee has a sweet floral finish with rich bourbon and molasses undertones.",
-    "Price": 24.99
+    "Price": 24.99,
+    "Roast": "Medium",
+    "Origin": "Americas",
+    "Aromas": ["Chocolate"]
 }]
