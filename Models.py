@@ -13,7 +13,7 @@ class Product:
         
         products = []
         for item in jsonData:
-            products.append(Product(item['Name'], item['Description'], item['Price']))
+            products.append(Product(item['Name'], item['Description'], float(item['Price'])))
 
         return products
 
@@ -23,6 +23,14 @@ class Product:
             products = Product.get_all()
 
         products = filter(lambda x: name in x.name, products)
+        return products
+
+    @staticmethod
+    def get_by_price(min, max, products = None):
+        if (products == None):
+            products = Product.get_all()
+        
+        products = filter(lambda x: min <= x.price <= max, products)
         return products
 
     def __dict__(self):
