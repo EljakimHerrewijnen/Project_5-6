@@ -10,8 +10,9 @@
     <script src="/static/handlebars-v4.0.5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/static/jquery.isonscreen.min.js"></script>
     <script src="/static/APIService.js"></script>
+    <meta name="product-id"" content="{{id}}"></meta>
+
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -51,14 +52,14 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="deals">Deals</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="#">Products</a></li>
+                    <li><a href="#">Deals</a></li>
                     <li><a href="#">Stores</a></li>
-                    <li><a href="contact">Contact</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="account"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                 </ul>
             </div>
@@ -74,9 +75,10 @@
                 </form>
             </div>
         </div>
-        
     </div><br>
-    <footer class="container-fluid text-center loadmore">
+
+
+    <footer class="container-fluid text-center">
         <p>Online Store Copyright</p>
         
     </footer>
