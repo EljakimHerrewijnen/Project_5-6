@@ -1,7 +1,7 @@
 var $container = $('#main-container');
 
 var apiService = {
-    call : function(callback, arguments) {
+    getProducts : function(callback, arguments) {
         var formatted_arguments;
         for (key in arguments) {
             values = ""
@@ -17,6 +17,15 @@ var apiService = {
             contentType: 'application/json',
             datatype: 'json',
         }).done(function(data) {
+            callback(data);
+        });
+    },
+
+    getTemplate : function(url, arguments, callback) {
+        $.ajax({
+        url: "http://localhost:5555/static/" + url + '?' + arguments,
+        datatype: 'text',
+        }).done(function(data){
             callback(data);
         });
     }
@@ -36,7 +45,7 @@ function renderProductRow(onComplete) {
     var handlebar_template = null;
     function onTemplateRetrieved(template) {
         handlebar_template = Handlebars.compile(template);
-        apiService.call(onItemsRetrieved, {'size': 3, 'offset': products.length});   
+        apiService.getProducts(onItemsRetrieved, {'size': 3, 'offset': products.length});   
     }
 
     function onItemsRetrieved(items) {
