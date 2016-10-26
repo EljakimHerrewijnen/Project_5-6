@@ -13,3 +13,7 @@ def brands(name, des):
 def admin():
     return render_template('admin.html')
 
+@app.route('/contact')
+def contact():
+    print('Rendering Contacts')
+    return render_template('contact.html')
