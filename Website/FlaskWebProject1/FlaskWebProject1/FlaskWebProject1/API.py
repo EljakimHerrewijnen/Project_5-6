@@ -1,11 +1,11 @@
-from flask import Flask
 from flask import request
-import Models
+from FlaskWebProject1 import Models
+from FlaskWebProject1 import app
+from flask_cors import CORS, cross_origin
 import json
 
-app = Flask("webshop")  
-
 @app.route("/API/Products")
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def ProductsRouteHandler():
     name = request.args.get("Name")
     minPrice = request.args.get("Min")
@@ -36,6 +36,3 @@ def ProductsRouteHandler():
         products = filter(lambda product: product.description_contains(description), products)
 
     return "<pre>" + Models.Product.ArrayToJson(products)
-
-if __name__ == "__main__":
-    app.run()

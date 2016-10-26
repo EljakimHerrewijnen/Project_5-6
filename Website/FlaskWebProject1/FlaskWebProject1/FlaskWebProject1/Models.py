@@ -51,7 +51,7 @@ class Product:
 
     @staticmethod
     def get_all():
-        data = open("products.json", 'r')
+        data = open("FlaskWebProject1/products.json", 'r')
         jsonData = json.load(data)
         
         products = []
