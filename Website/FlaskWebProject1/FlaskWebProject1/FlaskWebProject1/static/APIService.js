@@ -1,7 +1,7 @@
 function CallAPI(callback, arguments)
 {
     arguments = FormatArguments(arguments);
-    CallAPI(callback, arguments);
+    _ajaxCall(callback, arguments);
 }
 
 function _ajaxCall(callback, arguments) {
