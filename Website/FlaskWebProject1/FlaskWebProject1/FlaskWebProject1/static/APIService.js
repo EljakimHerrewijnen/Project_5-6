@@ -1,47 +1,25 @@
-function CallAPI(callback, arguments)
-{
-    arguments = FormatArguments(arguments);
-    _ajaxCall(callback, arguments);
-}
+var $container = $('#main-container');
 
-function _ajaxCall(callback, arguments) {
-    return $.ajax({
-    url: "http://localhost:5555/API/Products?" + arguments,
-    contentType: 'application/json',
-    datatype: 'json',
-    }).done(function(data) {
-        callback(data);
-    });
-}
-
-function FormatArguments(argument_object)
-{
-    var formatted_arguments = ""
-    for (key in argument_object) {
-        values = ""
-        if (argument_object[key] instanceof Array) {
-            values = argument_object[key].join('+');
-        } else {
-            values = argument_object[key];
-        }
-        formatted_arguments = formatted_arguments + '&' + key + '=' + values;
+var apiService = {
+    call : function(callback, arguments) {
+        var formatted_arguments;
+        for (key in arguments) {
+            values = ""
+            if (arguments[key] instanceof Array) {
+                values = arguments[key].join('+');
+            } else {
+                values = arguments[key];
+            }
+            formatted_arguments = formatted_arguments + '&' + key + '=' + values;
+        }   
+        $.ajax({
+            url: "http://localhost:5555/API/Products?" + formatted_arguments,
+            contentType: 'application/json',
+            datatype: 'json',
+        }).done(function(data) {
+            callback(data);
+        });
     }
-    return formatted_arguments
-}
-
-function printData(data){
-    console.log(data);
-}
-
-function _b(template) {
-    var c = function(json) {
-        console.log(json);
-        html = template(json[0])
-        $('#row_1').append(html);
-    }
-
-    arguments = {'id': 61}
-    CallAPI(c, arguments)
 }
 
 function getTemplate(callback) {
@@ -53,39 +31,45 @@ function getTemplate(callback) {
     });
 }
 
-
-function renderItems() {
-    handlebar_template = null;
+var products = []
+function renderProductRow(onComplete) {
+    var handlebar_template = null;
     function onTemplateRetrieved(template) {
         handlebar_template = Handlebars.compile(template);
-        CallAPI(onItemsRetrieved, {});   
+        apiService.call(onItemsRetrieved, {'size': 3, 'offset': products.length});   
     }
 
     function onItemsRetrieved(items) {
-        row_amount = Math.ceil(items.length / 3);
-        var $container = $('#main-container');
-        var c = 0
-        for (row = 0; row < row_amount; row++) {
+        if (items.length < 1) {
+            onComplete(true);
+        } else {
             var $row = $("<div class='row'></row>")
             $container.append($row);
-            for (i = c; i < c + 3; i++){
+            for (i in items){
+                products.push(items[i])
                 $row.append(handlebar_template(items[i]))
             }
-            c++;
-        }
+            onComplete(false);
+        }        
     }
-    getTemplate(onTemplateRetrieved);
+    getTemplate(onTemplateRetrieved)
 }
 
-
-function onReady() {
-    renderItems();
+function loadMore() {
+    if ($('.loadmore').isOnScreen() === true) {
+        renderProductRow(function(isFinished){
+            if (!isFinished) {
+                loadMore();
+            }
+        });
+    }
 }
 
 $(window).scroll(function() {
-    if($(window).scrollTop() == $(document).height() - 100.0 - $(window).height()) {
-           console.log("fire!");
-    }
+    loadMore();
 });
 
-$(document).ready(onReady);
+$(document).ready(function() {
+    $container = $('#main-container');
+    loadMore();
+});

@@ -15,6 +15,8 @@ def ProductsRouteHandler():
     origin = request.args.get("origin")
     aromas = request.args.get("aromas")
     description = request.args.get("description")
+    amount = request.args.get("size")
+    offset = request.args.get("offset")
 
     products = Models.Product.find(id)
 
@@ -38,5 +40,11 @@ def ProductsRouteHandler():
     if (description):
         products = filter(lambda product: product.description_contains(description), products)
 
-
+    if (amount):
+        if (offset):
+            offset = int(offset)
+            products = products[offset : offset + int(amount)]
+        else:
+            products = products[0:int(amount)]
+    
     return Response(Models.Product.ArrayToJson(products), mimetype='application/json')
