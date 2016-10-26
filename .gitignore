@@ -398,5 +398,3 @@ paket-files/
 ### VisualStudio Patch ###
 *.pyc
 Website/FlaskWebProject1/FlaskWebProject1/FlaskWebProject1/__pycache__/views.cpython-35.pyc
-
-.DS_Store

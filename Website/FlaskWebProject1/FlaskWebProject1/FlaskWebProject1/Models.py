@@ -59,15 +59,8 @@ class Product:
             products.append(Product._fromJson(item))
         return products
         
-    @staticmethod
-    def find(search_id = None):
-        products = Product.get_all()
-        if (search_id):
-            products = filter(lambda product: str(product.id) == search_id, products)
-        return products
-
     def __dict__(self):
-        result = { 'id': self.id, 'name': self.name, 'description': self.description, 'price': self.price, 'roast': self.roast, 'origin': self.origin, 'aromas': self.aromas, 'image': self.image }
+        result = { 'Name': self.name, 'Description': self.description, 'Price': self.price, 'Roast': self.roast, 'Origin': self.origin, 'Aromas': self.aromas, 'Image': self.image }
         return result
     # Above didn't work properly, was complainign that it was not callable
     # So made the same function with a different name 
