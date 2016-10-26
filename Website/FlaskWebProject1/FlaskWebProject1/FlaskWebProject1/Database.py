@@ -1,5 +1,7 @@
 import sqlite3
 import json
+import Models
+import pprint
 
 print "running script"
 
@@ -78,56 +80,56 @@ class Database(object):
 						FROM coffee c \
 						WHERE c.id = {}\
 						".format(id))
-		result = self.c.fetchall()
+		result = self.c.fetchone()
 		# Convert list of tuples to list of lists so we can eddit it
-		result = [list(elem) for elem in result]
-		for coffee in result:
-			self.c.execute("select a.name \
-							FROM coffee_aroma ca \
-							INNER JOIN aroma a on ca.aroma_id = a.id \
-							WHERE ca.coffee_id = {}".format(id))
-			aromas = self.c.fetchall()
-			# convert list of tuples to list
-			aromas = [elem[0] for elem in aromas]
-			coffee.append(aromas)
+		result = list(result)
+		aromas = self.get_aromas(id)
+		result.append(aromas)
 		self.close_conn()
-		return result
+		# id, name, description, price, roast, origin, aromas, image):
+		product = Models.Product(result[0], result[1], result[2], result[3], result[4], result[5], result[7], result[6])
+		product = product.ToJson()
+		return product
 
 	# Get all from table
 	def get_all(self, filter = None):
 		querry = "select *\
 				FROM coffee c"
-		if filter != None
-			querry += " WHERE "
-			
-			querry += " c.id = 1 and "
 
 		self.open_conn()
 		self.c.execute(querry)
 		result = self.c.fetchall()
 		# Convert list of tuples to list of lists so we can eddit it
 		result = [list(elem) for elem in result]
+		products = []
 		for coffee in result:
-			self.c.execute("select a.name \
-							FROM coffee_aroma ca \
-							INNER JOIN aroma a on ca.aroma_id = a.id \
-							WHERE ca.coffee_id = {}".format(coffee[0]))
-			aromas = self.c.fetchall()
-			# convert list of tuples to list
-			aromas = [elem[0] for elem in aromas]
+			aromas = self.get_aromas(coffee[0])
 			coffee.append(aromas)
+			product = Models.Product(coffee[0], coffee[1], coffee[2], coffee[3], coffee[4], coffee[5], coffee[7], coffee[6])
+			products.append(product)
 
 		self.close_conn()
-		return result
+		products = Models.Product.ArrayToJson(products)
+		return products
 
-		
+	def get_aromas(self, id):
+		self.c.execute("select a.name \
+						FROM coffee_aroma ca \
+						INNER JOIN aroma a on ca.aroma_id = a.id \
+						WHERE ca.coffee_id = {}".format(id))
+		aromas = self.c.fetchall()
+		# convert list of tuples to list
+		aromas = [elem[0] for elem in aromas]
+		return aromas
+
+
 db = Database()
 # db.reset_database()
 
-result = db.get_all()
-# result = db.get_coffee_by_id(5)
-
-# print(result)
+# result = db.get_all()
+result = db.get_coffee_by_id(5)
+# result = Models.Product.ArrayToJson(result)
+print(result)
 
 
 
