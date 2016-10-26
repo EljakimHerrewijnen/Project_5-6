@@ -6,7 +6,6 @@ from flask_cors import CORS, cross_origin
 import json
 
 @app.route("/API/Products")
-@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def ProductsRouteHandler():
     id = request.args.get("id")
     name = request.args.get("name")

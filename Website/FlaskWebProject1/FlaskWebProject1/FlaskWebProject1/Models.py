@@ -72,7 +72,7 @@ class Product:
     # Above didn't work properly, was complainign that it was not callable
     # So made the same function with a different name 
     def get_values(self):
-        result = { 'ID': self.id, 'Name': self.name, 'Description': self.description, 'Price': self.price, 'Roast': self.roast, 'Origin': self.origin, 'Aromas': self.aromas, 'Image': self.image }
+        result = { 'id': self.id, 'name': self.name, 'description': self.description, 'price': self.price, 'roast': self.roast, 'origin': self.origin, 'aromas': self.aromas, 'image': self.image }
         return result
 
     def ToJson(self):
