@@ -22,3 +22,7 @@ def contact():
 def deals():
     print("Generating deals")
     return render_template('deals.html')
+
+@app.route('/account')
+def account():
+    return render_template('account.html')
