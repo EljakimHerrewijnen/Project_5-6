@@ -17,3 +17,8 @@ def admin():
 def contact():
     print('Rendering Contacts')
     return render_template('contact.html')
+
+@app.route('/deals')
+def deals():
+    print("Generating deals")
+    return render_template('deals.html')
