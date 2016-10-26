@@ -1,4 +1,5 @@
 from flask import request
+from flask import Response
 from FlaskWebProject1 import Models
 from FlaskWebProject1 import app
 from flask_cors import CORS, cross_origin
@@ -7,14 +8,16 @@ import json
 @app.route("/API/Products")
 @cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def ProductsRouteHandler():
-    name = request.args.get("Name")
-    minPrice = request.args.get("Min")
-    maxPrice = request.args.get("Max")
-    origin = request.args.get("Origin")
-    aromas = request.args.get("Aromas")
-    description = request.args.get("Description")
+    id = request.args.get("id")
+    name = request.args.get("name")
+    minPrice = request.args.get("min")
+    maxPrice = request.args.get("max")
+    origin = request.args.get("origin")
+    aromas = request.args.get("aromas")
+    description = request.args.get("description")
 
-    products = Models.Product.get_all()
+    products = Models.Product.find(id)
+
     if (name):
         products = filter(lambda product: product.has_name(name), products)
 
@@ -35,4 +38,5 @@ def ProductsRouteHandler():
     if (description):
         products = filter(lambda product: product.description_contains(description), products)
 
-    return "<pre>" + Models.Product.ArrayToJson(products)
+
+    return Response(Models.Product.ArrayToJson(products), mimetype='application/json')
