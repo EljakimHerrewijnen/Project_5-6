@@ -1,7 +1,7 @@
 [{
     "ID": 1,
     "Name": "Olympia Coffee Roasting - El Salvador Ricardo Ariz - Pacamara",
-    "Description": "This single origin is the product of a close relationship between Olympia Coffee and the grower, Ricardo Ariz. Over the years both have worked together to continue improving everything from the coffee cherries themselves to how the harvested cherries are processed. This varietal in particular takes a lot of extra attention and care, making it also more expensive. For Ricardo, it's all worth it because, put simply, \"It makes an awesome cup\". Enjoy this delicious coffee with us as we continue to follow along on this amazing process.",
+    "Description": "This single origin is the product of a close relationship between Olympia Coffee and the grower, Ricardo Ariz. Over the years both have worked together to continue improving everything from the coffee cherries themselves to how the harvested cherries are processed. This varietal in particular takes a lot of extra attention and care, making it also more expensive. For Ricardo, it's all worth it because, put simply, 'It makes an awesome cup'. Enjoy this delicious coffee with us as we continue to follow along on this amazing process.",
     "Price": 19.00,
     "Roast": "Medium",
     "Origin": "Americas",
@@ -181,7 +181,7 @@
 {
     "ID": 19,
     "Name": "49th Parallel Coffee- Cascara- Coffee Cherry Tea",
-    "Description": "Did you know coffee comes from a cherry like fruit? The delicious \"pit\" (coffee bean) is removed and processed for roasting, while the fruit is typically used to help renourish the coffee plants. In some parts of the world though, they dry the best fruit husks (cascara in Spanish) and brew them like tea! This particular cascara comes from the Finca La Florida in El Salvador and is dried for 24 hours and carefully sorted. Delicious steeped hot or even cold brewed overnight, we are loving this for summer! Try it as iced tea, an Arnold Palmer or maybe even a mixed drink for a unique treat!",
+    "Description": "Did you know coffee comes from a cherry like fruit? The delicious 'pit' (coffee bean) is removed and processed for roasting, while the fruit is typically used to help renourish the coffee plants. In some parts of the world though, they dry the best fruit husks (cascara in Spanish) and brew them like tea! This particular cascara comes from the Finca La Florida in El Salvador and is dried for 24 hours and carefully sorted. Delicious steeped hot or even cold brewed overnight, we are loving this for summer! Try it as iced tea, an Arnold Palmer or maybe even a mixed drink for a unique treat!",
     "Price": 7.50,
     "Roast": "Light",
     "Origin": "Africa",
