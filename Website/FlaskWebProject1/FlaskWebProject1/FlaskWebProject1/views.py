@@ -13,16 +13,3 @@ def brands(name, des):
 def admin():
     return render_template('admin.html')
 
-@app.route('/contact')
-def contact():
-    print('Rendering Contacts')
-    return render_template('contact.html')
-
-@app.route('/deals')
-def deals():
-    print("Generating deals")
-    return render_template('deals.html')
-
-@app.route('/account')
-def account():
-    return render_template('account.html')
