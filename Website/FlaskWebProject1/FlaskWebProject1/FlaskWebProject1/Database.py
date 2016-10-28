@@ -95,6 +95,7 @@ class Database(object):
 
 	# Get all from table
 	def get_all(self, filter = None):
+		print("CALLED!!")
 		querry = "select *\
 				FROM coffee c"
 		if filter != None

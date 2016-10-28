@@ -10,7 +10,3 @@ function CheckStatus(){
         
     }
 }
-
-function myFunction(){
-    window.alert("sometext");
-}

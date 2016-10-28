@@ -7,3 +7,4 @@ function GetAll(converter) {
 }
 x = GetAll(null);
 console.log(x);
+
