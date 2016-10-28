@@ -1,6 +1,5 @@
 var $container = $('#main-container');
-var filtersettings = {
-}
+
 
 function formatArguments(arguments)
 {
@@ -105,21 +104,33 @@ function ProductItem(object, html) {
 
     this.matchesFilter = function(filter) {
         var bool = true;
-        if (filter.name != null) {
+        if (filter.name != null && filter.name != "") {
             bool = this.hasName(filter.name) && bool;
         }
-        if (filter.origin != null) {
+        if (filter.origin != null && filter.origin != "") {
             bool = this.hasOrigin(filter.origin) && bool;
+        }
+
+        if (filter.aromas != null) {
+            bool = this.hasAroma(filter.aromas) && bool;
         }
         return bool;
     }
 
     this.hasName = function(name) {
-        return this.productObject.name.includes(name);
+        return this.productObject.name.toUpperCase().includes(name.toUpperCase());
     }
     
     this.hasPrice = function(min, max) {
         return this.productObject.price >= min && this.productObject.price <= max;
+    }
+
+    this.hasAroma = function(aromas) {
+        // Need to do due to jquery scoping rules.
+        var productObject = this.productObject;
+        return aromas.every(function(aroma) {
+            return productObject.aromas.includes(aroma);
+        });
     }
 
     this.hasOrigin = function(origin) {
@@ -139,23 +150,30 @@ var productTemplate;
 
 function onDataReady() {
     template = Handlebars.compile(productTemplate);
-    products = products.concat(products.concat(products.concat(products.concat(products.concat(products.concat(products))))));
-    products = products.concat(products);
     console.log(products.length);
     products.forEach(function(jsonProduct) {
         finished_html = $(template(jsonProduct));
         $('#main-container').append(finished_html);
         productItems.push(new ProductItem(jsonProduct, finished_html));
     });
-    $('#search-button').click(refreshFilter);
+    $('#search-button').click(updateFilterSettings);
+    $('#search-bar').on('input', updateFilterSettings);
+    $('#country-filter').change(updateFilterSettings);
+    $('.aroma-box').change(updateFilterSettings);
 }
 
-filter = {
-    'name' : '49'
-}
+filter = {}
 
 function updateFilterSettings() {
-    
+    var searchbar = $('#search-bar');
+    var originBox = $('#country-filter');
+    var aromas = $('.aroma-box:checked').toArray();
+    aromas = aromas.map(function(item) {return item.value });
+
+    filter.name = searchbar.val();
+    filter.origin = originBox.val();
+    filter.aromas = aromas;
+    refreshFilter();
 }
 
 function matchFilter(product, filter)
@@ -167,10 +185,8 @@ function matchFilter(product, filter)
     return bool;
 }
 
-
 function refreshFilter() {
     productItems.forEach(function(value) {
-        console.log('hi');
         value.htmlObject.remove();
         if (value.matchesFilter(filter)) {
            $('#main-container').append(value.htmlObject);
@@ -178,6 +194,39 @@ function refreshFilter() {
     });
 }
 
+function Product(id, name, origin, aromas, price, description, roast, image) {
+    this.id = id;
+    this.name = name;
+    this.origin = origin;
+    this.aromas = aromas;
+    this.price = price;
+    this.description = description;
+    this.roast = roast;
+    this.image = image;
+    this.htmlObject;
+
+    this.hasName = function(name) {
+        return this.name.toUpperCase().includes(name.toUpperCase());
+    }
+    
+    this.hasPrice = function(min, max) {
+        return this.price >= min && this.price <= max;
+    }
+
+    this.hasAroma = function(aromas) {
+        return aromas.every(function(aroma) {
+            return this.aromas.includes(aroma);
+        });
+    }
+
+    this.hasRoast = function(roast) {
+        return this.roast == roast;
+    }
+
+    this.hasOrigin = function(origin) {
+        return this.origin == origin;
+    }
+}
 
 
 $(document).ready(function(){
