@@ -122,10 +122,10 @@ class Database(object):
 		return result
 
 		
-db = Database()
+#db = Database()
 # db.reset_database()
 
-result = db.get_all()
+#result = db.get_all()
 # result = db.get_coffee_by_id(5)
 
 # print(result)

@@ -1,5 +1,6 @@
 from flask import render_template
 from FlaskWebProject1 import app
+from Database import get_coffee_by_id
 
 @app.route('/')
 def index():
@@ -26,3 +27,9 @@ def deals():
 @app.route('/account')
 def account():
     return render_template('account.html')
+
+@app.route('/API/USER/<id>')
+def Coffee_By_ID(id):
+    res = Database.get_coffee_by_id(id)
+    return jsonify(json_list = res.all())
+    print(res)
