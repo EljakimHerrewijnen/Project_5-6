@@ -5,7 +5,14 @@ from FlaskWebProject1 import app
 def index():
     return render_template('index.html')
 
-
 @app.route('/products/<id>')
 def products(id):
     return render_template('products.html', id=id)
+
+@app.route('/account')
+def account():
+    return render_template('account.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
