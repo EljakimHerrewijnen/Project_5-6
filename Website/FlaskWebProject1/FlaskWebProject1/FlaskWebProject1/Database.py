@@ -11,10 +11,12 @@ class Database(object):
 		# test
 		a=1
 
+	# open database connection
 	def open_conn(self):
 		self.conn = sqlite3.connect("data.db")
 		self.c = self.conn.cursor()
 
+	# close database connection
 	def close_conn(self):
 		self.conn.commit()
 		self.conn.close()
@@ -29,6 +31,12 @@ class Database(object):
 		self.c.execute('CREATE TABLE coffee (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, price REAL, roast TEXT, origin TEXT, picture TEXT)')
 		self.c.execute('CREATE TABLE aroma (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)')
 		self.c.execute('CREATE TABLE coffee_aroma (id INTEGER PRIMARY KEY AUTOINCREMENT, coffee_id INT, aroma_id INT)')
+		self.c.execute('CREATE TABLE customers (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, birthdate INT, city TEXT, street TEXT, housnumber TEXT, postalcode  TEXT, usertype_id INT, blocked INT, wishlist_is_private INT)')
+		self.c.execute('CREATE TABLE usertype (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)')
+		self.c.execute('CREATE TABLE orders (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, order_date INT)')
+		self.c.execute('CREATE TABLE ordered_products (id INTEGER PRIMARY KEY AUTOINCREMENT, orders_id INT, coffee_id INT, quantity INT)')
+		self.c.execute('CREATE TABLE wishlist (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, coffee_id INT)')
+		self.c.execute('CREATE TABLE favorits (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, coffee_id INT)')
 		self.close_conn()
 
 
@@ -97,8 +105,9 @@ class Database(object):
 				FROM coffee c"
 
 		self.open_conn()
-		self.c.execute(querry)
-		result = self.c.fetchall()
+		# self.c.execute(querry)
+		# result = self.c.fetchall()
+		result = self. raw_querry(querry)
 		# Convert list of tuples to list of lists so we can eddit it
 		result = [list(elem) for elem in result]
 		products = []
@@ -122,15 +131,35 @@ class Database(object):
 		aromas = [elem[0] for elem in aromas]
 		return aromas
 
+	def raw_querry(self, querry):
+		self.open_conn()
+		self.c.execute(querry)
+		result = self.c.fetchall()
+		result = [list(elem) for elem in result]
+		self.close_conn()
+		return result
+
+	def get_from_table(self, table, conditions = {}):
+		querry = "select * \
+					FROM {} ".format(table)
+		if len(conditions) == 1:
+			k, v = conditions.items()[0]
+			querry += " WHERE {} LIKE '%{}%' ".format(k, v)
+		if len(conditions) > 1:
+			querry += " WHERE "
+			for key, value in conditions.items():
+				querry += " {} LIKE '%{}%' AND ".format(key, value)
+			querry = querry[:-4]
+		return self.raw_querry(querry)
 
 db = Database()
 # db.reset_database()
 
 # result = db.get_all()
-result = db.get_coffee_by_id(5)
+# print db.get_coffee_by_id(5)
 # result = Models.Product.ArrayToJson(result)
-print(result)
-
+print db.get_from_table("coffee", {'name':'oly', 'description':'to'})
+# print db.get_from_table("aroma")
 
 
 print "end script"
