@@ -5,9 +5,9 @@ from FlaskWebProject1 import app
 def index():
     return render_template('index.html')
 
-@app.route('/brands/<name>/<des>')
-def brands(name, des):
-    return render_template('brands.html', name=name, des=des)
+@app.route('/products')
+def products():
+    return render_template('products.html')
 
 @app.route('/admin')
 def admin():
