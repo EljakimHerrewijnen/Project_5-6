@@ -8,13 +8,17 @@ print "running script"
 class Database(object):
 	# Contructior opens database
 	def __init__(self):
-		# test
-		a=1
+		self.select = ""
+		self.froms = ""
+		self.joins = ""
+		self.wheres = ""
 
 	# open database connection
 	def open_conn(self):
 		self.conn = sqlite3.connect("data.db")
+		self.conn.row_factory = sqlite3.Row
 		self.c = self.conn.cursor()
+
 
 	# close database connection
 	def close_conn(self):
@@ -135,10 +139,14 @@ class Database(object):
 		self.open_conn()
 		self.c.execute(querry)
 		result = self.c.fetchall()
+		print result[0].keys()
 		result = [list(elem) for elem in result]
 		self.close_conn()
 		return result
 
+	# Get information form single table
+	# Table; String, name of table
+	# Conditios; dictonaty {'Colum name','substring'}
 	def get_from_table(self, table, conditions = {}):
 		querry = "select * \
 					FROM {} ".format(table)
@@ -152,13 +160,63 @@ class Database(object):
 			querry = querry[:-4]
 		return self.raw_querry(querry)
 
+	def reset_querry(self):
+		self.select = ""
+		self.froms = ""
+		self.joins = ""
+		self.wheres = ""
+
+	def get_all(self, table, select = "*"):
+		self.select = select
+		self.froms = table
+
+		querry = "SELECT " + self.select +" \n"
+		querry += "FROM " + self.froms + " \n"
+		if self.joins != "":
+			querry += self.joins
+
+		if self.wheres != "":
+			querry += self.wheres
+
+		print querry
+
+		result = self.raw_querry(querry)
+		self.reset_querry()
+		return result
+
+	def join(self, table, condition, type = "INNER"):
+		self.joins += type + " JOIN " + table +" ON " + condition +"\n"
+		# print self.joins
+
+	def where(self, column, value, comparator = "="):
+		if isinstance(value, basestring):
+			value = "'" + value + "'"
+		if self.wheres == "":
+			self.wheres += "WHERE "
+		else:
+			self.wheres += " AND "
+		self.wheres += column +" "+ comparator +" "+ value +" \n"
+
+
+
+
+
 db = Database()
 # db.reset_database()
+
+# db.get_colum_names()
+
+db.where("a.name", "Nutty")
+db.join("coffee_aroma ca", "ca.aroma_id = a.id")
+db.join("coffee c", "ca.coffee_id = c.id")
+print db.get_all("aroma a", "c.id, c.name, a.name")
 
 # result = db.get_all()
 # print db.get_coffee_by_id(5)
 # result = Models.Product.ArrayToJson(result)
-print db.get_from_table("coffee", {'name':'oly', 'description':'to'})
+# print db.get_from_table("coffee", {'name':'oly', 'description':'to'})
+# print db.get_from_table("coffee", {'name':'oly'})
+
 # print db.get_from_table("aroma")
 
 
