@@ -15,29 +15,29 @@ def ProductsRouteHandler():
     aromas = request.args.get("aromas")
     description = request.args.get("description")
     amount = request.args.get("size")
-    offset = request.args.get("offset")
+    offset = request.args.get("skip")
 
     products = Models.Product.find(id)
 
     if (name):
-        products = filter(lambda product: product.has_name(name), products)
+        products = list(filter(lambda product: product.has_name(name), products))
 
     if (minPrice or maxPrice):
         if (minPrice and maxPrice):
-            products = filter(lambda product: product.has_price(float(minPrice), float(maxPrice)), products)
+            products = list(filter(lambda product: product.has_price(float(minPrice), float(maxPrice)), products))
         elif (minPrice):
-            products = filter(lambda product: product.has_price(float(minPrice)), products)
+            products = list(filter(lambda product: product.has_price(float(minPrice)), products))
         else:
-            products = filter(lambda product: product.has_price(0, float(maxPrice)), products)
+            products = list(filter(lambda product: product.has_price(0, float(maxPrice)), products))
         
     if (aromas):
-        products = filter(lambda product: product.has_aromas(aromas.split(" "), True), products)
+        products = list(filter(lambda product: product.has_aromas(aromas.split(" "), True), products))
 
     if (origin):
-        products = filter(lambda product: product.has_origin(origin), products)
+        products = list(filter(lambda product: product.has_origin(origin), products))
 
     if (description):
-        products = filter(lambda product: product.description_contains(description), products)
+        products = list(filter(lambda product: product.description_contains(description), products))
 
     if (amount):
         if (offset):
