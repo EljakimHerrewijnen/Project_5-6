@@ -5,12 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/mystyle.css">
-    <script src="/static/handlebars-v4.0.5.js"></script>
+    <link rel="stylesheet" href="/static/CSS/mystyle.css">
+    <script src="/static/JSHelpers/handlebars-v4.0.5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/static/jquery.isonscreen.min.js"></script>
-    <script src="/static/APIService.js"></script>
     <style>
         /* Remove the navbar's default rounded borders and increase the bottom margin */
         .navbar {
@@ -64,31 +62,16 @@
         </div>
     </nav>
 
-    <div class="container" id='main-container'>
-        <div class='row'>
-            <div class='col-md-12 bottom-10' >
-                <form class="form-inline">
-                    <input type="email" class="form-control" id='search-bar' size="50" placeholder="Search">
-                    <button type="button" id='search-button' class="btn btn-danger">Search</button><br>
-                    <input type="checkbox" class='aroma-box' value="Chocolate" checked>Choclate<br>
-                    <input type="checkbox" class='aroma-box' value="Spicy" checked>Spicy<br>
-                    <input type="checkbox" class='aroma-box' value="Fruity" checked>Fruity<br>
-                    <input type="checkbox" class='aroma-box' value="Nutty" checked>Nutty<br>
-                </form>
-                <select id='country-filter'>
-                    <option value=''>-</option>
-                    <option value='Africa'>Africa</option>
-                    <option value='Americas'>Americas</option>
-                    <option value='Asia'>Asia</option>
-                </select>
-            </div>
-        </div>
-        
-    </div><br>
+    <div id='view-container'>
+    </div>
+
     <footer class="container-fluid text-center loadmore">
         <p>Online Store Copyright</p>
         
     </footer>
 
+<script src="/static/JSHelpers/APIService.js"></script>
+<script src="/static/Models/Product.js"></script>
+<script src="/static/Views/ProductDetailsView/ProductDetailsViewController.js"></script>
 </body>
 </html>

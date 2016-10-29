@@ -3,7 +3,7 @@ from FlaskWebProject1 import app
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('ProductListViewContainer.html')
 
 @app.route('/brands/<name>/<des>')
 def brands(name, des):
