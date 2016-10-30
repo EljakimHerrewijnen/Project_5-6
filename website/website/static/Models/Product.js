@@ -54,7 +54,7 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
     }
 }
 
-function JsonToProduct(json) {
+function jsonToProduct(json) {
     return new Product(
         json.id,
         json.name,

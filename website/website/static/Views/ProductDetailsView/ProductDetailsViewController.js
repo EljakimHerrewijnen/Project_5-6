@@ -1,6 +1,8 @@
 // Global variables.
 var product;
 var viewContainer = $("#view-container");
+var pathname = $(location).attr('pathname');
+var id = pathname.substring(pathname.lastIndexOf('/') + 1);
 
 function onAssetsLoaded() {
 
@@ -20,7 +22,7 @@ function buildView(onComplete) {
 // Retrieves the Products json and casts them to models.
 function buildProduct(id, onComplete) {
     return function() {
-        ajaxCall("/API/Products/1", "application/json", {}, function(json){
+        ajaxCall("/API/Products/" + id, "application/json", {}, function(json){
             product = json;
             onComplete();
         });
@@ -28,6 +30,6 @@ function buildProduct(id, onComplete) {
 }
 
 $(document).ready(function(){   
-    var pipeline = buildProduct(1, buildView(onAssetsLoaded));
+    var pipeline = buildProduct(id, buildView(onAssetsLoaded));
     pipeline();
 });

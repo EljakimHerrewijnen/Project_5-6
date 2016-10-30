@@ -1,7 +1,9 @@
 <div class="col-sm-4 item-panel">
     <div class="panel panel-primary">
         <div class="panel-heading">{{name}}</div>
-        <div class="panel-body"><img src="/static/{{image}}" class="img-responsive" style="width:100%" alt="Image"></div>
+        <a href="/products/{{id}}">
+            <div class="panel-body"><img src="/static/{{image}}" class="img-responsive" style="width:100%" alt="Image"></div>
+        </a>
         <div class="panel-footer">{{description}}</div>
     </div>
 </div>

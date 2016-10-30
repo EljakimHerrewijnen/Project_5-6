@@ -53,16 +53,7 @@ function buildProducts(onComplete) {
     return function() {
         ajaxCall("/API/Products", "application/json", {}, function(_products){
             products = _products.map( function(product) {
-                return new Product(
-                    product.id,
-                    product.name,
-                    product.origin,
-                    product.aromas,
-                    product.price,
-                    product.description,
-                    product.roast,
-                    product.image
-                )
+                return jsonToProduct(product);
             });
             onComplete();
         });

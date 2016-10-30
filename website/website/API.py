@@ -5,7 +5,6 @@ from website import app
 from flask_cors import CORS, cross_origin
 import json
 
-
 @app.route("/API/Products/<id>")
 def ProductRouteHandler(id):
     product = Models.Product.find(id)
@@ -13,7 +12,6 @@ def ProductRouteHandler(id):
 
 @app.route("/API/Products")
 def ProductsRouteHandler():
-    id = request.args.get("id")
     name = request.args.get("name")
     minPrice = request.args.get("min")
     maxPrice = request.args.get("max")
@@ -23,7 +21,7 @@ def ProductsRouteHandler():
     amount = request.args.get("size")
     offset = request.args.get("skip")
 
-    products = Models.Product.find(id)
+    products = Models.Product.get_all()
 
     if (name):
         products = list(filter(lambda product: product.has_name(name), products))
