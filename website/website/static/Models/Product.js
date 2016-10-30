@@ -1,5 +1,7 @@
 function Product(id, name, origin, aromas, price, description, roast, image) {
     "use strict"
+    var self = this;
+    
     this.id = id;
     this.name = name;
     this.origin = origin;
@@ -20,8 +22,8 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
         if (filter.roast) {
             b = this.hasRoast(filter.roast) && b;
         }
-        if (filter.origin) {
-            b = this.hasOrigin(filter.origin) && b;
+        if (filter.origins) {
+            b = this.hasOrigin(filter.origins) && b;
         }
         if (filter.price) {
             b = this.hasPrice(filter.price.min, filter.price.max) && b;
@@ -38,10 +40,8 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
     }
 
     this.hasAroma = function(aromas) {
-        // Scoping in 'every' function overrides 'this'. So we assign the value to a variable.
-        var productAromas = this.aromas;
         return aromas.every(function(aroma) {
-            return productAromas.includes(aroma);
+            return self.aromas.includes(aroma);
         });
     }
 
@@ -49,8 +49,8 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
         return this.roast == roast;
     }
 
-    this.hasOrigin = function(origin) {
-        return this.origin == origin;
+    this.hasOrigin = function(origins) {
+        return origins.includes(self.origin);
     }
 }
 

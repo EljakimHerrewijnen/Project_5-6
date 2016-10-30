@@ -1,20 +1,32 @@
 body {
+    top: 0;
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto';
     color: rgba(0, 0, 0, 0.54); 
 }
 
+a {
+    text-decoration: none;
+}
+
 #logo {
     font-family: 'Roboto Condensed';
     font-size: 24pt;
     color: #757575;
-    padding: 0px 60px 0px 15px;
+    text-align: center;
+    padding: 0px 0px 0px 0px;
     margin: 0px;
+    margin-right: 15px;
     font-weight: 300;
+    text-decoration: none;
+    width: 260px; 
 }
 
 nav {
+    background-color: rgba(255,255,255,0.95);
+    position: fixed;
+    width: 100%;
     font-size: 15px;
     font-family: 'Roboto';
     font-weight: 400;
@@ -24,7 +36,9 @@ nav {
     flex-wrap: nowrap;
     align-items: baseline;
     border-bottom: 1px solid rgba(0,0,0,0.15);
-    padding: 10px 0px 15px 0px;
+    padding: 15px 0px 15px 0px;
+    z-index: 1;
+    box-shadow: 10px 0px 15px rgba(0,0,0,0.1);
 }
 
 .navbar-main {
@@ -44,12 +58,15 @@ nav {
 
 #products-list-container {
     display: flex;
-    flex-grow: 1;
 }
 
 #products-filter {
+    z-index: 2;
+    position: fixed;
+    height: 100%;
+    padding-top: 67px;
+    width: 254px;
     border-right: 1px solid rgba(0,0,0,0.15);
-    flex: 1 0 0;
     display: block;
 }
 
@@ -70,7 +87,51 @@ nav {
 }
 
 #products-container {
-    flex: 5 0 0
+    padding-left: 254px;
+    flex: 5 0 0;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    display: flex;
+    padding-top: 80px;
+}
+
+.item-panel {
+    margin-top: 35px;
+    padding-top: 10px;
+    flex-basis: 30%;
+    font-size: 14px;
+    border-top: thin solid rgba(0, 0, 0, 0.25);
+}
+
+.item-panel a {
+    text-decoration: none;
+    color: rgba(0,0,0,0.70);
+    
+}
+
+.item-panel p {
+    display: inline;
+    float: right;
+    padding: 10px;
+}
+
+.item-panel .show-on-hover {
+    font-weight: 600;
+    float: left;
+    display: inline-block;
+    font-family: "Roboto";
+    transition: color 0.5s ease, background-color 0.5s ease;
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+}
+
+.item-panel:hover .show-on-hover {
+    color: #3BA757;
+}
+
+.item-panel .show-on-hover:hover {
+    background-color: rgba(59, 167, 87, 0.2);
 }
 
 #products-filter h2 {
@@ -111,4 +172,60 @@ input[type=checkbox]:checked {
 .checkbox-container {
     display: flex;
     align-items: center;
+}
+
+svg {
+    margin: 10px 15px 0px 15px;
+    border: 1px solid rgba(0,0,0,0.15);
+}
+
+#product-details-container {
+    padding-top: 90px;
+    margin: 0px 45px 0px 45px;
+}
+
+#product-details-container h1 {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    padding-top: 15px;
+    margin-bottom: 40px;
+    font-size: 24px;
+}
+
+#product-details-container h2 {
+    font-size: 16px;
+}
+
+.detail-column-container {
+    display: flex;
+    justify-content: space-around;
+    clear: both;
+}
+
+.detail-panel {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: block;
+    overflow: visible;
+    clear: both;
+}
+
+.detail-panel a {
+    transition: background 0.5s ease;
+    display: inline-block;
+    color: #3BA757;
+    text-decoration: none;
+    padding: 10px;
+    padding-left: 5px;
+}
+
+.detail-panel a:hover {
+    cursor: pointer;
+    background-color: rgba(59, 167, 87, 0.2);
+}
+
+.detail-panel img{
+    margin: auto;
+}
+
+.item-panel img {
+    max-width: 100%;
 }

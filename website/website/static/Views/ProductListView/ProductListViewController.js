@@ -7,11 +7,34 @@ var filter = {};
 
 // Runs when products & HTML are retrieved.
 function onAssetsLoaded() {
-
     // Create listeners for user interaction.
     $("#search-bar").on("input", updateFilterSettings);
     $("#country-filter").change(updateFilterSettings);
     $(".aroma-box").change(updateFilterSettings);
+    $('.origin-box').change(updateFilterSettings);
+}
+
+// Updates the map
+function updateMap(maps) {
+    $('#Americas').attr("fill", "#C4C4C4");
+    $('#Americas').attr("stroke", "#C4C4C4");
+    $('#Africa').attr("fill", "#C4C4C4");
+    $('#Africa').attr("stroke", "#C4C4C4");
+    $('#Asia').attr("fill", "#C4C4C4");
+    $('#Asia').attr("stroke", "#C4C4C4");
+
+    maps.forEach(function(item){
+        if (item == "Africa"){
+            $('#Africa').attr("fill", "#4688F1");
+            $('#Africa').attr("stroke", "#4688F1");
+        } else if (item == "Americas") {
+            $('#Americas').attr("fill", "#FF5151");
+            $('#Americas').attr("stroke", "#FF5151");
+        } else if (item == "Asia") {
+            $('#Asia').attr("fill", "#FABC2D");
+            $('#Asia').attr("stroke", "#FABC2D");
+        }
+    });
 }
 
 // Reads the filters and updates the filter object.
@@ -19,11 +42,14 @@ function updateFilterSettings() {
     var searchbar = $("#search-bar");
     var originBox = $("#country-filter");
     var aromas = $(".aroma-box:checked").toArray();
+    var origins = $('.origin-box:checked').toArray();
     aromas = aromas.map(function(item) {return item.value; });
+    origins = origins.map(function(item) {return item.value; })
+    updateMap(origins);
 
     filter.name = searchbar.val();
-    filter.origin = originBox.val();
     filter.aromas = aromas;
+    filter.origins = origins;
     refreshFilter();
 }
 
@@ -43,6 +69,7 @@ function buildView(onComplete) {
         ajaxCall("/static/Views/ProductListView/ProductListView.html", "text", {}, function(_view) {
             var view = $(_view);
             viewContainer.append(view);
+            $('#svgitem').load("/static/worldmap.svg");
             onComplete();
         });
     }
