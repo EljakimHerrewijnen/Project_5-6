@@ -28,21 +28,14 @@ class Database(object):
 	# Create releavant tables 
 	# Only use if you know what you are doing!!!
 	def create_table(self):
-		self.open_conn()
-		self.c.execute("drop table coffee")
-		self.c.execute("drop table aroma")
-		self.c.execute("drop table coffee_aroma")
-		self.c.execute('CREATE TABLE coffee (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, price REAL, roast TEXT, origin TEXT, picture TEXT)')
-		self.c.execute('CREATE TABLE aroma (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)')
-		self.c.execute('CREATE TABLE coffee_aroma (id INTEGER PRIMARY KEY AUTOINCREMENT, coffee_id INT, aroma_id INT)')
-		self.c.execute('CREATE TABLE customers (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, birthdate INT, city TEXT, street TEXT, housnumber TEXT, postalcode  TEXT, usertype_id INT, blocked INT, wishlist_is_private INT)')
-		self.c.execute('CREATE TABLE usertype (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)')
-		self.c.execute('CREATE TABLE orders (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, order_date INT)')
-		self.c.execute('CREATE TABLE ordered_products (id INTEGER PRIMARY KEY AUTOINCREMENT, orders_id INT, coffee_id INT, quantity INT)')
-		self.c.execute('CREATE TABLE wishlist (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, coffee_id INT)')
-		self.c.execute('CREATE TABLE favorits (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INT, coffee_id INT)')
-		self.close_conn()
-
+		querrys = open('createdb.sql', 'r').read()
+		# print querrys
+		querrys = querrys.split(';')
+		for querry in querrys:
+			try:
+				print self.raw_querry(querry)
+			except sqlite3.OperationalError, msg:
+				print "command skipped: ", msg
 
 	# Instert some data into a table
 	def insert_aroma(self):
@@ -103,28 +96,6 @@ class Database(object):
 		product = product.ToJson()
 		return product
 
-	# Get all from table
-	def get_all(self, filter = None):
-		querry = "select *\
-				FROM coffee c"
-
-		self.open_conn()
-		# self.c.execute(querry)
-		# result = self.c.fetchall()
-		result = self. raw_querry(querry)
-		# Convert list of tuples to list of lists so we can eddit it
-		result = [list(elem) for elem in result]
-		products = []
-		for coffee in result:
-			aromas = self.get_aromas(coffee[0])
-			coffee.append(aromas)
-			product = Models.Product(coffee[0], coffee[1], coffee[2], coffee[3], coffee[4], coffee[5], coffee[7], coffee[6])
-			products.append(product)
-
-		self.close_conn()
-		products = Models.Product.ArrayToJson(products)
-		return products
-
 	def get_aromas(self, id):
 		self.c.execute("select a.name \
 						FROM coffee_aroma ca \
@@ -139,7 +110,7 @@ class Database(object):
 		self.open_conn()
 		self.c.execute(querry)
 		result = self.c.fetchall()
-		print result[0].keys()
+		# print result[0].keys()
 		result = [list(elem) for elem in result]
 		self.close_conn()
 		return result
@@ -160,12 +131,14 @@ class Database(object):
 			querry = querry[:-4]
 		return self.raw_querry(querry)
 
+	# rest values for querry
 	def reset_querry(self):
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
 		self.wheres = ""
 
+	# Build querry form components
 	def get_all(self, table, select = "*"):
 		self.select = select
 		self.froms = table
@@ -178,19 +151,23 @@ class Database(object):
 		if self.wheres != "":
 			querry += self.wheres
 
-		print querry
+		# print querry
 
 		result = self.raw_querry(querry)
 		self.reset_querry()
 		return result
 
+	# Add joins to querry
 	def join(self, table, condition, type = "INNER"):
 		self.joins += type + " JOIN " + table +" ON " + condition +"\n"
 		# print self.joins
 
+	# add conditions to querry
 	def where(self, column, value, comparator = "="):
 		if isinstance(value, basestring):
 			value = "'" + value + "'"
+		if isinstance(value, int):
+			value = str(value)
 		if self.wheres == "":
 			self.wheres += "WHERE "
 		else:
@@ -202,14 +179,17 @@ class Database(object):
 
 
 db = Database()
-# db.reset_database()
+# db.create_table()
 
 # db.get_colum_names()
 
-db.where("a.name", "Nutty")
-db.join("coffee_aroma ca", "ca.aroma_id = a.id")
-db.join("coffee c", "ca.coffee_id = c.id")
-print db.get_all("aroma a", "c.id, c.name, a.name")
+
+
+# db.where("a.name", "Nutty")
+# db.where("c.id", 1, ">")
+# db.join("coffee_aroma ca", "ca.aroma_id = a.id")
+# db.join("coffee c", "ca.coffee_id = c.id")
+# print db.get_all("aroma a", "c.id, c.name, a.name")
 
 # result = db.get_all()
 # print db.get_coffee_by_id(5)
