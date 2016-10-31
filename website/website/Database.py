@@ -94,17 +94,18 @@ class Database(object):
 		# return aromas
 
 	def raw_querry(self, querry):
-		# try
-		self.open_conn()
-		self.c.execute(querry)
-		result = self.c.fetchall()
-		result = [list(elem) for elem in result]
-		names = [description[0] for description in self.c.description]
-		self.close_conn()
-		# catch:
-		final = []
-		final.append(names)
-		final.append(result)
+		try:
+			self.open_conn()
+			self.c.execute(querry)
+			result = self.c.fetchall()
+			result = [list(elem) for elem in result]
+			names = [description[0] for description in self.c.description]
+			self.close_conn()
+			final = []
+			final.append(names)
+			final.append(result)
+		except:
+			final = sys.exc_info()
 		return final
 
 	# Get information form single table
