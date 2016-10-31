@@ -187,8 +187,8 @@ db = Database()
 # db.where('product_id', 1)
 # print db.get_all('product_aroma')
 
-# db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
+#db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
-print (db.get_all('account'))
+print (db.get_all('product'))
 
 print ("end script")
