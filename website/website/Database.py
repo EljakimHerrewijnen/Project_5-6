@@ -8,8 +8,10 @@ print "running script"
 class Database(object):
 	# Contructior opens database
 	def __init__(self):
-		# test
-		a=1
+		self.select = ""
+		self.froms = ""
+		self.joins = ""
+		self.wheres = ""
 
 	def open_conn(self):
 		self.conn = sqlite3.connect("data.db")
@@ -31,16 +33,6 @@ class Database(object):
 			except sqlite3.OperationalError, msg:
 				print "command skipped: ", msg
 
-	# Instert some data into a table
-	def insert_aroma(self):
-		self.open_conn()
-		self.c.execute('insert into aroma (name) values ("Nutty")')
-		self.c.execute('insert into aroma (name) values ("Fruity")')
-		self.c.execute('insert into aroma (name) values ("Spicy")')
-		self.c.execute('insert into aroma (name) values ("Chocolate")')
-		self.close_conn()
-		
-
 	# Gets json and inserts values into databse
 	def insert_coffee(self):
 		self.open_conn()
@@ -49,27 +41,26 @@ class Database(object):
 		# return jsonData
 		for item in jsonData:
 			# insert coffees
-			querry = 'insert into coffee (id, name, description, price, roast, origin, picture) \
-					values ({}, "{}", "{}", {}, "{}", "{}", "{}")'.format(str(item["ID"]), item["Name"], item["Description"], str(float(item["Price"])), item["Roast"], item["Origin"], item["Image"])
+			querry = 'insert into product (product_id, name, description, price, roast_level, origin) \
+					values ({}, "{}", "{}", {}, "{}", "{}")'.format(str(item["ID"]), item["Name"], item["Description"], str(float(item["Price"])), item["Roast"], item["Origin"])
 			self.c.execute(querry)
 
 			# insert connection between aromas and coffees
 			for aroma in item["Aromas"]:
 				if aroma == 'Nutty':
-					querry = 'INSERT INTO coffee_aroma(coffee_id, aroma_id) VALUES ({}, {})'.format(item["ID"], 1)
+					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				if aroma == 'Fruity':
-					querry = 'INSERT INTO coffee_aroma(coffee_id, aroma_id) VALUES ({}, {})'.format(item["ID"], 2)
+					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				if aroma == 'Spicy':
-					querry = 'INSERT INTO coffee_aroma(coffee_id, aroma_id) VALUES ({}, {})'.format(item["ID"], 3)
+					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				if aroma == 'Chocolate':
-					querry = 'INSERT INTO coffee_aroma(coffee_id, aroma_id) VALUES ({}, {})'.format(item["ID"], 4)
+					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				self.c.execute(querry)
 		self.close_conn()
 				
 	# Drop all tables, Create new table and fill them
 	def reset_database(self):
-		self.create_table()
-		self.insert_aroma()
+		# self.create_table()
 		self.insert_coffee()
 
 	# Get one coffee by it's id
@@ -168,20 +159,12 @@ class Database(object):
 			self.wheres += " AND "
 		self.wheres += column +" "+ comparator +" "+ value +" \n"
 
-
 db = Database()
-db.create_table()
+# db.reset_database()
 
 # db.get_colum_names()
-
-
-
-# db.where("a.name", "Nutty")
-# db.where("c.id", 1, ">")
-# db.join("coffee_aroma ca", "ca.aroma_id = a.id")
-# db.join("coffee c", "ca.coffee_id = c.id")
-# print db.get_all("aroma a", "c.id, c.name, a.name")
-
+db.where('product_id', 1)
+print db.get_all('product')
 
 
 print "end script"

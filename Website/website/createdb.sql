@@ -17,8 +17,8 @@ CREATE TABLE product (
 
 CREATE TABLE product_aroma (
  product_id INT NOT NULL,
- name CHAR(15) NOT NULL,
- PRIMARY KEY(product_id, name),
+ aroma_name CHAR(15) NOT NULL,
+ PRIMARY KEY(product_id, aroma_name),
  FOREIGN KEY (product_id) REFERENCES product (product_id)
 );
 
