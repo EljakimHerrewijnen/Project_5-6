@@ -61,42 +61,41 @@ class Database(object):
 				
 	# Drop all tables, Create new table and fill them
 	def reset_database(self):
-		# self.create_table()
+		self.create_table()
 		self.insert_coffee()
 
 	# Get one coffee by it's id
-	def get_coffee_by_id(self, id):
-		self.open_conn()
-		self.c.execute("select *\
-						FROM coffee c \
-						WHERE c.id = {}\
-						".format(id))
-		result = self.c.fetchone()
-		# Convert list of tuples to list of lists so we can eddit it
-		result = list(result)
-		aromas = self.get_aromas(id)
-		result.append(aromas)
-		self.close_conn()
-		# id, name, description, price, roast, origin, aromas, image):
-		product = Models.Product(result[0], result[1], result[2], result[3], result[4], result[5], result[7], result[6])
-		product = product.ToJson()
-		return product
+	# def get_coffee_by_id(self, id):
+	# 	self.open_conn()
+	# 	self.c.execute("select *\
+	# 					FROM coffee c \
+	# 					WHERE c.id = {}\
+	# 					".format(id))
+	# 	result = self.c.fetchone()
+	# 	# Convert list of tuples to list of lists so we can eddit it
+	# 	result = list(result)
+	# 	aromas = self.get_aromas(id)
+	# 	result.append(aromas)
+	# 	self.close_conn()
+	# 	# id, name, description, price, roast, origin, aromas, image):
+	# 	product = Models.Product(result[0], result[1], result[2], result[3], result[4], result[5], result[7], result[6])
+	# 	product = product.ToJson()
+	# 	return product
 
-	def get_aromas(self, id):
-		self.c.execute("select a.name \
-						FROM coffee_aroma ca \
-						INNER JOIN aroma a on ca.aroma_id = a.id \
-						WHERE ca.coffee_id = {}".format(id))
-		aromas = self.c.fetchall()
-		# convert list of tuples to list
-		aromas = [elem[0] for elem in aromas]
-		return aromas
+	# def get_aromas(self, id):
+		# self.c.execute("select a.name \
+		# 				FROM coffee_aroma ca \
+		# 				INNER JOIN aroma a on ca.aroma_id = a.id \
+		# 				WHERE ca.coffee_id = {}".format(id))
+		# aromas = self.c.fetchall()
+		# # convert list of tuples to list
+		# aromas = [elem[0] for elem in aromas]
+		# return aromas
 
 	def raw_querry(self, querry):
 		self.open_conn()
 		self.c.execute(querry)
 		result = self.c.fetchall()
-		# print result[0].keys()
 		result = [list(elem) for elem in result]
 		self.close_conn()
 		return result
@@ -104,18 +103,18 @@ class Database(object):
 	# Get information form single table
 	# Table; String, name of table
 	# Conditios; dictonaty {'Colum name','substring'}
-	def get_from_table(self, table, conditions = {}):
-		querry = "select * \
-					FROM {} ".format(table)
-		if len(conditions) == 1:
-			k, v = conditions.items()[0]
-			querry += " WHERE {} LIKE '%{}%' ".format(k, v)
-		if len(conditions) > 1:
-			querry += " WHERE "
-			for key, value in conditions.items():
-				querry += " {} LIKE '%{}%' AND ".format(key, value)
-			querry = querry[:-4]
-		return self.raw_querry(querry)
+	# def get_from_table(self, table, conditions = {}):
+	# 	querry = "select * \
+	# 				FROM {} ".format(table)
+	# 	if len(conditions) == 1:
+	# 		k, v = conditions.items()[0]
+	# 		querry += " WHERE {} LIKE '%{}%' ".format(k, v)
+	# 	if len(conditions) > 1:
+	# 		querry += " WHERE "
+	# 		for key, value in conditions.items():
+	# 			querry += " {} LIKE '%{}%' AND ".format(key, value)
+	# 		querry = querry[:-4]
+	# 	return self.raw_querry(querry)
 
 	# rest values for querry
 	def reset_querry(self):
@@ -125,6 +124,7 @@ class Database(object):
 		self.wheres = ""
 
 	# Build querry form components
+	# This funtion makes us of any argumetns passed to where(), join()
 	def get_all(self, table, select = "*"):
 		self.select = select
 		self.froms = table
@@ -150,7 +150,7 @@ class Database(object):
 
 	# add conditions to querry
 	def where(self, column, value, comparator = "="):
-		if isinstance(value, basestring):
+		if isinstance(value, str):
 			value = "'" + value + "'"
 		if isinstance(value, int):
 			value = str(value)
@@ -166,19 +166,45 @@ class Database(object):
 		columns = ""
 		value = ""
 		for key in values:
-			columns += key + ', '
-			if isinstance(values[key], basestring):
-				value += '"' + str(values[key]) + '", '
+			if columns == "":
+				columns += key
 			else:
-				value += '' + str(values[key]) + ', '
-
-
-		columns = columns[:-2]
-		value = value[:-2]
-
+				columns += ', ' + key
+			if value == "":
+				if isinstance(values[key], str):
+					value += '"' + str(values[key]) + '"'
+				else:
+					value += str(values[key])
+			else:
+				if isinstance(values[key], str):
+					value += ', "' + str(values[key]) + '"'
+				else:
+					value += ', ' + str(values[key])
 		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
-		print (querry) 
-		print (self.raw_querry(querry))
+		return self.raw_querry(querry)
+
+	# table; string, table name
+	# values; dictonary (eg {'columnname':'value'}), columnames and value
+	# this function also makes use of any arguments passed to where()
+	def update(self, table, values):
+		updates = ''
+		for key in values:
+			if updates == '':
+				updates += key + ' = '
+			else:
+				updates += ', ' + key + ' = '
+			if isinstance(values[key], str):
+				updates += '"' + values[key] +'"'
+			else:
+				updates += values[key]
+
+		querry = "UPDATE {}\n SET {} \n".format(table, updates)
+		if self.wheres != '':
+			querry += self.wheres
+
+		result = self.raw_querry(querry)
+		self.reset_querry()
+		return result
 
 db = Database()
 # db.reset_database()
@@ -189,6 +215,11 @@ db = Database()
 
 #db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
-print (db.get_all('product'))
+# db.insert('account', {'username' : "Dave", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
+
+# db.where('username', 'Dave')
+# db.update("account", {'account_type':'customer'})
+
+# print (db.get_all('account'))
 
 print ("end script")
