@@ -1,9 +1,12 @@
 from flask import request
 from flask import Response
+from flask import session
 from website import Models
 from website import app
 from flask_cors import CORS, cross_origin
 import json
+
+app.secret_key = "rawrawrqwqnwjnqwnqwdqwe"
 
 @app.route("/API/Products/<id>")
 def ProductRouteHandler(id):

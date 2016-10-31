@@ -9,3 +9,4 @@ cors = CORS(app)
 
 import website.views
 import website.API
+import website.authentication

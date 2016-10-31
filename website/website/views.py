@@ -21,3 +21,7 @@ def register():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/login')
+def login():
+    return render_template("BaseContainerLogin.html");

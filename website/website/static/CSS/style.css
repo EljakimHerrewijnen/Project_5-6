@@ -64,7 +64,6 @@ nav {
     z-index: 2;
     position: fixed;
     height: 100%;
-    padding-top: 67px;
     width: 254px;
     border-right: 1px solid rgba(0,0,0,0.15);
     display: block;
@@ -92,7 +91,7 @@ nav {
     flex-flow: row wrap;
     justify-content: space-around;
     display: flex;
-    padding-top: 80px;
+    padding-top: 18px;
 }
 
 .item-panel {
@@ -180,7 +179,7 @@ svg {
 }
 
 #product-details-container {
-    padding-top: 90px;
+    padding-top: 35px;
     margin: 0px 45px 0px 45px;
 }
 
@@ -228,4 +227,33 @@ svg {
 
 .item-panel img {
     max-width: 100%;
+}
+
+#view-container {
+    padding-top: 67px;
+}
+
+.login-view-container {
+    display: flex;
+    padding: 60px;
+    justify-content: space-between;
+}
+
+.generic-panel {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: block;
+    overflow: visible;
+    clear: both;
+    flex-basis: 45%;
+}
+
+.login-view-container input[type=text] {
+    display: inline;
+    border: 1px solid rgba(0,0,0,0.3);
+    transition: border 0.2s;
+}
+
+.login-view-container input[type=text]:focus {
+    border: 1px solid #3BA757;
+    outline: none;
 }
