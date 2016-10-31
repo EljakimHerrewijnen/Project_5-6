@@ -28,11 +28,11 @@ class Database(object):
 		querrys = open('createdb.sql', 'r').read()
 		# print querrys
 		querrys = querrys.split(';')
-		# for querry in querrys:
-			# try:
-				# print (self.raw_querry(querry))
-			# except sqlite3.OperationalError, msg:
-				# print ("command skipped: ", msg)
+		for querry in querrys:
+			try:
+				print (self.raw_querry(querry))
+			except (sqlite3.OperationalError, msg):
+				print ("command skipped: ", msg)
 
 	# Gets json and inserts values into databse
 	def insert_coffee(self):
@@ -177,10 +177,10 @@ class Database(object):
 		value = value[:-2]
 
 		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
-		# print querry 
-		# print self.raw_querry(querry)
+		print (querry) 
+		print (self.raw_querry(querry))
 
-# db = Database()
+db = Database()
 # db.reset_database()
 
 # db.get_colum_names()
@@ -189,8 +189,6 @@ class Database(object):
 
 # db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
-# print (db.get_all('account'))
+print (db.get_all('account'))
 
 print ("end script")
-
-print (sys.version)
