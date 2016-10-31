@@ -17,6 +17,7 @@ class Database(object):
 	def open_conn(self):
 		self.conn = sqlite3.connect("data.db")
 		self.c = self.conn.cursor()
+		self.conn.row_factory = sqlite3.Row
 
 	def close_conn(self):
 		self.conn.commit()
@@ -93,12 +94,18 @@ class Database(object):
 		# return aromas
 
 	def raw_querry(self, querry):
+		# try
 		self.open_conn()
 		self.c.execute(querry)
 		result = self.c.fetchall()
 		result = [list(elem) for elem in result]
+		names = [description[0] for description in self.c.description]
 		self.close_conn()
-		return result
+		# catch:
+		final = []
+		final.append(names)
+		final.append(result)
+		return final
 
 	# Get information form single table
 	# Table; String, name of table
@@ -206,6 +213,17 @@ class Database(object):
 		self.reset_querry()
 		return result
 
+	# table: string, table name
+	# this function also uses the arguments passed to where()
+	def delete(self, table):
+		querry = 'DELETE FROM {} \n'.format(table)
+		if self.wheres != '':
+			querry += self.wheres
+		self.reset_querry()
+		return self.raw_querry(querry)
+
+
+
 db = Database()
 # db.reset_database()
 
@@ -213,12 +231,15 @@ db = Database()
 # db.where('product_id', 1)
 # print db.get_all('product_aroma')
 
-# db.insert('account', {'username' : "Dave", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
+# db.insert('account', {'username' : "Kees", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
-# db.where('username', 'Dave')
-# db.update("account", {'account_type':'customer'})
+# db.where('username', 'Kees')
+# db.update("account", {'account_type':'Admin'})
 
-# print (db.get_all('account'))
+
+# db.delete('account')
+# db.where('product_id', 1)
+print (db.get_all('account', 'name, email, banned'))
 
 
 print ("end script")
