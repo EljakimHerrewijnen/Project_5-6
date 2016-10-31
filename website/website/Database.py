@@ -180,6 +180,8 @@ class Database(object):
 		print (querry) 
 		print (self.raw_querry(querry))
 
+
+
 db = Database()
 # db.reset_database()
 
@@ -189,6 +191,8 @@ db = Database()
 
 #db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
-print (db.get_all('product'))
-
+EljakimQuery = db.get_all('product')
+with open('Eljakim.json', 'w') as outfile:
+	json.dump(EljakimQuery, outfile, ensure_ascii=False)
+	
 print ("end script")
