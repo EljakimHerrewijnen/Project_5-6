@@ -2,8 +2,9 @@ import sqlite3
 import json
 import Models
 import pprint
+import sys
 
-print "running script"
+print ("running script")
 
 class Database(object):
 	# Contructior opens database
@@ -27,11 +28,11 @@ class Database(object):
 		querrys = open('createdb.sql', 'r').read()
 		# print querrys
 		querrys = querrys.split(';')
-		for querry in querrys:
-			try:
-				print self.raw_querry(querry)
-			except sqlite3.OperationalError, msg:
-				print "command skipped: ", msg
+		# for querry in querrys:
+			# try:
+				# print (self.raw_querry(querry))
+			# except sqlite3.OperationalError, msg:
+				# print ("command skipped: ", msg)
 
 	# Gets json and inserts values into databse
 	def insert_coffee(self):
@@ -159,12 +160,37 @@ class Database(object):
 			self.wheres += " AND "
 		self.wheres += column +" "+ comparator +" "+ value +" \n"
 
-db = Database()
+	# table; string, table name
+	# values; dictonary {'columnname':'value'}, columnames and value
+	def insert(self, table, values):
+		columns = ""
+		value = ""
+		for key in values:
+			columns += key + ', '
+			if isinstance(values[key], basestring):
+				value += '"' + str(values[key]) + '", '
+			else:
+				value += '' + str(values[key]) + ', '
+
+
+		columns = columns[:-2]
+		value = value[:-2]
+
+		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
+		# print querry 
+		# print self.raw_querry(querry)
+
+# db = Database()
 # db.reset_database()
 
 # db.get_colum_names()
-db.where('product_id', 1)
-print db.get_all('product')
+# db.where('product_id', 1)
+# print db.get_all('product_aroma')
 
+# db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
-print "end script"
+# print (db.get_all('account'))
+
+print ("end script")
+
+print (sys.version)
