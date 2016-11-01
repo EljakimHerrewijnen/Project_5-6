@@ -192,7 +192,7 @@ db = Database()
 #db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
 EljakimQuery = db.get_all('product')
-with open('Eljakim.json', 'w') as outfile:
-	json.dump(EljakimQuery, outfile, ensure_ascii=False)
+with open('website/Eljakim.json', 'w') as outfile:
+	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 	
 print ("end script")
