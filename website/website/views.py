@@ -1,6 +1,5 @@
 from flask import render_template
 from website import app
-from runserver import DataToJSON
 
 @app.route('/')
 def index():
@@ -22,9 +21,3 @@ def register():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-
-@app.route('/TEST')
-def test():
-    DataToJSON()
-    print("CHIEL")
-
