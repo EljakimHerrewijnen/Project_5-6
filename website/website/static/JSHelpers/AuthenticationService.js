@@ -3,27 +3,28 @@ function AuthenticationService()
     var self = this;
     var key;
 
-    var getJsonToken = function(email, password) {
-        function printTest(data, textStatus, jqXHR)
-        {
-            console.log(data);
-        }
 
-        function tokenHandler(data, textStatus, jqXHR) {
-            console.log(data);
-            key = data;
-            $.get("/API/AuthTest", {}, printTest, "text")
-        }
-
-        $.post('/API/Authenticate', {'email': email, 'password': password}, tokenHandler, "text");
+    function tokenHandler(data, textStatus, jqXHR) {
+        key = data;
     }
 
     this.logout = function(){
 
     }
 
-    this.attemptLogin = function(email, password ,onSuccess, onFailure) {
-        getJsonToken(email, password);
+    this.attemptLogin = function(username, password, onDone, onFailure) {
+        var formdata = new FormData();
+        formdata.append("password", password);
+        formdata.append("username", username);
+        
+        $.ajax({
+            url: "/api/login",
+            method: "POST",
+            data: formdata,
+            processData: false,
+            success: onDone,
+            error: onFailure
+        });
     }
 
     this.signData = function(data) {
@@ -33,7 +34,7 @@ function AuthenticationService()
     this.createUser = function(user, onSuccess, onFailure)
     {
         $.ajax({
-            url: "/API/User",
+            url: "/api/account",
             method: "POST",
             data: user,
             success: onSuccess,

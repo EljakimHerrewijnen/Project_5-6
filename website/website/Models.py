@@ -1,4 +1,5 @@
 import json
+from website import Database
 
 class Product:
     def __init__(self, id, name, description, price, roast, origin, aromas, image):
@@ -12,16 +13,22 @@ class Product:
         self.image = image
 
     @staticmethod
-    def _fromJson(jsonFile):
+    def _fromSql(sqlFile):
+        db = Database.Database()
+        db.where("product_id", sqlFile["product_id"]);
+        aromas = []
+        for item in db.get_all("product_aroma", "aroma_name"):
+            aromas.append(item['aroma_name'])
+
         return Product(
-            jsonFile["ID"],
-            jsonFile["Name"],
-            jsonFile["Description"],
-            float(jsonFile["Price"]),
-            jsonFile["Roast"],
-            jsonFile["Origin"],
-            jsonFile["Aromas"],
-            jsonFile["Image"]
+            sqlFile["product_id"],
+            sqlFile["name"],
+            sqlFile["description"],
+            float(sqlFile["price"]),
+            sqlFile["roast_level"],
+            sqlFile["origin"],
+            aromas,
+            "images/" + str(sqlFile["product_id"]) + ".jpg"
         )
 
     def description_contains(self, expression):
@@ -51,12 +58,14 @@ class Product:
 
     @staticmethod
     def get_all():
-        data = open("website/products.json", 'r')
-        jsonData = json.load(data)
-        
+        #data = open("website/products.json", 'r')
+        db = Database.Database()
+
+        data = db.get_all("product")
+
         products = []
-        for item in jsonData:
-            products.append(Product._fromJson(item))
+        for item in data:
+            products.append(Product._fromSql(item))
         return products
         
     @staticmethod

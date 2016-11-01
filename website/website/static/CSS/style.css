@@ -248,7 +248,7 @@ svg {
 }
 
 .login-view-container input {
-    display: inline;
+    display: block;
     border: 1px solid rgba(0,0,0,0.3);
     transition: border 0.2s;
 }
@@ -256,4 +256,8 @@ svg {
 .login-view-container input:focus {
     border: 1px solid #3BA757;
     outline: none;
+}
+
+#register-error-box {
+    color: red;
 }
