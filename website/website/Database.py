@@ -97,12 +97,14 @@ class Database(object):
 			self.open_conn()
 			self.c.execute(querry)
 			result = self.c.fetchall()
-			result = [list(elem) for elem in result]
 			names = [description[0] for description in self.c.description]
-			self.close_conn()
 			final = []
-			final.append(names)
-			final.append(result)
+			for elem in result:
+				tempdict = {}
+				for value in range(0, len(elem)):
+					tempdict[names[value]] = elem[value]
+				final.append(tempdict)
+			self.close_conn()
 		except:
 			final = sys.exc_info()
 		return final
@@ -249,7 +251,7 @@ print(db.update("account", {'account_type':'Admin'}))
 
 # print(db.delete('account'))
 # db.where('product_id', 1)
-print (db.get_all('account', 'username, name, email, banned'))
+print (db.get_all('account'))
 
 
 print ("end script")
