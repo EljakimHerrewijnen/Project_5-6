@@ -1,7 +1,5 @@
 import sqlite3
 import json
-import Models
-import pprint
 import sys
 
 class Database(object):
@@ -240,9 +238,7 @@ class Database(object):
 
 		with open(total, 'w') as outfile:
 			json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
-
-
-Database.createJson('account')
 	
-
-	
+	# Converts given to json.
+	def to_jsonarray(self, array):
+		return json.dumps(array, ensure_ascii=False, sort_keys=True)
