@@ -26,11 +26,10 @@ class Database(object):
 	# Only use if you know what you are doing!!!
 	def create_table(self):
 		querrys = open('createdb.sql', 'r').read()
-		# print querrys
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.raw_querry(querry))
+				print (self.raw_get_querry(querry))
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
@@ -92,30 +91,49 @@ class Database(object):
 		aromas = [elem[0] for elem in aromas]
 		return aromas
 
+	def raw_get_querry(self, querry):
+		try:
+			self.open_conn()
+			self.c.execute(querry)
+			result = self.c.fetchall()
+			names = [description[0] for description in self.c.description]
+			final = []
+			for elem in result:
+				tempdict = {}
+				for value in range(0, len(elem)):
+					tempdict[names[value]] = elem[value]
+				final.append(tempdict)
+			self.close_conn()
+		except:
+			final = sys.exc_info()
+		return final
+
 	def raw_querry(self, querry):
-		self.open_conn()
-		self.c.execute(querry)
-		result = self.c.fetchall()
-		# print result[0].keys()
-		result = [list(elem) for elem in result]
-		self.close_conn()
-		return result
+		try:
+			self.open_conn()
+			self.c.execute(querry)
+			final = self.c.description
+			self.close_conn()
+		except:
+			final = sys.exc_info()
+		return final
 
 	# Get information form single table
 	# Table; String, name of table
 	# Conditios; dictonaty {'Colum name','substring'}
-	def get_from_table(self, table, conditions = {}):
-		querry = "select * \
-					FROM {} ".format(table)
-		if len(conditions) == 1:
-			k, v = conditions.items()[0]
-			querry += " WHERE {} LIKE '%{}%' ".format(k, v)
-		if len(conditions) > 1:
-			querry += " WHERE "
-			for key, value in conditions.items():
-				querry += " {} LIKE '%{}%' AND ".format(key, value)
-			querry = querry[:-4]
-		return self.raw_querry(querry)
+
+	# def get_from_table(self, table, conditions = {}):
+	# 	querry = "select * \
+	# 				FROM {} ".format(table)
+	# 	if len(conditions) == 1:
+	# 		k, v = conditions.items()[0]
+	# 		querry += " WHERE {} LIKE '%{}%' ".format(k, v)
+	# 	if len(conditions) > 1:
+	# 		querry += " WHERE "
+	# 		for key, value in conditions.items():
+	# 			querry += " {} LIKE '%{}%' AND ".format(key, value)
+	# 		querry = querry[:-4]
+	# 	return self.raw_get_querry(querry)
 
 	# rest values for querry
 	def reset_querry(self):
@@ -139,7 +157,7 @@ class Database(object):
 
 		# print querry
 
-		result = self.raw_querry(querry)
+		result = self.raw_get_querry(querry)
 		self.reset_querry()
 		return result
 
@@ -150,7 +168,7 @@ class Database(object):
 
 	# add conditions to querry
 	def where(self, column, value, comparator = "="):
-		if isinstance(value, basestring):
+		if isinstance(value, str):
 			value = "'" + value + "'"
 		if isinstance(value, int):
 			value = str(value)
@@ -167,7 +185,7 @@ class Database(object):
 		value = ""
 		for key in values:
 			columns += key + ', '
-			if isinstance(values[key], basestring):
+			if isinstance(values[key], str):
 				value += '"' + str(values[key]) + '", '
 			else:
 				value += '' + str(values[key]) + ', '
@@ -177,8 +195,40 @@ class Database(object):
 		value = value[:-2]
 
 		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
-		print (querry) 
-		print (self.raw_querry(querry))
+		return self.raw_querry(querry)
+
+	# table; string, table name
+	# values; dictonary (eg {'columnname':'value'}), columnames and value
+	# this function also makes use of any arguments passed to where()
+	def update(self, table, values):
+		updates = ''
+		for key in values:
+			if updates == '':
+				updates += key + ' = '
+			else:
+				updates += ', ' + key + ' = '
+			if isinstance(values[key], str):
+				updates += '"' + values[key] +'"'
+			else:
+				updates += values[key]
+		querry = "UPDATE {}\n SET {} \n".format(table, updates)
+		if self.wheres != '':
+			querry += self.wheres
+		result = self.raw_querry(querry)
+		self.reset_querry()
+		return result
+
+
+
+	# table: string, table name
+	# this function also uses the arguments passed to where()
+	def delete(self, table):
+		querry = 'DELETE FROM {} \n'.format(table)
+		if self.wheres != '':
+			querry += self.wheres
+		self.reset_querry()
+		return self.raw_querry(querry)
+
 
 
 
@@ -189,10 +239,18 @@ db = Database()
 # db.where('product_id', 1)
 # print db.get_all('product_aroma')
 
-#db.insert('account', {'username' : "Arjen", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
+# print(db.insert('account', {'username' : "Gert", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'}))
 
-EljakimQuery = db.get_all('product')
-with open('website/Eljakim.json', 'w') as outfile:
-	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
+# db.where('username', 'Dave')
+# print(db.update("account", {'account_type':'admin'}))
+
+
+# print(db.delete('account'))
+# db.where('product_id', 1)
+# print (db.get_all('account', 'name, username, account_type'))
+
+# EljakimQuery = db.get_all('product')
+# with open('website/Eljakim.json', 'w') as outfile:
+# 	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 	
 print ("end script")
