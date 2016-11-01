@@ -4,8 +4,6 @@ import Models
 import pprint
 import sys
 
-print ("running script")
-
 class Database(object):
 	# Contructior opens database
 	def __init__(self):
@@ -64,34 +62,6 @@ class Database(object):
 		self.create_table()
 		self.insert_coffee()
 
-	# Get one coffee by it's id
-	# def get_coffee_by_id(self, id):
-	# 	self.open_conn()
-	# 	self.c.execute("select *\
-	# 					FROM coffee c \
-	# 					WHERE c.id = {}\
-	# 					".format(id))
-	# 	result = self.c.fetchone()
-	# 	# Convert list of tuples to list of lists so we can eddit it
-	# 	result = list(result)
-	# 	aromas = self.get_aromas(id)
-	# 	result.append(aromas)
-	# 	self.close_conn()
-	# 	# id, name, description, price, roast, origin, aromas, image):
-	# 	product = Models.Product(result[0], result[1], result[2], result[3], result[4], result[5], result[7], result[6])
-	# 	product = product.ToJson()
-	# 	return product
-
-	# def get_aromas(self, id):
-		# self.c.execute("select a.name \
-		# 				FROM coffee_aroma ca \
-		# 				INNER JOIN aroma a on ca.aroma_id = a.id \
-		# 				WHERE ca.coffee_id = {}".format(id))
-		# aromas = self.c.fetchall()
-		# # convert list of tuples to list
-		# aromas = [elem[0] for elem in aromas]
-		# return aromas
-
 	def raw_get_querry(self, querry):
 		try:
 			self.open_conn()
@@ -125,26 +95,6 @@ class Database(object):
 		except:
 			final = sys.exc_info()
 		return final
-
-	# Get information form single table
-	# Table; String, name of table
-	# Conditios; dictonaty {'Colum name','substring'}
-	# def get_from_table(self, table, conditions = {}):
-	# 	querry = "select * \
-	# 				FROM {} ".format(table)
-	# 	if len(conditions) == 1:
-	# 		k, v = conditions.items()[0]
-	# 		querry += " WHERE {} LIKE '%{}%' ".format(k, v)
-	# 	if len(conditions) > 1:
-	# 		querry += " WHERE "
-	# 		for key, value in conditions.items():
-	# 			querry += " {} LIKE '%{}%' AND ".format(key, value)
-	# 		querry = querry[:-4]
-
-	# 	return self.raw_querry(querry)
-
-	# 	return self.raw_get_querry(querry)
-
 
 	# rest values for querry
 	def reset_querry(self):
@@ -272,8 +222,6 @@ class Database(object):
 		self.reset_querry()
 		return result
 
-
-
 	# table: string, table name
 	# this function also uses the arguments passed to where()
 	def delete(self, table):
@@ -283,38 +231,9 @@ class Database(object):
 		self.reset_querry()
 		return self.raw_querry(querry)
 
-
 db = Database()
-# db.reset_database()
-
-# db.get_colum_names()
-# db.where('product_id', 1)
-# print db.get_all('product_aroma')
-
-# db.insert('account', {'username' : "Kees", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
-
-# db.where('username', 'Kees')
-# db.update("account", {'account_type':'Admin'})
-
-# db.delete('account')
-# db.where('product_id', 1)
-#print (db.get_all('account', 'name, email, banned'))
 EljakimQuery = db.get_all('product')
 
-# print(db.insert('account', {'username' : "Gert", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'}))
-
-# db.where('username', 'Dave')
-# print(db.update("account", {'account_type':'admin'}))
-
-
-# print(db.delete('account'))
-# db.where('product_id', 1)
-# print (db.get_all('account', 'name, username, account_type'))
-
-# EljakimQuery = db.get_all('product')
-# with open('website/Eljakim.json', 'w') as outfile:
-# 	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
-	
 with open('website/Eljakim.json', 'w') as outfile:
-	json.dump(EljakimQuery, outfile, ensure_ascii=False, separators=('\n',','))
+	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 print ("end script")
