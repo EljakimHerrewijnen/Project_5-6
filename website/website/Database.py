@@ -27,11 +27,10 @@ class Database(object):
 	# Only use if you know what you are doing!!!
 	def create_table(self):
 		querrys = open('createdb.sql', 'r').read()
-		# print querrys
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.raw_querry(querry))
+				print (self.raw_get_querry(querry))
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
@@ -93,10 +92,28 @@ class Database(object):
 		# aromas = [elem[0] for elem in aromas]
 		# return aromas
 
+	def raw_get_querry(self, querry):
+		try:
+			self.open_conn()
+			self.c.execute(querry)
+			result = self.c.fetchall()
+			names = [description[0] for description in self.c.description]
+			final = []
+			for elem in result:
+				tempdict = {}
+				for value in range(0, len(elem)):
+					tempdict[names[value]] = elem[value]
+				final.append(tempdict)
+			self.close_conn()
+		except:
+			final = sys.exc_info()
+		return final
+
 	def raw_querry(self, querry):
 		try:
 			self.open_conn()
 			self.c.execute(querry)
+<<<<<<< HEAD
 			result = self.c.fetchall()
 			result = [list(elem) for elem in result]
 			names = [description[0] for description in self.c.description]
@@ -104,6 +121,10 @@ class Database(object):
 			final = []
 			final.append(names)
 			final.append(result)
+=======
+			final = self.c.description
+			self.close_conn()
+>>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 		except:
 			final = sys.exc_info()
 		return final
@@ -111,6 +132,10 @@ class Database(object):
 	# Get information form single table
 	# Table; String, name of table
 	# Conditios; dictonaty {'Colum name','substring'}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 	# def get_from_table(self, table, conditions = {}):
 	# 	querry = "select * \
 	# 				FROM {} ".format(table)
@@ -122,7 +147,11 @@ class Database(object):
 	# 		for key, value in conditions.items():
 	# 			querry += " {} LIKE '%{}%' AND ".format(key, value)
 	# 		querry = querry[:-4]
+<<<<<<< HEAD
 	# 	return self.raw_querry(querry)
+=======
+	# 	return self.raw_get_querry(querry)
+>>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 
 	# rest values for querry
 	def reset_querry(self):
@@ -147,7 +176,7 @@ class Database(object):
 
 		# print querry
 
-		result = self.raw_querry(querry)
+		result = self.raw_get_querry(querry)
 		self.reset_querry()
 		return result
 
@@ -174,6 +203,7 @@ class Database(object):
 		columns = ""
 		value = ""
 		for key in values:
+<<<<<<< HEAD
 			if columns == "":
 				columns += key
 			else:
@@ -203,6 +233,11 @@ class Database(object):
 				updates += ', ' + key + ' = '
 			if isinstance(values[key], str):
 				updates += '"' + values[key] +'"'
+=======
+			columns += key + ', '
+			if isinstance(values[key], str):
+				value += '"' + str(values[key]) + '", '
+>>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 			else:
 				updates += values[key]
 
@@ -224,6 +259,44 @@ class Database(object):
 		return self.raw_querry(querry)
 
 
+<<<<<<< HEAD
+=======
+		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
+		return self.raw_querry(querry)
+
+	# table; string, table name
+	# values; dictonary (eg {'columnname':'value'}), columnames and value
+	# this function also makes use of any arguments passed to where()
+	def update(self, table, values):
+		updates = ''
+		for key in values:
+			if updates == '':
+				updates += key + ' = '
+			else:
+				updates += ', ' + key + ' = '
+			if isinstance(values[key], str):
+				updates += '"' + values[key] +'"'
+			else:
+				updates += values[key]
+		querry = "UPDATE {}\n SET {} \n".format(table, updates)
+		if self.wheres != '':
+			querry += self.wheres
+		result = self.raw_querry(querry)
+		self.reset_querry()
+		return result
+
+
+
+	# table: string, table name
+	# this function also uses the arguments passed to where()
+	def delete(self, table):
+		querry = 'DELETE FROM {} \n'.format(table)
+		if self.wheres != '':
+			querry += self.wheres
+		self.reset_querry()
+		return self.raw_querry(querry)
+
+>>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 
 
 
@@ -234,6 +307,7 @@ db = Database()
 # db.where('product_id', 1)
 # print db.get_all('product_aroma')
 
+<<<<<<< HEAD
 # db.insert('account', {'username' : "Kees", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
 # db.where('username', 'Kees')
@@ -244,6 +318,21 @@ db = Database()
 #print (db.get_all('account', 'name, email, banned'))
 EljakimQuery = db.get_all('product')
 
+=======
+# print(db.insert('account', {'username' : "Gert", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'}))
+
+# db.where('username', 'Dave')
+# print(db.update("account", {'account_type':'admin'}))
+
+
+# print(db.delete('account'))
+# db.where('product_id', 1)
+# print (db.get_all('account', 'name, username, account_type'))
+
+# EljakimQuery = db.get_all('product')
+# with open('website/Eljakim.json', 'w') as outfile:
+# 	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
+>>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 	
 with open('website/Eljakim.json', 'w') as outfile:
 	json.dump(EljakimQuery, outfile, ensure_ascii=False, separators=('\n',','))
