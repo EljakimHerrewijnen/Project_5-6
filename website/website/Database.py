@@ -113,7 +113,6 @@ class Database(object):
 		try:
 			self.open_conn()
 			self.c.execute(querry)
-<<<<<<< HEAD
 			result = self.c.fetchall()
 			result = [list(elem) for elem in result]
 			names = [description[0] for description in self.c.description]
@@ -121,10 +120,8 @@ class Database(object):
 			final = []
 			final.append(names)
 			final.append(result)
-=======
 			final = self.c.description
 			self.close_conn()
->>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 		except:
 			final = sys.exc_info()
 		return final
@@ -132,10 +129,6 @@ class Database(object):
 	# Get information form single table
 	# Table; String, name of table
 	# Conditios; dictonaty {'Colum name','substring'}
-<<<<<<< HEAD
-=======
-
->>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 	# def get_from_table(self, table, conditions = {}):
 	# 	querry = "select * \
 	# 				FROM {} ".format(table)
@@ -147,11 +140,11 @@ class Database(object):
 	# 		for key, value in conditions.items():
 	# 			querry += " {} LIKE '%{}%' AND ".format(key, value)
 	# 		querry = querry[:-4]
-<<<<<<< HEAD
+
 	# 	return self.raw_querry(querry)
-=======
+
 	# 	return self.raw_get_querry(querry)
->>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
+
 
 	# rest values for querry
 	def reset_querry(self):
@@ -203,7 +196,6 @@ class Database(object):
 		columns = ""
 		value = ""
 		for key in values:
-<<<<<<< HEAD
 			if columns == "":
 				columns += key
 			else:
@@ -233,11 +225,9 @@ class Database(object):
 				updates += ', ' + key + ' = '
 			if isinstance(values[key], str):
 				updates += '"' + values[key] +'"'
-=======
 			columns += key + ', '
 			if isinstance(values[key], str):
 				value += '"' + str(values[key]) + '", '
->>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 			else:
 				updates += values[key]
 
@@ -258,9 +248,6 @@ class Database(object):
 		self.reset_querry()
 		return self.raw_querry(querry)
 
-
-<<<<<<< HEAD
-=======
 		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
 		return self.raw_querry(querry)
 
@@ -296,9 +283,6 @@ class Database(object):
 		self.reset_querry()
 		return self.raw_querry(querry)
 
->>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
-
-
 
 db = Database()
 # db.reset_database()
@@ -307,7 +291,6 @@ db = Database()
 # db.where('product_id', 1)
 # print db.get_all('product_aroma')
 
-<<<<<<< HEAD
 # db.insert('account', {'username' : "Kees", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'})
 
 # db.where('username', 'Kees')
@@ -318,7 +301,6 @@ db = Database()
 #print (db.get_all('account', 'name, email, banned'))
 EljakimQuery = db.get_all('product')
 
-=======
 # print(db.insert('account', {'username' : "Gert", 'password' : "yes", 'name' : 'Arjen', 'surname':'vrijenhoek', 'birth_date':'17-02-1994', 'email':'arjen@arjen.nl', 'banned':0, 'register_date':'31-10-2016', "wishlist_public": 0, 'postal_code':'3205tc', 'house_number':'349'}))
 
 # db.where('username', 'Dave')
@@ -332,7 +314,6 @@ EljakimQuery = db.get_all('product')
 # EljakimQuery = db.get_all('product')
 # with open('website/Eljakim.json', 'w') as outfile:
 # 	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
->>>>>>> f7290625cf06aa851e389b6464aad9daa600fc46
 	
 with open('website/Eljakim.json', 'w') as outfile:
 	json.dump(EljakimQuery, outfile, ensure_ascii=False, separators=('\n',','))
