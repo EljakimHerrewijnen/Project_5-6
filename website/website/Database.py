@@ -1,7 +1,5 @@
 import sqlite3
 import json
-import Models
-import pprint
 import sys
 
 class Database(object):
