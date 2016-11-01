@@ -230,10 +230,19 @@ class Database(object):
 			querry += self.wheres
 		self.reset_querry()
 		return self.raw_querry(querry)
+	
+	def createJson(arg):
+		db = Database()
+		Query = db.get_all(arg)
+		location = "website/"+arg
+		extention = ".json"
+		total = location + extention
 
-db = Database()
-EljakimQuery = db.get_all('product')
+		with open(total, 'w') as outfile:
+			json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 
-with open('website/Eljakim.json', 'w') as outfile:
-	json.dump(EljakimQuery, outfile, ensure_ascii=False, indent=2, sort_keys=True)
-print ("end script")
+
+Database.createJson('account')
+	
+
+	
