@@ -6,7 +6,7 @@ from website import app
 from flask_cors import CORS, cross_origin
 import json
 
-app.secret_key = "rawrawrqwqnwjnqwnqwdqwe"
+app.secret_key = "Kz9bEtc3spQ2bQdA8VxyMqDh76AeAvYK15Qfe2sBwXF5rTvKkXwq"
 
 @app.route("/API/Products/<id>")
 def ProductRouteHandler(id):

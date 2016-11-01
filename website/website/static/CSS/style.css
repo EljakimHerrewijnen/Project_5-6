@@ -247,13 +247,13 @@ svg {
     flex-basis: 45%;
 }
 
-.login-view-container input[type=text] {
+.login-view-container input {
     display: inline;
     border: 1px solid rgba(0,0,0,0.3);
     transition: border 0.2s;
 }
 
-.login-view-container input[type=text]:focus {
+.login-view-container input:focus {
     border: 1px solid #3BA757;
     outline: none;
 }

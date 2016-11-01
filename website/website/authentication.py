@@ -1,9 +1,12 @@
 from flask import request
 from flask import Response
 from flask import session
+
 from website import Models
 from website import app
 from flask_cors import CORS, cross_origin
+import re
+
 import json
 
 
@@ -23,11 +26,16 @@ def user():
     postal_code = request.form['postal_code']
     street_number = request.form['number']
     # validate user input
+    email_regex = re.compile("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+    if (not email_regex.match(email)):
+        return "invalid email", 400
+    
     # create new user
+
+
     # persist user to db
     # if valid return valid
-    print("registered user")
-    return ""
+    return "Successful", 200
 
 @app.route('/API/Logout', methods=['POST'])
 def logout():
