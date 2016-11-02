@@ -5,6 +5,7 @@ import sys
 class Database(object):
 	# Contructior opens database
 	def __init__(self):
+
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
@@ -87,6 +88,8 @@ class Database(object):
 			self.close_conn()
 		except:
 			result = sys.exc_info()
+			print("raw query error")
+			print(querry)
 		return result
 
 	# rest values for querry
