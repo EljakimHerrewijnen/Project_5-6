@@ -78,5 +78,3 @@ def accountRouteHandler(id):
     result[0]["Wishlist"] = db.get_all("wishes w", "p.product_id, p.name")
 
     return Response(db.to_jsonarray(result), mimetype='application/json')
-
->>>>>>> origin/account_retrieval
