@@ -8,8 +8,25 @@ import json
 
 @app.route("/API/Products/<id>")
 def ProductRouteHandler(id):
-    product = Models.Product.find(id)
-    return Response(product.ToJson(), mimetype='application/json')
+    # product = Models.Product.find(id)
+    # return Response(product.ToJson(), mimetype='application/json')
+
+    db = Database.Database()
+    db.where("product_id", id)
+    products = db.get_all("product")
+
+    for product in products:
+        db.where("product_id", product["product_id"])
+        aromas = db.get_all("product_aroma", "aroma_name")
+        aromaList = []
+        for aroma in aromas:
+            aromaList.append(aroma["aroma_name"])
+        product["aromas"] = aromaList
+        product["image"] = "images/{}.jpg".format(product["product_id"])
+        
+    return Response(db.to_jsonarray(products), mimetype='application/json')
+
+
 
 @app.route("/API/Products")
 def ProductsRouteHandler():
