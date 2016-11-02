@@ -82,17 +82,12 @@ class Database(object):
 			self.open_conn()
 			self.c.execute(querry)
 			result = self.c.fetchall()
-			result = [list(elem) for elem in result]
-			names = [description[0] for description in self.c.description]
-			self.close_conn()
-			final = []
-			final.append(names)
-			final.append(result)
-			final = self.c.description
+			# result = [list(elem) for elem in result]
+			# names = [description[0] for description in self.c.description]
 			self.close_conn()
 		except:
-			final = sys.exc_info()
-		return final
+			result = sys.exc_info()
+		return result
 
 	# rest values for querry
 	def reset_querry(self):
@@ -195,39 +190,6 @@ class Database(object):
 			querry += self.wheres
 		self.reset_querry()
 		return self.raw_querry(querry)
-
-		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
-		return self.raw_querry(querry)
-
-	# table; string, table name
-	# values; dictonary (eg {'columnname':'value'}), columnames and value
-	# this function also makes use of any arguments passed to where()
-	def update(self, table, values):
-		updates = ''
-		for key in values:
-			if updates == '':
-				updates += key + ' = '
-			else:
-				updates += ', ' + key + ' = '
-			if isinstance(values[key], str):
-				updates += '"' + values[key] +'"'
-			else:
-				updates += values[key]
-		querry = "UPDATE {}\n SET {} \n".format(table, updates)
-		if self.wheres != '':
-			querry += self.wheres
-		result = self.raw_querry(querry)
-		self.reset_querry()
-		return result
-
-	# table: string, table name
-	# this function also uses the arguments passed to where()
-	def delete(self, table):
-		querry = 'DELETE FROM {} \n'.format(table)
-		if self.wheres != '':
-			querry += self.wheres
-		self.reset_querry()
-		return self.raw_querry(querry)
 	
 	def createJson(arg):
 		db = Database()
@@ -242,3 +204,4 @@ class Database(object):
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
+		
