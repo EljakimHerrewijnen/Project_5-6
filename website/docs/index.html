@@ -27,26 +27,23 @@
             </thead>
             <tbody>
                     <tr>
-                            <td class="swagger--summary-path" rowspan="1">
+                            <td class="swagger--summary-path" rowspan="2">
                                 <a href="#path--api-account">/api/account</a>
                             </td>
+                        <td>
+                            <a href="#operation--api-account-get">GET</a>
+                        </td>
+                        <td>
+                            <p>Get Account</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <a href="#operation--api-account-post">POST</a>
                         </td>
                         <td>
                             <p>Post Account</p>
-        
-                        </td>
-                    </tr>
-                    <tr>
-                            <td class="swagger--summary-path" rowspan="1">
-                                <a href="#path--api-account--id-">/api/account/{id}</a>
-                            </td>
-                        <td>
-                            <a href="#operation--api-account--id--get">GET</a>
-                        </td>
-                        <td>
-                            <p>Get Account</p>
         
                         </td>
                     </tr>
@@ -116,254 +113,17 @@
     
         
         <span id="path--api-account"></span>
-            <div id="operation--api-account-post" class="swagger--panel-operation-post panel">
-                <div class="panel-heading">
-                    <div class="operation-summary">Post Account</div>
-                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/api/account</strong></h3>
-                </div>
-                <div class="panel-body">
-                    <section class="sw-operation-description">
-                        
-                    </section>
-                        
-                            <section class="sw-request-body">
-                                
-                                    <p><span class="label label-default">multipart/form-data</span> 
-                        </p>
-                            </section>        
-                        <section class="sw-request-params">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th class="sw-param-name"></th>
-                                    <th class="sw-param-description"></th>
-                                    <th class="sw-param-type"></th>
-                                    <th class="sw-param-data-type"></th>
-                                    <th class="sw-param-annotation"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                        <tr>
-                                            <td>
-                                                username
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                password
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                name
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                surname
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                day
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">integer</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                month
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">integer</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                year
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">integer</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                email
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                address
-                                            <td></td>
-                                            <td>formData</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                        </section>
-                    
-                        <section class="sw-responses">
-                                <p><span class="label label-default">text/plain</span> 
-                    </p>
-                    
-                            <dl>
-                                    <dt class="sw-response-200">
-                                        200 OK
-                                    
-                                    </dt>
-                                    <dd class="sw-response-200">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                    <div class="col-md-6 sw-response-examples">
-                                                        <div class="label label-default">Example for text/plain</div>
-                                                        <pre><code class="lang-json"><span class="hljs-string">&quot;success&quot;</span>
-                                            </code></pre>
-                                            
-                                                    </div>
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                                <div  class="panel panel-definition">
-                                                    <div class="panel-body">
-                                                            
-                                                    </div>
-                                                </div></div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-400">
-                                        400 Bad Request
-                                    
-                                    </dt>
-                                    <dd class="sw-response-400">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                    <div class="col-md-6 sw-response-examples">
-                                                        <div class="label label-default">Example for text/plain</div>
-                                                        <pre><code class="lang-json"><span class="hljs-string">&quot;failure&quot;</span>
-                                            </code></pre>
-                                            
-                                                    </div>
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                                <div  class="panel panel-definition">
-                                                    <div class="panel-body">
-                                                            
-                                                    </div>
-                                                </div></div>
-                                            
-                                            </div>                </dd>
-                            </dl>
-                        </section>
-                </div>
-            </div>    
-        <span id="path--api-account--id-"></span>
-            <div id="operation--api-account--id--get" class="swagger--panel-operation-get panel">
+            <div id="operation--api-account-get" class="swagger--panel-operation-get panel">
                 <div class="panel-heading">
                     <div class="operation-summary">Get Account</div>
-                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/api/account/{id}</strong></h3>
+                    <h3 class="panel-title"><span class="operation-name">GET</span> <strong>/api/account</strong></h3>
                 </div>
                 <div class="panel-body">
                     <section class="sw-operation-description">
-                        
+                        <p>Expects a session cookie with the username. Returns the username attached to that session. If cookie is not set or username is not found in db, returns a 400 error.</p>
+            
                     </section>
                     
-                        <section class="sw-request-params">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th class="sw-param-name"></th>
-                                    <th class="sw-param-description"></th>
-                                    <th class="sw-param-type"></th>
-                                    <th class="sw-param-data-type"></th>
-                                    <th class="sw-param-annotation"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                        <tr>
-                                            <td>
-                                                id
-                                            <td></td>
-                                            <td>path</td>
-                                            <td><span class="json-property-type">string</span>
-                                        <span class="json-property-range" title="Value limits"></span>
-                                        
-                                            </td>
-                                            <td>
-                                                    <span class="json-property-required"></span>
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                        </section>
                     
                         <section class="sw-responses">
                                 <p><span class="label label-default">application/json</span> 
@@ -383,7 +143,7 @@
                                             <div class="row">
                                                     <div class="col-md-6 sw-response-examples">
                                                         <div class="label label-default">Example for application/json</div>
-                                                        <pre><code class="lang-json">{<br>    &quot;<span class="hljs-attribute">AccountType</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;normal&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">Address</span>&quot;: <span class="hljs-value">{<br>        &quot;<span class="hljs-attribute">City</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Rotterdam&quot;</span></span>,<br>        &quot;<span class="hljs-attribute">Country</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Netherlands&quot;</span></span>,<br>        &quot;<span class="hljs-attribute">HouseNumber</span>&quot;: <span class="hljs-value"><span class="hljs-number">56</span></span>,<br>        &quot;<span class="hljs-attribute">PostalCode</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;3000AB&quot;</span><br>    </span>}</span>,<br>    &quot;<span class="hljs-attribute">Banned</span>&quot;: <span class="hljs-value"><span class="hljs-literal">false</span></span>,<br>    &quot;<span class="hljs-attribute">BirthDate</span>&quot;: <span class="hljs-value">{<br>        &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">29</span></span>,<br>        &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">10</span></span>,<br>        &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">1942</span><br>    </span>}</span>,<br>    &quot;<span class="hljs-attribute">Favorites</span>&quot;: <span class="hljs-value">[<br>        {<br>            &quot;<span class="hljs-attribute">ID</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span></span>,<br>            &quot;<span class="hljs-attribute">Name</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Olympia Coffee Roasting - El Salvador Ricardo Ariz - Pacamara&quot;</span><br>        </span>}<br>    ]</span>,<br>    &quot;<span class="hljs-attribute">Name</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Bob&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">Orders</span>&quot;: <span class="hljs-value">[<br>        {<br>            &quot;<span class="hljs-attribute">OrderDate</span>&quot;: <span class="hljs-value">{<br>                &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">30</span></span>,<br>                &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span></span>,<br>                &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">2011</span><br>            </span>}</span>,<br>            &quot;<span class="hljs-attribute">OrderID</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span><br>        </span>},<br>        {<br>            &quot;<span class="hljs-attribute">OrderDate</span>&quot;: <span class="hljs-value">{<br>                &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">31</span></span>,<br>                &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span></span>,<br>                &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">2011</span><br>            </span>}</span>,<br>            &quot;<span class="hljs-attribute">OrderID</span>&quot;: <span class="hljs-value"><span class="hljs-number">3</span><br>        </span>}<br>    ]</span>,<br>    &quot;<span class="hljs-attribute">Password</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;rossyBob&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">RegisterDate</span>&quot;: <span class="hljs-value">{<br>        &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">21</span></span>,<br>        &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">5</span></span>,<br>        &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">2010</span><br>    </span>}</span>,<br>    &quot;<span class="hljs-attribute">Surname</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Ross&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">Username</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Bobross&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">WishList</span>&quot;: <span class="hljs-value">[<br>        {<br>            &quot;<span class="hljs-attribute">ID</span>&quot;: <span class="hljs-value"><span class="hljs-number">2</span></span>,<br>            &quot;<span class="hljs-attribute">Name</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Olympia Coffee Roasting - Kenya Tegu Reserve&quot;</span><br>        </span>}<br>    ]<br></span>}
+                                                        <pre><code class="lang-json">{<br>    &quot;<span class="hljs-attribute">AccountType</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;normal&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">Address</span>&quot;: <span class="hljs-value">{<br>        &quot;<span class="hljs-attribute">City</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Rotterdam&quot;</span></span>,<br>        &quot;<span class="hljs-attribute">Country</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Netherlands&quot;</span></span>,<br>        &quot;<span class="hljs-attribute">HouseNumber</span>&quot;: <span class="hljs-value"><span class="hljs-number">56</span></span>,<br>        &quot;<span class="hljs-attribute">PostalCode</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;3000AB&quot;</span><br>    </span>}</span>,<br>    &quot;<span class="hljs-attribute">Banned</span>&quot;: <span class="hljs-value"><span class="hljs-literal">false</span></span>,<br>    &quot;<span class="hljs-attribute">BirthDate</span>&quot;: <span class="hljs-value">{<br>        &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">29</span></span>,<br>        &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">10</span></span>,<br>        &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">1942</span><br>    </span>}</span>,<br>    &quot;<span class="hljs-attribute">Favorites</span>&quot;: <span class="hljs-value">[<br>        {<br>            &quot;<span class="hljs-attribute">ID</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span></span>,<br>            &quot;<span class="hljs-attribute">Name</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Olympia Coffee Roasting - El Salvador Ricardo Ariz - Pacamara&quot;</span><br>        </span>}<br>    ]</span>,<br>    &quot;<span class="hljs-attribute">Name</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Bob&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">Orders</span>&quot;: <span class="hljs-value">[<br>        {<br>            &quot;<span class="hljs-attribute">OrderDate</span>&quot;: <span class="hljs-value">{<br>                &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">30</span></span>,<br>                &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span></span>,<br>                &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">2011</span><br>            </span>}</span>,<br>            &quot;<span class="hljs-attribute">OrderID</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span><br>        </span>},<br>        {<br>            &quot;<span class="hljs-attribute">OrderDate</span>&quot;: <span class="hljs-value">{<br>                &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">31</span></span>,<br>                &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">1</span></span>,<br>                &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">2011</span><br>            </span>}</span>,<br>            &quot;<span class="hljs-attribute">OrderID</span>&quot;: <span class="hljs-value"><span class="hljs-number">3</span><br>        </span>}<br>    ]</span>,<br>    &quot;<span class="hljs-attribute">RegisterDate</span>&quot;: <span class="hljs-value">{<br>        &quot;<span class="hljs-attribute">day</span>&quot;: <span class="hljs-value"><span class="hljs-number">21</span></span>,<br>        &quot;<span class="hljs-attribute">month</span>&quot;: <span class="hljs-value"><span class="hljs-number">5</span></span>,<br>        &quot;<span class="hljs-attribute">year</span>&quot;: <span class="hljs-value"><span class="hljs-number">2010</span><br>    </span>}</span>,<br>    &quot;<span class="hljs-attribute">Surname</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Ross&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">Username</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Bobross&quot;</span></span>,<br>    &quot;<span class="hljs-attribute">WishList</span>&quot;: <span class="hljs-value">[<br>        {<br>            &quot;<span class="hljs-attribute">ID</span>&quot;: <span class="hljs-value"><span class="hljs-number">2</span></span>,<br>            &quot;<span class="hljs-attribute">Name</span>&quot;: <span class="hljs-value"><span class="hljs-string">&quot;Olympia Coffee Roasting - Kenya Tegu Reserve&quot;</span><br>        </span>}<br>    ]<br></span>}
                                             </code></pre>
                                             
                                                     </div>
@@ -396,19 +156,6 @@
                                                                         <dl>
                                                                                 <dt data-property-name="Username">
                                                                                     <span class="json-property-name">Username:</span>
-                                                                                    <span class="json-property-type">string</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                        <span class="json-property-required"></span>
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="Password">
-                                                                                    <span class="json-property-name">Password:</span>
                                                                                     <span class="json-property-type">string</span>
                                                                                     <span class="json-property-range" title="Value limits"></span>
                                                                                     
@@ -879,6 +626,215 @@
                             </table>
                         </section>
                 </div>
+            </div>    <div id="operation--api-account-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Post Account</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/api/account</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        <p>If account is created, server also sets a session cookie.</p>
+            
+                    </section>
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">multipart/form-data</span> 
+                        </p>
+                            </section>        
+                        <section class="sw-request-params">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="sw-param-name"></th>
+                                    <th class="sw-param-description"></th>
+                                    <th class="sw-param-type"></th>
+                                    <th class="sw-param-data-type"></th>
+                                    <th class="sw-param-annotation"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td>
+                                                username
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                password
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                name
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                surname
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                day
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                month
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                year
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                email
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                address
+                                            <td></td>
+                                            <td>formData</td>
+                                            <td><span class="json-property-type">string</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                        
+                                            </td>
+                                            <td>
+                                                    <span class="json-property-required"></span>
+                                            </td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    
+                        <section class="sw-responses">
+                                <p><span class="label label-default">text/plain</span> 
+                    </p>
+                    
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col-md-6 sw-response-examples">
+                                                        <div class="label label-default">Example for text/plain</div>
+                                                        <pre><code class="lang-json"><span class="hljs-string">&quot;success&quot;</span>
+                                            </code></pre>
+                                            
+                                                    </div>
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                                    <dt class="sw-response-400">
+                                        400 Bad Request
+                                    
+                                    </dt>
+                                    <dd class="sw-response-400">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col-md-6 sw-response-examples">
+                                                        <div class="label label-default">Example for text/plain</div>
+                                                        <pre><code class="lang-json"><span class="hljs-string">&quot;failure&quot;</span>
+                                            </code></pre>
+                                            
+                                                    </div>
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                                <div  class="panel panel-definition">
+                                                    <div class="panel-body">
+                                                            
+                                                    </div>
+                                                </div></div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
             </div>    
         <span id="path--api-login"></span>
             <div id="operation--api-login-post" class="swagger--panel-operation-post panel">
@@ -888,7 +844,8 @@
                 </div>
                 <div class="panel-body">
                     <section class="sw-operation-description">
-                        
+                        <p>If account data is correct, server sets a session cookie.</p>
+            
                     </section>
                         
                             <section class="sw-request-body">
