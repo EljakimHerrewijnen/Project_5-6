@@ -55,7 +55,7 @@ def ProductsRouteHandler():
     return Response(db.to_jsonarray(products), mimetype='application/json')
 
 
-@app.rout("/API/account/<id>")
+@app.route("/API/account/<id>")
 def accountRouteHandler(id):
     db = Database.Database()
     db.where("username", id)
