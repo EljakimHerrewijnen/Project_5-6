@@ -102,7 +102,8 @@ def post_account():
         print(sys.exc_info())
         return "Invalid form data supplied", 400
 
-    # add to DB
+    # add to D
+    # check if address exists, if not create it
     try:
         addressDAO.Create(account.address)
     except:
