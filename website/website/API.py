@@ -54,3 +54,29 @@ def ProductsRouteHandler():
             products = products[0:int(amount)]
     
     return Response(Models.Product.ArrayToJson(products), mimetype='application/json')
+
+
+@app.route("/API/account/<id>")
+def accountRouteHandler(id):
+    db = Database.Database()
+    db.where("username", id)
+    result = db.get_all("account")
+
+    db.where("username", id)
+    result[0]["Orders"] = db.get_all("orders")
+
+    db.where("username", id)
+    db.join("product p", "f.product_id = p.product_id")
+    result[0]["favorits"] = db.get_all("favorites f", "p.product_id, p.name")
+
+    db.where('postal_code', result[0]['postal_code'])
+    db.where('house_number', result[0]['house_number'])
+    result[0]["address"] = db.get_all("address")
+
+    db.where("username", id)
+    db.join("product p", "w.product_id = p.product_id")
+    result[0]["Wishlist"] = db.get_all("wishes w", "p.product_id, p.name")
+
+    return Response(db.to_jsonarray(result), mimetype='application/json')
+
+>>>>>>> origin/account_retrieval
