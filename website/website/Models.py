@@ -1,5 +1,6 @@
 import json
 from website import Database
+from datetime import date
 
 class Product:
     def __init__(self, id, name, description, price, roast, origin, aromas, image):
@@ -92,3 +93,85 @@ class Product:
     def ArrayToJson(array):
         products = [product.get_values() for product in array]
         return json.dumps(products, sort_keys=True, indent=4)
+
+class Account:
+    def __init__(self, username, password, name, surname, email, birthDate, registerDate, banned, accountType, wishListPublic, address):
+        self.username = username
+        self.name = name
+        self.surname = surname
+        self.password = password
+        self.email = email
+        self.birthDate = birthDate
+        self.banned = banned
+        self.accountType = accountType
+        self.wishListPublic = wishListPublic
+        self.address = address
+
+    def toDict(self):
+        wPublic = self.wishListPublic == 1
+        banned = self.banned == 1
+        # birthdate = splitDate(self.birthDate)
+
+        result = {
+            "username": self.username ,
+            "name": self.name ,
+            "surname": self.surname ,
+            # self.password ,
+            "email": self.email ,
+            "birthDate": {"year": self.birthDate.year, "month": self.birthDate.month, "day": self.birthDate.day} ,
+            "banned": banned ,
+            "accountType": self.accountType ,
+            "wishListPublic": wPublic ,
+            "address": {"PostalCode": self.address[0], "HouseNumber": self.address[1]}
+        }
+        return result
+
+    @staticmethod
+    def _fromSql(sqlFile):
+        return Account(
+            sqlFile["username"],
+            sqlFile["password"],
+            sqlFile["name"],
+            sqlFile["surname"],
+            sqlFile["email"],
+            splitDate(sqlFile["birth_date"]),
+            splitDate(sqlFile["register_date"]),
+            sqlFile["banned"],
+            sqlFile["account_type"],
+            sqlFile["wishlist_public"],
+            (sqlFile["postal_code"], sqlFile["house_number"])
+        )
+        
+    
+    @staticmethod
+    def find(username):
+        db = Database.Database()
+        db.where("username", username)
+        user = db.get_all("account")
+        if(user.count == 0):
+            return None
+        return user
+    
+    @staticmethod
+    def _getAll():
+        db = Database.Database()
+        data = db.get_all("account")
+
+        accounts = []
+        for item in data:
+            accounts.append(Account._fromSql(item))
+        return accounts
+
+    @staticmethod
+    def _arrayToJson(array):
+        accounts = [account.toDict() for account in array]
+        return json.dumps(accounts, sort_keys=True, indent=4)
+    
+    @staticmethod
+    def ToJson(account):
+        return json.dumps(account.toDict(), sort_keys=True, indent=4)
+
+
+def splitDate(d):
+    thing = d.split("-")
+    return date(int(thing[2]), int(thing[1]), int(thing[0]))
