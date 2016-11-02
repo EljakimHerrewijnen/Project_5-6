@@ -9,6 +9,7 @@ class Database(object):
 		self.froms = ""
 		self.joins = ""
 		self.wheres = ""
+		self.groupBy = ""
 
 	def open_conn(self):
 		self.conn = sqlite3.connect("data.db")
@@ -95,6 +96,7 @@ class Database(object):
 		self.froms = ""
 		self.joins = ""
 		self.wheres = ""
+		self.groupBy = ""
 
 	# Build querry form components
 	# This funtion makes us of any argumetns passed to where(), join()
@@ -109,8 +111,10 @@ class Database(object):
 
 		if self.wheres != "":
 			querry += self.wheres
+		if self.groupBy != "":
+			querry += self.groupBy
 
-		# print querry
+		print (querry)
 
 		result = self.raw_get_querry(querry)
 		self.reset_querry()
@@ -190,6 +194,14 @@ class Database(object):
 			querry += self.wheres
 		self.reset_querry()
 		return self.raw_querry(querry)
+
+	# column: string, column you want to group by
+	# This function adds a group by argument to your query
+	def group_by(self, column):
+		if self.groupBy == "":
+			self.groupBy += "GROUP BY " + column
+		else:
+			self.groupBy += " , "+ column
 	
 	def createJson(arg):
 		db = Database()
@@ -204,4 +216,3 @@ class Database(object):
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
-		
