@@ -23,11 +23,16 @@ class Database(object):
 	# Create releavant tables 
 	# Only use if you know what you are doing!!!
 	def create_table(self):
+		tables = ["address", "user_address", "product", "product_aroma", "wishes", "account", "favorites", "orders", "order_details"]
+		for table in tables:
+			query = "DROP TABLE IF EXISTS " + table
+			self.raw_querry(query)
+		print("tables deleted")
 		querrys = open('createdb.sql', 'r').read()
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.raw_get_querry(querry))
+				print (self.raw_querry(querry))
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
