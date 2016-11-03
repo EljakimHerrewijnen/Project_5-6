@@ -14,34 +14,13 @@ def Delete(address):
     return db.delete("address")
 
 
-def Update(address):
-    db = Database()
-    db.where("postal_code", address.postal_code)
-    db.where("house_number", street_number)
-    address = _toSqlArgs(address)
-    return db.update("account", address)
-
-
 def Find(postal_code, street_number):
     db = Database()
     db.where("postal_code", postal_code)
     db.where("house_number", street_number)
 
     address = db.get_all("address")
-    if (address):
-        return _fromSqlResult(address[0])
-    else:
-        return None
-
-
-def _fromSqlResult(sqlResult):
-    print(sqlResult)
-    return Address(
-        sqlResult["postal_code"],
-        sqlResult["house_number"],
-        sqlResult["country"],
-        sqlResult["city"],
-    )
+    return addres[0]
 
 
 def _toSqlArgs(address):

@@ -9,6 +9,7 @@ from flask_cors import CORS, cross_origin
 import json
 import website.DAO.accountDAO as accountDAO
 import website.DAO.addressDAO as addressDAO
+import website.DAO.productDAO as productDAO
 from website.Database import Database
 
 
@@ -19,6 +20,15 @@ app.secret_key = "Kz9bEtc3spQ2bQdA8VxyMqDh76AeAvYK15Qfe2sBwXF5rTvKkXwq"
 def ProductRouteHandler(id):
     product = Models.Product.find(id)
     return Response(product.ToJson(), mimetype='application/json')
+
+
+@app.route("/API/Products")
+def Products():
+    jsonResult = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
+    return Response(jsonResult, mimetype="application/json")
+    
+
+"""
 
 @app.route("/API/Products")
 def ProductsRouteHandler():
@@ -62,7 +72,7 @@ def ProductsRouteHandler():
     
     return Response(Models.Product.ArrayToJson(products), mimetype='application/json')
 
-
+"""
 #@app.route("/API/account/<id>")
 #def accountRouteHandler(id):
 #    db = Database.Database()

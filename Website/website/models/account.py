@@ -24,7 +24,7 @@ class Account:
             "surname"       : self.surname,
             "email"         : self.email,
             "birthDate"     : dateToDict(self.birthDate),
-            "banned"        :self.banned,
+            "banned"        : self.banned,
             "registerDate"  : dateToDict(self.registerDate),
             "wishlist"      :[],
             "orders"        :[],

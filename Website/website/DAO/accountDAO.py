@@ -6,15 +6,12 @@ from datetime import date
 def Create(account):
     db = Database()
     account = _toSqlArgs(account)
-    print(account)
     return db.insert("account", account)
 
 
 def FindAll():
     db = Database()
     sqlAccounts = db.get_all("account")
-    print(sqlAccounts)
-    accounts = list(map(lambda account: _fromSqlResult(account), sqlAccounts))
     return accounts
 
 
