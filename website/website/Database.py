@@ -92,14 +92,17 @@ class Database(object):
 		except:
 			final = sys.exc_info()
 		return final
-
-	def raw_querry(self, querry):
+	
+	# executes given query
+	# returns number of rows affected by query or last rowid
+	def raw_querry(self, querry, rowcount = True):
 		try:
 			self.open_conn()
 			self.c.execute(querry)
-			result = self.c.fetchall()
-			# result = [list(elem) for elem in result]
-			# names = [description[0] for description in self.c.description]
+			if rowcount:
+				result = self.c.rowcount
+			else:
+				result = self.c.lastrowid
 			self.close_conn()
 		except:
 			result = sys.exc_info()
@@ -131,8 +134,6 @@ class Database(object):
 		if self.groupBy != "":
 			querry += self.groupBy
 
-		print (querry)
-
 		result = self.raw_get_querry(querry)
 		self.reset_querry()
 		return result
@@ -159,7 +160,6 @@ class Database(object):
 		self.reset_querry()
 		return result
 
-
 	# Add joins to querry
 	def join(self, table, condition, type = "INNER"):
 		self.joins += type + " JOIN " + table +" ON " + condition +"\n"
@@ -179,6 +179,7 @@ class Database(object):
 
 	# table; string, table name
 	# values; dictonary {'columnname':'value'}, columnames and value
+	# return; last rowid
 	def insert(self, table, values):
 		columns = ""
 		value = ""
@@ -198,11 +199,12 @@ class Database(object):
 				else:
 					value += ', ' + str(values[key])
 		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
-		return self.raw_querry(querry)
+		return self.raw_querry(querry, False)
 
 	# table; string, table name
 	# values; dictonary (eg {'columnname':'value'}), columnames and value
 	# this function also makes use of any arguments passed to where()
+	# return; 
 	def update(self, table, values):
 		updates = ''
 		for key in values:
@@ -212,9 +214,9 @@ class Database(object):
 				updates += ', ' + key + ' = '
 			if isinstance(values[key], str):
 				updates += '"' + values[key] +'"'
-			columns += key + ', '
-			if isinstance(values[key], str):
-				value += '"' + str(values[key]) + '", '
+			# columns += key + ', '
+			# if isinstance(values[key], str):
+			# 	value += '"' + str(values[key]) + '", '
 			else:
 				updates += values[key]
 
@@ -228,6 +230,7 @@ class Database(object):
 
 	# table: string, table name
 	# this function also uses the arguments passed to where()
+	# return; number of rows affected
 	def delete(self, table):
 		querry = 'DELETE FROM {} \n'.format(table)
 		if self.wheres != '':
@@ -243,17 +246,17 @@ class Database(object):
 		else:
 			self.groupBy += " , "+ column
 	
-	def createJson(arg):
-		db = Database()
-		Query = db.get_all(arg)
-		location = "website/"+arg
-		extention = ".json"
-		total = location + extention
+	# ===depricated===
+	# def createJson(arg):
+	# 	db = Database()
+	# 	Query = db.get_all(arg)
+	# 	location = "website/"+arg
+	# 	extention = ".json"
+	# 	total = location + extention
 
-		with open(total, 'w') as outfile:
-			json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
+	# 	with open(total, 'w') as outfile:
+	# 		json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 	
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
-
