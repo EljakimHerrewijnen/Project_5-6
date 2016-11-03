@@ -12,7 +12,7 @@ class Database(object):
 		self.groupBy = ""
 
 	def open_conn(self):
-		self.conn = sqlite3.connect("data.db")
+		self.conn = sqlite3.connect("website/data.db")
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
 
@@ -96,6 +96,7 @@ class Database(object):
 			self.close_conn()
 		except:
 			final = sys.exc_info()
+			print(final)
 		return final
 	
 	# executes given query
@@ -113,6 +114,7 @@ class Database(object):
 			result = sys.exc_info()
 			print("raw query error")
 			print(querry)
+			print(result)
 		return result
 
 	# rest values for querry
