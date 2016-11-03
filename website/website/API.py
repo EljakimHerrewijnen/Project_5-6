@@ -96,7 +96,7 @@ def ProductsRouteHandler():
 #
 #    return Response(db.to_jsonarray(result), mimetype='application/json')
 
-
+"""
 @app.route('/api/account', methods=['POST'])
 def post_account():
 
@@ -135,3 +135,9 @@ def get_account():
     db = Database()
     account = accountDAO.Find("bart")
     return account.toJson(), 200
+"""
+
+@app.route('/api/account', methods=['POST'])
+def create_account():
+    accountDAO.Create(request.get_json())
+    return "success", 400

@@ -23,10 +23,8 @@ def Find(postal_code, street_number):
     return addres[0]
 
 
-def _toSqlArgs(address):
-    return {
-        "postal_code"   : address.postal_code,
-        "house_number"  : address.house_number,
-        "country"       : address.country,
-        "city"          : address.city
-    }
+def FindByUser(username):
+    db = Database()
+    db.join("Address a", "a.postal_code = p.postal_code AND a.house_number = p.house_number")
+    db.where("username", username)
+    return db.get_all("player_address p", "a.*")

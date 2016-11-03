@@ -6,11 +6,13 @@ def Create(username, order_content):
     db = Database()
     order = {
         "username" : username,
-        "order-date" : date.today().isoformat()
+        "order-date" : date.today().isoformat(),
+        "postal_code" : order_content["address"]["postal_code"],
+        "house_number" : order_content["address"]["house_number"]
     }
-
     order_id = db.insert("orders", order)
-    for order_line in order_content:
+
+    for order_line in order_content["items"]:
         order_details = {
             "order_id" : order_id,
             "quanity" : order_line["quantity"],
@@ -39,7 +41,7 @@ def FindAll():
     return orders
 
 
-def FindByAccount(username):
+def FindByUser(username):
     db = Database()
     db.where("username", username)
     orders = db.get_all("orders")

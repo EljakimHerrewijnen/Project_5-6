@@ -26,12 +26,12 @@ class Account:
             "birthDate"     : dateToDict(self.birthDate),
             "banned"        : self.banned,
             "registerDate"  : dateToDict(self.registerDate),
-            "wishlist"      :[],
-            "orders"        :[],
-            "favorites"     :[],
-            "accountType"   :self.accountType,
-            "wishListPublic":self.wishListPublic,
-            "address"       :self.address.toDict()
+            "wishlist"      : [],
+            "orders"        : [],
+            "favorites"     : [],
+            "accountType"   : self.accountType,
+            "wishListPublic": self.wishListPublic,
+            "address"       : self.address.toDict()
         }
 
 
