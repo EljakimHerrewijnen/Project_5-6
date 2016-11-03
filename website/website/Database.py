@@ -5,7 +5,6 @@ import sys
 class Database(object):
 	# Contructior opens database
 	def __init__(self):
-
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
@@ -79,6 +78,21 @@ class Database(object):
 			final = sys.exc_info()
 		return final
 
+	def raw_get_one_querry(self, querry):
+		try:
+			self.open_conn()
+			self.c.execute(querry)
+			result = self.c.fetchone()
+			names = [description[0] for description in self.c.description]
+
+			final = {}
+			for value in range(0, len(result)):
+				final[names[value]] = result[value]
+			self.close_conn()
+		except:
+			final = sys.exc_info()
+		return final
+
 	def raw_querry(self, querry):
 		try:
 			self.open_conn()
@@ -122,6 +136,29 @@ class Database(object):
 		result = self.raw_get_querry(querry)
 		self.reset_querry()
 		return result
+
+	# Build querry form components
+	# This funtion makes us of any argumetns passed to where(), join()
+	def get_one(self, table, select = "*"):
+		self.select = select
+		self.froms = table
+
+		querry = "SELECT " + self.select +" \n"
+		querry += "FROM " + self.froms + " \n"
+		if self.joins != "":
+			querry += self.joins
+
+		if self.wheres != "":
+			querry += self.wheres
+		if self.groupBy != "":
+			querry += self.groupBy
+
+		print (querry)
+
+		result = self.raw_get_one_querry(querry)
+		self.reset_querry()
+		return result
+
 
 	# Add joins to querry
 	def join(self, table, condition, type = "INNER"):
@@ -219,3 +256,4 @@ class Database(object):
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
+
