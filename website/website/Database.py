@@ -12,7 +12,11 @@ class Database(object):
 		self.groupBy = ""
 
 	def open_conn(self):
+		# api route
 		self.conn = sqlite3.connect("website/data.db")
+		# # this file test use route
+		# self.conn = sqlite3.connect("data.db")
+
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
 
@@ -89,10 +93,11 @@ class Database(object):
 			self.c.execute(querry)
 			result = self.c.fetchone()
 			names = [description[0] for description in self.c.description]
-
 			final = {}
-			for value in range(0, len(result)):
-				final[names[value]] = result[value]
+			if result != None:
+				for i in range(0, len(result)):
+					final[names[i]] = result[i]
+					print (final)
 			self.close_conn()
 		except:
 			final = sys.exc_info()
@@ -267,3 +272,11 @@ class Database(object):
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
+
+
+db = Database()
+# print(db.insert_coffee())
+
+# print(db.reset_database())
+print(db.get_one("product_aroma"))
+print(db.get_one("address"))
