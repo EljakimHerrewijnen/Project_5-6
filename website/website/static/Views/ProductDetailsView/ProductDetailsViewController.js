@@ -33,3 +33,10 @@ $(document).ready(function(){
     var pipeline = buildProduct(id, buildView(onAssetsLoaded));
     pipeline();
 });
+
+function storedata()
+{
+    window.alert("hello");
+    console.log("tried");
+    //localStorage.setItem("product", id, name, description);
+}
