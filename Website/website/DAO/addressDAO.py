@@ -27,4 +27,4 @@ def FindByUser(username):
     db = Database()
     db.join("Address a", "a.postal_code = p.postal_code AND a.house_number = p.house_number")
     db.where("username", username)
-    return db.get_all("player_address p", "a.*")
+    return db.get_all("user_address p", "a.*")
