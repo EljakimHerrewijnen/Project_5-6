@@ -29,22 +29,22 @@ def createAccount():
     except Exception as e:
         return "Failure!", 400
 
-@app.route('/api/account', methods=['GET'])
-def getAccount():
-    try:
-        username = "Arjen" 
-        #session['username']
-    except:
-        return "failed", 400
-    SQLaccount = Models.Account.find(username)
-    if(SQLaccount == None):
-        return "Failure!", 400
+# @app.route('/api/account', methods=['GET'])
+# def getAccount():
+#     try:
+#         username = "Arjen" 
+#         #session['username']
+#     except:
+#         return "failed", 400
+#     SQLaccount = Models.Account.find(username)
+#     if(SQLaccount == None):
+#         return "Failure!", 400
     
-    account = Models.Account._fromSql(SQLaccount[0])
-    # return "Succes!", 200
+#     account = Models.Account._fromSql(SQLaccount[0])
+#     # return "Succes!", 200
 
-    # accounts = Models.Account._getAll()
-    return Response(Models.Account.ToJson(account), mimetype="application/json")
+#     # accounts = Models.Account._getAll()
+#     return Response(Models.Account.ToJson(account), mimetype="application/json")
 
 
 @app.route('/api/login', methods=['POST'])
