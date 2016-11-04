@@ -1,3 +1,5 @@
+var viewContainer = $("#view-container");
+
 function buildView() {
     ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
         var view = $(_view);
@@ -17,3 +19,7 @@ function getshoppingcart()
     console.log(product);
     var productobject = JSON.parse(product);
 }
+
+$(document).ready(function() {
+    buildView()
+});
