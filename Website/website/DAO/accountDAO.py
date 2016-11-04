@@ -6,6 +6,7 @@ import website.DAO.favoritesDAO as favoritesDAO
 import website.DAO.orderDAO as orderDAO
 from datetime import date
 
+# Create user
 def Create(account):
     db = Database()
     d = account["birth_date"]
@@ -22,15 +23,15 @@ def Create(account):
     account["banned"] = 0
     return db.insert("account", account)
 
-
+# Get all users
 def FindAll():
     db = Database()
     accounts = db.get_all("account")
     for account in accounts:
         GetFullProperties(account)
-        
     return accounts
 
+# Get one user by username
 def Find(username):
     db = Database()
     db.where("username", username)
@@ -38,13 +39,13 @@ def Find(username):
     GetFullProperties(account)
     return account
 
-
+# Delete user
 def Delete(username):
     db = Database()
     db.where("username", username)
     db.delete("username")
 
-
+# update information in user
 def Update(account):
     db = Database()
     d = account["birthDate"]
@@ -55,9 +56,10 @@ def Update(account):
     ).isoformat()
     account["birthDate"] = birthDate
 
+    db.where("username", account["username"])
     db.update("account", account)
 
-
+# Add user specific wishlist, order, favorites and adress information to given Account
 def GetFullProperties(account):
     username = account["username"]
     account["wishList"] = wishDAO.FindByUser(username)

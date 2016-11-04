@@ -1,5 +1,6 @@
 from website.Database import Database
 
+# Add adress to user
 def Create(postal_code, house_number, username):
     db = Database()
     sql = {
@@ -9,7 +10,7 @@ def Create(postal_code, house_number, username):
     }
     return db.insert("user_address", sql)
 
-
+# Remove adress from user
 def Delete(postal_code, house_number, username):
     db = Database()
     db.where("postal_code", postal_code)

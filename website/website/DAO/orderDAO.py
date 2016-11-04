@@ -2,6 +2,7 @@ from website.Database import Database
 import website.DAO.productDAO as productDAO
 from datetime import date
 
+# Create order
 def Create(username, order_content):
     db = Database()
     order = {
@@ -19,11 +20,10 @@ def Create(username, order_content):
         }
         db.insert("order_details", order_detail)
 
-
 def Delete():
     pass
 
-
+# Get order with products
 def Find(order_id):
     db = Database()
     db.where("orders_id", order_id)
@@ -31,7 +31,7 @@ def Find(order_id):
     sqlResult["products"] = productDAO.FindByOrder(sqlResult["order_id"])
     return sqlResult
 
-
+# Get all orders
 def FindAll():
     db = Database()
     orders = db.get_all("orders")
@@ -39,7 +39,7 @@ def FindAll():
         order["products"] = productDAO.FindByOrder(order["order_id"])
     return orders
 
-
+# Get all orders for by user
 def FindByUser(username):
     db = Database()
     db.where("username", username)
