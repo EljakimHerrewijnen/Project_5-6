@@ -15,12 +15,12 @@ def Create(account):
         int(d["month"]),
         int(d["day"])
     ).isoformat()
-
     registrationDate = date.today().isoformat()
-
     account["birth_date"] = birthDate
     account["register_date"] = registrationDate
     account["banned"] = 0
+    account["wishlist_public"] = False
+    account["account_type"] = "user"
     return db.insert("account", account)
 
 # Get all users
@@ -36,6 +36,8 @@ def Find(username):
     db = Database()
     db.where("username", username)
     account = db.get_one("account")
+    if not account:
+        return {}
     GetFullProperties(account)
     return account
 

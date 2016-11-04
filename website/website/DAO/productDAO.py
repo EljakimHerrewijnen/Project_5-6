@@ -4,14 +4,20 @@ from website.Database import Database
 def Find(product_id):
     db = Database()
     db.where("product_id", product_id)
-    sqlResult = db.get_one("product")
+    product = db.get_one("product")
+    if not product:
+        return None
+
     product["aromas"] = _getAroma(product["product_id"])
     return product
 
 # Get all products
 def FindAll():
     db = Database()
-    sqlResult = db.get_all("product") 
+    sqlResult = db.get_all("product")
+    if not sqlResult:
+        return None
+
     for product in sqlResult:
         aromas = _getAroma(product["product_id"])
         product["aromas"] = aromas
@@ -29,8 +35,9 @@ def _getAroma(product_id):
 def FindByOrder(order_id):
     db = Database()
     db.join("product p", "p.product_id = od.product_id")
-    db.where("order_id", order_id)
-    sqlResult = db.find_all("order_details od", "p.*, od.quantity")
+    db.where("orders_id", order_id)
+    sqlResult = db.get_all("order_details od", "p.*, od.quantity")
+    print (order_id)
     for product in sqlResult:
         aromas = _getAroma(product["product_id"])
         product["aromas"] = aromas

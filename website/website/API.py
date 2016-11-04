@@ -144,18 +144,54 @@ def get_account():
     return account.toJson(), 200
 """
 
-@app.route('/api/account', methods=['POST'])
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    if 'username' in session:
+        session.clear()
+        return "logged out"
+    return "not logged in"
+
+
+@app.route('/api/user/account', methods=['POST'])
 def create_account():
-    accountDAO.Create(request.get_json())
+    result = accountDAO.Create(request.get_json())
+    if type(result) == sqlite3.Error:
+        return "Could not create address", 400
+
     return "success", 200
 
 
-def get_account():
-    return accountDAO.find(files)
+@app.route('/api/user/account', methods=['GET'])
+def getAccount():
+    sessionUsername = GetCurrentUsername()
+    if not sessionUsername:
+        return "Unauthorized", 401
+
+    completeAccount = accountDAO.Find(sessionUsername)
+    jsonResult = json.dumps(completeAccount)
+    return Response(jsonResult, mimetype="application/json") 
+
+
+@app.route('/api/login', methods=['POST'])
+def loginAccount():
+    postData = request.get_json()
+    username = postData['username']
+    password = postData['password']
+    
+    account = accountDAO.Find(username)
+    if not account:
+        return "Invalid Username", 400
+
+    if not (password == account['password']):
+        return "Invalid password", 400
+    
+    session['username'] = username
+    return "Success", 200
+
     
 # Get addresses of a user
 @app.route('/api/user/address', methods=['POST'])
-def create_addres():
+def add_address():
     username = GetCurrentUsername()
     if (not username):
         return "Unauthorized", 401
@@ -167,6 +203,7 @@ def create_addres():
     address = addressDAO.Find(postal_code, house_number)
 
     # address does not exist: create address
+    result = None
     if (not address):
         result = addressDAO.Create(postData)
         address = addressDAO.Find(postal_code, house_number)
@@ -326,8 +363,8 @@ def get_order(order_id):
     order = orderDAO.Find(order_id)
     if type(order) == sqlite3.Error:
         return "Database error, could not find order", 400
-    if (order['account']['username'] == username):
-        return orders, 200
+    if (order['username'] == username):
+        return Response(json.dumps(order), 200, mimetype='application/json', )
     return "Unauthorized", 401
 
 

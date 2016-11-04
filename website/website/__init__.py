@@ -10,5 +10,3 @@ app.debug = True
 
 import website.views
 import website.API
-import website.authentication
-import website.API_partial

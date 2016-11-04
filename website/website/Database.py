@@ -115,6 +115,7 @@ class Database(object):
 			self.close_conn()
 		except:
 			result = sys.exc_info()
+			print(result)
 			print("raw query error")
 			print(querry)
 		return result
