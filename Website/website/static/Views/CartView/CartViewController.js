@@ -8,10 +8,12 @@ function buildView() {
     });
 }
 
-function storedata(id, name, description)
-{
-    window.alert("hello")
-    localStorage.setItem("product", id, name, description);
+function storedata(name)
+{    
+    localStorage.setItem("name", name);
+    var storagename = localStorage.getItem("name");
+    window.alert(storagename);
+    console.log("Done")
 }
 
 function getshoppingcart()

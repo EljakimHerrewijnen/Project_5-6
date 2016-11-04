@@ -32,11 +32,13 @@ function buildProduct(id, onComplete) {
 $(document).ready(function(){   
     var pipeline = buildProduct(id, buildView(onAssetsLoaded));
     pipeline();
-});
+}); 
 
 function storedata()
-{
-    window.alert("hello");
-    console.log("tried");
-    //localStorage.setItem("product", id, name, description);
+{    
+    var productname = document.getElementById("cartbutton").value;
+    //window.alert("hello");    
+    localStorage.setItem("name", productname);
+    var namestorage = localStorage.getItem("name");
+    window.alert(namestorage);
 }
