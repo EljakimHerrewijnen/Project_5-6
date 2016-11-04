@@ -47,11 +47,11 @@ def createAccount():
 #     return Response(Models.Account.ToJson(account), mimetype="application/json")
 
 
-@app.route('/api/login', methods=['POST'])
-def login_user():
-    username = request.form['username']
-    password = request.form['password']
-    if (username == "test" and password == "test"):
-        session['username'] = username
-        return "Success", 200
-    return "Failure", 400
+# @app.route('/api/login', methods=['POST'])
+# def login_user():
+#     username = request.form['username']
+#     password = request.form['password']
+#     if (username == "test" and password == "test"):
+#         session['username'] = username
+#         return "Success", 200
+#     return "Failure", 400

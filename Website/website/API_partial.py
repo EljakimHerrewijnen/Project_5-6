@@ -24,3 +24,18 @@ def getAccount():
 
     jsonResult = json.dumps(completeAccount, sort_keys=True, indent=4)
     return Response(jsonResult, mimetype="application/json") 
+
+@app.route('/api/login', methods=['POST'])
+def loginAccount():
+    username = request.form['username']
+    password = request.form['password']
+
+    try:
+        account = accountDAO.Find(username)
+    except:
+        return "Invalid Username", 400
+
+    if(not password == account['password']):
+        return "Invalid password", 400
+    
+    session['username'] = username
