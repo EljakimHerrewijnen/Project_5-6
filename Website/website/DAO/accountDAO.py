@@ -59,7 +59,7 @@ def Update(account):
 
 
 def GetFullProperties(account):
-    account["wishList"] = wishDAO.FindByUser(username)
-    account["orders"] = orderDAO.FindByUser(username)
-    account["favorites"] = favoritesDAO.FindByUser(username)
-    account["addresses"] = addressDAO.FindByUser(username)
+    account["wishList"] = wishDAO.FindByUser(account["username"])
+    account["orders"] = orderDAO.FindByUser(account["username"])
+    account["favorites"] = favoritesDAO.FindByUser(account["username"])
+    account["addresses"] = addressDAO.FindByUser(account["username"])
