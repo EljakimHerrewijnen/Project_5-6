@@ -51,7 +51,7 @@ def getAccount():
 def login_user():
     username = request.form['username']
     password = request.form['password']
-    if (username == "test" and password == "test"):
+    if (username == "bart" and password == "bart"):
         session['username'] = username
         return "Success", 200
     return "Failure", 400

@@ -15,8 +15,7 @@ def Create(username, order_content):
     for order_line in order_content["items"]:
         order_details = {
             "order_id" : order_id,
-            "quanity" : order_line["quantity"],
-            "product_id" : product_id
+            "quanity" : order_line["quantity"]
         }
         db.insert("order_details", order_detail)
 
