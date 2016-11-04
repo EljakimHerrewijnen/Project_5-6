@@ -101,7 +101,6 @@ class Database(object):
 			self.close_conn()
 		except:
 			final = sys.exc_info()
-			print(final)
 		return final
 	
 	# executes given query
