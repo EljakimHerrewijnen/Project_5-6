@@ -11,20 +11,36 @@ function buildView() {
 }
 
 function onSuccessfulRegistration() {
-    $('#register-error-box').text("success!");
+    alert("Created your account")
 }
 
 function onFailedRegistration(jqXHR, textStatus, errorThrown) {
-    $('#register-error-box').text(jqXHR.responseText);
+    alert("Failed to creae accounts: " + jqXHR.responseText)
 }
 
 function onViewLoad() {
     $('#register-form').on('submit', function (e) {
         e.preventDefault();
-        if (validateRegistrationForm())
-        {
-            authenticationService.createUser($("#register-form").serialize(),onSuccessfulRegistration, onFailedRegistration);
+
+        var formValues = {}
+        $("#register-form").serializeArray().map( function(field) {
+            formValues[field.name] = field.value;
+        });
+        console.log(formValues)
+        jsonValues = {}
+        jsonValues["username"] = formValues.username
+        jsonValues["password"] = formValues.password
+        jsonValues["name"] = formValues.name
+        jsonValues["surname"] = formValues.surname
+        jsonValues["birth_date"] = {
+            day : formValues.day,
+            month : formValues.month,
+            year : formValues.year
         }
+        jsonValues["email"] = formValues.email
+        jsonValues = JSON.stringify(jsonValues)
+        console.log(jsonValues)
+        authenticationService.createUser(jsonValues,onSuccessfulRegistration, onFailedRegistration);
     });
 
 
@@ -34,21 +50,21 @@ function onViewLoad() {
         {
             var username = $('#login-form input[name=username]').val();
             var password = $('#login-form input[name=password]').val()
-            authenticationService.attemptLogin(username, password, onSuccessfulRegistration, onFailedRegistration);
+            authenticationService.attemptLogin(username, password, successLogin, failedLogin);
         }
     });
 }
 
 $(document).ready(function() {
-    buildView()
+    buildView();
 });
 
 function failedLogin() {
-    $('#register-error-box').text("Failed to log in!");
+    alert("Failed to log in")
 }
 
 function successLogin() {
-    $('#register-error-box').text("Logged in!");
+    window.location.replace("http://localhost:5555/account")
 }
 
 function validateLoginForm() {

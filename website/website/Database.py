@@ -222,6 +222,8 @@ class Database(object):
 				updates += ', ' + key + ' = '
 			if isinstance(values[key], str):
 				updates += '"' + values[key] +'"'
+			elif isinstance(values[key], int):
+				updates += "'" + str(values[key]) + "'"
 			# columns += key + ', '
 			# if isinstance(values[key], str):
 			# 	value += '"' + str(values[key]) + '", '

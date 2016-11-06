@@ -10,6 +10,7 @@ from datetime import date
 def Create(account):
     db = Database()
     d = account["birth_date"]
+    print(d)
     birthDate = date(
         int(d["year"]),
         int(d["month"]),
@@ -19,7 +20,7 @@ def Create(account):
     account["birth_date"] = birthDate
     account["register_date"] = registrationDate
     account["banned"] = 0
-    account["wishlist_public"] = False
+    account["wishlist_public"] = 0
     account["account_type"] = "user"
     return db.insert("account", account)
 
@@ -50,13 +51,14 @@ def Delete(username):
 # update information in user
 def Update(account):
     db = Database()
-    d = account["birthDate"]
-    birthDate = date(
-        int(d["year"]),
-        int(d["month"]),
-        int(d["day"])
+    bd = account["birth_date"]
+    birth_date = date(
+        int(bd["year"]),
+        int(bd["month"]),
+        int(bd["day"])
     ).isoformat()
-    account["birthDate"] = birthDate
+
+    account["birth_date"] = birth_date
 
     db.where("username", account["username"])
     db.update("account", account)

@@ -56,13 +56,13 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
 
 function jsonToProduct(json) {
     return new Product(
-        json.id,
+        json.product_id,
         json.name,
         json.origin,
         json.aromas,
         json.price,
         json.description,
-        json.roast,
-        json.image
+        json.roast_level,
+        "images/" + json.product_id + ".jpg"
     )
 }

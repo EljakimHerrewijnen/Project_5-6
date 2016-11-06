@@ -146,10 +146,8 @@ def get_account():
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
-    if 'username' in session:
-        session.clear()
-        return "logged out"
-    return "not logged in"
+    session.clear()
+    return "logged out", 200
 
 
 @app.route('/api/user/account', methods=['POST'])
@@ -172,9 +170,23 @@ def getAccount():
     return Response(jsonResult, mimetype="application/json") 
 
 
+@app.route('/api/user/account', methods=['PUT'])
+def updateAccount():
+    sessionUsername = GetCurrentUsername()
+    if not sessionUsername:
+        return "Unauthorized", 401
+    postData = request.get_json()
+    postData['username'] = sessionUsername
+    result = accountDAO.Update(postData)
+    if type(result) == sqlite3.Error:
+        return "Could not update user information", 400
+    return "Success", 200
+
+
 @app.route('/api/login', methods=['POST'])
 def loginAccount():
     postData = request.get_json()
+    print(postData)
     username = postData['username']
     password = postData['password']
     
@@ -282,11 +294,13 @@ def get_favorite():
     return Response(json.dumps(result), 200, mimetype='application/json', )
         
 
-@app.route('/api/user/favorites/<product_id>', methods=['DELETE'])
-def delete_favorite(product_id):
+@app.route('/api/user/favorites', methods=['DELETE'])
+def delete_favorite():
     username = GetCurrentUsername()
     if not username:
         return "Unauthorized", 401
+    product_id = request.get_json()
+    product_id = product_id["product_id"]
     result = favoritesDAO.Delete(username, product_id)
     return "Success", 200
     
@@ -323,11 +337,13 @@ def get_wishlist():
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
-@app.route('/api/user/wishlist/<product_id>', methods=['DELETE'])
-def delete_wishlist(product_id):
+@app.route('/api/user/wishlist', methods=['DELETE'])
+def delete_wishlist():
     username = GetCurrentUsername()
     if not username:
         return "Unauthorized", 401
+    product_id = request.get_json()
+    product_id = product_id["product_id"]
     result = wishDAO.Delete(username, product_id)
     return "Success", 200
     
