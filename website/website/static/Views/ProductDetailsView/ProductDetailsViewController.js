@@ -36,8 +36,10 @@ $(document).ready(function(){
 });
 
 function setupWishListButton() {
-    var user = JSON.parse(localStorage.getItem("user"));
     var button = $('#wishlist_button');
+    var user = authenticationService.User();
+    
+    // If no user, log in.
     if (!user) {
         button.on("click", function(e) {
             window.location.replace("/login");
@@ -45,42 +47,32 @@ function setupWishListButton() {
         return;
     }
 
-    value = JSON.stringify({ "product_id" : parseInt(id) });
+    // Set up initial state
     if (user.wishList.map(function(x) {return x.product_id}).includes(parseInt(id))) {
         button.html("REMOVE FROM WISHLIST");
     } else {
         button.html("ADD TO WISHLIST")
     }
-
-
+    // On click add / remove item
     button.on("click", function(e) {
-        var user = JSON.parse(localStorage.getItem("user"));
+        var user = authenticationService.User();
+        var _id = parseInt(id)
         e.preventDefault();
         if (user.wishList.map(function(x) {return x.product_id}).includes(parseInt(id))) {
-            $.ajax({
-            url: "/api/user/wishlist",
-            method: 'DELETE',
-            contentType : "application/json",
-                data: value,
-                success: authenticationService.getUser(function(e) {
-                    user = e;
-                    console.log(e);
+            authenticationService.removeWish(_id, function(success) {
+                if (success) {
                     button.html("ADD TO WISHLIST");
-                }),
-                error: function(e) {alert(e)}
+                } else {
+                    alert("Could not remove item");
+                }
             });
         } else {
-            $.ajax({
-            url: "/api/user/wishlist",
-            method: 'POST',
-            contentType : "application/json",
-                data: value,
-                success: authenticationService.getUser(function(e) {
-                    user = e;
-                    console.log(e);
+            authenticationService.addWish(_id, function(success) {
+                if (success) {
                     button.html("REMOVE FROM WISHLIST");
-                }),
-                error: function(e) {alert(e)}
+                } else {
+                    alert("Could not add item");
+                }
             });
         }
     });
@@ -88,8 +80,10 @@ function setupWishListButton() {
 
 
 function setupFavoritesButton() {
-    var user = JSON.parse(localStorage.getItem("user"));
     var button = $('#favorites_button');
+    var user = authenticationService.User();
+    
+    // If no user, log in.
     if (!user) {
         button.on("click", function(e) {
             window.location.replace("/login");
@@ -97,44 +91,32 @@ function setupFavoritesButton() {
         return;
     }
 
-    value = JSON.stringify({ "product_id" : parseInt(id) });
+    // Set up initial state
     if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
-        button.html("UNFAVORITE");
+        button.html("REMOVE FROM FAVORITES");
     } else {
-        button.html("FAVORITE")
+        button.html("ADD TO FAVORITES")
     }
-
-
+    // On click add / remove item
     button.on("click", function(e) {
-        var user = JSON.parse(localStorage.getItem("user"));
+        var user = authenticationService.User();
+        var _id = parseInt(id)
         e.preventDefault();
         if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
-            console.log("IN LIST");
-            $.ajax({
-            url: "/api/user/favorites",
-            method: 'DELETE',
-            contentType : "application/json",
-                data: value,
-                success: authenticationService.getUser(function(e) {
-                    user = e;
-                    console.log(e);
+            authenticationService.removeFavorite(_id, function(success) {
+                if (success) {
                     button.html("FAVORITE");
-                }),
-                error: function(e) {alert(e)}
+                } else {
+                    alert("Could not remove item");
+                }
             });
         } else {
-            console.log("NOT IN LIST");
-            $.ajax({
-            url: "/api/user/favorites",
-            method: 'POST',
-            contentType : "application/json",
-                data: value,
-                success: authenticationService.getUser(function(e) {
-                    user = e;
-                    console.log(e);
+            authenticationService.addFavorite(_id, function(success) {
+                if (success) {
                     button.html("UNFAVORITE");
-                }),
-                error: function(e) {alert(e)}
+                } else {
+                    alert("Could not add item");
+                }
             });
         }
     });

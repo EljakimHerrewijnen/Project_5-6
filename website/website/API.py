@@ -142,6 +142,12 @@ def get_account():
     db = Database()
     account = accountDAO.Find("bart")
     return account.toJson(), 200
+
+#Chiel en Eljakim
+@app.route('/api/cart', methods=['GET'])
+def get_cart():
+    db = Database()
+    #Dev 
 """
 
 @app.route('/api/logout', methods=['POST'])
