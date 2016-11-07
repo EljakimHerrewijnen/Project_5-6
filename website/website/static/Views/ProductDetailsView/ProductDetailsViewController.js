@@ -134,3 +134,13 @@ function setupFavoritesButton() {
     });
 }
 
+//function setupcarListButton() {
+//     var button = $('#cartlist_button');  
+//     // On click add / remove item
+//     button.on("click", function(e) {
+//         var _id = parseInt(id)
+//         e.preventDefault();
+//         if  {                  // if clicked add to localstorage           
+//             });
+//         }         
+//     });
