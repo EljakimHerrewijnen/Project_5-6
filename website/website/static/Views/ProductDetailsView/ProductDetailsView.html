@@ -11,14 +11,21 @@
             <div class='detail-panel'>
                 <h2>About</h2>
                 <p>{{description}}</p>
+                <h2>Aromas</h2>
+                <ul>
+                {{#each aromas}}
+                    <li>{{this}}</li>
+                {{/each}}
+                </ul>
             </div>
         </div>
         <div class='detail-column' style="flex-basis: 20%">
-            <div class='detail-panel'>
-                <h2>Purchase</h2>
-                <a>ADD TO CART</a><br>
-                <a>BUY INSTANTLY</a><br>
-                <a id='wishlist_button'>ADD TO WISHLIST</a><br>
+            <div class='detail-panel' id='price-panel'>
+                <h2>€ {{price}}</h2>
+            
+                <a>ADD TO CART</a>
+                <a>BUY INSTANTLY</a>
+                <a id='wishlist_button'>ADD TO WISHLIST</a>
                 <a id='favorites_button'>FAVORITE</a>
             </div>
             <div class='detail-panel' >
@@ -27,8 +34,5 @@
             </div>
             <img>
         </div>
-    </div>
-    <div>
-        <h2>More coffee</h2>
     </div>
 </div>

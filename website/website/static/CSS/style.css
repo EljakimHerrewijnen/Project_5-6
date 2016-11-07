@@ -178,9 +178,21 @@ svg {
     border: 1px solid rgba(0,0,0,0.15);
 }
 
+/*------------------------------------*\
+    $PRODUCTDETAILSVIEW
+\*------------------------------------*/
+
 #product-details-container {
     padding-top: 35px;
     margin: 0px 45px 0px 45px;
+}
+
+#product-details-container #price-panel h2 {
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    margin: 15px;
 }
 
 #product-details-container h1 {
@@ -205,15 +217,18 @@ svg {
     display: block;
     overflow: visible;
     clear: both;
+    padding-bottom: 10px;
 }
 
 .detail-panel a {
     transition: background 0.5s ease;
-    display: inline-block;
+    display: block;
+    text-align: center;
     color: #3BA757;
     text-decoration: none;
     padding: 10px;
-    padding-left: 5px;
+    margin: 0px;
+    padding-left: 0px;
 }
 
 .detail-panel a:hover {
