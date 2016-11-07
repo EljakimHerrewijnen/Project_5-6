@@ -3,7 +3,7 @@
         <h2>Login</h2>
         <form id='login-form'>
             <div>
-                <label>Email</label>
+                <label>Username</label>
                 <input type='text' placeholder='username' name='username'>
             </div>
             <div>
@@ -18,35 +18,33 @@
         <form id='register-form'>
             <p id='register-error-box'></p>
             <h3>Account info</h3>
-
-            <label>Username</label>
-            <input type="text" placeholder="Username" name="username" required>
-
-            <label>Email</label>
-            <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' name='email' required>
-
-            <label>Password</label>
-            <input type='password' placeholder='password' name='password'>
-
-            <label>Password (again)</label>
-            <input type='password' placeholder='password (again)' name='password_verify'>
-
-            <h3>Personal information</h3>
-            <label>Name</label>
-            <input type='text' placeholder='Name' name='name'>
-            <input type='text' placeholder='Surname' name='surname'>
-
-            <label>Address</label>
-            <input type='text' placeholder='Postal code' name='postal_code'>
-            <input type='text' placeholder='Number' name='number'>
-            <input type='text' placeholder='Country' name='country'>
-            <input type='text' placeholder='City' name='city'>
-
-            <label>Date of birth</label>
-            <input type='text' placeholder='Year' name='year'>
-            <input type='text' placeholder='Month' name='month'>
-            <input type='text' placeholder='Day' name='day'>
-
+            <div>
+                <label>Username</label>
+                <input type="text" placeholder="Username" name="username" required>
+            </div>
+            <div>
+                <label>Email</label>
+                <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' name='email' required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type='password' placeholder='password' name='password'>
+            </div>
+            <div>
+                <label>Password (again)</label>
+                <input type='password' placeholder='password (again)' name='password_verify'>
+            </div>
+            <div>
+                <label>Name</label>
+                <input type='text' placeholder='Name' name='name'>
+                <input type='text' placeholder='Surname' name='surname'>
+            </div>
+            <div>
+                <label>Date of birth</label>
+                <input type='text' placeholder='Year' name='year'>
+                <input type='text' placeholder='Month' name='month'>
+                <input type='text' placeholder='Day' name='day'>
+            </div>
             <button id='login-button'>Register</button>
         </form>
     </div>

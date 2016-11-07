@@ -1,0 +1,16 @@
+<form id="user-info-form">
+    <label>Username</label>
+    <div class='username'><input type="text" placeholder="Username" name="username" value='{{username}}' required></div>
+
+    <label>Email</label>
+    <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' value='{{email}}' name='email' required>
+
+    <input type='text' placeholder='Name' value='{{name}}'name='name'>
+    <input type='text' placeholder='Surname' value='{{surname}}'name='surname'>
+
+    <input type='text' placeholder='Year' value='{{birth_date.year}}'name='year'>
+    <input type='text' placeholder='Month' value='{{birth_date.month}}' name='month'>
+    <input type='text' placeholder='Day' value='{{birth_date.day}}' name='day'>
+
+    <button id='login-button'>Update</button>
+</form>

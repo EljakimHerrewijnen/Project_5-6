@@ -17,3 +17,7 @@ def login():
 @app.route('/cart')
 def cart():
     return render_template("BaseContainerCart.html");
+
+@app.route('/account')
+def user_page():
+    return render_template("BaseContainerAccount.html")

@@ -3,7 +3,18 @@ CREATE TABLE address (
  house_number INT NOT NULL,
  country CHAR(25),
  city CHAR(25),
+ street CHAR(25),
  PRIMARY KEY(postal_code, house_number)
+);
+
+CREATE TABLE user_address (
+ postal_code CHAR(6) NOT NULL,
+ house_number INT NOT NULL,
+ username CHAR(15) NOT NULL,
+ PRIMARY KEY(postal_code, house_number, username),
+ FOREIGN KEY (username) REFERENCES account (username),
+ FOREIGN KEY (postal_code) REFERENCES product (postal_code),
+ FOREIGN KEY (house_number) REFERENCES product (house_number)
 );
 
 CREATE TABLE product (
@@ -39,10 +50,7 @@ CREATE TABLE account (
  banned INT,
  register_date CHAR(10),
  account_type CHAR(15),
- wishlist_public INT,
- postal_code CHAR(6),
- house_number INT,
- FOREIGN KEY (postal_code,house_number) REFERENCES address (postal_code,house_number)
+ wishlist_public INT 
 );
 
 CREATE TABLE favorites (
@@ -57,7 +65,11 @@ CREATE TABLE orders (
  orders_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  username CHAR(15) NOT NULL,
  orders_date CHAR(10),
- FOREIGN KEY (username) REFERENCES account (username)
+ postal_code CHAR(6) NOT NULL,
+ house_number INT NOT NULL,
+ FOREIGN KEY (username) REFERENCES account (username),
+ FOREIGN KEY (postal_code) REFERENCES product (postal_code),
+ FOREIGN KEY (house_number) REFERENCES product (house_number)
 );
 
 CREATE TABLE order_details (
