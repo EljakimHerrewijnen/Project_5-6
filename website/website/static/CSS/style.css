@@ -261,3 +261,262 @@ svg {
 #register-error-box {
     color: red;
 }
+
+
+nav a {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+nav a :hover{
+    color: #3BA757;
+}
+
+
+
+.login-view-container input {
+    display: block;
+    font-size: 20px;
+    padding: 4px;
+    border: 1px solid rgba(0,0,0,0.3);
+    padding-bottom: 8px;
+    box-shadow: none;
+    z-index: 1;
+}
+
+.login-view-container input:focus {
+    border: 1px solid #3BA757;
+    outline: none;
+}
+
+
+/*------------------------------------*\
+    $ACCOUNTVIEW
+\*------------------------------------*/
+
+#account-view-container {
+    padding: 60px;
+    padding-top: 40px;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+#account-view-container h1 {
+    flex-basis:100%;
+    font-weight: 300;
+}
+#account-view-container h2 {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#account-wishlist-container h2 {
+    display: inline-block;
+}
+
+#account-view-container span {
+    font-size :16px;
+    font-weight: 300;
+    color: rgba(0,0,0,0.4);
+}
+
+#account-view-container table {
+    width: 100%;
+    margin: 0px;
+    border-collapse:collapse;
+    font-size: 13px;
+    text-align: left;
+}
+
+#account-view-container input[type=checkbox] {
+    padding: 0px;
+    margin: 0px;
+}
+
+#account-address-container form {
+    margin-top: 20px;
+}
+
+#account-view-container #wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pull-right { 
+    float: right;
+}
+
+#account-view-container a {
+    color: #3BA757;
+}
+
+#account-view-container a:hover {
+    color: #3BA757;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#account-view-container, #account-view-container th, #account-view-container td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#account-view-container tr {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.generic-panel {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: block;
+    overflow: visible;
+    clear: both;
+    flex-basis: 45%;
+}
+
+#account-info-container {
+    flex-basis: 30%;
+}
+
+#account-address-container {
+    margin-top: 50px;
+    flex-basis: 65%;
+}
+
+#account-wishlist-container {
+    flex-basis: 30%;
+}
+
+#account-favorites-container {
+    flex-basis: 30%;
+}
+
+#account-orders-container {
+    margin-top: 50px;
+    flex-basis: 30%;
+}
+
+#logout-button {
+    cursor: pointer;
+}
+
+#account-info-container div {
+    display: flex;
+    margin-bottom: 10px;   
+    justify-content: space-between;
+}
+
+#account-info-container input {
+    border: none;
+    border: 1px solid rgba(0,0,0,0.3);
+    display: inline-block;
+    flex-basis: 80%;
+    font-size:14px;
+    outline:none;
+    font-family: 'Roboto';
+    color: rgba(0,0,0,0.70);
+    font-weight: 300;
+    padding: 5px;
+    margin: 0px;
+    flex-shrink: 100;
+}
+
+#account-info-container label {
+    margin: 0px;
+    font-family: 'Roboto Condensed';
+    font-weight: 300;
+    flex-basis: 20%;
+    display: inline-block;
+    padding:5px;
+}
+
+#account-info-container input:focus{
+    border-color: rgba(0,100,0,0.5);
+}
+
+#account-info-container button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: white;
+    font-size: 16px;
+    float: right;
+    text-align: center;
+    outline:none;
+    box-shadow:none;
+    border: 0px;
+    transition: background 0.5s ease;
+    display: inline-block;
+    color: #3BA757;
+    text-decoration: none;
+    margin: 0px;
+    padding: 10px;
+}
+
+#account-info-container button:hover {
+    cursor: pointer;
+    background-color: rgba(59, 167, 87, 0.2);
+}
+
+
+
+/*------------------------------------*\
+    $LOGINVIEW
+\*------------------------------------*/
+#register-form div, #login-form div {
+    display: flex;
+    margin-bottom: 10px;   
+    justify-content: space-between;
+}
+
+#register-form input, #login-form input {
+    border: none;
+    border: 1px solid rgba(0,0,0,0.3);
+    display: inline-block;
+    flex-basis: 80%;
+    font-size:14px;
+    outline:none;
+    font-family: 'Roboto';
+    color: rgba(0,0,0,0.70);
+    font-weight: 300;
+    padding: 5px;
+    margin: 0px;
+    flex-shrink: 100;
+}
+
+#register-form  label, #login-form  label {
+    margin: 0px;
+    font-family: 'Roboto Condensed';
+    font-weight: 300;
+    flex-basis: 20%;
+    display: inline-block;
+    padding:5px;
+}
+
+#register-form  input:focus, #login-form  input:focus{
+    border-color: rgba(0,100,0,0.5);
+}
+
+#register-form  button, #login-form  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: white;
+    font-size: 16px;
+    float: right;
+    text-align: center;
+    outline:none;
+    box-shadow:none;
+    border: 0px;
+    transition: background 0.5s ease;
+    display: inline-block;
+    color: #3BA757;
+    text-decoration: none;
+    margin: 0px;
+    padding: 10px;
+}
+
+#register-form  button:hover, #login-form  button:hover {
+    cursor: pointer;
+    background-color: rgba(59, 167, 87, 0.2);
+}

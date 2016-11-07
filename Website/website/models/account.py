@@ -24,14 +24,14 @@ class Account:
             "surname"       : self.surname,
             "email"         : self.email,
             "birthDate"     : dateToDict(self.birthDate),
-            "banned"        :self.banned,
+            "banned"        : self.banned,
             "registerDate"  : dateToDict(self.registerDate),
-            "wishlist"      :[],
-            "orders"        :[],
-            "favorites"     :[],
-            "accountType"   :self.accountType,
-            "wishListPublic":self.wishListPublic,
-            "address"       :self.address.toDict()
+            "wishlist"      : [],
+            "orders"        : [],
+            "favorites"     : [],
+            "accountType"   : self.accountType,
+            "wishListPublic": self.wishListPublic,
+            "address"       : self.address.toDict()
         }
 
 

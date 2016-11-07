@@ -12,4 +12,9 @@ def products(id):
 
 @app.route('/login')
 def login():
-    return render_template("BaseContainerLogin.html");
+    return render_template("BaseContainerLogin.html")
+
+
+@app.route('/account')
+def user_page():
+    return render_template("BaseContainerAccount.html")

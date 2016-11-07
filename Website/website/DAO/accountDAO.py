@@ -1,83 +1,72 @@
 from website.models.account import Account
 from website.Database import Database
 import website.DAO.addressDAO as addressDAO
+import website.DAO.wishDAO as wishDAO
+import website.DAO.favoritesDAO as favoritesDAO
+import website.DAO.orderDAO as orderDAO
 from datetime import date
 
+# Create user
 def Create(account):
     db = Database()
-    account = _toSqlArgs(account)
-    print(account)
+    d = account["birth_date"]
+    print(d)
+    birthDate = date(
+        int(d["year"]),
+        int(d["month"]),
+        int(d["day"])
+    ).isoformat()
+    registrationDate = date.today().isoformat()
+    account["birth_date"] = birthDate
+    account["register_date"] = registrationDate
+    account["banned"] = 0
+    account["wishlist_public"] = 0
+    account["account_type"] = "user"
     return db.insert("account", account)
 
-
+# Get all users
 def FindAll():
     db = Database()
-    sqlAccounts = db.get_all("account")
-    print(sqlAccounts)
-    accounts = list(map(lambda account: _fromSqlResult(account), sqlAccounts))
+    accounts = db.get_all("account")
+    for account in accounts:
+        GetFullProperties(account)
     return accounts
 
-
-# Result may be none
+# Get one user by username
 def Find(username):
     db = Database()
     db.where("username", username)
+    account = db.get_one("account")
+    if not account:
+        return {}
+    GetFullProperties(account)
+    return account
 
-    user = db.get_all("account")
-    if (user):
-        return _fromSqlResult(user[0])
-    else:
-        return None
-
-
-def Delete(account):
+# Delete user
+def Delete(username):
     db = Database()
     db.where("username", username)
-    db.delete(account.username)
+    db.delete("username")
 
-
+# update information in user
 def Update(account):
     db = Database()
-    db.where("username", account.username)
-    account = _toSqlArgs(account)
-    return db.update("account", account)
+    if ("birth_date" in account):
+        bd = account["birth_date"]
+        birth_date = date(
+            int(bd["year"]),
+            int(bd["month"]),
+            int(bd["day"])
+        ).isoformat()
+        account["birth_date"] = birth_date
 
+    db.where("username", account["username"])
+    db.update("account", account)
 
-def _fromSqlResult(sqlFile):
-    address = addressDAO.Find(sqlFile["postal_code"], sqlFile["house_number"])
-
-    return Account(
-        sqlFile["username"],
-        sqlFile["password"],
-        sqlFile["name"],
-        sqlFile["surname"],
-        sqlFile["email"],
-        splitDate(sqlFile["birth_date"]),
-        splitDate(sqlFile["register_date"]),
-        sqlFile["banned"],
-        sqlFile["account_type"],
-        sqlFile["wishlist_public"],
-        address
-    )
-
-def _toSqlArgs(account):
-    # dictionary where keys correspond with table in the DB.
-    return {
-        "username"          : account.username,
-        "password"          : account.password,
-        "name"              : account.name,
-        "surname"           : account.surname,
-        "birth_date"        : account.birthDate.isoformat(),
-        "email"             : account.email,
-        "banned"            : int(account.banned),
-        "register_date"     : account.registerDate.isoformat(),
-        "account_type"      : account.accountType,
-        "wishlist_public"   : int(account.wishListPublic), 
-        "postal_code"       : account.address.postal_code,
-        "house_number"      : account.address.house_number
-    }
-
-
-def splitDate(d):
-    thing = d.split("-")
-    return date(int(thing[2]), int(thing[1]), int(thing[2]))
+# Add user specific wishlist, order, favorites and adress information to given Account
+def GetFullProperties(account):
+    username = account["username"]
+    account["wishList"] = wishDAO.FindByUser(username)
+    account["orders"] = orderDAO.FindByUser(username)
+    account["favorites"] = favoritesDAO.FindByUser(username)
+    account["addresses"] = addressDAO.FindByUser(username)

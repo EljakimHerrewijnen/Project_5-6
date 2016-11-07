@@ -12,7 +12,11 @@ class Database(object):
 		self.groupBy = ""
 
 	def open_conn(self):
-		self.conn = sqlite3.connect("data.db")
+		# api route
+		self.conn = sqlite3.connect("website/data.db")
+		# this file test use route
+		# self.conn = sqlite3.connect("data.db")
+
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
 
@@ -23,11 +27,16 @@ class Database(object):
 	# Create releavant tables 
 	# Only use if you know what you are doing!!!
 	def create_table(self):
+		tables = ["address", "user_address", "product", "product_aroma", "wishes", "account", "favorites", "orders", "order_details"]
+		for table in tables:
+			query = "DROP TABLE IF EXISTS " + table
+			self.raw_querry(query)
+		print("tables deleted")
 		querrys = open('createdb.sql', 'r').read()
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.raw_get_querry(querry))
+				print (self.raw_querry(querry))
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
@@ -84,10 +93,10 @@ class Database(object):
 			self.c.execute(querry)
 			result = self.c.fetchone()
 			names = [description[0] for description in self.c.description]
-
 			final = {}
-			for value in range(0, len(result)):
-				final[names[value]] = result[value]
+			if result != None:
+				for i in range(0, len(result)):
+					final[names[i]] = result[i]
 			self.close_conn()
 		except:
 			final = sys.exc_info()
@@ -106,6 +115,7 @@ class Database(object):
 			self.close_conn()
 		except:
 			result = sys.exc_info()
+			print(result)
 			print("raw query error")
 			print(querry)
 		return result
@@ -153,8 +163,6 @@ class Database(object):
 			querry += self.wheres
 		if self.groupBy != "":
 			querry += self.groupBy
-
-		print (querry)
 
 		result = self.raw_get_one_querry(querry)
 		self.reset_querry()
@@ -214,6 +222,8 @@ class Database(object):
 				updates += ', ' + key + ' = '
 			if isinstance(values[key], str):
 				updates += '"' + values[key] +'"'
+			elif isinstance(values[key], int):
+				updates += "'" + str(values[key]) + "'"
 			# columns += key + ', '
 			# if isinstance(values[key], str):
 			# 	value += '"' + str(values[key]) + '", '
