@@ -25,6 +25,7 @@ function getshoppingcart()
     var product = localStorage.getItem("product");
     console.log(product);
     var productobject = JSON.parse(product);
+    return productobject
 }
 
 $(document).ready(function() {
