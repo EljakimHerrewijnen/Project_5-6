@@ -68,8 +68,8 @@ CREATE TABLE orders (
  postal_code CHAR(6) NOT NULL,
  house_number INT NOT NULL,
  FOREIGN KEY (username) REFERENCES account (username),
- FOREIGN KEY (postal_code) REFERENCES product (postal_code),
- FOREIGN KEY (house_number) REFERENCES product (house_number)
+ FOREIGN KEY (postal_code) REFERENCES address (postal_code),
+ FOREIGN KEY (house_number) REFERENCES address (house_number)
 );
 
 CREATE TABLE order_details (
