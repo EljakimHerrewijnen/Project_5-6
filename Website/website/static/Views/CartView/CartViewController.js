@@ -1,5 +1,5 @@
 var viewContainer = $("#view-container");
-
+var cartcontents = []
 function buildView() {
     ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
         var view = $(_view);
@@ -8,11 +8,15 @@ function buildView() {
     });
 }
 
+function removedata(){
+
+}
+
 function storedata(name)
 {    
-    localStorage.setItem("name", name);
-    var storagename = localStorage.getItem("name");
-    window.alert(storagename);
+    cartcontents = cartcontents + name;
+    localStorage.setItem("cartcontents", cartcontents);
+    window.alert(cartcontents);
     console.log("Done")
 }
 

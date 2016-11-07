@@ -3,6 +3,7 @@ var product;
 var viewContainer = $("#view-container");
 var pathname = $(location).attr('pathname');
 var id = pathname.substring(pathname.lastIndexOf('/') + 1);
+var cartcontents;
 
 function onAssetsLoaded() {
 
@@ -37,8 +38,10 @@ $(document).ready(function(){
 function storedata()
 {    
     var productname = document.getElementById("cartbutton").value;
+    cartcontents = cartcontents + productname;
+    window.alert(cartcontents)
     //window.alert("hello");    
     localStorage.setItem("name", productname);
     var namestorage = localStorage.getItem("name");
-    window.alert(namestorage);
+    //window.alert(namestorage);
 }
