@@ -51,14 +51,14 @@ def Delete(username):
 # update information in user
 def Update(account):
     db = Database()
-    bd = account["birth_date"]
-    birth_date = date(
-        int(bd["year"]),
-        int(bd["month"]),
-        int(bd["day"])
-    ).isoformat()
-
-    account["birth_date"] = birth_date
+    if ("birth_date" in account):
+        bd = account["birth_date"]
+        birth_date = date(
+            int(bd["year"]),
+            int(bd["month"]),
+            int(bd["day"])
+        ).isoformat()
+        account["birth_date"] = birth_date
 
     db.where("username", account["username"])
     db.update("account", account)

@@ -29,7 +29,7 @@
             <h2>Wishlist</h2>
             <div style='display: flex'>
                 <span style='padding-right: 10px'>Publicly viewable</span>
-                <input type='checkbox' name='wishlist_public'>
+                <input type='checkbox' name='wishlist_public' id='wishlist-public-toggle'>
             </div>
         </div>
         <table>
@@ -42,7 +42,7 @@
                 <tr>
                     <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
                     <td>€{{this.price}}</td>
-                    <td><a onclick=''>Remove</a></td>
+                    <td><a onclick='removeWishItem({{this.product_id}})'>Remove</a></td>
                 </tr>
             {{/each}}
         </table>
@@ -59,7 +59,7 @@
                 <tr>
                     <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
                     <td>€{{this.price}}</td>
-                    <td ><a onclick=''>Remove</a></td>
+                    <td ><a onclick='removeFavoriteItem({{this.product_id}})'>Remove</a></td>
                 </tr>
             {{/each}}
         </table>

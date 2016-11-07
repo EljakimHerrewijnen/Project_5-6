@@ -6,8 +6,8 @@ function userCallback(x) {
 }
 
 function buildView() {
-    if (user == undefined){
-        //window.location.replace("http://localhost:5555/login")
+    if (authenticationService.User() == undefined){
+        window.location.replace("http://localhost:5555/login")
         return;
     }
 
@@ -62,6 +62,8 @@ function onViewLoad() {
             error: onFailedAddressAdd
         })
     });
+
+    wishListToggle();
 }
 
 
@@ -106,3 +108,32 @@ function removeAddress(postal_code, house_number) {
     })
 }
 
+function removeWishItem(id) {
+    authenticationService.removeWish(parseInt(id), function() {
+        window.location.reload();
+    });
+}
+
+function removeFavoriteItem(id) {
+    authenticationService.removeFavorite(parseInt(id), function() {
+        window.location.reload();
+    });
+}
+
+function wishListToggle() {
+    var user = authenticationService.User();
+    var sw = user.wishlist_public == "True";
+    console.log(sw);
+    if (sw) {
+        $("#wishlist-public-toggle").prop("checked", true);
+    }
+
+
+    $('#wishlist-public-toggle').on("change", function(e){
+        sw = $("#wishlist-public-toggle").is(":checked");
+        authenticationService.togglePublicWishlist(sw, function(e){
+            if (e) sw = false;
+            else alert("Could not make wishlist public");
+        });
+    })
+}
