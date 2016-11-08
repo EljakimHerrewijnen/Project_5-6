@@ -22,7 +22,6 @@ function onViewLoad(){
     buildTable();
 }
 
-
 $(document).ready(function() {
     buildView();
 });
@@ -51,7 +50,7 @@ function buildTable(){
         // var amount = document.createTextNode("")    
         var amount = document.createElement("div");
         amount.className = "Amount";
-        amount.innerHTML = "<div><input onchange='updateAmount("+product.id+", value)' type='number' min='1' max='10' placeholder='Amount' value='"+entry['amount']+"' name='name'></div>";
+        amount.innerHTML = "<input onchange='updateAmount("+product.id+", value)'  type='number' min='1' max='9' maxlength='1' placeholder='Amount' value='"+entry['amount']+"' name='name'>  "+entry.amount+" ";
         var price = document.createTextNode("€" + (entry.amount * product.price))
         var remove = document.createElement("div");
         remove.className = "RemoveButton";
@@ -74,13 +73,13 @@ function removeCartItem(id){
 }
 
 function updateAmount(id, value){
+    console.log(value);
     var cart = JSON.parse(localStorage.getItem("shoppingCart"));
     index = productInCart(id, cart)
     cart[index]['amount'] = value
     localStorage.setItem("shoppingCart", JSON.stringify(cart));
-
+    location.reload();
 }
-
 
 function productInCart(id, cart){
     for(i=0; i<cart.length; i++){
