@@ -10,6 +10,7 @@ class Database(object):
 		self.joins = ""
 		self.wheres = ""
 		self.groupBy = ""
+		self.orderBy = ""
 
 	def open_conn(self):
 		# api route
@@ -127,6 +128,7 @@ class Database(object):
 		self.joins = ""
 		self.wheres = ""
 		self.groupBy = ""
+		self.orderBy = ""
 
 	# Build querry form components
 	# This funtion makes us of any argumetns passed to where(), join()
@@ -143,6 +145,8 @@ class Database(object):
 			querry += self.wheres
 		if self.groupBy != "":
 			querry += self.groupBy
+		if self.orderBy != "":
+			querry += self.orderBy
 
 		result = self.raw_get_querry(querry)
 		self.reset_querry()
@@ -163,6 +167,8 @@ class Database(object):
 			querry += self.wheres
 		if self.groupBy != "":
 			querry += self.groupBy
+		if self.orderBy != "":
+			querry += self.orderBy
 
 		result = self.raw_get_one_querry(querry)
 		self.reset_querry()
@@ -255,6 +261,14 @@ class Database(object):
 			self.groupBy += "GROUP BY " + column
 		else:
 			self.groupBy += " , "+ column
+	
+
+	def order_by(self, column):
+		if self.orderBy == "":
+			self.orderBy += "ORDER BY " + column
+		else:
+			self.orderBy += " , "+ column
+	
 	
 	# ===depricated===
 	# def createJson(arg):
