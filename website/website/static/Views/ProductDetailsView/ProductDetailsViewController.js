@@ -143,7 +143,7 @@ function setupcartListButton() {
         cart = []
     }
     var _id = parseInt(id)
-    var position = cart.indexOf(_id)
+    var position = productInCart(_id, cart);
 
     //check if item is already in cart
     if (position > -1) {
@@ -154,10 +154,9 @@ function setupcartListButton() {
     // On click add / remove item
     button.on("click", function(e) {
         e.preventDefault();
-        
-        position = cart.indexOf(_id)
+        position = productInCart(_id, cart);
         if(position == -1){
-            cart.push(_id)
+            cart.push({id:_id, amount:1})
             button.html("REMOVE FROM CART");
         }else{
             cart.splice(position, 1)
@@ -165,4 +164,13 @@ function setupcartListButton() {
         }
         localStorage.setItem("shoppingCart", JSON.stringify(cart));
     });
+}
+
+function productInCart(id, cart){
+    for(i=0; i<cart.length; i++){
+        if(cart[i]['id'] == id){
+            return i;
+        }
+    }
+    return -1;
 }

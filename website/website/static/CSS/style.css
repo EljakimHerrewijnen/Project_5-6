@@ -216,6 +216,14 @@ svg {
     padding-left: 5px;
 }
 
+.RemoveButton a {
+    cursor: pointer;
+}
+
+.RemoveButton a:hover{
+    color: #FF0000;
+}
+
 .detail-panel a:hover {
     cursor: pointer;
     background-color: rgba(59, 167, 87, 0.2);
@@ -332,7 +340,7 @@ nav a :hover{
     width: 100%;
     margin: 0px;
     border-collapse:collapse;
-    font-size: 13px;
+    font-size: 16px;
     text-align: left;
 }
 
