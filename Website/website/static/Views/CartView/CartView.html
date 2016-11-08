@@ -1,24 +1,27 @@
 <div id='cart-view-container'>
-    <h1>Hello, {{username}}</h1>    
     <div id="cart-container" class='generic-panel' align='center'>
         <div id='cart-header'>
             <h2>Cart</h2>            
         </div>
-        <table>
+        <table id='orderTable'>
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Amount</th>
                 <th>Price</th>
                 <th></th>
             </tr>
-            {{#each cartList}}
+            </thead>
+                <tbody>
                 <tr>
-                    <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
+                    <!--<td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
                     <td>1pcs</td>
                     <td>€{{this.price}}</td>
                     <td><a onclick='removeCartItem({{this.product_id}})'>Remove</a></td>
+                    <div id='removeButton'> </div>-->
+                    
                 </tr>
-            {{/each}}
+                </tbody>
         </table>
     </div>    
 </div>

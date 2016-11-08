@@ -8,6 +8,7 @@ var cartcontents;
 function onAssetsLoaded() {
     setupWishListButton();
     setupFavoritesButton();
+    setupcartListButton();
 }
 
 // Adds the ProductListView.html to the DOM
@@ -38,7 +39,7 @@ $(document).ready(function(){
 
 function storedata()
 {    
-    var productname = document.getElementById("cartbutton").value;
+    // var productname = document.getElementById("cartbutton").value;
     cartcontents = cartcontents + productname;
     window.alert(cartcontents)
     //window.alert("hello");    
@@ -134,13 +135,34 @@ function setupFavoritesButton() {
     });
 }
 
-//function setupcarListButton() {
-//     var button = $('#cartlist_button');  
-//     // On click add / remove item
-//     button.on("click", function(e) {
-//         var _id = parseInt(id)
-//         e.preventDefault();
-//         if  {                  // if clicked add to localstorage           
-//             });
-//         }         
-//     });
+function setupcartListButton() {
+    var button = $('#addtocart_button');
+    var user = authenticationService.User();
+    var cart = JSON.parse(localStorage.getItem("shoppingCart"));
+    if(cart == null){
+        cart = []
+    }
+    var _id = parseInt(id)
+    var position = cart.indexOf(_id)
+
+    //check if item is already in cart
+    if (position > -1) {
+        button.html("REMOVE FROM CART");
+    } else {
+        button.html("ADD TO CART")
+    }
+    // On click add / remove item
+    button.on("click", function(e) {
+        e.preventDefault();
+        
+        position = cart.indexOf(_id)
+        if(position == -1){
+            cart.push(_id)
+            button.html("REMOVE FROM CART");
+        }else{
+            cart.splice(position, 1)
+            button.html("ADD TO CART");            
+        }
+        localStorage.setItem("shoppingCart", JSON.stringify(cart));
+    });
+}
