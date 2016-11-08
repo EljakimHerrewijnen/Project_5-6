@@ -89,5 +89,4 @@ def ToggleUserBan(username):
         account["banned"] = 0
     
 def RemoveUser(username):
-    accountDAO.Delete(username)]
-
+    accountDAO.Delete(username)
