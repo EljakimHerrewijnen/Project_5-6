@@ -10,6 +10,7 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
     this.description = description;
     this.roast = roast;
     this.image = image;
+    this.formatPrice = parseFloat(price).toFixed(2);
 
     this.matchesFilter = function(filter) {
         var b = true;
