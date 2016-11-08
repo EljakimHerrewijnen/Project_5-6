@@ -79,7 +79,6 @@ function setupWishListButton() {
     });
 }
 
-
 function setupFavoritesButton() {
     var button = $('#favorites_button');
     var user = authenticationService.User();
