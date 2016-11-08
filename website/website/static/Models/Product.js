@@ -6,7 +6,7 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
     this.name = name;
     this.origin = origin;
     this.aromas = aromas;
-    this.price = price;
+    this.price = parseFloat(price);
     this.description = description;
     this.roast = roast;
     this.image = image;
@@ -19,8 +19,9 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
         if(filter.aromas) {
             b = this.hasAroma(filter.aromas) && b;
         }
-        if (filter.roast) {
-            b = this.hasRoast(filter.roast) && b;
+        if (filter.roasts) {
+            console.log("ROAST");
+            b = this.hasRoast(filter.roasts) && b;
         }
         if (filter.origins) {
             b = this.hasOrigin(filter.origins) && b;
@@ -45,8 +46,8 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
         });
     }
 
-    this.hasRoast = function(roast) {
-        return this.roast == roast;
+    this.hasRoast = function(roasts) {
+        return roasts.includes(self.roast);
     }
 
     this.hasOrigin = function(origins) {

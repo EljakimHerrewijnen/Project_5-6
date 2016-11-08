@@ -141,12 +141,21 @@ nav {
     margin-left: 15px;
 }
 
-#products-filter p {
-    font-weight: 400;
+#price-indicator {
+    padding-bottom: 10px;
+    font-size: 18px;
+    flex-basis: 100%;
     color: rgba(0,0,0,0.45);
-    font-family: 'Roboto Condensed';
-    font-size: 14px;
     margin: 0px;
+    text-align: right;
+    padding-right: 30px;
+    font-family: 'Roboto Condensed';
+    margin-left: 10px;
+    display: block;
+}
+
+#price-header {
+    margin-bottom: -20px;
 }
 
 input[type=checkbox] {
@@ -160,6 +169,10 @@ input[type=checkbox] {
     border: 2px solid rgba(0,0,0,0.41);
     box-shadow: none;
     -webkit-appearance: none;
+}
+
+input[type=range] {
+    margin-left: 30px;
 }
 
 input[type=checkbox]:checked {
@@ -176,6 +189,10 @@ input[type=checkbox]:checked {
 svg {
     margin: 10px 15px 0px 15px;
     border: 1px solid rgba(0,0,0,0.15);
+}
+
+.panel-heading {
+    min-height: 2em;
 }
 
 /*------------------------------------*\
@@ -238,10 +255,13 @@ svg {
 
 .detail-panel img{
     margin: auto;
+    flex-basis: 100%;
+    max-width: 100%;
 }
 
 .item-panel img {
     max-width: 100%;
+    max-height: 295px;
 }
 
 #view-container {
@@ -534,4 +554,106 @@ nav a :hover{
 #register-form  button:hover, #login-form  button:hover {
     cursor: pointer;
     background-color: rgba(59, 167, 87, 0.2);
+}
+
+
+
+/*------------------------------------*\
+    $SLIDER
+\*------------------------------------*/
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin-left: 30px;
+  margin-right: 30px;
+  width: 100%;
+  display: block;
+  flex-basis: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: #3BA757;
+  border-radius: 1.3px;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: #3BA757;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
 }

@@ -2,6 +2,16 @@
     <div id='products-filter'>
         <input id='search-bar' type='text' placeholder="Search">
         <div>
+            <h2>Roasts</h2>
+            <div class='checkbox-container'><input type="checkbox" class='roast-box' value="Light" checked>Light</div>
+            <div class='checkbox-container'><input type="checkbox" class='roast-box' value="Medium" checked>Medium</div>
+            <div class='checkbox-container'><input type="checkbox" class='roast-box' value="Dark" checked>Dark</div>
+            <h2 id='price-header'>Price</h2>
+            <div class='checkbox-container' style='flex-wrap: wrap;'>
+                <p id='price-indicator'>€30</p>
+                <input type="range" id='price-range' value="30" min='5' max='30' step='1'>
+                
+            </div>
             <h2>Aromas</h2>
             <div class='checkbox-container'><input type="checkbox" class='aroma-box' value="Chocolate">Choclate</div>
             <div class='checkbox-container'><input type="checkbox" class='aroma-box' value="Spicy">Spicy</div>
