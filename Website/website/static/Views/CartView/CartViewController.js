@@ -32,7 +32,7 @@ function buildTable(){
     var cart = JSON.parse(localStorage.getItem("shoppingCart"));    
 
     if(cart.length == 0){
-        document.getElementById('orderTable').style.display = "none";
+        document.getElementById('orderDiv').style.display = "none";
         document.getElementById('emptyCart').style.display = "";
     }else{
         cart.forEach(function(entry){
