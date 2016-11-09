@@ -1,6 +1,7 @@
 var viewContainer = $("#view-container");
-var cartcontents = []
-var product
+var cartcontents = [];
+var product;
+var totalPrice = 0;
 
 function buildView() {
     ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
@@ -17,6 +18,8 @@ function getProduct(id, onComplete, entry) {
         onComplete(json, entry);
     });
 }
+
+
 
 function onViewLoad(){
     buildTable();
@@ -51,7 +54,9 @@ function buildTable(){
         var amount = document.createElement("div");
         amount.className = "Amount";
         amount.innerHTML = "<input onchange='updateAmount("+product.id+", value)'  type='number' min='1' max='9' maxlength='1' placeholder='Amount'      value='"+entry['amount']+"' name='name'>";
-        var price = document.createTextNode("€" + (entry.amount * product.price).toFixed(2))
+        var price = document.createTextNode("€ " + (entry.amount * product.price).toFixed(2))
+        totalPrice = totalPrice + product.price * entry.amount;
+        totalprice();
         var remove = document.createElement("div");
         remove.className = "RemoveButton";
         remove.innerHTML = "<a onclick='removeCartItem("+product.id+")'>Remove</a>";
@@ -73,7 +78,6 @@ function removeCartItem(id){
 }
 
 function updateAmount(id, value){
-    console.log(value);
     if(value < 10){
         var cart = JSON.parse(localStorage.getItem("shoppingCart"));
         index = productInCart(id, cart)
@@ -93,4 +97,12 @@ function productInCart(id, cart){
         }
     }
     return -1;
+}
+
+//Total price
+function totalprice()
+{
+    document.getElementById('totalprice').innerHTML =" € " + totalPrice.toFixed(2);
+    // totalprice.innerHTML(totalPrice);
+    // document.getElementById('totalprice').innerHTML("Total price= €" + totalPrice)
 }
