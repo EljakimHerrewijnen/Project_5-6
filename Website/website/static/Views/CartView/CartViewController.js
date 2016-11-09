@@ -74,14 +74,14 @@ function removeCartItem(id){
 
 function updateAmount(id, value){
     console.log(value);
-    if(value < 11){
+    if(value < 10){
         var cart = JSON.parse(localStorage.getItem("shoppingCart"));
         index = productInCart(id, cart)
         cart[index]['amount'] = value
         localStorage.setItem("shoppingCart", JSON.stringify(cart));
         location.reload();
     }else{
-        window.alert("You cannot buy more than 10 products")
+        window.alert("You cannot buy more than 9 products")
     }
    
 }
