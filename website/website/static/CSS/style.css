@@ -337,10 +337,10 @@ nav a :hover{
 }
 
 #cart-view-container table {
-    width: 100%;
+    width: 80%;
     margin: 0px;
     border-collapse:collapse;
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
 }
 

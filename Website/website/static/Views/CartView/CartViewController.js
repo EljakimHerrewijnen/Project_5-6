@@ -50,8 +50,8 @@ function buildTable(){
         // var amount = document.createTextNode("")    
         var amount = document.createElement("div");
         amount.className = "Amount";
-        amount.innerHTML = "<input onchange='updateAmount("+product.id+", value)'  type='number' min='1' max='9' maxlength='1' placeholder='Amount' value='"+entry['amount']+"' name='name'>  "+entry.amount+" ";
-        var price = document.createTextNode("€" + (entry.amount * product.price))
+        amount.innerHTML = "<input onchange='updateAmount("+product.id+", value)'  type='number' min='1' max='9' maxlength='1' placeholder='Amount'      value='"+entry['amount']+"' name='name'>";
+        var price = document.createTextNode("€" + (entry.amount * product.price).toFixed(2))
         var remove = document.createElement("div");
         remove.className = "RemoveButton";
         remove.innerHTML = "<a onclick='removeCartItem("+product.id+")'>Remove</a>";
