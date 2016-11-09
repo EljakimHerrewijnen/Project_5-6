@@ -18,8 +18,8 @@ def Create(username, order_content):
     for order_line in order_content["items"]:
         order_details = {
             "orders_id" : order_id,
-            "product_id" : order_line["product_id"],
-            "quantity" : order_line["quantity"]
+            "product_id" : order_line["id"],
+            "quantity" : order_line["amount"]
         }
         res = db.insert("order_details", order_details)
         if type(res) == sqlite3.Error:
@@ -54,7 +54,6 @@ def FindByUser(username):
     db = Database()
     db.where("username", username)
     orders = db.get_all("orders")
-    print(orders)
 
     for order in orders:
         order["products"] = productDAO.FindByOrder(order["orders_id"])

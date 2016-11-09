@@ -115,7 +115,6 @@ function goToOrder()
         window.location.replace("/login"); 
     }else{
         //go to confirm order page
-        console.log(3); 
         window.location.replace("/orderview"); 
     }
         

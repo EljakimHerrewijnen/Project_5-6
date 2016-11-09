@@ -192,7 +192,6 @@ def updateAccount():
 @app.route('/api/login', methods=['POST'])
 def loginAccount():
     postData = request.get_json()
-    print(postData)
     username = postData['username']
     password = postData['password']
     

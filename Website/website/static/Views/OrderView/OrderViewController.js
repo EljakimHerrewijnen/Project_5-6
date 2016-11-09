@@ -112,7 +112,7 @@ function goToOrder()
         window.location.replace("/login"); 
     }else{
         //go to confirm order page
-        console.log(3); 
+    
         window.location.replace("/orderview"); 
     }
         
@@ -126,34 +126,30 @@ function test(user){
     var addresses = user.addresses;
     var dropdown ="";
     for(var i =0; i < addresses.length; i++){
-        console.log(addresses[i]);
         dropdown += "<option value="+addresses[i].postal_code + "_" + addresses[i].house_number + ">" + addresses[i].city + ", " + addresses[i].street + " " + addresses[i].house_number + "</option>"
     }
     document.getElementById("dropDownAddres").innerHTML = dropdown;   
 }
 
-function sendToDatabase(user)
-{
+function sendToDatabase(user){
     var dropdownvalue = $("#dropDownAddres").val();
-    console.log(dropdownvalue);
-    var items = localStorage
     var postal_code = dropdownvalue.split("_");
+    var cart = JSON.parse(localStorage.getItem("shoppingCart"));
     var order = {
-        "address":{
-            "postal_code": postal_code[0],
-            "house_number": postal_code[1]
-        }
-      //  "items"
-        // address: {postal_code[0] + postal_code[1]}
-
+        address:{
+            postal_code: postal_code[0],
+            house_number: postal_code[1]
+        },
+       items:cart
     }
-
-    values = dropdownvalue;
-    // $.ajax({url: "/api/user/orders",
-    //         method: "POST",
-    //         contentType: "aplication/json",
-    //         data: values
-    //         })
+    order = JSON.stringify(order);
+    $.ajax({url: "/api/user/orders",
+            method: "POST",
+            contentType: "application/json",
+            data: order
+            })
+    localStorage.clear("shoppingCart");
+    window.location.replace("/account");
 
 }
 //}
