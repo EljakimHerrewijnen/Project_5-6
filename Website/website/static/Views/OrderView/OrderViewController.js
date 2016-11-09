@@ -3,8 +3,9 @@ var cartcontents = [];
 var product;
 var totalPrice = 0;
 
+
 function buildView() {
-    ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
+    ajaxCall("/static/Views/OrderView/OrderView.html", "text", {}, function(_view) {
         var view = $(_view);
         viewContainer.append(view);
         onViewLoad();
@@ -23,6 +24,7 @@ function getProduct(id, onComplete, entry) {
 
 function onViewLoad(){
     buildTable();
+    displayAddress();
 }
 
 $(document).ready(function() {
@@ -47,24 +49,19 @@ function buildTable(){
         var nameCell = newRow.insertCell(0);
         var amountCell = newRow.insertCell(1);
         var priceCell = newRow.insertCell(2);
-        var removeCell = newRow.insertCell(3);
         
         var name = document.createTextNode(product.name)
         // var amount = document.createTextNode("")    
         var amount = document.createElement("div");
         amount.className = "Amount";
-        amount.innerHTML = "<input onchange='updateAmount("+product.id+", value)'  type='number' min='1' max='9' maxlength='1' placeholder='Amount'      value='"+entry['amount']+"' name='name'>";
+        amount.innerHTML = entry['amount'];
         var price = document.createTextNode("€ " + (entry.amount * product.price).toFixed(2))
         totalPrice = totalPrice + product.price * entry.amount;
         totalprice();
-        var remove = document.createElement("div");
-        remove.className = "RemoveButton";
-        remove.innerHTML = "<a onclick='removeCartItem("+product.id+")'>Remove</a>";
 
         nameCell.appendChild(name)
         amountCell.appendChild(amount)
         priceCell.appendChild(price)
-        removeCell.appendChild(remove)
     }
 }
 
@@ -115,9 +112,44 @@ function goToOrder()
         window.location.replace("/login"); 
     }else{
         //go to confirm order page
+    
         window.location.replace("/orderview"); 
     }
         
 }
 
+function displayAddress() {
+    authenticationService.getUser(test);
+}
+
+function test(user){
+    var addresses = user.addresses;
+    var dropdown ="";
+    for(var i =0; i < addresses.length; i++){
+        dropdown += "<option value="+addresses[i].postal_code + "_" + addresses[i].house_number + ">" + addresses[i].city + ", " + addresses[i].street + " " + addresses[i].house_number + "</option>"
+    }
+    document.getElementById("dropDownAddres").innerHTML = dropdown;   
+}
+
+function sendToDatabase(user){
+    var dropdownvalue = $("#dropDownAddres").val();
+    var postal_code = dropdownvalue.split("_");
+    var cart = JSON.parse(localStorage.getItem("shoppingCart"));
+    var order = {
+        address:{
+            postal_code: postal_code[0],
+            house_number: postal_code[1]
+        },
+       items:cart
+    }
+    order = JSON.stringify(order);
+    $.ajax({url: "/api/user/orders",
+            method: "POST",
+            contentType: "application/json",
+            data: order
+            })
+    localStorage.clear("shoppingCart");
+    window.location.replace("/account");
+
+}
 //}
