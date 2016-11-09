@@ -1,0 +1,24 @@
+<div id='small-cart'>
+    <div id='header'>Products<a href="/orderview" style="float: right">CHECKOUT</a></div>
+    <div id='cart-content'>
+        <table>
+        {{#each products}}
+            <tr><th></th><th></th><th></th><tr>
+            <tr>
+            <td>
+                <a href="/products/{{this.id}}">{{this.name}}</a>
+            </td>
+            <td>
+                <p class='amount-counter' id='cart-row-amount-{{this.product_id}}'>{{this.amount}}</p>
+                <img src="/static/images/decrementer.png" class='crementer' onclick="decrement({{this.id}})">
+                <img src="/static/images/incrementer.png" class='crementer' onclick="increment({{this.id}})">
+            </td>
+            <td>
+                <p>€{{this.price}}</p>
+            </td>
+            </tr>
+        {{/each}}
+        </table>
+    </div>
+    
+</div>

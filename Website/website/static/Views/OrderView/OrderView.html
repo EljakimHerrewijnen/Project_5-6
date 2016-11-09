@@ -18,7 +18,6 @@
                 <td><a href="/products/{{this.product_id}}">{{this.name}}</a></td>
                 <td>{{this.amount}}</td>
                 <td style="width: 2em">€{{this.price}}</td>
-                <td><a onclick='removeCartItem({{this.product_id}})'>Remove</a></td>
             </tr>
         {{/each}}
         </tbody>
@@ -30,6 +29,6 @@
             <select id='dropDownAddres'>
             </select>
         </div>
-        <div id='goToOrderButton' onclick='goToOrder()'>Place Order</div>
+        <div id='goToOrderButton' onclick='sendToDatabase()'>Place Order</div>
     </div>
 </div>

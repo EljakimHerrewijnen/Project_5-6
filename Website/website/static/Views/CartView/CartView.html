@@ -18,8 +18,8 @@
                 <td><a href="/products/{{this.product_id}}">{{this.name}}</a></td>
                 <td>
                     <p class='amount-counter' id='cart-row-amount-{{this.product_id}}'>{{this.amount}}</p>
-                    <p class='incrementer' onclick="decrement({{this.product_id}})">-</p>
-                    <p class='incrementer' onclick="increment({{this.product_id}})">+</p>
+                    <img src="/static/images/decrementer.png" class='crementer' onclick="decrement({{this.product_id}})">
+                    <img src="/static/images/incrementer.png" class='crementer' onclick="increment({{this.product_id}})">
                 </td>
                 <td id='cart-row-price-{{this.product_id}}' style="width: 8em">€{{this.price}}</td>
                 <td><a onclick='removeCartItem({{this.product_id}})'>Remove</a></td>
