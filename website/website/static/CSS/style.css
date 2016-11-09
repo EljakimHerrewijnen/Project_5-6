@@ -887,7 +887,6 @@ select {
     position: fixed;
     bottom: 0px;
     left: 20px;
-    transition: all 0.2s ease;
     width: 600px;
     
     background-color: white;
@@ -899,10 +898,6 @@ select {
     height: 20px;
     padding: 10px;
     color: white;
-}
-#small-cart:hover {
-    bottom: 0px;
-    top: auto;
 }
 
 #small-cart .crementer {
