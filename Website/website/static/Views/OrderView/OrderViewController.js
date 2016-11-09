@@ -147,9 +147,9 @@ function sendToDatabase(user){
             method: "POST",
             contentType: "application/json",
             data: order
-            })
-    localStorage.clear("shoppingCart");
-    window.location.replace("/account");
-
+            }).done( function(x) {
+                localStorage.clear("shoppingCart");
+                window.location.replace("/account");
+    });
 }
 //}
