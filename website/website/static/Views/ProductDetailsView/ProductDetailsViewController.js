@@ -118,7 +118,7 @@ function setupFavoritesButton() {
         if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
             authenticationService.removeFavorite(_id, function(success) {
                 if (success) {
-                    button.html("FAVORITE");
+                    button.html("ADD TO FAVORITES");
                 } else {
                     alert("Could not remove item");
                 }
@@ -126,7 +126,7 @@ function setupFavoritesButton() {
         } else {
             authenticationService.addFavorite(_id, function(success) {
                 if (success) {
-                    button.html("UNFAVORITE");
+                    button.html("REMOVE FROM FAVORITES");
                 } else {
                     alert("Could not add item");
                 }

@@ -21,7 +21,6 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
             b = this.hasAroma(filter.aromas) && b;
         }
         if (filter.roasts) {
-            console.log("ROAST");
             b = this.hasRoast(filter.roasts) && b;
         }
         if (filter.origins) {
@@ -64,7 +63,7 @@ function jsonToProduct(json) {
         json.aromas,
         json.price,
         json.description,
-        json.roast_level,
+        json.roast,
         "images/" + json.product_id + ".jpg"
     )
 }
