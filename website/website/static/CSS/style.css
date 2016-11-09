@@ -657,3 +657,49 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
 }
+
+
+/*------------------------------------*\
+    $ORDERDETAILVIEW
+\*------------------------------------*/
+
+#order-details-container {
+    padding: 50px;
+}
+
+#order-details-container img {
+    max-height: 100px;
+}
+
+#order-details-container table {
+    width: 100%;
+    margin: 0px;
+    border-collapse:collapse;
+    font-size: 13px;
+    text-align: left;
+}
+
+
+#order-details-container table {
+    width: 100%;
+    margin: 0px;
+    border-collapse:collapse;
+    font-size: 13px;
+    text-align: left;
+}
+
+#order-details-container td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#order-details-container tr {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#order-details-container a  {
+    color: #3BA757;
+}
+
+#order-details-container a:hover  {
+    text-decoration: underline;
+}
