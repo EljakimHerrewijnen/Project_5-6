@@ -76,10 +76,17 @@ def GetFullProperties(account):
     account["favorites"] = favoritesDAO.FindByUser(username)
     account["addresses"] = addressDAO.FindByUser(username)
 
-def GetAllInformation():
-    orders = orderDAO.FindAll()
+def GetAllOrders():
+    orders = orderDAO.FindAllByMonth()
+    return orders
+
+def GetAllAccounts():
     accounts = accountDAO.FindAll()
-    product = productDAO.FindAll()
+    return accounts
+
+def GetAllProducts():
+    products = productDAO.FindAll()
+    return products
 
 def ToggleUserBan(username):
     account = accountDAO.Find(username)
