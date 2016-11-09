@@ -12,8 +12,11 @@ def products(id):
 
 @app.route('/login')
 def login():
-    return render_template("BaseContainerLogin.html")
+    return render_template("BaseContainerLogin.html");
 
+@app.route('/cart')
+def cart():
+    return render_template("BaseContainerCart.html");
 
 @app.route('/account')
 def user_page():

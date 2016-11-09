@@ -127,3 +127,4 @@ $(document).ready(function(){
     var pipeline = buildView(buildProducts(renderProductPanel(onAssetsLoaded)));
     pipeline();
 }); 
+
