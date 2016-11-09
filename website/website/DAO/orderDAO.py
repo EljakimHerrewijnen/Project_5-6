@@ -62,7 +62,7 @@ def FindByUser(username):
 
 def FindAllByMonth():
     db = Database()
-    db.orderBy("order_date")
+    db.order_by("orders_date")
     orders = db.get_all("orders")
     for order in orders:
         order["products"] = productDAO.FindByOrder(order["orders_id"])
