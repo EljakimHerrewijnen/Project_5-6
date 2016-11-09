@@ -371,14 +371,6 @@ nav a :hover{
     text-align: left;
 }
 
-#cart-view-container table {
-    width: 80%;
-    margin: 0px;
-    border-collapse:collapse;
-    font-size: 18px;
-    text-align: left;
-}
-
 #account-view-container input[type=checkbox] {
     padding: 0px;
     margin: 0px;
@@ -743,3 +735,142 @@ input[type=range]:focus::-ms-fill-upper {
 #order-details-container #total-row {
     border-bottom: none;
 }
+
+
+/*------------------------------------*\
+    $CARTVIEW
+\*------------------------------------*/
+
+#cart-view-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+}
+
+#cart-header {
+    flex-basis: 100%;
+    margin-left: 10%;
+}
+
+#cart-container {
+    flex-basis: 100%;
+}
+
+#order-table-header {
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+#orderTable {
+    border-collapse: collapse;
+    width: 80%;
+    font-size: 18px;
+    text-align: left;
+    flex-basis: 100%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+#cart-view-container table {
+    border-collapse:collapse;
+}
+
+#orderTable tbody td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#orderTable tfoot td {
+    padding-top: 10px;
+}
+
+#orderTable a {
+    color: #3BA757;
+}
+
+#orderTable a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#orderTable p {
+    display: inline;
+}
+
+#orderTable .amount-counter{
+    min-width: 2.1em;
+    display: inline-block;
+}
+
+#orderTable .incrementer {
+    cursor: pointer;
+    color: #3BA757; 
+}
+
+#order-button-container {
+    flex-basis: 100%;
+    text-align: right;
+    margin-right: 10%;
+    margin-top: 30px;
+}
+
+#goToOrderButton {
+    position: relative;
+    border: 1px solid #3BA757;
+    border-radius: 5px;
+    padding: 10px;
+    color: #3BA757; 
+    display: inline-block;
+    transition: background-color 0.2s ease;
+    font-weight: 600;
+}
+
+#goToOrderButton:hover {
+    cursor: pointer;
+}
+
+#goToOrderButton::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 0px solid #3BA757;
+    transition: border 0.2s ease;
+}
+
+
+#goToOrderButton:hover::before {
+    border: 2px solid #3BA757;
+    border-radius: 5px;
+    
+}
+
+#drop-down-address-container {
+    position: relative;
+    border: 1px solid #3BA757;
+    border-radius: 5px;
+    color: #3BA757;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    border: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   color: #3BA757;
+   font-family: "Roboto";
+   font-size: 14px;
+}
+
+#drop-down-address-container::after {
+    content: "V";
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+

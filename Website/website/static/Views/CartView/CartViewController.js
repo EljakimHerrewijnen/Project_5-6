@@ -1,12 +1,12 @@
 var viewContainer = $("#view-container");
-var cartcontents = [];
+var cartcontents = {"products" : []};
 var product;
 var totalPrice = 0;
 
 function buildView() {
     ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
-        var view = $(_view);
-        viewContainer.append(view);
+        var view = Handlebars.compile(_view);
+        viewContainer.append(view(cartcontents));
         onViewLoad();
     });
 }
@@ -19,14 +19,63 @@ function getProduct(id, onComplete, entry) {
     });
 }
 
-
+function updateTotal() {
+    $("#totalprice").html("€" + cartcontents.products.reduce(function(acc, val) {
+        return acc + (val.price * val.amount);
+    }, 0).toFixed(2));
+}
 
 function onViewLoad(){
-    buildTable();
+    updateTotal()
+}
+
+function updateLocalStorageCart() {
+    var cart = cartcontents.products.map(function(x) {
+        return {"id" : x.product_id, "amount": x.amount}
+    });
+    localStorage.setItem("shoppingCart", JSON.stringify(cart));
+}
+
+function increment(id) {
+    var i = cartcontents.products.find(function(x){
+        return x.product_id == id;
+    })
+    i.amount = i.amount + 1;
+    updateTotal();
+    $("#cart-row-amount-" + id).html(i.amount);
+    $("#cart-row-price-" + id).html("€" + (i.amount * i.price).toFixed(2));
+    updateLocalStorageCart();
+}
+
+function decrement(id) {
+    var i = cartcontents.products.find(function(x){
+        return x.product_id == id;
+    })
+    if (i.amount == 1) return;
+    i.amount = i.amount - 1;
+    updateTotal();
+    $("#cart-row-amount-" + id).html(i.amount);
+    $("#cart-row-price-" + id).html("€" + (i.amount * i.price).toFixed(2));
+    updateLocalStorageCart();
 }
 
 $(document).ready(function() {
-    buildView();
+    var cart = JSON.parse(localStorage.getItem("shoppingCart"));
+    cart = cart.map(function(x) {return x['id']});
+    ajaxCall("/API/Products", "application/json", {}, function(json){
+        var shop = JSON.parse(localStorage.getItem("shoppingCart"));
+        json = json.map(function(x) { x["price"] = x["price"].toFixed(2); return x;})
+        cartcontents["products"] = json.filter(function(x) {
+            return cart.includes(x.product_id);
+        });      
+        cartcontents.products.forEach(function(x) {
+            var i = cart.indexOf(x.product_id);
+            if (i != -1) {
+                x["amount"] = shop[i]["amount"]
+            }
+        });
+        buildView();
+    });  
 });
 
 function buildTable(){
