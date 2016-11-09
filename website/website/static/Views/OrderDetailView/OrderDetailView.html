@@ -1,5 +1,7 @@
 <div id='order-details-container'>
-    <h1>ORDER ID: {{orders_id}}</h2>
+    <h1>Order number: {{orders_id}}</h2>
+    <p>Purchase made by:<br>{{username}}</p>
+    <p>Order date:<br>{{orders_date}}</p>
     <p>Delivery address:<br>{{postal_code}}, {{house_number}}</p>
     <table>
         <tr>
@@ -10,10 +12,18 @@
         </tr>
         {{#each products}}
             <tr>
-                <td><a href='/products/{{this.product_id}}'><img src='/static/images/{{this.product_id}}.jpg'></a>
+                <td id='image-row'><a href='/products/{{this.product_id}}'><img src='/static/images/{{this.product_id}}.jpg'></a>
                 <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
                 <td>€{{this.price}}</td>
             </tr>
         {{/each}}
+        <tr id='total-row'>
+            <td></td>
+            <td></td>
+            <td><h4>Total:</h4>
+            <h3>€ {{total_price}}</h3></td>
+        </tr>
     </table>
+        
+    </div>
 </div>

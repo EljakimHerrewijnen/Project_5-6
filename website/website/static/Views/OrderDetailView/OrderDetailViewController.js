@@ -1,7 +1,7 @@
 var viewContainer = $("#view-container");
 var pathname = $(location).attr('pathname');
 var id = pathname.substring(pathname.lastIndexOf('/') + 1);
-var product = {};
+var order = {};
 
 function onAssetsLoaded() {
     
@@ -12,24 +12,32 @@ function buildView(onComplete) {
     return function(){
         ajaxCall("/static/Views/OrderDetailView/OrderDetailView.html", "text", {}, function(_view) {
             var view = Handlebars.compile(_view);
-            viewContainer.append(view(product));
+            order["total_price"] = calculateTotal(order);
+            viewContainer.append(view(order));
             onComplete();
         });
     }
 }
 
 // Retrieves the Products json and casts them to models.
-function buildProduct(id, onComplete) {
+function buildOrder(id, onComplete) {
     return function() {
         ajaxCall("/api/user/orders/" + id, "application/json", {}, function(json){
             json["product_id"] = id;
-            product = json;
+            order = json;
             onComplete();
         });
     }
 }
 
 $(document).ready(function(){   
-    var pipeline = buildProduct(id, buildView(onAssetsLoaded));
+    var pipeline = buildOrder(id, buildView(onAssetsLoaded));
     pipeline();
 });
+
+
+function calculateTotal (order) {
+    return order.products.reduce(function (a, b) {
+        return a + b.price;
+    }, 0);
+}

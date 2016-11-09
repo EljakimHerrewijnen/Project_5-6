@@ -248,6 +248,14 @@ svg {
     padding-left: 0px;
 }
 
+.RemoveButton a {
+    cursor: pointer;
+}
+
+.RemoveButton a:hover{
+    color: #FF0000;
+}
+
 .detail-panel a:hover {
     cursor: pointer;
     background-color: rgba(59, 167, 87, 0.2);
@@ -360,6 +368,14 @@ nav a :hover{
     margin: 0px;
     border-collapse:collapse;
     font-size: 13px;
+    text-align: left;
+}
+
+#cart-view-container table {
+    width: 80%;
+    margin: 0px;
+    border-collapse:collapse;
+    font-size: 18px;
     text-align: left;
 }
 
@@ -665,10 +681,13 @@ input[type=range]:focus::-ms-fill-upper {
 
 #order-details-container {
     padding: 50px;
+    padding-top: 10px;
 }
 
 #order-details-container img {
-    max-height: 100px;
+    max-height: 50px;
+    max-width: 50px;
+    padding: 3px 0px 3px 0px;
 }
 
 #order-details-container table {
@@ -691,15 +710,36 @@ input[type=range]:focus::-ms-fill-upper {
 #order-details-container td {
     padding-top: 5px;
     padding-bottom: 5px;
+    font-size: 18px;
 }
 #order-details-container tr {
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
+#order-details-container #image-row {
+    text-align: center;
+}
+
 #order-details-container a  {
     color: #3BA757;
+    font-size: 16px;
 }
 
 #order-details-container a:hover  {
     text-decoration: underline;
+}
+
+#order-details-container h3 {
+    font-size: 24px;
+    margin-top: 0px;
+}
+
+#order-details-container h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#order-details-container #total-row {
+    border-bottom: none;
 }

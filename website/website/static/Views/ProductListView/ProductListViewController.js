@@ -123,7 +123,9 @@ function Panel(product, html) {
     this.html = html;
 }
 
+
 $(document).ready(function(){   
     var pipeline = buildView(buildProducts(renderProductPanel(onAssetsLoaded)));
     pipeline();
 }); 
+
