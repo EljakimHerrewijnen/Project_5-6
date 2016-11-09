@@ -73,7 +73,7 @@
             </tr>
             {{#each orders}}
                 <tr>
-                    <td>{{this.orders_id}}</td>
+                    <td><a href='order/{{this.orders_id}}'>{{this.orders_id}}</a></td>
                     <td>{{this.orders_date}}</td>
                 </tr>
             {{/each}}

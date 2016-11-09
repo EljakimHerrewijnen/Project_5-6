@@ -1,0 +1,19 @@
+<div id='order-details-container'>
+    <h1>ORDER ID: {{orders_id}}</h2>
+    <p>Delivery address:<br>{{postal_code}}, {{house_number}}</p>
+    <table>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        {{#each products}}
+            <tr>
+                <td><a href='/products/{{this.product_id}}'><img src='/static/images/{{this.product_id}}.jpg'></a>
+                <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
+                <td>€{{this.price}}</td>
+            </tr>
+        {{/each}}
+    </table>
+</div>
