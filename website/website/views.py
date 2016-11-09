@@ -21,3 +21,7 @@ def cart():
 @app.route('/account')
 def user_page():
     return render_template("BaseContainerAccount.html")
+
+@app.route('/orderview')
+def OrderView():
+    return render_template("BaseContainerOrder.html")

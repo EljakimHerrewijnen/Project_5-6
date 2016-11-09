@@ -107,17 +107,16 @@ function totalprice()
 
 function goToOrder()
 {
-    //var button = $('#goToOrderButton');
     var user = authenticationService.User();
     
     // If no user, log in.
     if (!user) {
         //redirect to login
         window.location.replace("/login"); 
-        console.log(4)
     }else{
         //go to confirm order page
-        console.log(3)  
+        console.log(3); 
+        window.location.replace("/orderview"); 
     }
         
 }
