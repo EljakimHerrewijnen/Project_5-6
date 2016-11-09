@@ -103,6 +103,23 @@ function productInCart(id, cart){
 function totalprice()
 {
     document.getElementById('totalprice').innerHTML =" € " + totalPrice.toFixed(2);
-    // totalprice.innerHTML(totalPrice);
-    // document.getElementById('totalprice').innerHTML("Total price= €" + totalPrice)
 }
+
+function goToOrder()
+{
+    //var button = $('#goToOrderButton');
+    var user = authenticationService.User();
+    
+    // If no user, log in.
+    if (!user) {
+        //redirect to login
+        window.location.replace("/login"); 
+        console.log(4)
+    }else{
+        //go to confirm order page
+        console.log(3)  
+    }
+        
+}
+
+//}
