@@ -12,6 +12,14 @@ function onAssetsLoaded() {
     $("#country-filter").change(updateFilterSettings);
     $(".aroma-box").change(updateFilterSettings);
     $('.origin-box').change(updateFilterSettings);
+    $('.roast-box').change(updateFilterSettings);
+    $('#price-range').on("input", updateSlider);
+    $('#price-range').change(updateFilterSettings);
+}
+
+function updateSlider() {
+    var value = $('#price-range').val();
+    $("#price-indicator").html("€" + value);
 }
 
 // Updates the map
@@ -40,16 +48,21 @@ function updateMap(maps) {
 // Reads the filters and updates the filter object.
 function updateFilterSettings() {
     var searchbar = $("#search-bar");
+    var priceSlider = $("#price-range");
     var originBox = $("#country-filter");
     var aromas = $(".aroma-box:checked").toArray();
     var origins = $('.origin-box:checked').toArray();
+    var roasts = $('.roast-box:checked').toArray();
     aromas = aromas.map(function(item) {return item.value; });
     origins = origins.map(function(item) {return item.value; })
+    roasts = roasts.map(function(item) {return item.value; })
     updateMap(origins);
 
     filter.name = searchbar.val();
     filter.aromas = aromas;
     filter.origins = origins;
+    filter.roasts = roasts;
+    filter.price = {max: priceSlider.val(), min: 0};
     refreshFilter();
 }
 

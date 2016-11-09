@@ -26,7 +26,8 @@ function buildView(onComplete) {
 function buildProduct(id, onComplete) {
     return function() {
         ajaxCall("/API/Products/" + id, "application/json", {}, function(json){
-            product = json;
+            json["product_id"] = id;
+            product = jsonToProduct(json);
             onComplete();
         });
     }
@@ -90,7 +91,6 @@ function setupWishListButton() {
         }
     });
 }
-
 
 function setupFavoritesButton() {
     var button = $('#favorites_button');
