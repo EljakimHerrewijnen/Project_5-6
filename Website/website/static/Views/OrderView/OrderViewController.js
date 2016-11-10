@@ -23,6 +23,9 @@ function getProduct(id, onComplete, entry) {
 
 function onViewLoad(){
     authenticationService.getUser(test);
+    totalPrice = cartcontents.products.reduce(function(acc, x) {return acc + parseFloat(x.price)}, 0);
+    console.log(totalPrice);
+    totalprice();
 }
 
 $(document).ready(function() {

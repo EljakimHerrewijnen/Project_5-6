@@ -37,7 +37,8 @@ $(document).ready(function(){
 
 
 function calculateTotal (order) {
+    console.log(order.products);
     return order.products.reduce(function (a, b) {
-        return a + b.price;
+        return a + b.price * b.quantity;
     }, 0);
 }

@@ -772,6 +772,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 #cart-view-container table {
     border-collapse:collapse;
+    resize: both;
 }
 
 #orderTable tbody td {

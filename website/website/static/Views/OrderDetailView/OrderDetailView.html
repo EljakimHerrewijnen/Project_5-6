@@ -7,6 +7,7 @@
         <tr>
             <th></th>
             <th>Name</th>
+            <th>Amount</th>
             <th>Price</th>
             <th></th>
         </tr>
@@ -14,10 +15,12 @@
             <tr>
                 <td id='image-row'><a href='/products/{{this.product_id}}'><img src='/static/images/{{this.product_id}}.jpg'></a>
                 <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
+                <td>{{this.quantity}}</td>
                 <td>€{{this.price}}</td>
             </tr>
         {{/each}}
         <tr id='total-row'>
+            <td></td>
             <td></td>
             <td></td>
             <td><h4>Total:</h4>
