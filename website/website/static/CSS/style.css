@@ -371,14 +371,6 @@ nav a :hover{
     text-align: left;
 }
 
-#cart-view-container table {
-    width: 80%;
-    margin: 0px;
-    border-collapse:collapse;
-    font-size: 18px;
-    text-align: left;
-}
-
 #account-view-container input[type=checkbox] {
     padding: 0px;
     margin: 0px;
@@ -742,4 +734,225 @@ input[type=range]:focus::-ms-fill-upper {
 
 #order-details-container #total-row {
     border-bottom: none;
+}
+
+
+/*------------------------------------*\
+    $CARTVIEW
+\*------------------------------------*/
+
+#cart-view-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+}
+
+#cart-header {
+    flex-basis: 100%;
+    margin-left: 10%;
+}
+
+#cart-container {
+    flex-basis: 100%;
+}
+
+#order-table-header {
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+#orderTable {
+    border-collapse: collapse;
+    width: 80%;
+    font-size: 18px;
+    text-align: left;
+    flex-basis: 100%;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+#cart-view-container table {
+    border-collapse:collapse;
+    resize: both;
+}
+
+#orderTable tbody td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#orderTable tfoot td {
+    padding-top: 10px;
+}
+
+#orderTable a {
+    color: #3BA757;
+}
+
+#orderTable a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#orderTable p {
+    display: inline;
+    vertical-align: middle;
+}
+
+#orderTable .amount-counter{
+    min-width: 2.1em;
+    display: inline-block;
+}
+
+#orderTable .crementer {
+    display: inline-block;
+    cursor: pointer;
+    color: #3BA757;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+#orderTable .crementer::after {
+    content: "";
+}
+
+#order-button-container {
+    flex-basis: 100%;
+    text-align: right;
+    margin-right: 10%;
+    margin-top: 30px;
+}
+
+#goToOrderButton {
+    position: relative;
+    border: 1px solid #3BA757;
+    border-radius: 5px;
+    padding: 10px;
+    color: #3BA757; 
+    display: inline-block;
+    transition: background-color 0.2s ease;
+    font-weight: 600;
+}
+
+#goToOrderButton:hover {
+    cursor: pointer;
+}
+
+#goToOrderButton::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border: 0px solid #3BA757;
+    transition: border 0.2s ease;
+}
+
+
+#goToOrderButton:hover::before {
+    border: 2px solid #3BA757;
+    border-radius: 5px;
+    
+}
+
+#drop-down-address-container {
+    position: relative;
+    border: 1px solid #3BA757;
+    border-radius: 5px;
+    color: #3BA757;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    border: none;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   color: #3BA757;
+   font-family: "Roboto";
+   font-size: 14px;
+}
+
+#drop-down-address-container::after {
+    content: "V";
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+#small-cart {
+    position: fixed;
+    bottom: 0px;
+    left: 20px;
+    width: 600px;
+    
+    background-color: white;
+    border: 1px solid black;
+}
+
+#small-cart #header {
+    background-color: black;
+    height: 20px;
+    padding: 10px;
+    color: white;
+}
+
+#small-cart .crementer {
+    display: inline-block;
+    cursor: pointer;
+    color: #3BA757;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+#small-cart .crementer::after {
+    content: "";
+}
+
+#small-cart table {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+#small-cart p {
+    display: inline;
+    margin: 0px;
+}
+
+#small-cart td {
+    overflow: hidden;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-overflow: ellipsis;
+}
+
+#small-cart .amount-counter {
+    color: black;
+}
+
+#small-cart a {
+    font-size: 14px;
+    color: #3BA757;
+    text-decoration: none;
+    margin-left: 5px;
+    
+}
+
+#small-cart a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#small-cart p {
+    padding-bottom: 5px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+#small-cart img {
+    vertical-align: middle;
 }

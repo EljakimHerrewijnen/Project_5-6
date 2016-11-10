@@ -163,6 +163,7 @@ function setupcartListButton() {
             button.html("ADD TO CART");            
         }
         localStorage.setItem("shoppingCart", JSON.stringify(cart));
+        smallCartChange();
     });
 }
 
