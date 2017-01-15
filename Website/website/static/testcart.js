@@ -3,10 +3,47 @@ var cartcontents = {"products" : []};
 var product;
 var totalPrice = 0;
 
+
+viewManager.addRoute("/cart/", () => new cartView());
+
+function cartView() {
+    var self = this;
+    var container;
+
+    Object.defineProperty(this, "url", {
+        get : () => '/cart/'
+    });
+
+    this.construct = function(newContainer) {
+        container = newContainer;
+        var html = getHtml();
+        var products = stateManager.getProducts();
+        var cart = stateManager.getCartItems();
+
+        promise = Promise.all([html, products]).then(([html, products]) =>{
+            html = Handlebars.compile(html);
+            container.append(html(products));
+            container.css({opacity: 0});
+        });
+
+        return promise;
+    }
+
+    this.destruct = function() {
+        return container.animate({opacity:0}, 150).promise().then(() => container.remove());
+    }
+    this.transitionIn =function() {
+        container.animate({opacity: 1}, 150);
+    }
+    
+    var getHtml = () => $.ajax({url: "http://localhost:5555/static/Views/CartView/CartView.html",contentType: "text"});
+}
+
+
+
 function buildView() {
-    ajaxCall("/static/Views/OrderView/OrderView.html", "text", {}, function(_view) {
+    ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
         var view = Handlebars.compile(_view);
-        console.log(cartcontents);
         viewContainer.append(view(cartcontents));
         onViewLoad();
     });
@@ -20,30 +57,41 @@ function getProduct(id, onComplete, entry) {
     });
 }
 
-
-function onViewLoad(){
-    authenticationService.getUser(test);
+function updateTotal() {
+    $("#totalprice").html("€" + cartcontents.products.reduce(function(acc, val) {
+        return acc + (val.price * val.amount);
+    }, 0).toFixed(2));
 }
 
-$(document).ready(function() {
-    var cart = JSON.parse(localStorage.getItem("shoppingCart"));
-    cart = cart.map(function(x) {return x['id']});
-    ajaxCall("/API/Products", "application/json", {}, function(json){
-        var shop = JSON.parse(localStorage.getItem("shoppingCart"));
-        json = json.map(function(x) { x["price"] = x["price"].toFixed(2); return x;})
-        cartcontents["products"] = json.filter(function(x) {
-            return cart.includes(x.product_id);
-        });      
-        cartcontents.products.forEach(function(x) {
-            var i = cart.indexOf(x.product_id);
-            if (i != -1) {
-                x["amount"] = shop[i]["amount"]
-            }
-        });
-        buildView();
-    });  
-});
+function updateLocalStorageCart() {
+    var cart = cartcontents.products.map(function(x) {
+        return {"id" : x.product_id, "amount": x.amount}
+    });
+    localStorage.setItem("shoppingCart", JSON.stringify(cart));
+}
 
+function increment(id) {
+    var i = cartcontents.products.find(function(x){
+        return x.product_id == id;
+    })
+    i.amount = i.amount + 1;
+    updateTotal();
+    $("#cart-row-amount-" + id).html(i.amount);
+    $("#cart-row-price-" + id).html("€" + (i.amount * i.price).toFixed(2));
+    updateLocalStorageCart();
+}
+
+function decrement(id) {
+    var i = cartcontents.products.find(function(x){
+        return x.product_id == id;
+    })
+    if (i.amount == 1) return;
+    i.amount = i.amount - 1;
+    updateTotal();
+    $("#cart-row-amount-" + id).html(i.amount);
+    $("#cart-row-price-" + id).html("€" + (i.amount * i.price).toFixed(2));
+    updateLocalStorageCart();
+}
 
 function buildTable(){
     var table = document.getElementById('orderTable').getElementsByTagName('tbody')[0];
@@ -63,19 +111,24 @@ function buildTable(){
         var nameCell = newRow.insertCell(0);
         var amountCell = newRow.insertCell(1);
         var priceCell = newRow.insertCell(2);
+        var removeCell = newRow.insertCell(3);
         
         var name = document.createTextNode(product.name)
         // var amount = document.createTextNode("")    
         var amount = document.createElement("div");
         amount.className = "Amount";
-        amount.innerHTML = entry['amount'];
+        amount.innerHTML = "<input onchange='updateAmount("+product.id+", value)'  type='number' min='1' max='9' maxlength='1' placeholder='Amount'      value='"+entry['amount']+"' name='name'>";
         var price = document.createTextNode("€ " + (entry.amount * product.price).toFixed(2))
         totalPrice = totalPrice + product.price * entry.amount;
         totalprice();
+        var remove = document.createElement("div");
+        remove.className = "RemoveButton";
+        remove.innerHTML = "<a onclick='removeCartItem("+product.id+")'>Remove</a>";
 
         nameCell.appendChild(name)
         amountCell.appendChild(amount)
         priceCell.appendChild(price)
+        removeCell.appendChild(remove)
     }
 }
 
@@ -126,44 +179,9 @@ function goToOrder()
         window.location.replace("/login"); 
     }else{
         //go to confirm order page
-    
         window.location.replace("/orderview"); 
     }
         
 }
 
-function displayAddress() {
-    authenticationService.getUser(test);
-}
-
-function test(user){
-    var addresses = user.addresses;
-    var dropdown ="";
-    for(var i =0; i < addresses.length; i++){
-        dropdown += "<option value="+addresses[i].postal_code + "_" + addresses[i].house_number + ">" + addresses[i].city + ", " + addresses[i].street + " " + addresses[i].house_number + "</option>"
-    }
-    document.getElementById("dropDownAddres").innerHTML = dropdown;   
-}
-
-function sendToDatabase(user){
-    var dropdownvalue = $("#dropDownAddres").val();
-    var postal_code = dropdownvalue.split("_");
-    var cart = JSON.parse(localStorage.getItem("shoppingCart"));
-    var order = {
-        address:{
-            postal_code: postal_code[0],
-            house_number: postal_code[1]
-        },
-       items:cart
-    }
-    order = JSON.stringify(order);
-    $.ajax({url: "/api/user/orders",
-            method: "POST",
-            contentType: "application/json",
-            data: order
-            }).done( function(x) {
-                localStorage.clear("shoppingCart");
-                window.location.replace("/account");
-    });
-}
 //}

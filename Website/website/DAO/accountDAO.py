@@ -5,6 +5,7 @@ import website.DAO.wishDAO as wishDAO
 import website.DAO.favoritesDAO as favoritesDAO
 import website.DAO.orderDAO as orderDAO
 from datetime import date
+import json
 
 # Create user
 def Create(account):
@@ -61,6 +62,8 @@ def Update(account):
         account["birth_date"] = birth_date
 
     db.where("username", account["username"])
+    print(json.dumps(account, indent=4, sort_keys=True))
+
     db.update("account", account)
 
 # Add user specific wishlist, order, favorites and adress information to given Account

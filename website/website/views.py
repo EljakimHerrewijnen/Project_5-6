@@ -6,9 +6,9 @@ def index():
     return render_template('BaseContainer.html')
 
 @app.route('/products/<id>')
-def products(id):
+def products(product_id):
     print(id)
-    return render_template('ProductDetailsViewContainer.html', id=id)
+    return render_template('ProductDetailsViewContainer.html', id=product_id)
 
 @app.route('/login')
 def login():
@@ -30,3 +30,8 @@ def order_page(id):
 def OrderView():
     return render_template("BaseContainerOrder.html")
 
+@app.route('/test', defaults={'path': ''})
+@app.route('/test/', defaults={'path': ''})
+@app.route('/test/<path:path>')
+def test(path):
+    return render_template("test.html")

@@ -5,38 +5,97 @@ var pathname = $(location).attr('pathname');
 var id = pathname.substring(pathname.lastIndexOf('/') + 1);
 var cartcontents;
 
-function onAssetsLoaded() {
-    setupWishListButton();
-    setupFavoritesButton();
-    setupcartListButton();
-}
+var path = window.location.pathname;
 
-// Adds the ProductListView.html to the DOM
-function buildView(onComplete) {
-    return function(){
-        ajaxCall("/static/Views/ProductDetailsView/ProductDetailsView.html", "text", {}, function(_view) {
-            var view = Handlebars.compile(_view);
-            viewContainer.append(view(product));
-            onComplete();
+viewManager.addRoute('/test/details/\\d+', (path) => {
+    var productId = path.split('/').pop();
+    return new productDetailView(productId);
+});
+
+function productDetailView(productId) {
+    var self = this;
+    var container;
+    var product;
+
+    Object.defineProperty(this, "url", {
+       get : () => '/test/details/' + productId 
+    });
+
+    this.construct = function(c) {
+        html = this.getHtml();
+        products = stateManager.getProducts();
+        return Promise.all([html, products]).then(([html, products]) => {
+            var view = Handlebars.compile(html);
+            container = c;
+            container.css({opacity: 0.0})
+            product = products.find((product) => {
+                return product.id == productId
+            });
+            container.append(view(product));
+        }).then(() => {
+            container.find('#addtocart_button').on('click', onAddToCartButtonPressed);
+            container.find('#wishlist_button').on('click', onWishButtonPressed);
+            container.find('#favorites_button').on('click', onFavoritesButtonPressed);
+            user = stateManager.getUser().then((user) => {
+                if (user.hasWish(product))
+                    container.find('#wishlist_button').html("REMOVE FROM WISHLIST");
+                if (user.hasFavorite(product))
+                    container.find('#favorites_button').html("REMOVE FROM FAVORITES");
+            });
         });
+    }
+
+    this.destruct = function() {
+        var vv = container.animate({opacity: 0.0}, 150).promise().then(() => {container.remove()});
+        return vv;
+    }
+
+    this.transitionIn = function() {
+        container.animate({opacity: 1}, 200);
+    }
+
+    this.getHtml = () => $.ajax({url: "http://localhost:5555/static/Views/ProductDetailsView/ProductDetailsView.html", contentType: "text"});
+
+    function onWishButtonPressed() {
+        user = stateManager.getUser();
+        button = container.find('#wishlist_button')
+        user.then((user) => {
+            console.log(user);
+            if (user.hasWish(product)) {
+                return user.removeWish(product).then(() => button.html("ADD TO WISHLIST"));}
+            else
+                return user.addWish(product).then(() => button.html("REMOVE FROM WISHLIST"));
+        }, (jqXHR, textStatus, errorThrown) => {
+            if (jqXHR.status == 400)
+                alert(jqXHR.responseText);
+            else
+                viewManager.changeView(loginRegisterView);
+        });
+    }
+
+    function onFavoritesButtonPressed() {
+        user = stateManager.getUser();
+        button = container.find('#favorites_button')
+        user.then((user) => {
+            if (user.hasFavorite(product))
+                return user.removeFavorite(product).then(() => {button.html("ADD TO FAVORITES")});
+            else
+                return user.addFavorite(product).then(() => {button.html("REMOVE FROM FAVORITES")});
+        }, (jqXHR, textStatus, errorThrown) => {
+            if (jqXHR.status == 400)
+                alert(jqXHR.responseText);
+            else
+                viewManager.changeView(loginRegisterView);
+        });
+    }
+
+    function onAddToCartButtonPressed() {
+        console.log("YOU PRESSED THE CART BUTTON");
     }
 }
 
-// Retrieves the Products json and casts them to models.
-function buildProduct(id, onComplete) {
-    return function() {
-        ajaxCall("/API/Products/" + id, "application/json", {}, function(json){
-            json["product_id"] = id;
-            product = jsonToProduct(json);
-            onComplete();
-        });
-    }
-}
 
-$(document).ready(function(){   
-    var pipeline = buildProduct(id, buildView(onAssetsLoaded));
-    pipeline();
-}); 
+
 
 function storedata()
 {    

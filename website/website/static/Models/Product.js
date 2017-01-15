@@ -1,16 +1,13 @@
-function Product(id, name, origin, aromas, price, description, roast, image) {
+function Product(product) {
+    for (var k in product) this[k] = product[k];
     "use strict"
-    var self = this;
     
-    this.id = id;
-    this.name = name;
-    this.origin = origin;
-    this.aromas = aromas;
-    this.price = parseFloat(price);
-    this.description = description;
-    this.roast = roast;
-    this.image = image;
-    this.formatPrice = parseFloat(price).toFixed(2);
+    var self = this;
+    this.id = product.product_id;
+    this.price = parseFloat(this.price);
+    this.roast = product.roast_level;
+    this.image = "images/" + product.product_id + ".jpg";
+    this.formatPrice = parseFloat(this.price).toFixed(2);
 
     this.matchesFilter = function(filter) {
         var b = true;
@@ -56,14 +53,5 @@ function Product(id, name, origin, aromas, price, description, roast, image) {
 }
 
 function jsonToProduct(json) {
-    return new Product(
-        json.product_id,
-        json.name,
-        json.origin,
-        json.aromas,
-        json.price,
-        json.description,
-        json.roast,
-        "images/" + json.product_id + ".jpg"
-    )
+    return new Product(json);
 }

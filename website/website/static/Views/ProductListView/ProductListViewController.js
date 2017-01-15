@@ -5,6 +5,11 @@ var panels;
 var viewContainer = $("#view-container");
 var filter = {};
 
+
+async function loadStory(){
+    return "";
+}
+
 // Runs when products & HTML are retrieved.
 function onAssetsLoaded() {
     // Create listeners for user interaction.

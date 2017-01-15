@@ -27,7 +27,7 @@ def createAccount():
             f.close
         return "Success!", 200
     except Exception as e:
-        return "Failure!", 400
+        return e, 400
 
 @app.route('/api/account', methods=['GET'])
 def getAccount():
