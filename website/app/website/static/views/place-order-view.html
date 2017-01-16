@@ -1,0 +1,35 @@
+<div id='cart-view-container'>
+    <div id='cart-header'>
+        <h1>Place order</h1>
+        <p id='emptyCart' style="display:none">No products in cart</p> 
+    </div>
+    <table id='orderTable'>
+        <thead>
+        <tr id='order-table-header'>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th></th>
+        </tr>                
+        </thead>
+        <tbody>
+        {{#each products}}
+            <tr class='row'>
+                <td><a href="/products/{{this.product_id}}">{{this.name}}</a></td>
+                <td>{{this.amount}}</td>
+                <td style="width: 2em">€{{this.price}}</td>
+                <td><a onclick='removeCartItem({{this.product_id}})'>Remove</a></td>
+            </tr>
+        {{/each}}
+        </tbody>
+        <tfoot><tr><td></td><td>Total price</td><td id='totalprice'></td></tr></tfoot>
+    </table>
+    <div id='order-button-container'>
+        <p style="display: inline-block; margin-right: 10px">Delivery address:</p>
+        <div id='drop-down-address-container'>
+            <select id='dropDownAddres'>
+            </select>
+        </div>
+        <div id='goToOrderButton' onclick='goToOrder()'>Place Order</div>
+    </div>
+</div>

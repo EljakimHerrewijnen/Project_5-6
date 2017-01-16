@@ -1,7 +1,5 @@
-
-
 from os import environ
-from website import app
+from app import app
 
 if __name__ == '__main__':
     HOST = environ.get('SERVER_HOST', 'localhost')
@@ -9,4 +7,5 @@ if __name__ == '__main__':
         PORT = int(environ.get('SERVER_PORT', '5555'))
     except ValueError:
         PORT = 5555
+    app.debug = True;
     app.run(HOST, PORT)
