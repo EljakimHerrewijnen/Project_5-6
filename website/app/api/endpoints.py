@@ -14,13 +14,8 @@ import app.DAO.user_addressDAO as user_addressDAO
 import app.DAO.wishDAO as wishDAO
 import app.DAO.orderDAO as orderDAO
 
-
 from website.Database import Database
 import sqlite3
-
-
-
-app.secret_key = "Kz9bEtc3spQ2bQdA8VxyMqDh76AeAvYK15Qfe2sBwXF5rTvKkXwq"
 
 @app.route("/API/Products/<id>")
 def ProductRouteHandler(id):
