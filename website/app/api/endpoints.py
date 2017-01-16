@@ -1,19 +1,18 @@
 from flask import request
 from flask import Response
 from flask import session
-from website import Models
-from website.models.account import Account
-from website.models.account import Address
-from website import app
+from app.models.account import Account
+from app.models.account import Address
+from app import app
 from flask_cors import CORS, cross_origin
 import json
-import website.DAO.accountDAO as accountDAO
-import website.DAO.addressDAO as addressDAO
-import website.DAO.favoritesDAO as favoritesDAO
-import website.DAO.productDAO as productDAO
-import website.DAO.user_addressDAO as user_addressDAO
-import website.DAO.wishDAO as wishDAO
-import website.DAO.orderDAO as orderDAO
+import app.DAO.accountDAO as accountDAO
+import app.DAO.addressDAO as addressDAO
+import app.DAO.favoritesDAO as favoritesDAO
+import app.DAO.productDAO as productDAO
+import app.DAO.user_addressDAO as user_addressDAO
+import app.DAO.wishDAO as wishDAO
+import app.DAO.orderDAO as orderDAO
 
 
 from website.Database import Database
@@ -28,12 +27,10 @@ def ProductRouteHandler(id):
     product = Models.Product.find(id)
     return Response(product.ToJson(), mimetype='application/json')
 
-
 @app.route("/API/Products")
 def Products():
     jsonResult = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
     return Response(jsonResult, mimetype="application/json")
-    
 
 """
 
