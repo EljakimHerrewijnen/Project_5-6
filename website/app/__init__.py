@@ -5,7 +5,7 @@ from app.website import website
 from app.docs import docs
 from app.api import api
 
-app = Flask(__name__, static_folder='')
+app = Flask(__name__, static_folder='website/static')
 cors = CORS(app)
 app.debug = True
 

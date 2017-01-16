@@ -29,7 +29,7 @@ var ViewManager = (function() {
                     newActiveView = loginRegisterView;   
                 }
                 else {
-                    window.location = "http://" + window.location.host + "/404";
+                    //window.location = "http://" + window.location.host + "/404";
                 }
                 return newActiveView.construct(newContainer);
             }).then(() => {

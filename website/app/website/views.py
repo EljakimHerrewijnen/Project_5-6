@@ -9,7 +9,3 @@ def notFound():
 @website.route('/<path:path>')
 def test(path):
     return render_template("base.html")
-
-@website.route('/<file>')
-def static_file(file):
-    return website.send_static_file(file)
