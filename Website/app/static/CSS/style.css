@@ -115,7 +115,7 @@ g {
     justify-content: space-around;
     display: flex;
     padding-top: 18px;
-    transition: opacity 1s ease;
+    transition: opacity 0.3s ease;
 }
 
 .item-panel {

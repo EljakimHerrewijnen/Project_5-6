@@ -40,14 +40,14 @@ var ProductListView = (() => {
 
         this.destruct = function() {
             var productsContainer = container.find('#products-container');
-            var vv = productsContainer.addClass('no-opacity').delay(1000).promise().then(() => {productsContainer.remove()});
-            var xx = container.find('#products-filter').removeClass('open').delay(2000).promise().then(() => {container.remove()});
+            var vv = productsContainer.addClass('no-opacity').delay(300).promise().then(() => {productsContainer.remove()});
+            var xx = container.find('#products-filter').removeClass('open').delay(300).promise().then(() => {container.remove()});
             return vv;
         }
 
         this.transitionIn = function() {
             var productsContainer = container.find('#products-container');
-            //productsContainer.animate({opacity: 1}, 200);
+            productsContainer.animate({}, 1);
             productsContainer.removeClass('no-opacity');
             container.find('#products-filter').addClass('open');
         }
