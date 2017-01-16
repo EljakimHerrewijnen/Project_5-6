@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from flask_cors import CORS, cross_origin
 
-from app.website.views import test
 from app.docs import docs
 from app.api import api
 
@@ -12,6 +11,10 @@ app.debug = True
 app.register_blueprint(docs, url_prefix='/docs')
 app.register_blueprint(api, url_prefix='/api')
 app.secret_key = "secret test key"
+
+@app.route('/404')
+def forohfour():
+    return "404"
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

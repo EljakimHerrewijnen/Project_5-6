@@ -2,15 +2,19 @@ from flask import request, Response, session
 from functools import wraps, partial
 from app.api.DAO import accountDAO
 
-def secure():
+def secure(admin_only = False):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             if not ('username' in session):
-                return '401: UNAUTHORIZED BABY, NO SESSION', 401
+                return '403: UNAUTHORIZED BABY, NO SESSION', 401
             account = accountDAO.Find(session['username'])
             if not account:
                 return '401: UNAUTHORIZED BABY, YOUR ACCOUNT DOES NOT EXIST', 401
+
+            if admin_only and account['account_type'] != 'admin':
+                return '401: UNAUTHORIZED BABY, YOUR ACCOUNT DOES NOT HAVE ADMIN PRIVILEGES', 401
+            
             dix = partial(func, account)
             result = dix(*args, **kwargs)
             return result

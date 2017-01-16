@@ -90,7 +90,7 @@ function productDetailView(productId) {
     }
 
     function onAddToCartButtonPressed() {
-        console.log("YOU PRESSED THE CART BUTTON");
+        Cart.addProduct(product);
     }
 }
 

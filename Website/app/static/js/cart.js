@@ -7,7 +7,10 @@ var Cart = (() => {
             localStorage.setItem("cartItems", "[]");
         };
         
-        this.items = () => items;
+
+        Object.defineProperty(this, "items", {
+            get : () => items
+        });
 
         this.getTotalPrice = function() {
             var total = items.map((item) => 
@@ -39,16 +42,29 @@ var Cart = (() => {
             this.saveInLocalStorage();
         }
 
+        this.increment = function(id, amount) {
+            var item = this.getItem(id);
+            item.amount = item.amount + amount;
+            if (item.amount < 1)
+                this.removeProduct(item.product.id);
+            this.saveInLocalStorage();
+        }
+
         this.removeProduct = function(id) {
-            items = items.filter((item) => {
+            items = items.filter((item) => 
                 item.product.id != id
-            })
+            )
             this.saveInLocalStorage();
         }
         
         this.getAmount = function(id) {
             var item = this.getItem(id);
             return item.amount;
+        }
+
+        this.getItemPrice = function(id) {
+            var item = this.getItem(id);
+            return item.amount * item.product.price;
         }
 
         this.saveInLocalStorage = function() {
