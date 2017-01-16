@@ -1,30 +1,21 @@
-from flask import request
-from flask import Response
-from flask import session
-from app.api import api
-from flask_cors import CORS, cross_origin
 import json
-from app.api.DAO import accountDAO
-from app.api.DAO import addressDAO
-from app.api.DAO import favoritesDAO
-from app.api.DAO import productDAO
-from app.api.DAO import user_addressDAO
-from app.api.DAO import wishDAO
-from app.api.DAO import orderDAO
+from flask import request, Response, session
+from flask_cors import CORS, cross_origin
+from app.api import api
+from app.api.DAO import *
+from app.api.auth import secure
 
-from app.api.database import Database
-import sqlite3
 
 @api.route("/products/<id>")
-def ProductRouteHandler(id):
+def product(id):
     product = Models.Product.find(id)
     return Response(product.ToJson(), mimetype='application/json')
 
 
 @api.route("/products")
-def Products():
-    jsonResult = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
-    return Response(jsonResult, mimetype="application/json")
+def products():
+    json_result = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
+    return Response(json_result, mimetype="application/json")
 
 
 @api.route('/logout', methods=['POST'])
@@ -42,229 +33,140 @@ def create_account():
 
 
 @api.route('/user/account', methods=['GET'])
-def getAccount():
-    sessionUsername = GetCurrentUsername()
-    if not sessionUsername:
-        return "Unauthorized", 401
+@secure()
+def get_account(account):
+    json_result = json.dumps(account)
+    return Response(json_result, mimetype="application/json")
 
-    completeAccount = accountDAO.Find(sessionUsername)
-    jsonResult = json.dumps(completeAccount)
-    return Response(jsonResult, mimetype="application/json")
 
 @api.route('/user/account', methods=['PUT'])
-def updateAccount():
-    sessionUsername = GetCurrentUsername()
-    if not sessionUsername:
-        return "Unauthorized", 401
-    postData = request.get_json()
-    postData['username'] = sessionUsername
-    result = accountDAO.Update(postData)
-    if type(result) == sqlite3.Error:
-        return "Could not update user information", 400
+@secure()
+def update_account(account):
+    post_data = request.get_json()
+    post_data['username'] = account['username']
+    result = accountDAO.Update(post_data)
     return "Success", 200
 
+
 @api.route('/login', methods=['POST'])
-def loginAccount():
-    postData = request.get_json()
-    username = postData['username']
-    password = postData['password']
-
+def login_account():
+    post_data = request.get_json()
+    username = post_data['username']
+    password = post_data['password']
     account = accountDAO.Find(username)
-    if not account:
-        return "Invalid Username", 400
-
-    if not password == account['password']:
-        return "Invalid password", 400
-
+    if password != account['password']:
+        return "Invalid password", 403
     session['username'] = username
     return "Success", 200
 
-# Get addresses of a user
+    
 @api.route('/user/address', methods=['POST'])
-def add_address():
-    username = GetCurrentUsername()
-    if (not username):
-        return "Unauthorized", 401
-
-    postData = request.get_json()
-    postal_code = postData["postal_code"]
-    house_number = postData["house_number"]
-
+@secure()
+def add_address(account):
+    post_data = request.get_json()
+    postal_code = post_data["postal_code"]
+    house_number = post_data["house_number"]
     address = addressDAO.Find(postal_code, house_number)
 
     # address does not exist: create address
-    result = None
-    if (not address):
-        result = addressDAO.Create(postData)
-        address = addressDAO.Find(postal_code, house_number)
-        if type(result) == sqlite3.Error:
-            return "Could not create address", 400
-    
-    if type(result) == sqlite3.Error:
-        return "Could not get address", 400
-
-    result = user_addressDAO.Create(postal_code, house_number, username)
-
-    if type(result) == sqlite3.Error:
-        return "Could not add address to user", 400
-
+    if not address:
+        addressDAO.Create(post_data)
+    result = user_addressDAO.Create(postal_code, house_number, account['username'])
     return "success", 200
 
-# Add address to user (and create if not exists)
+
 @api.route('/user/address', methods=['GET'])
-def get_address():
-    username = GetCurrentUsername()
-    if (not username):
-        return "Unauthorized", 401
-
-    result = addressDAO.FindByUser(username)
-    if type(result) == sqlite3.Error:
-        return "Could not find addresses", 400
-
+@secure()
+def get_address(account):
+    result = addressDAO.FindByUser(account.username)
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
-# Delete address of a user
-@api.route('/user/address', methods=["DELETE"])
-def delete_address():
-    username = GetCurrentUsername()
-    if (not username):
-        return "Unauthorized", 401
-    postData = request.get_json()
-    postal_code = postData["postal_code"]
-    house_number = postData["house_number"]
-    result = user_addressDAO.Delete(postal_code, house_number, username)
-    if type(result) == sqlite3.Error:
-        return "Could not delete address", 400
 
+@api.route('/user/address', methods=['DELETE'])
+@secure()
+def delete_address(account):
+    post_data = request.get_json()
+    postal_code = post_data["postal_code"]
+    house_number = post_data["house_number"]
+    result = user_addressDAO.Delete(postal_code, house_number, account['username'])
     return "Success!", 200
 
+
 @api.route('/user/favorites', methods=['POST'])
-def add_favorite():
-    username = GetCurrentUsername()
-    if (not username):
-        return "Unauthorized", 401
-    postData = request.get_json()
-    product_id = postData["product_id"]
+@secure()
+def add_favorite(account):
+    post_data = request.get_json()
+    product_id = post_data["product_id"]
     product = productDAO.Find(product_id)
-    if type(product) == sqlite3.Error:
-        return "Database error, could not find product", 400
-
-    if (not product):
+    if not product:
         return "Product does not exist", 404
-
-    result = favoritesDAO.Create(username, product_id)
-    
-    if type(result) == sqlite3.Error:
-        return "Could not add product to favorites", 400
+    result = favoritesDAO.Create(account['username'], product_id)
     return "Success!", 200
 
 
 @api.route('/user/favorites', methods=['GET'])
-def get_favorite():
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
-
-    result = favoritesDAO.FindByUser(username)
-    if type(result) == sqlite3.Error:
-        return "Database error, could not find favorites", 400
-    return Response(json.dumps(result), 200, mimetype='application/json', )
+@secure()
+def get_favorite(account):
+    print(account['favorites'])
+    return Response(json.dumps(account['favorites']), 200, mimetype='application/json', )
         
 
 @api.route('/user/favorites', methods=['DELETE'])
-def delete_favorite():
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
+@secure()
+def delete_favorite(account):
     product_id = request.get_json()
     product_id = product_id["product_id"]
-    result = favoritesDAO.Delete(username, product_id)
+    result = favoritesDAO.Delete(account['username'], product_id)
     return "Success", 200
     
 
 @api.route('/user/wishlist', methods=['POST'])
-def add_wishlist():
-    username = GetCurrentUsername()
-    if (not username):
-        return "Unauthorized", 401
+@secure()
+def add_wishlist(account):
     postData = request.get_json()
     product_id = postData["product_id"]
     product = productDAO.Find(product_id)
-    if type(product) == sqlite3.Error:
-        return "Database error, could not find product", 400
     if (not product):
         return "Product does not exist", 404
-
-    result = wishDAO.Create(username, product_id)
-    
-    if type(result) == sqlite3.Error:
-        return "Could not add product to wishlist", 400
+    result = wishDAO.Create(account['username'], product_id)
     return "Success!", 200
 
 
 @api.route('/user/wishlist', methods=['GET'])
-def get_wishlist():
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
-
-    result = wishDAO.FindByUser(username)
-    if type(result) == sqlite3.Error:
-        return "Database error, could not find wishes", 400
+@secure()
+def get_wishlist(account):
+    result = wishDAO.FindByUser(account['username'])
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
 @api.route('/user/wishlist', methods=['DELETE'])
-def delete_wishlist():
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
+@secure()
+def delete_wishlist(account):
     product_id = request.get_json()
     product_id = product_id["product_id"]
-    result = wishDAO.Delete(username, product_id)
+    result = wishDAO.Delete(account['username'], product_id)
     return "Success", 200
     
 
 @api.route('/user/orders', methods=['POST'])
+@secure()
 def add_order():
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
     postData = request.get_json()
-    result = orderDAO.Create(username, postData)
-    if type(result) == sqlite3.Error:
-        return "Database error, could not create order", 400
+    result = orderDAO.Create(account['username'], postData)
     return "Success!", 200
 
 
 @api.route('/user/orders', methods=['GET'])
+@secure()
 def get_orders():
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
-    orders = orderDAO.FindByUser(username)
-    if type(orders) == sqlite3.Error:
-            return "Database error, could not find orders", 400
+    orders = orderDAO.FindByUser(account['username'])
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
 @api.route('/user/orders/<order_id>')
-def get_order(order_id):
-    username = GetCurrentUsername()
-    if not username:
-        return "Unauthorized", 401
+@secure()
+def get_order(account, order_id):
     order = orderDAO.Find(order_id)
-    if type(order) == sqlite3.Error:
-        return "Database error, could not find order", 400
-    if (order['username'] == username):
+    if (order['username'] == account['username']):
         return Response(json.dumps(order), 200, mimetype='application/json', )
     return "Unauthorized", 401
-
-
-# Attempts to get the current username belonging to the session
-def GetCurrentUsername():
-    if "username" in session:
-        user = accountDAO.Find(session["username"])
-        if (user):
-            return session["username"]
-    return None

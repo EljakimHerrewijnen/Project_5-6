@@ -25,7 +25,7 @@ var ProductListView = (() => {
             return Promise.all([html, products, panel]).then(([data1, data2, data3]) => {
                 container.append(data1);
                 var productsContainer = container.find('#products-container');
-                productsContainer.css({opacity: 0});
+                productsContainer.addClass('no-opacity');
                 container.find('#svgitem').load("/static/worldmap.svg");
                 products = data2;
                 panelTemplate = Handlebars.compile(data3);
@@ -40,15 +40,16 @@ var ProductListView = (() => {
 
         this.destruct = function() {
             var productsContainer = container.find('#products-container');
-            var vv = productsContainer.animate({opacity: 0.0}, 100).promise().then(() => {productsContainer.remove()});
-            var xx = container.find('#products-filter').animate({left: -280}, 1, "swing").delay(400).promise().then(() => {container.remove()});
+            var vv = productsContainer.addClass('no-opacity').delay(1000).promise().then(() => {productsContainer.remove()});
+            var xx = container.find('#products-filter').removeClass('open').delay(2000).promise().then(() => {container.remove()});
             return vv;
         }
 
         this.transitionIn = function() {
             var productsContainer = container.find('#products-container');
-            productsContainer.animate({opacity: 1}, 200);
-            container.find('#products-filter').animate({left: 0}, 1);
+            //productsContainer.animate({opacity: 1}, 200);
+            productsContainer.removeClass('no-opacity');
+            container.find('#products-filter').addClass('open');
         }
 
         this.getHtml = function() {
