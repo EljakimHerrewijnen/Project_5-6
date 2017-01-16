@@ -4,7 +4,7 @@ var product;
 var totalPrice = 0;
 
 function buildView() {
-    ajaxCall("/static/Views/OrderView/OrderView.html", "text", {}, function(_view) {
+    ajaxCall("/static/view/order-view.html", "text", {}, function(_view) {
         var view = Handlebars.compile(_view);
         console.log(cartcontents);
         viewContainer.append(view(cartcontents));

@@ -34,7 +34,7 @@ function accountView() {
         container.animate({opacity: 1}, 150);
     }
 
-    this.getHtml = () => $.ajax({url: "http://localhost:5555/static/Views/AccountView/AccountView.html",contentType: "text"});
+    this.getHtml = () => $.ajax({url: "http://localhost:5555/static/views/account-view.html",contentType: "text"});
 
     this.setupListeners = function(user) {
         var wishlist_toggle = container.find('#wishlist-public-toggle')

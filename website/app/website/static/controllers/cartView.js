@@ -30,7 +30,7 @@ function cartView() {
         container.animate({opacity: 1}, 150);
     }
     
-    var getHtml = () => $.ajax({url: "http://localhost:5555/static/Views/CartView/CartView.html",contentType: "text"});
+    var getHtml = () => $.ajax({url: "http://localhost:5555/static/views/cart-view.html",contentType: "text"});
 }
 
 // Retrieves the Products json and casts them to models.

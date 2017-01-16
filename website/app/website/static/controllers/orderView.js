@@ -10,7 +10,7 @@ function onAssetsLoaded() {
 // Adds the ProductListView.html to the DOM
 function buildView(onComplete) {
     return function(){
-        ajaxCall("/static/Views/OrderDetailView/OrderDetailView.html", "text", {}, function(_view) {
+        ajaxCall("/static/views/order-details-view.html", "text", {}, function(_view) {
             var view = Handlebars.compile(_view);
             order["total_price"] = calculateTotal(order);
             viewContainer.append(view(order));

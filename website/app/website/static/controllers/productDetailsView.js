@@ -54,7 +54,7 @@ function productDetailView(productId) {
         container.animate({opacity: 1}, 200);
     }
 
-    this.getHtml = () => $.ajax({url: "http://localhost:5555/static/Views/ProductDetailsView/ProductDetailsView.html", contentType: "text"});
+    this.getHtml = () => $.ajax({url: "http://localhost:5555/static/views/product-details-view.html", contentType: "text"});
 
     function onWishButtonPressed() {
         user = stateManager.getUser();

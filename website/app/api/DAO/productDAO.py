@@ -5,6 +5,7 @@ def Find(product_id):
     db = Database()
     db.where("product_id", product_id)
     product = db.get_one("product")
+    
     if not product:
         return None
 
@@ -17,7 +18,7 @@ def FindAll():
     sqlResult = db.get_all("product")
     if not sqlResult:
         return None
-
+    print(sqlResult)
     for product in sqlResult:
         aromas = _getAroma(product["product_id"])
         product["aromas"] = aromas

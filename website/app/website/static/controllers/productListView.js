@@ -53,14 +53,14 @@ var ProductListView = (() => {
 
         this.getHtml = function() {
             return $.ajax({
-                url: "http://localhost:5555" + "/static/Views/ProductListView/ProductListView.html",
+                url: "http://localhost:5555" + "/static/views/product-list-view.html",
                 contentType: "text"
             });
         }
 
         this.getPanel = function() {
             return $.ajax({
-                url: "http://localhost:5555" + "/static/Views/HTML_templates/item_panel.html",
+                url: "http://localhost:5555" + "/static/views/item-panel.html",
                 contentType: "text"
             });
         }

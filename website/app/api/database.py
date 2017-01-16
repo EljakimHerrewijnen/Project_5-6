@@ -13,7 +13,7 @@ class Database(object):
 
 	def open_conn(self):
 		# api route
-		self.conn = sqlite3.connect("website/data.db")
+		self.conn = sqlite3.connect("app/data.db")
 		# this file test use route
 		# self.conn = sqlite3.connect("data.db")
 
