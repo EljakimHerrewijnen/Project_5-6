@@ -1,4 +1,4 @@
-from website.Database import Database
+from app.api.database import Database
 
 # Get a product by id
 def Find(product_id):

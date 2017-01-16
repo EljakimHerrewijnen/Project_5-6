@@ -1,28 +1,26 @@
 from flask import request
 from flask import Response
 from flask import session
-from app.models.account import Account
-from app.models.account import Address
-from app import app
+from app.api import api
 from flask_cors import CORS, cross_origin
 import json
-import app.DAO.accountDAO as accountDAO
-import app.DAO.addressDAO as addressDAO
-import app.DAO.favoritesDAO as favoritesDAO
-import app.DAO.productDAO as productDAO
-import app.DAO.user_addressDAO as user_addressDAO
-import app.DAO.wishDAO as wishDAO
-import app.DAO.orderDAO as orderDAO
+from app.api.DAO import accountDAO 
+from app.api.DAO import addressDAO 
+from app.api.DAO import favoritesDAO
+from app.api.DAO import productDAO 
+from app.api.DAO import user_addressDAO
+from app.api.DAO import wishDAO 
+from app.api.DAO import orderDAO 
 
-from website.Database import Database
+from app.api.database import Database
 import sqlite3
 
-@app.route("/API/Products/<id>")
+@api.route("/Products/<id>")
 def ProductRouteHandler(id):
     product = Models.Product.find(id)
     return Response(product.ToJson(), mimetype='application/json')
 
-@app.route("/API/Products")
+@api.route("/Products")
 def Products():
     jsonResult = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
     return Response(jsonResult, mimetype="application/json")
@@ -142,13 +140,13 @@ def get_cart():
     #Dev 
 """
 
-@app.route('/api/logout', methods=['POST'])
+@api.route('/logout', methods=['POST'])
 def logout():
     session.clear()
     return "logged out", 200
 
 
-@app.route('/api/user/account', methods=['POST'])
+@api.route('/user/account', methods=['POST'])
 def create_account():
     result = accountDAO.Create(request.get_json())
     if type(result) == sqlite3.Error:
@@ -157,7 +155,7 @@ def create_account():
     return "success", 200
 
 
-@app.route('/api/user/account', methods=['GET'])
+@api.route('/user/account', methods=['GET'])
 def getAccount():
     sessionUsername = GetCurrentUsername()
     if not sessionUsername:
@@ -168,7 +166,7 @@ def getAccount():
     return Response(jsonResult, mimetype="application/json") 
 
 
-@app.route('/api/user/account', methods=['PUT'])
+@api.route('/user/account', methods=['PUT'])
 def updateAccount():
     sessionUsername = GetCurrentUsername()
     if not sessionUsername:
@@ -181,7 +179,7 @@ def updateAccount():
     return "Success", 200
 
 
-@app.route('/api/login', methods=['POST'])
+@api.route('/login', methods=['POST'])
 def loginAccount():
     postData = request.get_json()
     username = postData['username']
@@ -199,7 +197,7 @@ def loginAccount():
 
     
 # Get addresses of a user
-@app.route('/api/user/address', methods=['POST'])
+@api.route('/user/address', methods=['POST'])
 def add_address():
     username = GetCurrentUsername()
     if (not username):
@@ -230,7 +228,7 @@ def add_address():
     return "success", 200
 
 # Add address to user (and create if not exists)
-@app.route('/api/user/address', methods=['GET'])
+@api.route('/user/address', methods=['GET'])
 def get_address():
     username = GetCurrentUsername()
     if (not username):
@@ -243,7 +241,7 @@ def get_address():
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 # Delete address of a user
-@app.route('/api/user/address', methods=["DELETE"])
+@api.route('/user/address', methods=["DELETE"])
 def delete_address():
     username = GetCurrentUsername()
     if (not username):
@@ -258,7 +256,7 @@ def delete_address():
     return "Success!", 200
 
 
-@app.route('/api/user/favorites', methods=['POST'])
+@api.route('/user/favorites', methods=['POST'])
 def add_favorite():
     username = GetCurrentUsername()
     if (not username):
@@ -279,7 +277,7 @@ def add_favorite():
     return "Success!", 200
 
 
-@app.route('/api/user/favorites', methods=['GET'])
+@api.route('/user/favorites', methods=['GET'])
 def get_favorite():
     username = GetCurrentUsername()
     if not username:
@@ -291,7 +289,7 @@ def get_favorite():
     return Response(json.dumps(result), 200, mimetype='application/json', )
         
 
-@app.route('/api/user/favorites', methods=['DELETE'])
+@api.route('/user/favorites', methods=['DELETE'])
 def delete_favorite():
     username = GetCurrentUsername()
     if not username:
@@ -302,7 +300,7 @@ def delete_favorite():
     return "Success", 200
     
 
-@app.route('/api/user/wishlist', methods=['POST'])
+@api.route('/user/wishlist', methods=['POST'])
 def add_wishlist():
     username = GetCurrentUsername()
     if (not username):
@@ -322,7 +320,7 @@ def add_wishlist():
     return "Success!", 200
 
 
-@app.route('/api/user/wishlist', methods=['GET'])
+@api.route('/user/wishlist', methods=['GET'])
 def get_wishlist():
     username = GetCurrentUsername()
     if not username:
@@ -334,7 +332,7 @@ def get_wishlist():
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
-@app.route('/api/user/wishlist', methods=['DELETE'])
+@api.route('/user/wishlist', methods=['DELETE'])
 def delete_wishlist():
     username = GetCurrentUsername()
     if not username:
@@ -345,7 +343,7 @@ def delete_wishlist():
     return "Success", 200
     
 
-@app.route('/api/user/orders', methods=['POST'])
+@api.route('/user/orders', methods=['POST'])
 def add_order():
     username = GetCurrentUsername()
     if not username:
@@ -357,7 +355,7 @@ def add_order():
     return "Success!", 200
 
 
-@app.route('/api/user/orders', methods=['GET'])
+@api.route('/user/orders', methods=['GET'])
 def get_orders():
     username = GetCurrentUsername()
     if not username:
@@ -368,7 +366,7 @@ def get_orders():
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
-@app.route('/api/user/orders/<order_id>')
+@api.route('/user/orders/<order_id>')
 def get_order(order_id):
     username = GetCurrentUsername()
     if not username:

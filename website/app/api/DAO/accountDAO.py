@@ -1,9 +1,9 @@
-from website.models.account import Account
-from website.Database import Database
-import website.DAO.addressDAO as addressDAO
-import website.DAO.wishDAO as wishDAO
-import website.DAO.favoritesDAO as favoritesDAO
-import website.DAO.orderDAO as orderDAO
+from app.api.models.account import Account
+from app.api.database import Database
+from app.api.DAO import addressDAO 
+from app.api.DAO import wishDAO 
+from app.api.DAO import favoritesDAO
+from app.api.DAO import orderDAO
 from datetime import date
 import json
 

@@ -1,4 +1,4 @@
-from website.Database import Database
+from app.api.database import Database
 
 # Add adress to user
 def Create(postal_code, house_number, username):

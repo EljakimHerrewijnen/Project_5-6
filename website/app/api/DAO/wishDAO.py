@@ -1,5 +1,5 @@
-from website.Database import Database
-import website.DAO.productDAO as productDAO
+from app.api.database import Database
+from app.api.DAO import productDAO
 
 # add wish to users wishlist
 def Create(username, product_id):
