@@ -1,14 +1,7 @@
-var viewContainer = $("#view-container");
-var cartcontents = {"products" : []};
-var product;
-var totalPrice = 0;
-
-
-viewManager.addRoute("/cart/", () => new cartView());
+viewManager.addRoute("/cart", () => new cartView());
 
 function cartView() {
     var self = this;
-    var container;
 
     Object.defineProperty(this, "url", {
         get : () => '/cart'
@@ -16,6 +9,7 @@ function cartView() {
 
     this.construct = function(newContainer) {
         container = newContainer;
+        cart = stateManager.cart;
         var html = getHtml();
         var products = stateManager.getProducts();
         var cart = stateManager.getCartItems();
@@ -37,16 +31,6 @@ function cartView() {
     }
     
     var getHtml = () => $.ajax({url: "http://localhost:5555/static/Views/CartView/CartView.html",contentType: "text"});
-}
-
-
-
-function buildView() {
-    ajaxCall("/static/Views/CartView/CartView.html", "text", {}, function(_view) {
-        var view = Handlebars.compile(_view);
-        viewContainer.append(view(cartcontents));
-        onViewLoad();
-    });
 }
 
 // Retrieves the Products json and casts them to models.
