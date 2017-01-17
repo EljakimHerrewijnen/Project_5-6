@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Coffeeshop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/CSS/style.css">
+    <script src="/static/JSHelpers/handlebars-v4.0.5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+    <script src="/static/JSHelpers/AuthenticationService.js"></script>
+    <script src="/static/JSHelpers/navController.js"></script>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <div id='view-container'>
+    </div>
+    <script src="/static/JSHelpers/APIService.js"></script>
+    <script src="/static/Models/Product.js"></script>
+    <script src="/static/Views/OrderView/OrderViewController.js"></script>
+</body>
+</html>
