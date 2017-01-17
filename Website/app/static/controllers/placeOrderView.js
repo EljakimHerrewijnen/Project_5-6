@@ -30,27 +30,28 @@ function placeOrderView() {
     }
     
     var getHtml = () => $.ajax({url: "http://localhost:5555/static/views/place-order-view.html",contentType: "text"});
-}
 
-function placeOrder() {
-    var postalCode = $("#dropDownAddres option:selected").attr('postal-code');
-    var streetNumber = $("#dropDownAddres option:selected").attr('street-number');
-    var order = {
-        address: {
-            postal_code : postalCode,
-            house_number: streetNumber,
-        },
-        items : Cart.items.map((x) => {return {amount: x.amount, id : x.product.id}})
-    }
+    this.placeOrder = function() {
+        var postalCode = $("#dropDownAddres option:selected").attr('postal-code');
+        var streetNumber = $("#dropDownAddres option:selected").attr('street-number');
+        var order = {
+            address: {
+                postal_code : postalCode,
+                house_number: streetNumber,
+            },
+            items : Cart.items.map((x) => {return {amount: x.amount, id : x.product.id}})
+        }
 
-    $.post({url: "/api/user/orders",
-        contentType: "application/json",
-        data: JSON.stringify(order)
-    }).done( function(x) {
+        $.post({url: "/api/user/orders",
+            contentType: "application/json",
+            data: JSON.stringify(order)
+        }).done( function(x) {
+            console.log(x);
             alert("Placed order!");
             Cart.empty();
-            viewManager.redirect('/account')
-    }).error((jqXHR) => {
-        console.log(jqXHR);
-    });
+            viewManager.redirect('/order/' + x.id)
+        }).error((jqXHR) => {
+            console.log(jqXHR);
+        });
+    }
 }

@@ -167,6 +167,7 @@ def get_orders(account):
 @api.route('/user/orders/<order_id>')
 @secure()
 def get_order(account, order_id):
+    print(order_id)
     order = orderDAO.Find(order_id)
     if (order['username'] == account['username']):
         return Response(json.dumps(order), 200, mimetype='application/json', )

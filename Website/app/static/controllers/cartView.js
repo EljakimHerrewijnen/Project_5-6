@@ -2,6 +2,7 @@ viewManager.addRoute("/cart", () => new cartView());
 
 function cartView() {
     var self = this;
+    var container;
 
     Object.defineProperty(this, "url", {
         get : () => '/cart'
@@ -71,19 +72,3 @@ function _cartRemoveItem(id) {
     $("#cart-row-amount-" + id).closest('tr').remove()
     _CartUpdateTotal();
 }
-
-function goToOrder()
-{
-    var user = authenticationService.User();
-    
-    // If no user, log in.
-    if (!user) {
-        //redirect to login
-        window.location.replace("/login"); 
-    }else{
-        //go to confirm order page
-        window.location.replace("/orderview"); 
-    }   
-}
-
-//}

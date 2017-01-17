@@ -5,6 +5,11 @@ var ViewManager = (function() {
         var routes = []
         this.container = $('#view-container')
 
+        Object.defineProperty(this, "activeView", {
+            get : () => activeView
+        });
+    
+
         this.addRoute = function(pathAsRegex, routeFunction) {
             var re = new RegExp(pathAsRegex + "$");
             if (re in routes) throw new Error("Could not add route, there already exists a route with this path");
