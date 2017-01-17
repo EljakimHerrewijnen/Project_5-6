@@ -18,7 +18,6 @@ def FindAll():
     sqlResult = db.get_all("product")
     if not sqlResult:
         return None
-    print(sqlResult)
     for product in sqlResult:
         aromas = _getAroma(product["product_id"])
         product["aromas"] = aromas
