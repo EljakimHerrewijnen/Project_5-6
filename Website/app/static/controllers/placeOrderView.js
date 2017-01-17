@@ -49,7 +49,8 @@ function placeOrderView() {
             console.log(x);
             alert("Placed order!");
             Cart.empty();
-            viewManager.redirect('/order/' + x.id)
+            console.log(x);
+            viewManager.redirect('/order/' + x)
         }).error((jqXHR) => {
             console.log(jqXHR);
         });

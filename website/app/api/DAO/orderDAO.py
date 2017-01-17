@@ -28,7 +28,7 @@ def Create(username, order_content):
             db.delete("orders")
             return res
 
-    return True
+    return order_id
 
 def Delete():
     pass
