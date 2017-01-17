@@ -46,7 +46,6 @@ Handlebars.registerHelper("cartOrderTotal", function() {
     return Cart.getTotalPrice();
 })
 
-
 function _cartIncrement(id) {
     var item = Cart.getItem(id);
     Cart.addProduct(item.product);
