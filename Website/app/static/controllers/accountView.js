@@ -1,5 +1,5 @@
 var viewContainer = $("#view-container");
-viewManager.addRoute("/test/account/", () => new accountView());
+viewManager.addRoute("/account", () => new accountView());
 
 function accountView() {
     var self = this;

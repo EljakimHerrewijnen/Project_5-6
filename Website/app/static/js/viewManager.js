@@ -16,7 +16,13 @@ var ViewManager = (function() {
 
         this.redirect = function(path, trackHistory) {
             var route = routes.reduce((acc, route) => route.regExp.test(path) ? route.route : acc, undefined);
-            route ? this.changeView(route(path), trackHistory) : window.location = window.location = "http://" + window.location.host + "/404";
+            if (route)
+                this.changeView(route(path), trackHistory)
+            else if (!DEBUG)
+                window.location = "http://" + window.location.host + "/404";
+            else {
+                console.log("Route does not exist")
+            }
         }
 
         this.changeView = function(newActiveView, ignoreHistory) {
@@ -24,6 +30,7 @@ var ViewManager = (function() {
             var newContainer = $('<div></div>');
             newActiveView.construct(newContainer)
             .catch((jqXHR) => {
+                console.log(jqXHR);
                 if (jqXHR.status == 401) {
                     if (activeView == loginRegisterView) return Promise.reject();
                     newActiveView = loginRegisterView;   

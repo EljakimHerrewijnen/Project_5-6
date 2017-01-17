@@ -150,7 +150,8 @@ def delete_wishlist(account):
 
 @api.route('/user/orders', methods=['POST'])
 @secure()
-def add_order():
+def add_order(account):
+    print(request)
     postData = request.get_json()
     result = orderDAO.Create(account['username'], postData)
     return "Success!", 200
@@ -158,7 +159,7 @@ def add_order():
 
 @api.route('/user/orders', methods=['GET'])
 @secure()
-def get_orders():
+def get_orders(account):
     orders = orderDAO.FindByUser(account['username'])
     return Response(json.dumps(result), 200, mimetype='application/json', )
 

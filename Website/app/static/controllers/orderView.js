@@ -3,41 +3,40 @@ var pathname = $(location).attr('pathname');
 var id = pathname.substring(pathname.lastIndexOf('/') + 1);
 var order = {};
 
-function onAssetsLoaded() {
-    
-}
-
-// Adds the ProductListView.html to the DOM
-function buildView(onComplete) {
-    return function(){
-        ajaxCall("/static/views/order-details-view.html", "text", {}, function(_view) {
-            var view = Handlebars.compile(_view);
-            order["total_price"] = calculateTotal(order);
-            viewContainer.append(view(order));
-            onComplete();
-        });
-    }
-}
-
-// Retrieves the Products json and casts them to models.
-function buildOrder(id, onComplete) {
-    return function() {
-        ajaxCall("/api/user/orders/" + id, "application/json", {}, function(json){
-            json["product_id"] = id;
-            order = json;
-            onComplete();
-        });
-    }
-}
-
-$(document).ready(function(){   
-    var pipeline = buildOrder(id, buildView(onAssetsLoaded));
-    pipeline();
+viewManager.addRoute('/order/\\d+', (path) => {
+    var orderId = path.split('/').pop();
+    return new orderView(orderId);
 });
 
+function orderView(orderId) {
+    var self = this;
+    var container;
 
-function calculateTotal (order) {
-    return order.products.reduce(function (a, b) {
-        return a + b.price;
-    }, 0);
+    Object.defineProperty(this, "url", {
+        get : () => '/order/' + orderId
+    });
+
+    this.construct = function(newContainer) {
+        container = newContainer;
+        var html = getHtml();
+        var order = getOrder(orderId);
+
+        return Promise.all([html, order]).then(([html, order]) => {
+            container.css({opacity: 0})
+            html = Handlebars.compile(html);
+            order['total_price'] = order.products.reduce((total, product) => total + product.price * product.quantity, 0);
+            container.append(html(order));
+        });
+    }
+
+    this.destruct = function() {
+        return container.animate({opacity: 0}, 150).promise().then(() => container.remove());
+    }
+
+    this.transitionIn = function() {
+        container.animate({opacity: 1}, 150);
+    }
+
+    var getHtml = () => $.ajax({url: "http://localhost:5555/static/views/order-view.html",contentType: "text"});
+    var getOrder = (orderId) => $.ajax({url: "http://localhost:5555/api/user/orders/" + orderId ,contentType: "application/json"});
 }
