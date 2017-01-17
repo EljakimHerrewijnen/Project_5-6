@@ -33,7 +33,7 @@ var loginRegisterView = (() => {
             container.animate({opacity: 1}, 150);
         }
 
-        this.getHtml = () => $.ajax({url: "http://localhost:5555/static/views/login-view.html",contentType: "text"});
+        this.getHtml = () => $.ajax({url: "/static/views/login-view.html",contentType: "text"});
 
         var register = function(form) {
             values = {}

@@ -37,6 +37,6 @@ function orderView(orderId) {
         container.animate({opacity: 1}, 150);
     }
 
-    var getHtml = () => $.ajax({url: "http://localhost:5555/static/views/order-view.html",contentType: "text"});
-    var getOrder = (orderId) => $.ajax({url: "http://localhost:5555/api/user/orders/" + orderId ,contentType: "application/json"});
+    var getHtml = () => $.ajax({url: "/static/views/order-view.html",contentType: "text"});
+    var getOrder = (orderId) => $.ajax({url: "/api/user/orders/" + orderId ,contentType: "application/json"});
 }

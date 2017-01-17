@@ -29,7 +29,7 @@ function placeOrderView() {
         container.animate({opacity: 1}, 150);
     }
     
-    var getHtml = () => $.ajax({url: "http://localhost:5555/static/views/place-order-view.html",contentType: "text"});
+    var getHtml = () => $.ajax({url: "/static/views/place-order-view.html",contentType: "text"});
 
     this.placeOrder = function() {
         var postalCode = $("#dropDownAddres option:selected").attr('postal-code');
