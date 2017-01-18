@@ -2,8 +2,8 @@
     <a onclick="viewManager.changeView(ProductListView)"><h1 id='logo'><b>Coffee</b>supreme</h1></a>
     <div class='navbar-main'>
         <a onclick="viewManager.changeView(ProductListView)"><li class='nav-item'>PRODUCTS</li></a>
-        <!--<li class='nav-item'>ABOUT</li>
-        <li class='nav-item' >WISH LISTS</li>-->
+        <!--<li class='nav-item'>ABOUT</li>-->
+        <a onclick="viewManager.redirect('/wishlists')"><li class='nav-item'>WISHLISTS</li></a>
     </div>
     <a onclick="viewManager.changeView(new accountView())"><li class='nav-item nav-right'>ACCOUNT</li></a>
     <a onclick='auth.logout()' id='logout-button'></a>
