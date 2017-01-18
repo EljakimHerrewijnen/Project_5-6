@@ -1,24 +1,22 @@
-viewManager.addRoute("/wishlists", () => new browseWishlistView());
+viewManager.addRoute("/admin/dashboard", () => new adminDashboard());
 
-function browseWishlistView() {
+function adminDashboard() {
     var self = this;
     var container;
-    var wishlists;
 
     Object.defineProperty(this, "url", {
-        get : () => '/wishlists'
+        get : () => '/admin/dashboard'
     });
 
     this.construct = function(newContainer) {
         container = newContainer;
         var html = getHtml();
-        var wishlists = getWishlists();
+        var users = getUsers()
 
-        promise = Promise.all([html, wishlists]).then(([html, wishlists]) =>{
+        promise = Promise.all([html, users]).then(([html, users]) =>{
             html = Handlebars.compile(html);
-            container.append(html(wishlists));
+            container.append(html(users));
             container.css({opacity: 0});
-            console.log(wishlists); 
         });
 
         return promise;
@@ -27,10 +25,11 @@ function browseWishlistView() {
     this.destruct = function() {
         return container.animate({opacity:0}, 150).promise().then(() => container.remove());
     }
+
     this.transitionIn =function() {
         container.animate({opacity: 1}, 150);
     }
     
-    var getHtml = () => $.ajax({url: "/static/views/browse-wishlists-view.html",contentType: "text"});
-    var getWishlists = () => $.ajax({url: "/api/wishlist" ,contentType: "text"});
+    var getHtml = () => $.ajax({url: "/static/views/admin/dashboard.html"});
+    var getUsers = () => $.ajax({url: "/api/admin/account"});
 }

@@ -1,9 +1,13 @@
 var NavBar = (() => {
     function NavBar() {
         var user = stateManager.getUser();
-        user.then(() => {
+        user.then((user) => {
             var logoutButton = $('#logout-button');
             logoutButton.html('<li class="nav-item nav-right">LOGOUT</li>');
+            if (user.account_type === "admin"){
+                var adminButton = $('#admin-button');
+                adminButton.html('<li class="nav-item nav-right">ADMIN</li>');
+            }
         });
 
         this.toggleLogoutButton = function(turnOn) {
@@ -15,6 +19,18 @@ var NavBar = (() => {
             } else {
                 logoutButton.empty();
                 logoutButton.animate({opacity: 0}, 150).animate({width: 0}, 150);
+            }
+        }
+
+        this.toggleAdminButton = function(turnOn) {
+            var adminButton = $('#admin-button');
+            if (turnOn) {
+                adminButton.css({opacity: 0, width: 0});
+                adminButton.html('<li class="nav-item nav-right">ADMIN</li>');
+                adminButton.animate({width: adminButton.get(0).scrollWidth + 30}, 150).animate({opacity: 100}, 150);
+            } else {
+                adminButton.empty();
+                adminButton.animate({opacity: 0}, 150).animate({width: 0}, 150);
             }
         }
     }

@@ -198,3 +198,4 @@ def get_public_wishlist(username):
         return Response(json_result, mimetype='application/json')
     else:
         return "Unauthorized", 401
+
