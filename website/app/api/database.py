@@ -13,7 +13,7 @@ class Database(object):
 
 	def open_conn(self):
 		# api route
-		self.conn = sqlite3.connect("app/data.db")
+		self.conn = sqlite3.connect("Website/app/data.db")
 		# this file test use route
 		# self.conn = sqlite3.connect("data.db")
 
@@ -24,7 +24,7 @@ class Database(object):
 		self.conn.commit()
 		self.conn.close()
 
-	# Create releavant tables 
+	# Create releavant tables
 	# Only use if you know what you are doing!!!
 	def create_table(self):
 		tables = ["address", "user_address", "product", "product_aroma", "wishes", "account", "favorites", "orders", "order_details"]
@@ -64,7 +64,7 @@ class Database(object):
 					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				self.c.execute(querry)
 		self.close_conn()
-				
+
 	# Drop all tables, Create new table and fill them
 	def reset_database(self):
 		self.create_table()
@@ -101,7 +101,7 @@ class Database(object):
 		except:
 			final = sys.exc_info()
 		return final
-	
+
 	# executes given query
 	# returns number of rows affected by query or last rowid
 	def raw_querry(self, querry, rowcount = True):
@@ -212,7 +212,7 @@ class Database(object):
 	# table; string, table name
 	# values; dictonary (eg {'columnname':'value'}), columnames and value
 	# this function also makes use of any arguments passed to where()
-	# return; 
+	# return;
 	def update(self, table, values):
 		updates = ''
 		for key in values:
@@ -255,7 +255,7 @@ class Database(object):
 			self.groupBy += "GROUP BY " + column
 		else:
 			self.groupBy += " , "+ column
-	
+
 	# ===depricated===
 	# def createJson(arg):
 	# 	db = Database()
@@ -266,7 +266,7 @@ class Database(object):
 
 	# 	with open(total, 'w') as outfile:
 	# 		json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
-	
+
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
