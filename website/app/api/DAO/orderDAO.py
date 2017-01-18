@@ -1,5 +1,7 @@
 from app.api.database import Database
 from app.api.DAO import productDAO
+from app.api.DAO import addressDAO
+from app.api.helpers import date_convert
 from datetime import date
 import sqlite3
 
@@ -9,12 +11,10 @@ def Create(username, order_content):
     order = {
         "username" : username,
         "orders_date" : date.today().isoformat(),
-        "postal_code" : order_content["address"]["postal_code"],
-        "house_number" : order_content["address"]["house_number"]
+        "postal_code" : order_content["address"]["postalCode"],
+        "house_number" : order_content["address"]["houseNumber"]
     }
     order_id = db.insert("orders", order)
-    if type(order_id) == sqlite3.Error:
-        return order_id
     for order_line in order_content["items"]:
         order_details = {
             "orders_id" : order_id,
@@ -22,12 +22,6 @@ def Create(username, order_content):
             "quantity" : order_line["amount"]
         }
         res = db.insert("order_details", order_details)
-        if type(res) == sqlite3.Error:
-            db.reset_querry()
-            db.where("orders_id", order_id)
-            db.delete("orders")
-            return res
-
     return order_id
 
 def Delete():
@@ -38,8 +32,7 @@ def Find(order_id):
     db = Database()
     db.where("orders_id", order_id)
     sqlResult = db.get_one("orders")
-    sqlResult["products"] = productDAO.FindByOrder(sqlResult["orders_id"])
-    return sqlResult
+    return toJsonFormat(sqlResult)
 
 # Get all orders
 def FindAll():
@@ -58,3 +51,12 @@ def FindByUser(username):
     for order in orders:
         order["products"] = productDAO.FindByOrder(order["orders_id"])
     return orders
+
+def toJsonFormat(order):
+    return {
+        "address" : addressDAO.Find(order['postal_code'], order['house_number']),
+        "id" : order['orders_id'],
+        "orderDate" : date_convert(order['orders_date']),
+        "products" : productDAO.FindByOrder(order["orders_id"]),
+        "username" : order['username']
+    }
