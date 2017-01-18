@@ -1,8 +1,8 @@
 viewManager.addRoute("/wishlists", () => new browseWishlistView());
 
-
 function browseWishlistView() {
     var self = this;
+    var container;
     var wishlists;
 
     Object.defineProperty(this, "url", {
@@ -12,13 +12,13 @@ function browseWishlistView() {
     this.construct = function(newContainer) {
         container = newContainer;
         var html = getHtml();
-        var wishLists = stateManager.getProducts();
-        var cart = Cart;
+        var wishlists = getWishlists();
 
-        promise = Promise.all([html, products]).then(([html, products]) =>{
+        promise = Promise.all([html, wishlists]).then(([html, wishlists]) =>{
             html = Handlebars.compile(html);
-            container.append(html(Cart.items));
+            container.append(html(wishlists));
             container.css({opacity: 0});
+            console.log(wishlists); 
         });
 
         return promise;
@@ -31,5 +31,6 @@ function browseWishlistView() {
         container.animate({opacity: 1}, 150);
     }
     
-    var getHtml = () => $.ajax({url: "/static/views/cart-view.html",contentType: "text"});
+    var getHtml = () => $.ajax({url: "/static/views/browse-wishlists-view.html",contentType: "text"});
+    var getWishlists = () => $.ajax({url: "/api/wishlist" ,contentType: "text"});
 }

@@ -1,0 +1,23 @@
+<div id='order-details-container'>
+        <h1>Wishlist</h1>
+        <p>The public wishlist of {{this.name}}</p> 
+    <table id='orderTable'>
+        <thead>
+        <tr id='order-table-header'>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>                
+        </thead>
+        <tbody id='#cart-view-tbody'>
+        {{#each this.wishlist}}
+            <tr class='row'>
+                <td id='image-row'><a onclick="viewManager.redirect('/details/{{this.id}}')"><img src='/static/images/{{this.id}}.jpg'></a>
+                <td><a onclick="viewManager.redirect('/details/{{this.id}}')">{{this.name}}</a></td>
+                <td id='cart-row-price-{{this.id}}' style="width: 8em">€ {{this.price}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

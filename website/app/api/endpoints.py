@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 from app.api import api
 from app.api.DAO import *
 from app.api.auth import secure
+from app.api.database import Database
 
 
 @api.route("/products/<id>")
@@ -172,3 +173,28 @@ def get_order(account, order_id):
     if (order['username'] == account['username']):
         return Response(json.dumps(order), 200, mimetype='application/json', )
     return "Unauthorized", 401
+
+@api.route('/wishlist')
+def get_public_wishlists():
+    db = Database()
+    db.where("wishlist_public", 1)
+    accounts = db.get_all("account", select = "username, name")
+    json_result = json.dumps(accounts, sort_keys=True, indent=4)
+    return Response(json_result, mimetype="application/json")
+
+@api.route('/wishlist/<username>')
+def get_public_wishlist(username):
+    db = Database()
+    account = accountDAO.Find(username)
+
+
+    if account['wishlist_public']:
+        response = {
+            "wishlist" : account["wishList"],
+            "name" : account["name"]
+        }
+
+        json_result = json.dumps(response, sort_keys=True, indent=4)
+        return Response(json_result, mimetype='application/json')
+    else:
+        return "Unauthorized", 401
