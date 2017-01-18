@@ -3,7 +3,7 @@ var notFoundView = (() => {
         var self = this;
         var getHtml = function() {
             return $.ajax({
-                url: "http://localhost:5555" + "/static/views/404.html",
+                url: "/static/views/404.html",
                 contentType: "text"
             });
         }

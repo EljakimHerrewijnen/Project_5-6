@@ -31,5 +31,5 @@ function browseWishlistView() {
         container.animate({opacity: 1}, 150);
     }
     
-    var getHtml = () => $.ajax({url: "http://localhost:5555/static/views/cart-view.html",contentType: "text"});
+    var getHtml = () => $.ajax({url: "/static/views/cart-view.html",contentType: "text"});
 }
