@@ -2,6 +2,7 @@ function User(user) {
     for (var k in user) this[k] = user[k];
     var self = this;
     
+    this.accountType = this.account_type;
     this.wishList = this.wishList.map((product) => new Product(product));
     this.favorites = this.favorites.map((product) => new Product(product));
     this.birthDate = {

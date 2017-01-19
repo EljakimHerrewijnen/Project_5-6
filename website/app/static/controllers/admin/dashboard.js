@@ -7,6 +7,8 @@ function adminDashboard() {
         responsive: true,
         maintainAspectRatio: false
     };
+    var selectedUser;
+    var allUsers;
 
     Object.defineProperty(this, "url", {
         get : () => '/admin/dashboard'
@@ -18,12 +20,14 @@ function adminDashboard() {
         var users = getUsers()
         var products = stateManager.getProducts();
 
-        promise = Promise.all([html, users, products]).then(([html, users, products]) =>{
+        promise = Promise.all([html, users, products]).then(([html, users, products]) => {
+            allUsers = users;
             html = Handlebars.compile(html);
             container.append(html(users));
             createChart(users);
             createProductChart(products);
             createAromaChart(products);
+            setupUserTable();
             container.css({opacity: 0});
         });
         return promise;
@@ -107,8 +111,8 @@ function adminDashboard() {
 
     var createAromaChart = function(products) {
         Chart.defaults.global.legend.display = true;
-        var chocolateAmount = products.filter((x) => $.inArray("Chocolate", x.aromas)).length;
-        var nuttyAmount = products.filter((x) => $.inArray("Nutty", x.aromas)).length;
+        var chocolate = products.filter((x) => $.inArray("Chocolate", x.aromas)).length;
+        var nutty = products.filter((x) => $.inArray("Nutty", x.aromas)).length;
         var fruity = products.filter((x) => $.inArray("Fruity", x.aromas)).length;
         var spicy = products.filter((x) => $.inArray("Spicy", x.aromas)).length;
 
@@ -116,12 +120,12 @@ function adminDashboard() {
             labels: [
                 "Chocolate",
                 "Nutty",
-                "Fruity",
-                "Spicy"
+                "Spicy",
+                "Fruity"
             ],
             datasets: [
                 {
-                    data: [chocolateAmount, nuttyAmount, spicy, fruity],
+                    data: [chocolate, nutty, spicy, fruity],
                     backgroundColor: [
                         "#FF6384",
                         "#4BC0C0",
@@ -137,5 +141,52 @@ function adminDashboard() {
             type: 'polarArea',
             options: options
         });
+    }
+
+    var setupUserTable = function() {
+        var rows = container.find('.admin-user-row');
+        rows.each(function(row) {
+            $(this).on("click", activateEditor);
+        });
+        var form = container.find('#admin-user-form');
+        form.submit(updateUser);
+    }
+
+    var toggleDisabled = function() {
+        $(this).removeClass('disabled')
+        $(this).prop('disabled', false)
+    }
+
+    var activateEditor = function(e) {
+        var form = container.find('#admin-user-form');
+        var inputFields = form.find('input');
+        var buttons = form.find('button');
+        var labels = form.find('label');
+        inputFields.each(toggleDisabled);
+        buttons.each(toggleDisabled);
+        labels.each(toggleDisabled);
+        var username = $(this).attr('user');
+        var user = new User(allUsers.find((user) => user.username == username));
+        fillForm(form, user);
+        fillForm(form, user.birthDate);
+    }
+
+    var fillForm = function(form, values) {
+        for (key in values) {
+            var field = form.find('[name=' + key + ']');
+            if (field)
+                field.val(values[key])
+        }
+    }
+
+    var updateUser = function(e) {
+        e.preventDefault();
+        var x = {};
+        $(this).serializeArray().forEach((v) => x[v.name] = v.value);
+        x['birthDate'] = {
+            day: x.day,
+            month: x.month,
+            year: x.year
+        }
     }
 }
