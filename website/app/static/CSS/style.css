@@ -17,10 +17,31 @@ a {
     background: #ffffff;
     padding: 25px;
     margin-bottom: 15px;
-    width: 1300px;
-    height: 500px;
 }
 
+#orderChart {
+    height: 900px;
+}
+
+#admin-order-chart {
+    display: block;
+    box-sizing: border-box;
+    flex-basis: 60%;
+}
+
+.admin-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#admin-product-chart {
+    flex-basis: 35%;
+}
+
+#admin-aroma-chart {
+    flex-basis: 35%;
+}
 
 a:hover { 
     cursor: pointer;

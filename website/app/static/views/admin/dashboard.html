@@ -1,8 +1,20 @@
-
-<div style='padding: 35px;'>
-    <div class='md-panel' style="display: block; width: 1300px; height: 500px; box-sizing:border-box;">
+<div style='padding: 35px;' class='admin-container'>
+    <div class='md-panel' id='admin-order-chart'>
+        <h3>Registered users</h3>
+        <div style='height: 400px'>
         <canvas id="orderChart" style='box-sizing:border-box; display: block'></canvas>
+        </div>
     </div>
-    <p style='font-size: 100px; line-height: 0px; text-align: center;'>We have this many users:</p><br>
-    <p style='font-size: 550px; line-height: 0px; margin: 200px;text-align: center;'>{{this.length}}</p>
+    <div class='md-panel' id='admin-product-chart'>
+        <h3>Roast distribution</h3>
+        <div style='height: 400px'>
+        <canvas id="productChart" style='box-sizing:border-box; display: block'></canvas>
+        </div>
+    </div>
+    <div class='md-panel' id='admin-aroma-chart'>
+        <h3>Aroma distribution</h3>
+        <div style='height: 400px'>
+        <canvas id="aromaChart" style='box-sizing:border-box; display: block'></canvas>
+        </div>
+    </div>
 </div>
