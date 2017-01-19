@@ -13,3 +13,12 @@ def get_all_accounts(account):
     accounts = accountDAO.FindAll()
     accounts = json.dumps(accounts, sort_keys=True, indent=4)
     return Response(accounts, mimetype='application/json')
+
+
+@api.route('/admin/account/<username>', methods=['PUT'])
+@secure(admin_only = True)
+def admin_update_account(account, username):
+    values = request.get_json()
+    print(values)
+    result = accountDAO.Update(values)
+    return "done", 200

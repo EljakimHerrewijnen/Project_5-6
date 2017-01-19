@@ -100,6 +100,8 @@ function User(user) {
     }
 
     this.updateInfo = function(userInfo) {
+        for (key in userInfo)
+            this[key] = userInfo[key]
         userInfo = JSON.stringify(userInfo);
         return $.ajax({
             url: "/api/user/account",

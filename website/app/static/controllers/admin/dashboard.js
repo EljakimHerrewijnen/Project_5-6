@@ -17,7 +17,7 @@ function adminDashboard() {
     this.construct = function(newContainer) {
         container = newContainer;
         var html = getHtml();
-        var users = getUsers()
+        var users = getUsers();
         var products = stateManager.getProducts();
 
         promise = Promise.all([html, users, products]).then(([html, users, products]) => {
@@ -149,7 +149,7 @@ function adminDashboard() {
             $(this).on("click", activateEditor);
         });
         var form = container.find('#admin-user-form');
-        form.submit(updateUser);
+        form.submit(submitForm);
     }
 
     var toggleDisabled = function() {
@@ -179,14 +179,49 @@ function adminDashboard() {
         }
     }
 
-    var updateUser = function(e) {
+    var submitForm = function(e) {
         e.preventDefault();
-        var x = {};
-        $(this).serializeArray().forEach((v) => x[v.name] = v.value);
-        x['birthDate'] = {
-            day: x.day,
-            month: x.month,
-            year: x.year
+        var values = {}
+        $(this).serializeArray().forEach((v) => values[v.name] = v.value);
+        var user = allUsers.find((user) => user.username == values.username)
+        for (key in values) {
+            user[key] = values[key]
         }
+        user['birth_date'] = {
+            day : values.day,
+            month : values.month,
+            year: values.year
+        }
+        updateUser(user);
+        var z = container.find('[user=' + user.username + ']').children().get(1);
+        $(z).html(user.name + " " + user.surname);
+        stateManager.getUser().then((u) => {
+            if (u.username === user.username)
+                stateManager.clearUser();
+        });
+    }
+
+    var formatUser = function(userInfo) {
+        return {
+            username : userInfo.username,
+            name : userInfo.name,
+            surname: userInfo.surname,
+            email: userInfo.email,
+            account_type : userInfo.accountType,
+            banned : userInfo.banned,
+            birth_date : userInfo.birth_date,
+            register_date : userInfo.register_date,
+            wishlist_public : userInfo.wishlist_public
+        }
+    }
+
+    var updateUser = function(userInfo) {
+        var payload = formatUser(userInfo);
+        return $.ajax({
+            url: "/api/admin/account/" + userInfo.username,
+            method: "PUT",
+            contentType : "application/json",
+            data: JSON.stringify(payload),
+        });
     }
 }
