@@ -7,11 +7,42 @@ from app.api.DAO import orderDAO
 from datetime import date
 import json
 
+
+def create(json):
+    account = {
+        "username" : json["username"],
+        "name" : json['name'],
+        "surname" : json['surname'],
+        "password" : json['password'],
+        "email" : json['email'],
+        "birth_date" : date(json['birthDate']['year'], json['birthdate']['month'], json['birthdate']['day']).isoformat(),
+        "register_date" : date.today().isoformat(),
+        "banned" : 0,
+        "wishlist_public" : 0,
+        "account_type" : "user"
+    }
+    db.insert("account", account)
+
+def format_from_db(db_dict):
+    jsonRet = {
+        "username" : db_dict['username'],
+        'name' : db_dict['name'],
+        'surname' : db_dict['surname'],
+        'banned' : db_dict['banned'],
+        'email' : db_dict['email'],
+        'birthDate' :  ConvertDateToObject(db_dict['birth_date']),
+        'registerDate' : ConvertDateToObject(db_dict['register_date']),
+        'accountType' : db_dict['account_type'],
+        'wishlistPublic' : db_dict['wishlist_public'],
+        'password' : db_dict['password']
+    }
+    return jsonRet
+
+
 # Create user
 def Create(account):
     db = Database()
     d = account["birth_date"]
-    print(d)
     birthDate = date(
         int(d["year"]),
         int(d["month"]),
@@ -29,9 +60,7 @@ def Create(account):
 def FindAll():
     db = Database()
     accounts = db.get_all("account")
-    for account in accounts:
-
-        GetFullProperties(account)
+    accounts = [format_from_db(account) for account in accounts]
     return accounts
 
 # Get one user by username
@@ -39,10 +68,7 @@ def Find(username):
     db = Database()
     db.where("username", username)
     account = db.get_one("account")
-    if not account:
-        return {}
-    GetFullProperties(account)
-    return ToJsonObbject(account)
+    return format_from_db(account)
 
 # Delete user
 def Delete(username):
@@ -53,45 +79,7 @@ def Delete(username):
 # update information in user
 def Update(account):
     db = Database()
-    if ("birth_date" in account):
-        bd = account["birth_date"]
-        birth_date = date(
-            int(bd["year"]),
-            int(bd["month"]),
-            int(bd["day"])
-        ).isoformat()
-        account["birth_date"] = birth_date
-    db.where("username", account["username"])
-    print(json.dumps(account, indent=4, sort_keys=True))
     db.update("account", account)
-
-# Add user specific wishlist, order, favorites and adress information to given Account
-def GetFullProperties(account):
-    username = account["username"]
-    account["wishList"] = wishDAO.FindByUser(username)
-    account["orders"] = orderDAO.FindByUser(username)
-    account["favorites"] = favoritesDAO.FindByUser(username)
-    account["addresses"] = addressDAO.FindByUser(username)
-
-# Converts the object received from the database to the expected json format
-def ToJsonObbject(databaseAccount):
-    jsonRet = {}
-
-    jsonRet['username'] = databaseAccount['username']
-    jsonRet['name'] = databaseAccount['name']
-    jsonRet['surname'] = databaseAccount['surname']
-    jsonRet['banned'] = databaseAccount['banned']
-    jsonRet['email'] = databaseAccount['email']
-    jsonRet['birthDate'] = ConvertDateToObject(databaseAccount['birth_date'])
-    jsonRet['registerDate'] = ConvertDateToObject(databaseAccount['register_date'])
-    jsonRet['orders'] = databaseAccount['orders']
-    jsonRet['wishlist'] = databaseAccount['wishList']
-    jsonRet['favorites'] = databaseAccount['favorites']
-    jsonRet['accountType'] = databaseAccount['account_type']
-    jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
-    jsonRet['password'] = databaseAccount['password']
-
-    return jsonRet
 
 def ConvertDateToObject(dateString):
     date = {}
