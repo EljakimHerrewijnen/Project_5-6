@@ -89,6 +89,7 @@ def ToJsonObbject(databaseAccount):
     jsonRet['favorites'] = databaseAccount['favorites']
     jsonRet['accountType'] = databaseAccount['account_type']
     jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
+    jsonRet['password'] = databaseAccount['password']
 
     return jsonRet
 
