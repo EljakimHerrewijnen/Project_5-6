@@ -97,11 +97,11 @@ def delete_address(account):
 @secure()
 def add_favorite(account):
     post_data = request.get_json()
-    product_id = post_data["product_id"]
-    product = productDAO.Find(product_id)
+    productId = post_data["product_id"]
+    product = productDAO.Find(productId)
     if not product:
         return "Product does not exist", 404
-    result = favoritesDAO.Create(account['username'], product_id)
+    result = favoritesDAO.Create(account['username'], productId)
     return "Success!", 200
 
 
@@ -115,9 +115,9 @@ def get_favorite(account):
 @api.route('/user/favorites', methods=['DELETE'])
 @secure()
 def delete_favorite(account):
-    product_id = request.get_json()
-    product_id = product_id["product_id"]
-    result = favoritesDAO.Delete(account['username'], product_id)
+    productId = request.get_json()
+    productId = productId["product_id"]
+    result = favoritesDAO.Delete(account['username'], productId)
     return "Success", 200
     
 
@@ -125,11 +125,11 @@ def delete_favorite(account):
 @secure()
 def add_wishlist(account):
     postData = request.get_json()
-    product_id = postData["product_id"]
-    product = productDAO.Find(product_id)
+    productId = postData["product_id"]
+    product = productDAO.Find(productId)
     if (not product):
         return "Product does not exist", 404
-    result = wishDAO.Create(account['username'], product_id)
+    result = wishDAO.Create(account['username'], productId)
     return "Success!", 200
 
 
@@ -143,9 +143,9 @@ def get_wishlist(account):
 @api.route('/user/wishlist', methods=['DELETE'])
 @secure()
 def delete_wishlist(account):
-    product_id = request.get_json()
-    product_id = product_id["product_id"]
-    result = wishDAO.Delete(account['username'], product_id)
+    productId = request.get_json()
+    productId = productId["product_id"]
+    result = wishDAO.Delete(account['username'], productId)
     return "Success", 200
     
 

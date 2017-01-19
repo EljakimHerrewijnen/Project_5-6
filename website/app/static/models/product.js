@@ -3,10 +3,10 @@ function Product(product) {
     "use strict"
     
     var self = this;
-    this.id = product.product_id;
+    this.id = product.id;
     this.price = parseFloat(this.price);
-    this.roast = product.roast_level;
-    this.image = "images/" + product.product_id + ".jpg";
+    this.roast = product.level;
+    this.image = "images/" + product.id + ".jpg";
     this.formatPrice = parseFloat(this.price).toFixed(2);
 
     this.matchesFilter = function(filter) {

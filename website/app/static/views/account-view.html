@@ -44,9 +44,9 @@
             </tr>
             {{#each wishList}}
                 <tr>
-                    <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
+                    <td><a href='/products/{{this.id}}'>{{this.name}}</a></td>
                     <td>€{{this.price}}</td>
-                    <td><a onclick='removeWishItem({{this.product_id}}, this)'>Remove</a></td>
+                    <td><a onclick='removeWishItem({{this.id}}, this)'>Remove</a></td>
                 </tr>
             {{/each}}
         </table>
@@ -61,9 +61,9 @@
             </tr>
             {{#each favorites}}
                 <tr>
-                    <td><a href='/products/{{this.product_id}}'>{{this.name}}</a></td>
+                    <td><a href='/products/{{this.id}}'>{{this.name}}</a></td>
                     <td>€{{this.price}}</td>
-                    <td ><a onclick='removeFavoriteItem({{this.product_id}}, this)'>Remove</a></td>
+                    <td ><a onclick='removeFavoriteItem({{this.id}}, this)'>Remove</a></td>
                 </tr>
             {{/each}}
         </table>

@@ -4,31 +4,31 @@ from datetime import date
 import sqlite3
 
 # Create order
-def Create(username, order_content):
+def Create(username, orderContent):
     db = Database()
     order = {
         "username" : username,
         "orders_date" : date.today().isoformat(),
-        "postal_code" : order_content["address"]["postal_code"],
-        "house_number" : order_content["address"]["house_number"]
+        "postal_code" : orderContent["address"]["postal_code"],
+        "house_number" : orderContent["address"]["house_number"]
     }
-    order_id = db.insert("orders", order)
-    if type(order_id) == sqlite3.Error:
-        return order_id
-    for order_line in order_content["items"]:
-        order_details = {
-            "orders_id" : order_id,
-            "product_id" : order_line["id"],
-            "quantity" : order_line["amount"]
+    orderId = db.insert("orders", order)
+    if type(orderId) == sqlite3.Error:
+        return orderId
+    for orderLine in orderContent["items"]:
+        orderDetails = {
+            "orders_id" : orderId,
+            "product_id" : orderLine["id"],
+            "quantity" : orderLine["amount"]
         }
-        res = db.insert("order_details", order_details)
+        res = db.insert("orderDetails", orderDetails)
         if type(res) == sqlite3.Error:
             db.reset_querry()
-            db.where("orders_id", order_id)
+            db.where("orders_id", orderId)
             db.delete("orders")
             return res
 
-    return order_id
+    return orderId
 
 def Delete():
     pass

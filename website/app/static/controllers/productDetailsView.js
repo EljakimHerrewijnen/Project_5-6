@@ -137,7 +137,7 @@ function setupWishListButton() {
     }
 
     // Set up initial state
-    if (user.wishList.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+    if (user.wishList.map(function(x) {return x.id}).includes(parseInt(id))) {
         button.html("REMOVE FROM WISHLIST");
     } else {
         button.html("ADD TO WISHLIST")
@@ -147,7 +147,7 @@ function setupWishListButton() {
         var user = authenticationService.User();
         var _id = parseInt(id)
         e.preventDefault();
-        if (user.wishList.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+        if (user.wishList.map(function(x) {return x.id}).includes(parseInt(id))) {
             authenticationService.removeWish(_id, function(success) {
                 if (success) {
                     button.html("ADD TO WISHLIST");
@@ -180,7 +180,7 @@ function setupFavoritesButton() {
     }
 
     // Set up initial state
-    if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+    if (user.favorites.map(function(x) {return x.id}).includes(parseInt(id))) {
         button.html("REMOVE FROM FAVORITES");
     } else {
         button.html("ADD TO FAVORITES")
@@ -190,7 +190,7 @@ function setupFavoritesButton() {
         var user = authenticationService.User();
         var _id = parseInt(id)
         e.preventDefault();
-        if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+        if (user.favorites.map(function(x) {return x.id}).includes(parseInt(id))) {
             authenticationService.removeFavorite(_id, function(success) {
                 if (success) {
                     button.html("ADD TO FAVORITES");

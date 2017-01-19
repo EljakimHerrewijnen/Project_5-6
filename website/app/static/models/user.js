@@ -109,6 +109,6 @@ function User(user) {
     }
 
     this.hasBought = function(product) {
-        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.product_id == product.id));
+        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.id == product.id));
     }
 }
