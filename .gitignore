@@ -53,7 +53,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
+.venv
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -395,6 +395,8 @@ paket-files/
 ### VisualStudio Patch ###
 *.pyc
 Website/FlaskWebProject1/FlaskWebProject1/FlaskWebProject1/__pycache__/views.cpython-35.pyc
+
+.DS_Store
 
 .DS_Store
 
