@@ -107,4 +107,8 @@ function User(user) {
             data: userInfo,
         });
     }
+
+    this.hasBought = function(product) {
+        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.id == product.id));
+    }
 }

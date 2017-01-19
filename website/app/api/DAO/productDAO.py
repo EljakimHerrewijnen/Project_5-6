@@ -1,15 +1,18 @@
 from app.api.database import Database
 
 # Get a product by id
-def Find(product_id):
+def Find(id):
     db = Database()
-    db.where("product_id", product_id)
+    db.where("product_id", id)
     product = db.get_one("product")
     
     if not product:
         return None
-
+    #add aromas
     product["aromas"] = _getAroma(product["product_id"])
+    #rename atributes to fir with json standards
+    product["roast"] = product.pop("roast_level")
+    product["id"] = product.pop("product_id")  
     return product
 
 # Get all products
@@ -18,16 +21,18 @@ def FindAll():
     sqlResult = db.get_all("product")
     if not sqlResult:
         return None
-    print(sqlResult)
     for product in sqlResult:
-        aromas = _getAroma(product["product_id"])
-        product["aromas"] = aromas
+        #add aromas
+        product["aromas"] = _getAroma(product["product_id"])
+        #rename atributes to fir with json standards
+        product["roast"] = product.pop("roast_level")
+        product["id"] = product.pop("product_id")
     return sqlResult
 
 # Get aromas for a product
-def _getAroma(product_id):
+def _getAroma(id):
     db = Database()
-    db.where("product_id", product_id)
+    db.where("product_id", id)
     sqlResult = db.get_all("product_aroma", "aroma_name")
     aromas = list(map(lambda row: row["aroma_name"], sqlResult))
     return aromas
@@ -40,6 +45,9 @@ def FindByOrder(order_id):
     sqlResult = db.get_all("order_details od", "p.*, od.quantity")
     print (order_id)
     for product in sqlResult:
-        aromas = _getAroma(product["product_id"])
-        product["aromas"] = aromas
+        product["aromas"] = _getAroma(product["product_id"])
+        #rename atributes to fir with json standards
+        product["roast"] = product.pop("roast_level")
+        product["id"] = product.pop("product_id")
     return sqlResult
+

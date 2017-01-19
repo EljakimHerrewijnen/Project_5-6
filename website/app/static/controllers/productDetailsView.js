@@ -37,10 +37,20 @@ function productDetailView(productId) {
             container.find('#wishlist_button').on('click', onWishButtonPressed);
             container.find('#favorites_button').on('click', onFavoritesButtonPressed);
             user = stateManager.getUser().then((user) => {
-                if (user.hasWish(product))
+                if (user.hasWish(product)){
                     container.find('#wishlist_button').html("REMOVE FROM WISHLIST");
-                if (user.hasFavorite(product))
-                    container.find('#favorites_button').html("REMOVE FROM FAVORITES");
+                }
+                //If user has not bought the product do not display option to add to favorits
+                if (user.hasBought(product)){
+                    container.find('#favorites_button').css({"display" : "block"});
+                    //if user has favorited the product chance text to remove
+                    if (user.hasFavorite(product)){
+                        container.find('#favorites_button').html("REMOVE FROM FAVORITES");
+                    }
+                }else{
+                    // hide element
+                    container.find('#favorites_button').css({"display" : "none"});
+                }
             });
         });
     }
@@ -66,10 +76,12 @@ function productDetailView(productId) {
             else
                 return user.addWish(product).then(() => button.html("REMOVE FROM WISHLIST"));
         }, (jqXHR, textStatus, errorThrown) => {
-            if (jqXHR.status == 400)
+            if (jqXHR.status == 400){
                 alert(jqXHR.responseText);
-            else
+            }
+            else{
                 viewManager.changeView(loginRegisterView);
+            }
         });
     }
 
@@ -77,15 +89,19 @@ function productDetailView(productId) {
         user = stateManager.getUser();
         button = container.find('#favorites_button')
         user.then((user) => {
-            if (user.hasFavorite(product))
+            if (user.hasFavorite(product)){
                 return user.removeFavorite(product).then(() => {button.html("ADD TO FAVORITES")});
-            else
+            }
+            else{
                 return user.addFavorite(product).then(() => {button.html("REMOVE FROM FAVORITES")});
+            }
         }, (jqXHR, textStatus, errorThrown) => {
-            if (jqXHR.status == 400)
+            if (jqXHR.status == 400){
                 alert(jqXHR.responseText);
-            else
+            }
+            else{
                 viewManager.changeView(loginRegisterView);
+            }
         });
     }
 
@@ -121,7 +137,7 @@ function setupWishListButton() {
     }
 
     // Set up initial state
-    if (user.wishList.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+    if (user.wishList.map(function(x) {return x.id}).includes(parseInt(id))) {
         button.html("REMOVE FROM WISHLIST");
     } else {
         button.html("ADD TO WISHLIST")
@@ -131,7 +147,7 @@ function setupWishListButton() {
         var user = authenticationService.User();
         var _id = parseInt(id)
         e.preventDefault();
-        if (user.wishList.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+        if (user.wishList.map(function(x) {return x.id}).includes(parseInt(id))) {
             authenticationService.removeWish(_id, function(success) {
                 if (success) {
                     button.html("ADD TO WISHLIST");
@@ -164,7 +180,7 @@ function setupFavoritesButton() {
     }
 
     // Set up initial state
-    if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+    if (user.favorites.map(function(x) {return x.id}).includes(parseInt(id))) {
         button.html("REMOVE FROM FAVORITES");
     } else {
         button.html("ADD TO FAVORITES")
@@ -174,7 +190,7 @@ function setupFavoritesButton() {
         var user = authenticationService.User();
         var _id = parseInt(id)
         e.preventDefault();
-        if (user.favorites.map(function(x) {return x.product_id}).includes(parseInt(id))) {
+        if (user.favorites.map(function(x) {return x.id}).includes(parseInt(id))) {
             authenticationService.removeFavorite(_id, function(success) {
                 if (success) {
                     button.html("ADD TO FAVORITES");

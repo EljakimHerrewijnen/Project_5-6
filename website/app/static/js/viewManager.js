@@ -58,7 +58,10 @@ var ViewManager = (function() {
                 }
                 self.container.append(newContainer);
                 activeView.transitionIn();
-            }).catch((e) => {console.log(e)});
+            }).catch((e) => {
+                console.log(e)
+                console.log(e.responseText)
+            });
         }
 
         window.onpopstate = function(event) {

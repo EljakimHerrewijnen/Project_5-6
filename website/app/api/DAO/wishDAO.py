@@ -2,15 +2,15 @@ from app.api.database import Database
 from app.api.DAO import productDAO
 
 # add wish to users wishlist
-def Create(username, product_id):
+def Create(username, productId):
     db = Database()
-    db.insert("wishes", {"username" : username, "product_id" : product_id})
+    db.insert("wishes", {"username" : username, "product_id" : productId})
 
 # remove wish from users wishlist
-def Delete(username, product_id):
+def Delete(username, productId):
     db = Database()
     db.where("username", username)
-    db.where("product_id", product_id)
+    db.where("product_id", productId)
     db.delete("wishes")
 
 # Get wishlist from user

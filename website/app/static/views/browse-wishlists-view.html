@@ -1,1 +1,19 @@
-browsing wish list
+<div id='order-details-container'>
+        <h1>Public wishlists</h1>
+    <table id='orderTable'>
+        <thead>
+        <tr id='order-table-header'>
+            <th>User</th>
+            <th>Name</th>
+        </tr>                
+        </thead>
+        <tbody id='#cart-view-tbody'>
+        {{#each this}}
+            <tr>
+                <td><a onclick="viewManager.redirect('/wishlist/{{this.username}}')">{{this.username}}</a></td>
+                <td><a onclick="viewManager.redirect('/wishlist/{{this.username}}')">{{this.name}}</a></td>
+            <tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>

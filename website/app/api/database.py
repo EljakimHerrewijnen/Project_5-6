@@ -10,6 +10,7 @@ class Database(object):
 		self.joins = ""
 		self.wheres = ""
 		self.groupBy = ""
+		self.orderBy = ""
 
 	def open_conn(self):
 		# api route
@@ -24,7 +25,7 @@ class Database(object):
 		self.conn.commit()
 		self.conn.close()
 
-	# Create releavant tables 
+	# Create releavant tables
 	# Only use if you know what you are doing!!!
 	def create_table(self):
 		tables = ["address", "user_address", "product", "product_aroma", "wishes", "account", "favorites", "orders", "order_details"]
@@ -64,7 +65,7 @@ class Database(object):
 					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				self.c.execute(querry)
 		self.close_conn()
-				
+
 	# Drop all tables, Create new table and fill them
 	def reset_database(self):
 		self.create_table()
@@ -101,7 +102,7 @@ class Database(object):
 		except:
 			final = sys.exc_info()
 		return final
-	
+
 	# executes given query
 	# returns number of rows affected by query or last rowid
 	def raw_querry(self, querry, rowcount = True):
@@ -127,6 +128,7 @@ class Database(object):
 		self.joins = ""
 		self.wheres = ""
 		self.groupBy = ""
+		self.orderBy = ""
 
 	# Build querry form components
 	# This funtion makes us of any argumetns passed to where(), join()
@@ -143,6 +145,8 @@ class Database(object):
 			querry += self.wheres
 		if self.groupBy != "":
 			querry += self.groupBy
+		if self.orderBy != "":
+			querry += self.orderBy
 
 		result = self.raw_get_querry(querry)
 		self.reset_querry()
@@ -163,6 +167,8 @@ class Database(object):
 			querry += self.wheres
 		if self.groupBy != "":
 			querry += self.groupBy
+		if self.orderBy != "":
+			querry += self.orderBy
 
 		result = self.raw_get_one_querry(querry)
 		self.reset_querry()
@@ -212,7 +218,7 @@ class Database(object):
 	# table; string, table name
 	# values; dictonary (eg {'columnname':'value'}), columnames and value
 	# this function also makes use of any arguments passed to where()
-	# return; 
+	# return;
 	def update(self, table, values):
 		updates = ''
 		for key in values:
@@ -255,6 +261,12 @@ class Database(object):
 			self.groupBy += "GROUP BY " + column
 		else:
 			self.groupBy += " , "+ column
+
+	def order_by(self, column):
+		if self.orderBy == "":
+			self.orderBy += "ORDER BY " + column
+		else:
+			self.orderBy += " , "+ column
 	
 	# ===depricated===
 	# def createJson(arg):
@@ -266,7 +278,7 @@ class Database(object):
 
 	# 	with open(total, 'w') as outfile:
 	# 		json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
-	
+
 	# Converts given to json.
 	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)

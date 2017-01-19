@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 from app.api import api
 from app.api.DAO import *
 from app.api.auth import secure
+from app.api.database import Database
 
 
 @api.route("/products/<id>")
@@ -59,7 +60,7 @@ def login_account():
     session['username'] = username
     return "Success", 200
 
-    
+
 @api.route('/user/address', methods=['POST'])
 @secure()
 def add_address(account):
@@ -78,7 +79,7 @@ def add_address(account):
 @api.route('/user/address', methods=['GET'])
 @secure()
 def get_address(account):
-    result = addressDAO.FindByUser(account.username)
+    result = addressDAO.FindByUser(account['username'])
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
@@ -96,11 +97,11 @@ def delete_address(account):
 @secure()
 def add_favorite(account):
     post_data = request.get_json()
-    product_id = post_data["product_id"]
-    product = productDAO.Find(product_id)
+    productId = post_data["product_id"]
+    product = productDAO.Find(productId)
     if not product:
         return "Product does not exist", 404
-    result = favoritesDAO.Create(account['username'], product_id)
+    result = favoritesDAO.Create(account['username'], productId)
     return "Success!", 200
 
 
@@ -109,26 +110,26 @@ def add_favorite(account):
 def get_favorite(account):
     print(account['favorites'])
     return Response(json.dumps(account['favorites']), 200, mimetype='application/json', )
-        
+
 
 @api.route('/user/favorites', methods=['DELETE'])
 @secure()
 def delete_favorite(account):
-    product_id = request.get_json()
-    product_id = product_id["product_id"]
-    result = favoritesDAO.Delete(account['username'], product_id)
+    productId = request.get_json()
+    productId = productId["product_id"]
+    result = favoritesDAO.Delete(account['username'], productId)
     return "Success", 200
-    
+
 
 @api.route('/user/wishlist', methods=['POST'])
 @secure()
 def add_wishlist(account):
     postData = request.get_json()
-    product_id = postData["product_id"]
-    product = productDAO.Find(product_id)
+    productId = postData["product_id"]
+    product = productDAO.Find(productId)
     if (not product):
         return "Product does not exist", 404
-    result = wishDAO.Create(account['username'], product_id)
+    result = wishDAO.Create(account['username'], productId)
     return "Success!", 200
 
 
@@ -142,11 +143,11 @@ def get_wishlist(account):
 @api.route('/user/wishlist', methods=['DELETE'])
 @secure()
 def delete_wishlist(account):
-    product_id = request.get_json()
-    product_id = product_id["product_id"]
-    result = wishDAO.Delete(account['username'], product_id)
+    productId = request.get_json()
+    productId = productId["product_id"]
+    result = wishDAO.Delete(account['username'], productId)
     return "Success", 200
-    
+
 
 @api.route('/user/orders', methods=['POST'])
 @secure()
@@ -172,3 +173,28 @@ def get_order(account, order_id):
     if (order['username'] == account['username']):
         return Response(json.dumps(order), 200, mimetype='application/json', )
     return "Unauthorized", 401
+
+@api.route('/wishlist')
+def get_public_wishlists():
+    db = Database()
+    db.where("wishlist_public", 1)
+    accounts = db.get_all("account", select = "username, name")
+    json_result = json.dumps(accounts, sort_keys=True, indent=4)
+    return Response(json_result, mimetype="application/json")
+
+@api.route('/wishlist/<username>')
+def get_public_wishlist(username):
+    db = Database()
+    account = accountDAO.Find(username)
+
+
+    if account['wishlist_public']:
+        response = {
+            "wishlist" : account["wishList"],
+            "name" : account["name"]
+        }
+
+        json_result = json.dumps(response, sort_keys=True, indent=4)
+        return Response(json_result, mimetype='application/json')
+    else:
+        return "Unauthorized", 401
