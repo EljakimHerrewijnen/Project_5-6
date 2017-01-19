@@ -59,7 +59,7 @@ def login_account():
     session['username'] = username
     return "Success", 200
 
-    
+
 @api.route('/user/address', methods=['POST'])
 @secure()
 def add_address(account):
@@ -78,7 +78,7 @@ def add_address(account):
 @api.route('/user/address', methods=['GET'])
 @secure()
 def get_address(account):
-    result = addressDAO.FindByUser(account.username)
+    result = addressDAO.FindByUser(account['username'])
     return Response(json.dumps(result), 200, mimetype='application/json', )
 
 
@@ -109,7 +109,7 @@ def add_favorite(account):
 def get_favorite(account):
     print(account['favorites'])
     return Response(json.dumps(account['favorites']), 200, mimetype='application/json', )
-        
+
 
 @api.route('/user/favorites', methods=['DELETE'])
 @secure()
@@ -118,7 +118,7 @@ def delete_favorite(account):
     product_id = product_id["product_id"]
     result = favoritesDAO.Delete(account['username'], product_id)
     return "Success", 200
-    
+
 
 @api.route('/user/wishlist', methods=['POST'])
 @secure()
@@ -146,7 +146,7 @@ def delete_wishlist(account):
     product_id = product_id["product_id"]
     result = wishDAO.Delete(account['username'], product_id)
     return "Success", 200
-    
+
 
 @api.route('/user/orders', methods=['POST'])
 @secure()
