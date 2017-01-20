@@ -66,7 +66,6 @@ def Update(account):
             int(bd["day"])
         ).isoformat()
         account["birth_date"] = birth_date
-
     db.where("username", account["username"])
     db.update("account", account)
 

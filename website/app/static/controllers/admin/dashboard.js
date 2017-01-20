@@ -149,7 +149,7 @@ function adminDashboard() {
             $(this).on("click", activateEditor);
         });
         var form = container.find('#admin-user-form');
-        form.submit(submitForm);
+        form.submit(submitForm);   
     }
 
     var toggleDisabled = function() {
@@ -169,6 +169,7 @@ function adminDashboard() {
         var user = allUsers.find((user) => user.username == username);
         fillForm(form, user);
         fillForm(form, user.birthDate);
+        setupBanButton(user);
     }
 
     var fillForm = function(form, values) {
@@ -177,6 +178,32 @@ function adminDashboard() {
             if (field)
                 field.val(values[key])
         }
+    }
+
+    var setupBanButton = function(user) {
+        var btn = container.find('#ban-user');
+        btn.attr("username", user.username)
+        btn.off("click");
+        btn.click(toggleBan);
+       if (+user.banned) {
+            btn.html("Unban user");
+        } else {
+            btn.html("Ban user");
+        }
+    }
+
+    var toggleBan = function(e) {
+        e.preventDefault()
+        var username = $(this).attr('username');
+        var user = allUsers.find((user) => user.username == username);
+        var json = {"banned" : 1, "username" : username};
+        if (user.banned) {
+            json.banned = 0;
+        }
+        updateUser(json).then((u) => {
+            user.banned = -!+user.banned
+            setupBanButton(user);
+        });
     }
 
     var submitForm = function(e) {
