@@ -29,10 +29,11 @@ def Create(account):
 def FindAll():
     db = Database()
     accounts = db.get_all("account")
+    retAccounts = []
     for account in accounts:
-
         GetFullProperties(account)
-    return accounts
+        retAccount.append(ToJsonObject(account))
+    return retAccounts
 
 # Get one user by username
 def Find(username):
@@ -74,7 +75,7 @@ def GetFullProperties(account):
     account["addresses"] = addressDAO.FindByUser(username)
 
 # Converts the object received from the database to the expected json format
-def ToJsonObbject(databaseAccount):
+def ToJsonObject(databaseAccount):
     jsonRet = {}
 
     jsonRet['username'] = databaseAccount['username']
