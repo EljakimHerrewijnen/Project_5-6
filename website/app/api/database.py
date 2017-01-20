@@ -12,7 +12,7 @@ class Database(object):
 		self.groupBy = ""
 		self.orderBy = ""
 
-	def openConn(self):
+	def open_conn(self):
 		# api route
 		self.conn = sqlite3.connect("app/data.db")
 		# this file test use route
@@ -21,29 +21,29 @@ class Database(object):
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
 
-	def closeConn(self):
+	def close_conn(self):
 		self.conn.commit()
 		self.conn.close()
 
 	# Create releavant tables
 	# Only use if you know what you are doing!!!
-	def createTable(self):
+	def create_table(self):
 		tables = ["address", "user_address", "product", "product_aroma", "wishes", "account", "favorites", "orders", "order_details"]
 		for table in tables:
 			query = "DROP TABLE IF EXISTS " + table
-			self.rawQuerry(query)
+			self.raw_querry(query)
 		print("tables deleted")
 		querrys = open('createdb.sql', 'r').read()
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.rawQuerry(querry))
+				print (self.raw_querry(querry))
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
 	# Gets json and inserts values into databse
-	def insertCoffee(self):
-		self.openConn()
+	def insert_coffee(self):
+		self.open_conn()
 		data = open("products.json", 'r')
 		jsonData = json.load(data)
 		# return jsonData
@@ -64,16 +64,16 @@ class Database(object):
 				if aroma == 'Chocolate':
 					querry = 'INSERT INTO product_aroma(product_id, aroma_name) VALUES ({}, "{}")'.format(item["ID"], aroma)
 				self.c.execute(querry)
-		self.closeConn()
+		self.close_conn()
 
 	# Drop all tables, Create new table and fill them
-	def resetDatabase(self):
-		self.createTable()
-		self.insertCoffee()
+	def reset_database(self):
+		self.create_table()
+		self.insert_coffee()
 
-	def rawGetQuerry(self, querry):
+	def raw_get_querry(self, querry):
 		try:
-			self.openConn()
+			self.open_conn()
 			self.c.execute(querry)
 			result = self.c.fetchall()
 			names = [description[0] for description in self.c.description]
@@ -83,14 +83,14 @@ class Database(object):
 				for value in range(0, len(elem)):
 					tempdict[names[value]] = elem[value]
 				final.append(tempdict)
-			self.closeConn()
+			self.close_conn()
 		except:
 			final = sys.exc_info()
 		return final
 
-	def rawGetOneQuerry(self, querry):
+	def raw_get_one_querry(self, querry):
 		try:
-			self.openConn()
+			self.open_conn()
 			self.c.execute(querry)
 			result = self.c.fetchone()
 			names = [description[0] for description in self.c.description]
@@ -98,22 +98,22 @@ class Database(object):
 			if result != None:
 				for i in range(0, len(result)):
 					final[names[i]] = result[i]
-			self.closeConn()
+			self.close_conn()
 		except:
 			final = sys.exc_info()
 		return final
 
 	# executes given query
 	# returns number of rows affected by query or last rowid
-	def rawQuerry(self, querry, rowcount = True):
+	def raw_querry(self, querry, rowcount = True):
 		try:
-			self.openConn()
+			self.open_conn()
 			self.c.execute(querry)
 			if rowcount:
 				result = self.c.rowcount
 			else:
 				result = self.c.lastrowid
-			self.closeConn()
+			self.close_conn()
 		except:
 			result = sys.exc_info()
 			print(result)
@@ -122,7 +122,7 @@ class Database(object):
 		return result
 
 	# rest values for querry
-	def resetQuerry(self):
+	def reset_querry(self):
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
@@ -132,7 +132,7 @@ class Database(object):
 
 	# Build querry form components
 	# This funtion makes us of any argumetns passed to where(), join()
-	def getAll(self, table, select = "*"):
+	def get_all(self, table, select = "*"):
 		self.select = select
 		self.froms = table
 
@@ -148,13 +148,13 @@ class Database(object):
 		if self.orderBy != "":
 			querry += self.orderBy
 
-		result = self.rawGetQuerry(querry)
-		self.resetQuerry()
+		result = self.raw_get_querry(querry)
+		self.reset_querry()
 		return result
 
 	# Build querry form components
 	# This funtion makes us of any argumetns passed to where(), join()
-	def getOne(self, table, select = "*"):
+	def get_one(self, table, select = "*"):
 		self.select = select
 		self.froms = table
 
@@ -170,8 +170,8 @@ class Database(object):
 		if self.orderBy != "":
 			querry += self.orderBy
 
-		result = self.rawGetOneQuerry(querry)
-		self.resetQuerry()
+		result = self.raw_get_one_querry(querry)
+		self.reset_querry()
 		return result
 
 	# Add joins to querry
@@ -213,7 +213,7 @@ class Database(object):
 				else:
 					value += ', ' + str(values[key])
 		querry = 'INSERT INTO {}({}) VALUES ({})'.format(table, columns, value)
-		return self.rawQuerry(querry, False)
+		return self.raw_querry(querry, False)
 
 	# table; string, table name
 	# values; dictonary (eg {'columnname':'value'}), columnames and value
@@ -240,8 +240,8 @@ class Database(object):
 		if self.wheres != '':
 			querry += self.wheres
 
-		result = self.rawQuerry(querry)
-		self.resetQuerry()
+		result = self.raw_querry(querry)
+		self.reset_querry()
 		return result
 
 	# table: string, table name
@@ -251,23 +251,34 @@ class Database(object):
 		querry = 'DELETE FROM {} \n'.format(table)
 		if self.wheres != '':
 			querry += self.wheres
-		self.resetQuerry()
-		return self.rawQuerry(querry)
+		self.reset_querry()
+		return self.raw_querry(querry)
 
 	# column: string, column you want to group by
 	# This function adds a group by argument to your query
-	def groupBy(self, column):
+	def group_by(self, column):
 		if self.groupBy == "":
 			self.groupBy += "GROUP BY " + column
 		else:
 			self.groupBy += " , "+ column
 
-	def orderBy(self, column):
+	def order_by(self, column):
 		if self.orderBy == "":
 			self.orderBy += "ORDER BY " + column
 		else:
 			self.orderBy += " , "+ column
 	
+	# ===depricated===
+	# def createJson(arg):
+	# 	db = Database()
+	# 	Query = db.get_all(arg)
+	# 	location = "website/"+arg
+	# 	extention = ".json"
+	# 	total = location + extention
+
+	# 	with open(total, 'w') as outfile:
+	# 		json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
+
 	# Converts given to json.
-	def toJsonarray(self, array):
+	def to_jsonarray(self, array):
 		return json.dumps(array, ensure_ascii=False, sort_keys=True)
