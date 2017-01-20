@@ -9,8 +9,9 @@ from app.api.database import Database
 
 @api.route("/products/<id>")
 def product(id):
-    product = Models.Product.find(id)
-    return Response(product.ToJson(), mimetype='application/json')
+    product = productDAO.Find(id)
+    product = json.dumps(product, sort_keys=True, indent=4)
+    return Response(product, mimetype='application/json')
 
 
 @api.route("/products")
@@ -28,8 +29,6 @@ def logout():
 @api.route('/user/account', methods=['POST'])
 def create_account():
     result = accountDAO.Create(request.get_json())
-    if type(result) == sqlite3.Error:
-        return "Could not create address", 400
     return "success", 200
 
 
@@ -65,8 +64,8 @@ def login_account():
 @secure()
 def add_address(account):
     post_data = request.get_json()
-    postal_code = post_data["postal_code"]
-    house_number = post_data["house_number"]
+    postal_code = post_data["postalCode"]
+    house_number = post_data["houseNumber"]
     address = addressDAO.Find(postal_code, house_number)
 
     # address does not exist: create address
@@ -87,8 +86,8 @@ def get_address(account):
 @secure()
 def delete_address(account):
     post_data = request.get_json()
-    postal_code = post_data["postal_code"]
-    house_number = post_data["house_number"]
+    postal_code = post_data["postalCode"]
+    house_number = post_data["houseNumber"]
     result = user_addressDAO.Delete(postal_code, house_number, account['username'])
     return "Success!", 200
 
@@ -97,7 +96,7 @@ def delete_address(account):
 @secure()
 def add_favorite(account):
     post_data = request.get_json()
-    productId = post_data["product_id"]
+    productId = post_data["id"]
     product = productDAO.Find(productId)
     if not product:
         return "Product does not exist", 404
@@ -108,15 +107,15 @@ def add_favorite(account):
 @api.route('/user/favorites', methods=['GET'])
 @secure()
 def get_favorite(account):
-    print(account['favorites'])
-    return Response(json.dumps(account['favorites']), 200, mimetype='application/json', )
+    result = favoritesDAO.FindByUser(account['username'])
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @api.route('/user/favorites', methods=['DELETE'])
 @secure()
 def delete_favorite(account):
     productId = request.get_json()
-    productId = productId["product_id"]
+    productId = productId["id"]
     result = favoritesDAO.Delete(account['username'], productId)
     return "Success", 200
 
@@ -125,7 +124,7 @@ def delete_favorite(account):
 @secure()
 def add_wishlist(account):
     postData = request.get_json()
-    productId = postData["product_id"]
+    productId = postData["id"]
     product = productDAO.Find(productId)
     if (not product):
         return "Product does not exist", 404
@@ -144,7 +143,7 @@ def get_wishlist(account):
 @secure()
 def delete_wishlist(account):
     productId = request.get_json()
-    productId = productId["product_id"]
+    productId = productId["id"]
     result = wishDAO.Delete(account['username'], productId)
     return "Success", 200
 
@@ -162,7 +161,7 @@ def add_order(account):
 @secure()
 def get_orders(account):
     orders = orderDAO.FindByUser(account['username'])
-    return Response(json.dumps(result), 200, mimetype='application/json', )
+    return Response(json.dumps(orders), 200, mimetype='application/json')
 
 
 @api.route('/user/orders/<order_id>')
@@ -186,14 +185,13 @@ def get_public_wishlists():
 def get_public_wishlist(username):
     db = Database()
     account = accountDAO.Find(username)
-
-
-    if account['wishlist_public']:
+    print(account)
+    if account['wishlistPublic']:
         response = {
-            "wishlist" : account["wishList"],
-            "name" : account["name"]
+            "wishlist" : wishDAO.FindByUser(username),
+            "name" : account["name"],
+            "surname" : account['surname']
         }
-
         json_result = json.dumps(response, sort_keys=True, indent=4)
         return Response(json_result, mimetype='application/json')
     else:

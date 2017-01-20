@@ -50,7 +50,6 @@ class Account:
         account.registerDate = date.today()
         account.wishListPublic = False
 
-    def fromUpdate(json)
 
 
     def fromForm(form):
