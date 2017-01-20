@@ -16,7 +16,7 @@ var auth = (() => {
                 NavBar.toggleLogoutButton(true);
                 stateManager.getUser().then((user) => {
                     console.log(user)   
-                    if (user.account_type === "admin") {
+                    if (user.accountType === "admin") {
                         NavBar.toggleAdminButton(true);
                     }
                 })

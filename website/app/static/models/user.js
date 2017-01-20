@@ -2,8 +2,6 @@ function User(user) {
     for (var k in user) this[k] = user[k];
     var self = this;
     
-    this.accountType = this.account_type;
-    
     this.addWish = (product) => {
         return $.ajax({
                 url: "/api/account/wishlist",

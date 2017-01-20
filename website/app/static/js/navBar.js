@@ -4,7 +4,7 @@ var NavBar = (() => {
         user.then((user) => {
             var logoutButton = $('#logout-button');
             logoutButton.html('<li class="nav-item nav-right">LOGOUT</li>');
-            if (user.account_type === "admin"){
+            if (user.accountType == "admin"){
                 var adminButton = $('#admin-button');
                 adminButton.html('<li class="nav-item nav-right">ADMIN</li>');
             }

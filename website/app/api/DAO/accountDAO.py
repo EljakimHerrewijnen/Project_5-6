@@ -20,7 +20,6 @@ def create(json):
 
 
 def convert_to_json(account):
-    print(account)
     account['birthDate'] = ConvertDateToObject(account.pop('birth_date'))
     account['registerDate'] = ConvertDateToObject(account.pop('register_date'))
     account['accountType'] = account.pop("account_type")
