@@ -18,7 +18,7 @@ class Product:
         db = Database.Database()
         db.where("product_id", sqlFile["product_id"]);
         aromas = []
-        for item in db.get_all("product_aroma", "aroma_name"):
+        for item in db.getAll("product_aroma", "aroma_name"):
             aromas.append(item['aroma_name'])
 
         return Product(
@@ -62,7 +62,7 @@ class Product:
         #data = open("website/products.json", 'r')
         db = Database.Database()
 
-        data = db.get_all("product")
+        data = db.getAll("product")
 
         products = []
         for item in data:

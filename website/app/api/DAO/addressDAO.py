@@ -31,7 +31,7 @@ def Find(postal_code, street_number):
     db = Database()
     db.where("postal_code", postal_code)
     db.where("house_number", street_number)
-    address = db.get_one("address")
+    address = db.getOne("address")
     if address:
         address = convert_to_json(address)
     return address
@@ -41,6 +41,6 @@ def FindByUser(username):
     db = Database()
     db.join("Address a", "a.postal_code = p.postal_code AND a.house_number = p.house_number")
     db.where("username", username)
-    addresses = db.get_all("user_address p", "a.*")
+    addresses = db.getAll("user_address p", "a.*")
     addresses = [convert_to_json(address) for address in addresses]
     return addresses
