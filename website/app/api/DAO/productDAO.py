@@ -11,14 +11,14 @@ def convert_to_json(db_dict):
 def Find(id):
     db = Database()
     db.where("product_id", id)
-    product = db.getOne("product")
+    product = db.get_one("product")
     product = convert_to_json(product)
     return product
 
 
 def FindAll():
     db = Database()
-    products = db.getAll("product")
+    products = db.get_all("product")
     products = [convert_to_json(product) for product in products]
     return products
 
@@ -26,7 +26,7 @@ def FindAll():
 def _getAroma(id):
     db = Database()
     db.where("product_id", id)
-    sqlResult = db.getAll("product_aroma", "aroma_name")
+    sqlResult = db.get_all("product_aroma", "aroma_name")
     aromas = list(map(lambda row: row["aroma_name"], sqlResult))
     return aromas
 
@@ -35,7 +35,7 @@ def FindByOrder(order_id):
     db = Database()
     db.join("product p", "p.product_id = od.product_id")
     db.where("orders_id", order_id)
-    sqlResult = db.getAll("order_details od", "p.*, od.quantity")
+    sqlResult = db.get_all("order_details od", "p.*, od.quantity")
     products = [convert_to_json(product) for product in sqlResult]
     products = [{"quantity" : product.pop('quantity'),"product" : product} for product in products]
     return products

@@ -36,7 +36,7 @@ def Create(account):
 
 def FindAll():
     db = Database()
-    accounts = db.getAll("account")
+    accounts = db.get_all("account")
     accounts = [convert_to_json(account) for account in accounts]
     return accounts
 
@@ -44,7 +44,7 @@ def FindAll():
 def Find(username):
     db = Database()
     db.where("username", username)
-    account = db.getOne("account")
+    account = db.get_one("account")
     return convert_to_json(account)
 
 

@@ -18,6 +18,6 @@ def FindByUser(username):
     db = Database()
     db.where("username", username)
     db.join("product p", "p.product_id = f.product_id")
-    products = db.getAll("favorites f", "p.*")
+    products = db.get_all("favorites f", "p.*")
     products = [productDAO.convert_to_json(product) for product in products]
     return products
