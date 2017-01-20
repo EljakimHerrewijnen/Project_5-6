@@ -38,7 +38,7 @@ var loginRegisterView = (() => {
         var register = function(form) {
             values = {}
             var form = form.serializeArray().map((field) => values[field.name] = field.value);
-            values["birth_date"] = {
+            values["birthDate"] = {
                 day : values["day"],
                 month : values["month"],
                 year : values["year"]

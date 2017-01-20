@@ -4,6 +4,7 @@ var auth = (() => {
         var user;
 
         this.login = function(username, password) {
+            stateManager.clearUser();
             var data = JSON.stringify({"username": username, "password": password});
             var promise = $.post({
                 url: "/api/login",
@@ -13,6 +14,12 @@ var auth = (() => {
                 processData: false
             }).then(() => {
                 NavBar.toggleLogoutButton(true);
+                stateManager.getUser().then((user) => {
+                    console.log(user)   
+                    if (user.account_type === "admin") {
+                        NavBar.toggleAdminButton(true);
+                    }
+                })
             });
             return promise;
         }
@@ -20,7 +27,7 @@ var auth = (() => {
         this.createUser = function(user) {
             var user = JSON.stringify(user);
             promise = $.ajax({
-                url: "/api/user/account",
+                url: "/api/account",
                 method: "POST",
                 data: user,
                 contentType : "application/json"
@@ -36,6 +43,7 @@ var auth = (() => {
                 stateManager.clearUser();
                 console.log(stateManager.hasUser());
                 NavBar.toggleLogoutButton(false);
+                NavBar.toggleAdminButton(false);
                 viewManager.changeView(loginRegisterView);
             }, (failure) => {
                 alert("Encountered an error when logging out");

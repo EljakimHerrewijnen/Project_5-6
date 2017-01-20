@@ -24,7 +24,7 @@ function orderView(orderId) {
         return Promise.all([html, order]).then(([html, order]) => {
             container.css({opacity: 0})
             html = Handlebars.compile(html);
-            order['total_price'] = order.products.reduce((total, product) => total + product.price * product.quantity, 0);
+            order['total_price'] = order.products.reduce((total, product) => total + product.product.price * product.quantity, 0);
             container.append(html(order));
         });
     }
@@ -38,5 +38,5 @@ function orderView(orderId) {
     }
 
     var getHtml = () => $.ajax({url: "/static/views/order-view.html",contentType: "text"});
-    var getOrder = (orderId) => $.ajax({url: "/api/user/orders/" + orderId ,contentType: "application/json"});
+    var getOrder = (orderId) => $.ajax({url: "/api/account/order/" + orderId ,contentType: "application/json"});
 }

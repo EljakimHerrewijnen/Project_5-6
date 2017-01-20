@@ -1,11 +1,8 @@
 function Product(product) {
     for (var k in product) this[k] = product[k];
-    "use strict"
     
     var self = this;
-    this.id = product.id;
     this.price = parseFloat(this.price);
-    this.roast = product.level;
     this.image = "images/" + product.id + ".jpg";
     this.formatPrice = parseFloat(this.price).toFixed(2);
 

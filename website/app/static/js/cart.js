@@ -14,7 +14,7 @@ var Cart = (() => {
 
         this.getTotalPrice = function() {
             var total = items.map((item) => 
-                item.product.price * item.amount
+                item.product.price * item.quantity
             ).reduce(
                 (acc, v) => acc + v
             ,0);
@@ -31,10 +31,10 @@ var Cart = (() => {
         this.addProduct = function(product) {
             var item = this.getItem(product.id);
             if (item != undefined) {
-                item.amount++;
+                item.quantity++;
             } else {
                 item = {
-                    amount: 1,
+                    quantity: 1,
                     product : product
                 }
                 items.push(item);
@@ -42,10 +42,10 @@ var Cart = (() => {
             this.saveInLocalStorage();
         }
 
-        this.increment = function(id, amount) {
+        this.increment = function(id, quantity) {
             var item = this.getItem(id);
-            item.amount = item.amount + amount;
-            if (item.amount < 1)
+            item.quantity = item.quantity + quantity;
+            if (item.quantity < 1)
                 this.removeProduct(item.product.id);
             this.saveInLocalStorage();
         }
@@ -57,14 +57,14 @@ var Cart = (() => {
             this.saveInLocalStorage();
         }
         
-        this.getAmount = function(id) {
+        this.getquantity = function(id) {
             var item = this.getItem(id);
-            return item.amount;
+            return item.quantity;
         }
 
         this.getItemPrice = function(id) {
             var item = this.getItem(id);
-            return item.amount * item.product.price;
+            return item.quantity * item.product.price;
         }
 
         this.saveInLocalStorage = function() {

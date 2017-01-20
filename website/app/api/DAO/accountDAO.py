@@ -4,98 +4,71 @@ from app.api.DAO import addressDAO
 from app.api.DAO import wishDAO
 from app.api.DAO import favoritesDAO
 from app.api.DAO import orderDAO
+from app.api.helpers import convert_json_to_iso
 from datetime import date
 import json
 
-# Create user
+
+def create(json):
+    db = Database()
+    json["birth_date"] = convert_json_to_iso(json.pop('birthDate'))
+    json["register_date"] = date.today().isoformat()
+    json["banned"] = 0
+    json["wishlist_public"] = 0
+    json["account_type"] = "user"
+    db.insert("account", json)
+
+
+def convert_to_json(account):
+    print(account)
+    account['birthDate'] = ConvertDateToObject(account.pop('birth_date'))
+    account['registerDate'] = ConvertDateToObject(account.pop('register_date'))
+    account['accountType'] = account.pop("account_type")
+    account['wishlistPublic'] = account.pop("wishlist_public")
+    account['password'] = account.pop("password")
+    return account
+
+
 def Create(account):
     db = Database()
-    d = account["birth_date"]
-    print(d)
-    birthDate = date(
-        int(d["year"]),
-        int(d["month"]),
-        int(d["day"])
-    ).isoformat()
-    registrationDate = date.today().isoformat()
-    account["birth_date"] = birthDate
-    account["register_date"] = registrationDate
-    account["banned"] = 0
-    account["wishlist_public"] = 0
-    account["account_type"] = "user"
-    return db.insert("account", account)
+    account = create(account)
 
-# Get all users
+
 def FindAll():
     db = Database()
     accounts = db.get_all("account")
-    retAccounts = []
-    for account in accounts:
-        GetFullProperties(account)
-        retAccount.append(ToJsonObject(account))
-    return retAccounts
+    accounts = [convert_to_json(account) for account in accounts]
+    return accounts
 
-# Get one user by username
+
 def Find(username):
     db = Database()
     db.where("username", username)
     account = db.get_one("account")
-    if not account:
-        return {}
-    GetFullProperties(account)
-    return ToJsonObbject(account)
+    return convert_to_json(account)
 
-# Delete user
+
 def Delete(username):
     db = Database()
     db.where("username", username)
     db.delete("username")
 
-# update information in user
+
+# Update has all optional arguments!
 def Update(account):
     db = Database()
-    if ("birth_date" in account):
-        bd = account["birth_date"]
-        birth_date = date(
-            int(bd["year"]),
-            int(bd["month"]),
-            int(bd["day"])
-        ).isoformat()
-        account["birth_date"] = birth_date
-    db.where("username", account["username"])
-    print(json.dumps(account, indent=4, sort_keys=True))
+    if "accountType" in account:
+        account['account_type'] = account.pop('accountType')
+    if "birthDate" in account:
+        account['birth_date'] = convert_json_to_iso(account.pop('birthDate'))
+    if "registerDate" in account:
+        account['register_date'] = convert_json_to_iso(account.pop('registerDate'))
+    if "wishlistPublic" in account:
+        account['wishlist_public'] = account.pop('wishlistPublic')
+    db.where("username", account['username'])
     db.update("account", account)
 
-# Add user specific wishlist, order, favorites and adress information to given Account
-def GetFullProperties(account):
-    username = account["username"]
-    account["wishList"] = wishDAO.FindByUser(username)
-    account["orders"] = orderDAO.FindByUser(username)
-    account["favorites"] = favoritesDAO.FindByUser(username)
-    account["addresses"] = addressDAO.FindByUser(username)
-
-# Converts the object received from the database to the expected json format
-def ToJsonObject(databaseAccount):
-    jsonRet = {}
-
-    jsonRet['username'] = databaseAccount['username']
-    jsonRet['name'] = databaseAccount['name']
-    jsonRet['surname'] = databaseAccount['surname']
-    jsonRet['banned'] = databaseAccount['banned']
-    jsonRet['email'] = databaseAccount['email']
-    jsonRet['birthDate'] = ConvertDateToObject(databaseAccount['birth_date'])
-    jsonRet['registerDate'] = ConvertDateToObject(databaseAccount['register_date'])
-    jsonRet['orders'] = databaseAccount['orders']
-    jsonRet['wishlist'] = databaseAccount['wishList']
-    jsonRet['favorites'] = databaseAccount['favorites']
-    jsonRet['accountType'] = databaseAccount['account_type']
-    jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
-    jsonRet['password'] = databaseAccount['password']
-
-    return jsonRet
-
 def ConvertDateToObject(dateString):
-    date = {}
     tempDateObject = dateString.split("-")
     return {
         "year": tempDateObject[0],

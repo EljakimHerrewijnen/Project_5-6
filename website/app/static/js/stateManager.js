@@ -6,7 +6,7 @@ var stateManager = (() => {
 
         this.getUser = function() {
             if (this.hasUser()) return Promise.resolve(user);
-            req = $.ajax({url: "/api/user/account", method: "GET"});
+            req = $.ajax({url: "/api/account", method: "GET"});
             req = req.then((response) => {
                 user = new User(response);
                 localStorage.setItem('user', user.string);

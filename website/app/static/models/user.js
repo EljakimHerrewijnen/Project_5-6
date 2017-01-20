@@ -2,45 +2,39 @@ function User(user) {
     for (var k in user) this[k] = user[k];
     var self = this;
     
-    this.wishList = this.wishList.map((product) => new Product(product));
-    this.favorites = this.favorites.map((product) => new Product(product));
-    this.birthDate = {
-        "day" : parseInt(user["birth_date"].split('-')[2]),
-        "month" : parseInt(user["birth_date"].split('-')[1]),
-        "year" : parseInt(user["birth_date"].split('-')[1]),
-    }
+    this.accountType = this.account_type;
     
     this.addWish = (product) => {
         return $.ajax({
-                url: "/api/user/wishlist",
+                url: "/api/account/wishlist",
                 method: 'POST',
                 contentType : "application/json",
-                data: JSON.stringify({"product_id" : product.id})
+                data: JSON.stringify({"id" : product.id})
         }).then(() => {
-            self.wishList.push(product);
+            self.wishlist.push(product);
             return true;
         });
     }
 
     this.removeWish = (product) => {
         return $.ajax({
-                url: "/api/user/wishlist",
+                url: "/api/account/wishlist",
                 method: 'DELETE',
                 contentType : "application/json",
-                data: JSON.stringify({"product_id" : product.id})
+                data: JSON.stringify({"id" : product.id})
         }).then(() => {
             console.log('dix');
-            self.wishList = self.wishList.filter((item) => item.id != product.id);
+            self.wishlist = self.wishlist.filter((item) => item.id != product.id);
             return false;
         });
     }
 
     this.addFavorite = (product) => {
         return $.ajax({
-            url: "/api/user/favorites",
+            url: "/api/account/favorites",
             method: 'POST',
             contentType : "application/json",
-            data: JSON.stringify({"product_id" : product.id})
+            data: JSON.stringify({"id" : product.id})
         }).then(() => {
             self.favorites.push(product);
         });
@@ -48,21 +42,21 @@ function User(user) {
 
     this.removeFavorite = (product) => {
         return $.ajax({
-            url: "/api/user/favorites",
+            url: "/api/account/favorites",
             method: 'DELETE',
             contentType : "application/json",
-            data: JSON.stringify({"product_id" : product.id})
+            data: JSON.stringify({"id" : product.id})
         }).then(() => {
             self.favorites = self.favorites.filter((item) => item.id != product.id);
         });
     }
 
-    this.setWishListPublic = function(bool) {
+    this.setwishlistPublic = function(bool) {
         return $.ajax({
-            url: "/api/user/account",
+            url: "/api/account",
             method: 'PUT',
             contentType : "application/json",
-            data: JSON.stringify({"wishlist_public" : +bool})
+            data: JSON.stringify({"wishlistPublic" : +bool})
         }).then(() => {
             self.wishlist_public = bool;
         });
@@ -73,7 +67,7 @@ function User(user) {
     }
 
     this.hasWish = function(product) {
-        var x = this.wishList.some((wish) => wish.id == product.id);
+        var x = this.wishlist.some((wish) => wish.id == product.id);
         return x;
     }
 
@@ -87,7 +81,7 @@ function User(user) {
     this.addAddress = function(address) {
         address = JSON.stringify(address);
         return $.ajax({
-            url: "/api/user/address",
+            url: "/api/account/address",
             type: 'POST',
             contentType : "application/json",
             data: address
@@ -99,9 +93,11 @@ function User(user) {
     }
 
     this.updateInfo = function(userInfo) {
+        for (key in userInfo)
+            this[key] = userInfo[key]
         userInfo = JSON.stringify(userInfo);
         return $.ajax({
-            url: "/api/user/account",
+            url: "/api/account/account",
             method: "PUT",
             contentType : "application/json",
             data: userInfo,
@@ -109,6 +105,6 @@ function User(user) {
     }
 
     this.hasBought = function(product) {
-        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.id == product.id));
+        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.product.id == product.id));
     }
 }

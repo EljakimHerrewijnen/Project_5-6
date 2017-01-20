@@ -1,8 +1,8 @@
 <div id='order-details-container'>
-    <h1>Order number: {{orders_id}}</h2>
+    <h1>Order number: {{this.id}}</h2>
     <p>Purchase made by:<br>{{username}}</p>
-    <p>Order date:<br>{{orders_date}}</p>
-    <p>Delivery address:<br>{{postal_code}}, {{house_number}}</p>
+    <p><b>Order date:</b><br>{{this.orderDate.year}}-{{this.orderDate.month}}-{{this.orderDate.day}}</p>
+    <p><b>Delivery address:</b><br>{{this.address.street}} {{this.address.houseNumber}}<br>{{this.address.postalCode}}  {{this.address.city}}</p>
     <table>
         <tr>
             <th></th>
@@ -13,10 +13,10 @@
         </tr>
         {{#each products}}
             <tr>
-                <td id='image-row'><a href='/products/{{this.id}}'><img src='/static/images/{{this.id}}.jpg'></a>
-                <td><a href='/products/{{this.id}}'>{{this.name}}</a></td>
+                <td id='image-row'><a href='/products/{{this.id}}'><img src='/static/images/{{this.product.id}}.jpg'></a>
+                <td><a href='/products/{{this.product.id}}'>{{this.product.name}}</a></td>
                 <td>{{this.quantity}}</td>
-                <td>€{{this.price}}</td>
+                <td>€{{this.product.price}}</td>
             </tr>
         {{/each}}
         <tr id='total-row'>
@@ -25,7 +25,7 @@
             <td></td>
             <td>
                 <h4>Total:</h4>
-                <h3>€ {{total_price}}</h3>
+                <h3>€ {{this.total_price}}</h3>
             </td>
         </tr>
     </table>  

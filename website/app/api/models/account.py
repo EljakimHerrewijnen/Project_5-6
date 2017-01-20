@@ -4,7 +4,7 @@ import sys
 import json
 
 class Account:
-    def __init__(self, username, password, name, surname, email, birthDate, registerDate, banned, accountType, wishListPublic, address):
+    def __init__(self, username, name = None, surname = None, password = None, email = None, birthDate = None, registerDate = None, banned = None, accountType = None, wishListPublic = None):
         self.username = username
         self.name = name
         self.surname = surname
@@ -40,24 +40,17 @@ class Account:
 
 
     @staticmethod
-    def fromDict(json):
+    def fromPost(json):
+        account = Account(json["username"])
+        account.name = json['name']
+        account.surname = json['surname']
+        account.password = json['password']
+        account.email = json['email']
+        account.birthDate = date(json['birthDate']['year'], json['birthdate']['month'], json['birthdate']['day'])
+        account.registerDate = date.today()
+        account.wishListPublic = False
 
-        address = Address.fromDict(json["address"])
-        birthDate = dateFromDict(json["birthDate"])
 
-        return Account(
-            json["username"],
-            json["password"],
-            json["name"],
-            json["surname"],
-            json["email"],
-            birthDate,
-            date.today(),
-            json["banned"],
-            "user",
-            json["wishListPublic"],
-            address
-        )
 
     def fromForm(form):
         account_dict = {}
