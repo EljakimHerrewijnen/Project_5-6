@@ -1,8 +1,8 @@
-from website.models.account import Account
-from website.Database import Database
-import website.DAO.productDAO as productDAO
-import website.DAO.accountDAO as accountDAO
-import website.DAO.orderDAO as orderDAO
+from app.api.models.account import Account
+from app.api.database import Database
+from app.api.DAO import productDAO
+from app.api.DAO import accountDAO
+from app.api.DAO import orderDAO
 from datetime import date
 
 global orders
@@ -92,10 +92,18 @@ def GetAllProducts():
 
 def ToggleUserBan(username):
     account = accountDAO.Find(username)
+    db = Database()
     if(account["banned"] == 0):
-        account["banned"] = 1
+        # account["banned"] = 1
+        db.where("username", username)
+        db.update("account", {'banned': 1})
+        # accountDAO.Update(account)
     else:
-        account["banned"] = 0
+        # account["banned"] = 0
+        db.where("username", username)
+        db.update("account", {'banned': 0})
+        # accountDAO.Update(account)
+    print("Success")
 
 def RemoveUser(username):
     accountDAO.Delete(username)
@@ -118,7 +126,7 @@ def ToJsonObject(databaseAccount):
     jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
     jsonRet['password'] = databaseAccount['password']
 
-    return jsonRet
+    return databaseAccount
 
 def ConvertDateToObject(dateString):
     date = {}

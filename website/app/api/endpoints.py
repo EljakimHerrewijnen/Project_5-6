@@ -198,3 +198,8 @@ def get_public_wishlist(username):
         return Response(json_result, mimetype='application/json')
     else:
         return "Unauthorized", 401
+
+@api.route('/admin/ban/<username>', methods = ['POST'])
+def BanUser(username):
+    adminDAO.ToggleUserBan(username)
+    return "Success", 200
