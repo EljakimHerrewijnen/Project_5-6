@@ -56,7 +56,7 @@ def Delete(username):
 # Update has all optional arguments!
 def Update(account):
     db = Database()
-    if "accountType" in account: 
+    if "accountType" in account:
         account['account_type'] = account.pop('accountType')
     if "birthDate" in account:
         account['birth_date'] = convert_json_to_iso(account.pop('birthDate'))
