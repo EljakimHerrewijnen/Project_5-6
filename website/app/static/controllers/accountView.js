@@ -74,7 +74,7 @@ function accountView() {
         var updatedUser = {};
         updatedUser["name"] = formValues.name;
         updatedUser["surname"] = formValues.surname;
-        updatedUser["birthDate"] = {
+        updatedUser["birth_date"] = {
             day : formValues.day,
             month : formValues.month,
             year : formValues.year
