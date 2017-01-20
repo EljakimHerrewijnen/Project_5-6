@@ -34,6 +34,7 @@ def logout():
 @api.route('/login', methods=['POST'])
 def login_account():
     post_data = request.get_json()
+    print(post_data)
     username = post_data['username']
     password = post_data['password']
     account = accountDAO.Find(username)
@@ -54,6 +55,9 @@ def create_account():
 @api.route('/account', methods=['GET'])
 @secure()
 def get_account(account):
+    account['wishlist'] = wishDAO.FindByUser(account['username'])
+    account['favorites'] = favoritesDAO.FindByUser(account['username'])
+    account['orders'] = orderDAO.FindByUser(account['username'])
     json_result = json.dumps(account)
     return Response(json_result, mimetype="application/json")
 

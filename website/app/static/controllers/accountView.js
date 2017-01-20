@@ -19,7 +19,7 @@ function accountView() {
             html = Handlebars.compile(html);
             html = html(user);
             container.append(html);
-            if (user.wishlist_public)
+            if (user.wishlistPublic)
                 container.find('#wishlist-public-toggle').prop("checked", true);
             self.setupListeners(user);
         });
@@ -39,7 +39,7 @@ function accountView() {
     this.setupListeners = function(user) {
         var wishlist_toggle = container.find('#wishlist-public-toggle')
         wishlist_toggle.on("change", () => {
-            user.setWishListPublic(wishlist_toggle.is(':checked'));
+            user.setwishlistPublic(wishlist_toggle.is(':checked'));
         });
         container.find('#user-address-form').on('submit', this.submitAddressForm(user));
         container.find('#user-info-form').on('submit', this.submitUserInfoForm(user));

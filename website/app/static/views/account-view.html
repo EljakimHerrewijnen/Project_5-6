@@ -26,7 +26,7 @@
     </div>
     <div id="account-wishlist-container" class='generic-panel'>
         <div id='wishlist-header'>
-            <h2>Wishlist</h2>
+            <h2>wishlist</h2>
             <div style='display: flex; align-items:center'>
                 <span style='padding-right: 25px'>Publicly viewable:</span>
                 <label class='switch'>
@@ -42,7 +42,7 @@
                 <th>Price</th>
                 <th></th>
             </tr>
-            {{#each wishList}}
+            {{#each wishlist}}
                 <tr>
                     <td><a href='/products/{{this.id}}'>{{this.name}}</a></td>
                     <td>€{{this.price}}</td>
