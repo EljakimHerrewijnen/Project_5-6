@@ -27,7 +27,7 @@ var auth = (() => {
         this.createUser = function(user) {
             var user = JSON.stringify(user);
             promise = $.ajax({
-                url: "/api/user/account",
+                url: "/api/account",
                 method: "POST",
                 data: user,
                 contentType : "application/json"

@@ -38,7 +38,7 @@ function productDetailView(productId) {
             container.find('#favorites_button').on('click', onFavoritesButtonPressed);
             user = stateManager.getUser().then((user) => {
                 if (user.hasWish(product)){
-                    container.find('#wishlist_button').html("REMOVE FROM wishlist");
+                    container.find('#wishlist_button').html("REMOVE FROM WISHLIST");
                 }
                 //If user has not bought the product do not display option to add to favorits
                 if (user.hasBought(product)){
@@ -138,9 +138,9 @@ function setupwishlistButton() {
 
     // Set up initial state
     if (user.wishlist.map(function(x) {return x.id}).includes(parseInt(id))) {
-        button.html("REMOVE FROM wishlist");
+        button.html("REMOVE FROM WISHLIST");
     } else {
-        button.html("ADD TO wishlist")
+        button.html("ADD TO WISHLIST")
     }
     // On click add / remove item
     button.on("click", function(e) {
@@ -150,7 +150,7 @@ function setupwishlistButton() {
         if (user.wishlist.map(function(x) {return x.id}).includes(parseInt(id))) {
             authenticationService.removeWish(_id, function(success) {
                 if (success) {
-                    button.html("ADD TO wishlist");
+                    button.html("ADD TO WISHLIST");
                 } else {
                     alert("Could not remove item");
                 }
@@ -158,7 +158,7 @@ function setupwishlistButton() {
         } else {
             authenticationService.addWish(_id, function(success) {
                 if (success) {
-                    button.html("REMOVE FROM wishlist");
+                    button.html("REMOVE FROM WISHLIST");
                 } else {
                     alert("Could not add item");
                 }
