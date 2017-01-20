@@ -36,21 +36,19 @@ function placeOrderView() {
         var streetNumber = $("#dropDownAddres option:selected").attr('street-number');
         var order = {
             address: {
-                postal_code : postalCode,
-                house_number: streetNumber,
+                postalCode : postalCode,
+                houseNumber: streetNumber,
             },
-            items : Cart.items.map((x) => {return {amount: x.amount, id : x.product.id}})
+            items : Cart.items.map((x) => {return {quantity: x.quantity, id : x.product.id}})
         }
 
-        $.post({url: "/api/user/orders",
+        $.post({url: "/api/account/order",
             contentType: "application/json",
             data: JSON.stringify(order)
         }).done( function(x) {
-            console.log(x);
             alert("Placed order!");
             Cart.empty();
-            console.log(x);
-            viewManager.redirect('/order/' + x)
+            viewManager.redirect('/order/' + x.id)
         }).error((jqXHR) => {
             console.log(jqXHR);
         });

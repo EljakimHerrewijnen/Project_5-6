@@ -77,8 +77,8 @@
             </tr>
             {{#each orders}}
                 <tr>
-                    <td><a href='order/{{this.orders_id}}'>{{this.orders_id}}</a></td>
-                    <td><a href='order/{{this.orders_id}}'>{{this.orders_date}}</a></td>
+                    <td><a onclick='viewManager.redirect("/order/{{this.id}}")'>{{this.id}}</a></td>
+                    <td><a onclick='viewManager.redirect("/order/{{this.id}}")'>{{this.orderDate.year}}-{{this.orderDate.month}}-{{this.orderDate.day}}</a></td>
                 </tr>
             {{/each}}
         </table>
@@ -99,9 +99,9 @@
                     <td>{{this.country}}</td>
                     <td>{{this.city}}</td>
                     <td>{{this.street}}</td>
-                    <td>{{this.house_number}}</td>
-                    <td>{{this.postal_code}}</td>
-                    <td><a onclick='removeAddress("{{this.postal_code}}", {{this.house_number}}, this)'>Delete</a></td>
+                    <td>{{this.houseNumber}}</td>
+                    <td>{{this.postalCode}}</td>
+                    <td><a onclick='removeAddress("{{this.postalCode}}", {{this.houseNumber}}, this)'>Delete</a></td>
                 </tr>
             {{/each}}
         </table>

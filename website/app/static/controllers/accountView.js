@@ -89,14 +89,14 @@ function accountView() {
     }
 }
 
-function removeAddress(postal_code, house_number, button) {
+function removeAddress(postalCode, houseNumber, button) {
     var row = button.closest('tr');
     values = JSON.stringify({
-        "postal_code" : postal_code,
-        "house_number" : house_number
+        "postalCode" : postalCode,
+        "houseNumber" : houseNumber
     });
     $.ajax({
-        url: "/api/user/address",
+        url: "/api/account/address",
         method: "DELETE",
         contentType : "application/json",
         data: values
