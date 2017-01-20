@@ -35,14 +35,14 @@ def Create(username, order_content):
 def Find(order_id):
     db = Database()
     db.where("orders_id", order_id)
-    order = db.get_one("orders")
+    order = db.getOne("orders")
     convert_to_json(order)
     return order
 
 
 def FindAll():
     db = Database()
-    orders = db.get_all("orders")
+    orders = db.getAll("orders")
     orders = [convert_to_json(order) for order in orders]
     return orders
 
@@ -50,14 +50,14 @@ def FindAll():
 def FindByUser(username):
     db = Database()
     db.where("username", username)
-    orders = db.get_all("orders")
+    orders = db.getAll("orders")
     orders = [convert_to_json(order) for order in orders]
     return orders
 
 
 def FindAllByMonth():
     db = Database()
-    db.order_by("orders_date")
-    orders = db.get_all("orders")
+    db.orderBy("orders_date")
+    orders = db.getAll("orders")
     orders = [convert_to_json(order) for order in orders]
     return orders
