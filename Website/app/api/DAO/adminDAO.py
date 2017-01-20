@@ -32,9 +32,11 @@ def FindAll():
     db = Database()
     db.where("account_type", "admin")
     accounts = db.get_all("account")
+    retAccounts = []
     for account in accounts:
         GetFullProperties(account)
-    return accounts
+        retAccount.append(ToJsonObject(account))
+    return retAccounts
 
 # Get one admin by username
 def Find(username):
@@ -45,7 +47,7 @@ def Find(username):
     if not account:
         return {}
     GetFullProperties(account)
-    return account
+    return ToJsonObject(account)
 
 # Delete admin
 def Delete(username):
@@ -94,6 +96,35 @@ def ToggleUserBan(username):
         account["banned"] = 1
     else:
         account["banned"] = 0
-    
+
 def RemoveUser(username):
     accountDAO.Delete(username)
+
+# Converts the object received from the database to the expected json format
+def ToJsonObject(databaseAccount):
+    jsonRet = {}
+
+    jsonRet['username'] = databaseAccount['username']
+    jsonRet['name'] = databaseAccount['name']
+    jsonRet['surname'] = databaseAccount['surname']
+    jsonRet['banned'] = databaseAccount['banned']
+    jsonRet['email'] = databaseAccount['email']
+    jsonRet['birthDate'] = ConvertDateToObject(databaseAccount['birth_date'])
+    jsonRet['registerDate'] = ConvertDateToObject(databaseAccount['register_date'])
+    jsonRet['orders'] = databaseAccount['orders']
+    jsonRet['wishlist'] = databaseAccount['wishList']
+    jsonRet['favorites'] = databaseAccount['favorites']
+    jsonRet['accountType'] = databaseAccount['account_type']
+    jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
+    jsonRet['password'] = databaseAccount['password']
+
+    return jsonRet
+
+def ConvertDateToObject(dateString):
+    date = {}
+    tempDateObject = dateString.split("-")
+    return {
+        "year": tempDateObject[0],
+        "month": tempDateObject[1],
+        "day": tempDateObject[2]
+    }
