@@ -7,8 +7,11 @@ from app.api.auth import secure
 from app.api.database import Database
 from itsdangerous import URLSafeTimedSerializer
 import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import datetime
 import time
+import sys
 
 ts = URLSafeTimedSerializer('dixdixdix')
 
@@ -222,23 +225,30 @@ def get_password_reset_token():
             return "Could not find user associated with email", 500
         key = user['username'] + "_" + str(time.time())
         key = ts.dumps(key, salt='email-confirm-key')
-        fromaddr = "noreply@coffeesupre.me"
-        toaddr = "0912837@hr.nl"
-        msg = "\r\n".join([
-            "From: noreply@coffeesupre.me",
-            "To: " + "0912837@hr.nl",
-            "Subject: Coffeesupreme password reset",
-            "",
-            render_template("password-reset.html", hash=key, user = {"name" : "bart", "surname" : "rijnders"})
-            ])
-        print(msg)
+        from_address = "noreply@coffeesupre.me"
+        to_addresss = "0912837@hr.nl"
+
+        msg = MIMEMultipart("alternative")
+        msg['Subject'] = 'Coffeesupreme password reset'
+        msg['From'] = from_address
+        msg['To'] = to_addresss
+
+        text_version = render_template("password-reset.txt", hash=key, user = {"name" : user['name'], "surname" : user['surname']})
+        html_version = render_template("password-reset.html", hash=key, user = {"name" : user['name'], "surname" : user['surname']})
+
+        part1 = MIMEText(text_version, "text")
+        part2 = MIMEText(html_version, "html")
+
+        msg.attach(part1)
+        msg.attach(part2)
+
         server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
         server.login("noreply@coffeesupre.me", "password")
-        server.sendmail(fromaddr, toaddr, msg)
+        server.sendmail(from_address, to_addresss, msg.as_string())
         server.quit()
         return "success", 200
-    except:
-        return "something went wrong sending the email", 500
+    except Exception as e:
+        return str(sys.exc_info()), 500
 
 @api.route('/password-reset', methods=['POST'])
 def reset_password():
