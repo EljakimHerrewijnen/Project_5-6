@@ -1,10 +1,16 @@
 import json
-from flask import request, Response, session
+from flask import request, Response, session, render_template
 from flask_cors import CORS, cross_origin
 from app.api import api
 from app.api.DAO import *
 from app.api.auth import secure
 from app.api.database import Database
+from itsdangerous import URLSafeTimedSerializer
+import smtplib
+import datetime
+import time
+
+ts = URLSafeTimedSerializer('dixdixdix')
 
 
 """
@@ -204,3 +210,49 @@ def get_public_wishlist(username):
 def BanUser(username):
     adminDAO.ToggleUserBan(username)
     return "Success", 200
+
+@api.route('/request-password-reset', methods=['POST'])
+def get_password_reset_token():
+    postData = request.get_json()
+    db = Database()
+    db.where("email", postData['email'])
+    try:
+        user = db.get_one("account")
+        if not user:
+            return "Could not find user associated with email", 500
+        key = user['username'] + "_" + str(time.time())
+        key = ts.dumps(key, salt='email-confirm-key')
+        fromaddr = "noreply@coffeesupre.me"
+        toaddr = "0912837@hr.nl"
+        msg = "\r\n".join([
+            "From: noreply@coffeesupre.me",
+            "To: " + "0912837@hr.nl",
+            "Subject: Coffeesupreme password reset",
+            "",
+            render_template("password-reset.html", hash=key, user = {"name" : "bart", "surname" : "rijnders"})
+            ])
+        print(msg)
+        server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
+        server.login("noreply@coffeesupre.me", "password")
+        server.sendmail(fromaddr, toaddr, msg)
+        server.quit()
+        return "success", 200
+    except:
+        return "something went wrong sending the email", 500
+
+@api.route('/password-reset', methods=['POST'])
+def reset_password():
+    postData = request.get_json()
+    print(postData)
+    key = postData['hash']
+    key = ts.loads(key, salt="email-confirm-key", max_age=86400)
+    username, date = key.split('_')
+    date = datetime.datetime.fromtimestamp(float(date))
+    if (date - datetime.datetime.now()).total_seconds () > 1800:
+        return "Password reset expired", 500
+    try:
+        password = postData['password']
+        accountDAO.Update({"password" : password, "username" : username})
+        return "", 200
+    except:
+        return "Could not update user, are you sure it exists?", 500
