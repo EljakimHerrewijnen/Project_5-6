@@ -1,11 +1,11 @@
-viewManager.addRoute('/request-reset-password', () => new ResetPasswordField(hash));
+viewManager.addRoute('/request-reset-password', () => new RequestResetPassword());
 
 function RequestResetPassword() {
     var self = this;
     var container
 
     Object.defineProperty(this, "url", {
-        get : () => '/request-reset-password' + hash
+        get : () => '/request-reset-password'
     });
 
     this.construct = function(newContainer) {
@@ -27,22 +27,28 @@ function RequestResetPassword() {
         container.animate({opacity: 1}, 150);
     }
 
-    this.getHtml = () => $.ajax({url: "/static/views/reset-password-view.html",contentType: "text"});
+    this.getHtml = () => $.ajax({url: "/static/views/request-password-reset-view.html",contentType: "text"});
 
     var resetPassword = function(e) {
         e.preventDefault();
-        var passwordForm = container.find('#user-password-reset-form');
+        var passwordForm = container.find('#request-password-reset-form');
+        var errorBox = container.find('#error-box');
         var payload = {};
         var d = passwordForm.serializeArray()
-        console.log(d);
         d.map((x) => payload[x.name] = x.value);
-        console.log(payload)
-        payload['hash'] = hash
-        $.post({url: "/api/password-reset",contentType: "application/json", data: JSON.stringify(payload)});
+        var promise = $.post({url: "/api/request-password-reset",contentType: "application/json", data: JSON.stringify(payload)});
+        promise.then((done) => {
+            alert(done);
+            viewManager.redirect("/login");
+        }, (error) => {
+            console.log(error.responseText);
+            errorBox.html(error.responseText);
+            errorBox.removeClass("hidden");
+        });
     }
 
     attachListeners = function() {
-        var passwordForm = container.find('#user-password-reset-form');
+        var passwordForm = container.find('#request-password-reset-form');
         passwordForm.submit(resetPassword);
     }    
 }

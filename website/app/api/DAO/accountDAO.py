@@ -65,6 +65,7 @@ def Update(account):
     if "wishlistPublic" in account:
         account['wishlist_public'] = account.pop('wishlistPublic')
     db.where("username", account['username'])
+    print(account)
     db.update("account", account)
 
 def ConvertDateToObject(dateString):

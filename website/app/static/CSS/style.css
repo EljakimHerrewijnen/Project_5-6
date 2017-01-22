@@ -290,6 +290,10 @@ svg {
     min-height: 2em;
 }
 
+.view-container {
+    padding: 60px;
+}
+
 /*------------------------------------*\
     $PRODUCTDETAILSVIEW
 \*------------------------------------*/

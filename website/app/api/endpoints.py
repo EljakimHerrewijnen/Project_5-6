@@ -226,7 +226,7 @@ def get_password_reset_token():
         key = user['username'] + "_" + str(time.time())
         key = ts.dumps(key, salt='email-confirm-key')
         from_address = "noreply@coffeesupre.me"
-        to_addresss = "0912837@hr.nl"
+        to_addresss = postData['email']
 
         msg = MIMEMultipart("alternative")
         msg['Subject'] = 'Coffeesupreme password reset'
@@ -253,16 +253,16 @@ def get_password_reset_token():
 @api.route('/password-reset', methods=['POST'])
 def reset_password():
     postData = request.get_json()
-    print(postData)
     key = postData['hash']
-    key = ts.loads(key, salt="email-confirm-key", max_age=86400)
-    username, date = key.split('_')
-    date = datetime.datetime.fromtimestamp(float(date))
-    if (date - datetime.datetime.now()).total_seconds () > 1800:
-        return "Password reset expired", 500
     try:
+        key = ts.loads(key, salt="email-confirm-key", max_age=86400)
+        username, date = key.split('_')
+        date = datetime.datetime.fromtimestamp(float(date))
+        if (date - datetime.datetime.now()).total_seconds () > 1800:
+            return "Password reset expired", 500
+        accountDAO.Find(username);
         password = postData['password']
         accountDAO.Update({"password" : password, "username" : username})
-        return "", 200
+        return "Success", 200
     except:
         return "Could not update user, are you sure it exists?", 500

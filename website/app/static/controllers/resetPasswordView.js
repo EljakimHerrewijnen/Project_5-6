@@ -36,13 +36,19 @@ function ResetPasswordField(hash) {
     var resetPassword = function(e) {
         e.preventDefault();
         var passwordForm = container.find('#user-password-reset-form');
+        var errorBox = container.find('#error-box');
         var payload = {};
         var d = passwordForm.serializeArray()
-        console.log(d);
         d.map((x) => payload[x.name] = x.value);
-        console.log(payload)
         payload['hash'] = hash
-        $.post({url: "/api/password-reset",contentType: "application/json", data: JSON.stringify(payload)});
+        var promise = $.post({url: "/api/password-reset",contentType: "application/json", data: JSON.stringify(payload)});
+        promise.then((done) => {
+            alert(done);
+            viewManager.redirect('/login')
+        }, (error) => {
+            errorBox.html(error.responseText);
+            errorBox.removeClass("hidden");
+        });
     }
 
     attachListeners = function() {
