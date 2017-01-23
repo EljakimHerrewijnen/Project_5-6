@@ -2,10 +2,11 @@ import sqlite3
 import json
 import sys
 
+
 class Database(object):
 	# Contructior opens database
-	def __init__(self):
-		self.databasePath = "app/data.db"
+	def __init__(self, database_path = "app/data.db"):
+		self.databasePath = database_path
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
@@ -31,20 +32,23 @@ class Database(object):
 		for table in tables:
 			query = "DROP TABLE IF EXISTS " + table
 			self.raw_querry(query)
-		print("tables deleted")
-		querrys = open('createdb.sql', 'r').read()
+		# print("tables deleted")
+		queryFile = open('app/api/createdb.sql', 'r')
+		querrys = queryFile.read()
+		queryFile.close()
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.raw_querry(querry))
+				self.raw_querry(querry)
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
 	# Gets json and inserts values into databse
 	def insert_coffee(self):
 		self.open_conn()
-		data = open("products.json", 'r')
+		data = open("app/products.json", 'r')
 		jsonData = json.load(data)
+		data.close()
 		# return jsonData
 		for item in jsonData:
 			# insert coffees
