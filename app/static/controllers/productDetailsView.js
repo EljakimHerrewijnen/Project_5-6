@@ -72,9 +72,9 @@ function productDetailView(productId) {
         user.then((user) => {
             console.log(user);
             if (user.hasWish(product)) {
-                return user.removeWish(product).then(() => button.html("ADD TO wishlist"));}
+                return user.removeWish(product).then(() => button.html("ADD TO WISHLIST"));}
             else
-                return user.addWish(product).then(() => button.html("REMOVE FROM wishlist"));
+                return user.addWish(product).then(() => button.html("REMOVE FROM WISHLIST"));
         }, (jqXHR, textStatus, errorThrown) => {
             if (jqXHR.status == 400){
                 alert(jqXHR.responseText);
