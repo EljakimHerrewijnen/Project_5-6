@@ -41,7 +41,6 @@ def login_account():
     account = accountDAO.Find(username)
     if not account:
         return "Account not found", 404
-
     if password != account['password']:
         return "Invalid password", 403
     session['username'] = username
