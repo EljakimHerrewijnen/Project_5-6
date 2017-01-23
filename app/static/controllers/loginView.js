@@ -37,6 +37,10 @@ var loginRegisterView = (() => {
 
         var register = function(form) {
             values = {}
+            if(!stateManager.verifyForm(form)) {
+                return;
+            };
+
             var form = form.serializeArray().map((field) => values[field.name] = field.value);
             values["birthDate"] = {
                 day : values["day"],
@@ -46,10 +50,12 @@ var loginRegisterView = (() => {
             delete values["day"];
             delete values["month"];
             delete values["year"];
-            delete values["password_verify"];
             response = auth.createUser(values);
             response.then((success) => {
                 alert("Created your account")
+                auth.login(values['username'], values['password']).then((success) => {
+                    viewManager.changeView(new accountView());
+                });
             }, (jqXHR) => {
                 var errorBox = container.find('#register-error-box');
                 errorBox.html("Failed to create your account: " + jqXHR.responseText)
@@ -57,6 +63,10 @@ var loginRegisterView = (() => {
         }
 
         var login = function(form) {
+            if(!stateManager.verifyForm(form)) {
+                return;
+            };
+
             var username = form.find('input[name=username]').val();
             var password = form.find('input[name=password]').val();
             response = auth.login(username, password);

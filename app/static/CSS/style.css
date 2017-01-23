@@ -559,7 +559,7 @@ nav a :hover{
 }
 
 input.error {
-    border: 1px solid rgba(255,0,0,0.5);
+    border: 1px solid rgba(255,0,0,0.5) !important;
 }
 
 #account-info-container input {

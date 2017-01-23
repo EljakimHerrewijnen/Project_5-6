@@ -9,17 +9,17 @@
             </div>
             <div>
                 <label>Name</label>
-                <input type='text' placeholder='Name' value='{{name}}'name='name' required>
+                <input type='text' verification='\D+' placeholder='Name' value='{{name}}'name='name' required>
             </div>
             <div>
                 <Label>Surname</label>
-                <input type='text' placeholder='Surname' value='{{surname}}'name='surname' required>
+                <input type='text' verification='\D+' placeholder='Surname' value='{{surname}}'name='surname' required>
             </div>
             <div>
                 <label>Birthdate</label>
-                <input type='text' placeholder='Year' verification='\d' value='{{birthDate.year}}'name='year' required>
-                <input type='text' placeholder='Month' verification='\d' value='{{birthDate.month}}' name='month' required>
-                <input type='text' placeholder='Day' verification='\d' value='{{birthDate.day}}' name='day' required>
+                <input type='text' placeholder='Year' verification='\d{4}' value='{{birthDate.year}}'name='year' required>
+                <input type='text' placeholder='Month' verification='\d{1,2}' value='{{birthDate.month}}' name='month' required>
+                <input type='text' placeholder='Day' verification='\d{1,2}' value='{{birthDate.day}}' name='day' required>
             </div>
             <button id='login-button'>Update</button>
         </form>

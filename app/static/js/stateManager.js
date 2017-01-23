@@ -38,8 +38,10 @@ var stateManager = (() => {
         this.verifyForm = function verifyForm(form, errorBox) {
             var inputs = form.find('input');
             r = true
-            errorBox.html("");
-            errorBox.addClass('hidden');
+            if (errorBox) {
+                errorBox.html("");
+                errorBox.addClass('hidden');
+            }
             for (var i = 0; i < inputs.length; i++) {
                 console.log(inputs[i]);
                 var input = $(inputs[i]);
@@ -55,8 +57,7 @@ var stateManager = (() => {
                 if (verificationRegex)
                 {
                     re = new RegExp("^" + verificationRegex + "$");
-                    if (!re.test(value)) {
-                        
+                    if (!re.test(value)) {         
                         input.addClass("error");
                         r = false
                     }
