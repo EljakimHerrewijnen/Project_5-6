@@ -95,7 +95,7 @@ function User(user) {
             this[key] = userInfo[key]
         userInfo = JSON.stringify(userInfo);
         return $.ajax({
-            url: "/api/account/account",
+            url: "/api/account",
             method: "PUT",
             contentType : "application/json",
             data: userInfo,

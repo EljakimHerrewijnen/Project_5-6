@@ -184,7 +184,6 @@ PUBLIC WISH LISTS
 
 @api.route('/wishlist')
 def get_public_wishlists():
-    db = Database()
     db.where("wishlist_public", 1)
     accounts = db.get_all("account", select = "username, name")
     json_result = json.dumps(accounts, sort_keys=True, indent=4)

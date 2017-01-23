@@ -48,9 +48,15 @@ function accountView() {
     this.submitAddressForm = (user) => function(e) {
         e.preventDefault();
         var values = {};
+        var form = container.find('#user-address-form');
+        var errorText = container.find('#user-address-error-text');
+        if (!stateManager.verifyForm(form, errorText)) {
+            return;
+        };
         container.find("#user-address-form").serializeArray().map( function(field) {
             values[field.name] = field.value;
         });
+
         user.addAddress(values).then(() => {
             var table = container.find('#account-address-container tbody')[0];
             var row = table.insertRow(1);

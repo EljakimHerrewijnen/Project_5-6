@@ -34,6 +34,41 @@ var stateManager = (() => {
         this.getCartItems = () => {
             return cart;
         }
+
+        this.verifyForm = function verifyForm(form, errorBox) {
+            var inputs = form.find('input');
+            r = true
+            errorBox.html("");
+            errorBox.addClass('hidden');
+            for (var i = 0; i < inputs.length; i++) {
+                console.log(inputs[i]);
+                var input = $(inputs[i]);
+                var required = input.is(':required');
+                var verificationRegex = input.attr('verification');
+                var value = input.val()
+                input.removeClass("error");
+                if (required && (value == undefined || value == ""))
+                {
+                    r = false
+                    input.addClass("error");
+                }   
+                if (verificationRegex)
+                {
+                    re = new RegExp("^" + verificationRegex + "$");
+                    if (!re.test(value)) {
+                        
+                        input.addClass("error");
+                        r = false
+                    }
+                }
+            }
+            if (errorBox && !r) {
+                errorBox.html("Please check if all fields are and filled in and have a correct value.");
+                errorBox.removeClass('hidden');
+            }
+            return r;
+        }
+
     }
     return new singleton();
 })();

@@ -19,6 +19,10 @@ function cartView() {
             html = Handlebars.compile(html);
             container.append(html(Cart.items));
             container.css({opacity: 0});
+            if (!cart.isEmpty){
+                container.find('#goToOrderButton').removeClass('hidden');
+            }
+            
         });
 
         return promise;
@@ -51,7 +55,7 @@ function _cartIncrement(id) {
     var item = Cart.getItem(id);
     Cart.addProduct(item.product);
     _CartUpdateTotal();
-    $("#cart-row-amount-" + id).html(item.amount);
+    $("#cart-row-amount-" + id).html(item.quantity);
     $("#cart-row-price-" + id).html("€" + Cart.getItemPrice(id));
 }
 
@@ -63,7 +67,7 @@ function _cartDecrement(id) {
         return;
     }
     _CartUpdateTotal();
-    $("#cart-row-amount-" + id).html(item.amount);
+    $("#cart-row-amount-" + id).html(item.quantity);
     $("#cart-row-price-" + id).html("€" + Cart.getItemPrice(id));
 }
 
