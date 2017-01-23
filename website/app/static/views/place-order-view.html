@@ -27,8 +27,8 @@
         <div id='drop-down-address-container'>
             <select id='dropDownAddres'>
                 {{#each this.addresses}}
-                    <option postal-code='{{this.postal_code}}' street-number='{{this.house_number}}'>
-                        {{this.street}} {{this.house_number}}, {{this.city}}
+                    <option postal-code='{{this.postalCode}}' street-number='{{this.houseNumber}}'>
+                        {{this.street}} {{this.houseNumber}}, {{this.city}}
                     </option>
                 {{/each}}
             </select>

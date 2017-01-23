@@ -19,6 +19,5 @@ def get_all_accounts(account):
 @secure(admin_only = True)
 def admin_update_account(account, username):
     values = request.get_json()
-    print(values)
     result = accountDAO.Update(values)
     return "done", 200

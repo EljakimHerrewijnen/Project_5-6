@@ -20,7 +20,6 @@ def create(json):
 
 
 def convert_to_json(account):
-    print(account)
     account['birthDate'] = ConvertDateToObject(account.pop('birth_date'))
     account['registerDate'] = ConvertDateToObject(account.pop('register_date'))
     account['accountType'] = account.pop("account_type")
@@ -57,7 +56,7 @@ def Delete(username):
 # Update has all optional arguments!
 def Update(account):
     db = Database()
-    if "accountType" in account: 
+    if "accountType" in account:
         account['account_type'] = account.pop('accountType')
     if "birthDate" in account:
         account['birth_date'] = convert_json_to_iso(account.pop('birthDate'))

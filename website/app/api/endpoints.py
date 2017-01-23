@@ -58,6 +58,7 @@ def get_account(account):
     account['wishlist'] = wishDAO.FindByUser(account['username'])
     account['favorites'] = favoritesDAO.FindByUser(account['username'])
     account['orders'] = orderDAO.FindByUser(account['username'])
+    account['addresses'] = addressDAO.FindByUser(account['username'])
     json_result = json.dumps(account)
     return Response(json_result, mimetype="application/json")
 
@@ -151,8 +152,8 @@ def delete_wishlist(account):
 @api.route('/account/order', methods=['POST'])
 @secure()
 def add_order(account):
-    print(request)
     postData = request.get_json()
+    print(postData)
     result = orderDAO.Create(account['username'], postData)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
@@ -198,3 +199,8 @@ def get_public_wishlist(username):
         return Response(json_result, mimetype='application/json')
     else:
         return "Unauthorized", 401
+
+@api.route('/admin/ban/<username>', methods = ['POST'])
+def BanUser(username):
+    adminDAO.ToggleUserBan(username)
+    return "Success", 200

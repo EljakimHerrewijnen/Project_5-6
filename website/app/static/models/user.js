@@ -2,14 +2,12 @@ function User(user) {
     for (var k in user) this[k] = user[k];
     var self = this;
     
-    this.accountType = this.account_type;
-    
     this.addWish = (product) => {
         return $.ajax({
                 url: "/api/account/wishlist",
                 method: 'POST',
                 contentType : "application/json",
-                data: JSON.stringify({"product_id" : product.id})
+                data: JSON.stringify({"id" : product.id})
         }).then(() => {
             self.wishlist.push(product);
             return true;
@@ -21,7 +19,7 @@ function User(user) {
                 url: "/api/account/wishlist",
                 method: 'DELETE',
                 contentType : "application/json",
-                data: JSON.stringify({"product_id" : product.id})
+                data: JSON.stringify({"id" : product.id})
         }).then(() => {
             console.log('dix');
             self.wishlist = self.wishlist.filter((item) => item.id != product.id);
@@ -34,7 +32,7 @@ function User(user) {
             url: "/api/account/favorites",
             method: 'POST',
             contentType : "application/json",
-            data: JSON.stringify({"product_id" : product.id})
+            data: JSON.stringify({"id" : product.id})
         }).then(() => {
             self.favorites.push(product);
         });
@@ -45,7 +43,7 @@ function User(user) {
             url: "/api/account/favorites",
             method: 'DELETE',
             contentType : "application/json",
-            data: JSON.stringify({"product_id" : product.id})
+            data: JSON.stringify({"id" : product.id})
         }).then(() => {
             self.favorites = self.favorites.filter((item) => item.id != product.id);
         });
@@ -105,6 +103,6 @@ function User(user) {
     }
 
     this.hasBought = function(product) {
-        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.id == product.id));
+        return this.orders.some((order) => order.products.some((boughtProduct) => boughtProduct.product.id == product.id));
     }
 }

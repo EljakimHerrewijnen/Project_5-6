@@ -16,7 +16,7 @@ var auth = (() => {
                 NavBar.toggleLogoutButton(true);
                 stateManager.getUser().then((user) => {
                     console.log(user)   
-                    if (user.account_type === "admin") {
+                    if (user.accountType === "admin") {
                         NavBar.toggleAdminButton(true);
                     }
                 })
@@ -27,7 +27,7 @@ var auth = (() => {
         this.createUser = function(user) {
             var user = JSON.stringify(user);
             promise = $.ajax({
-                url: "/api/user/account",
+                url: "/api/account",
                 method: "POST",
                 data: user,
                 contentType : "application/json"

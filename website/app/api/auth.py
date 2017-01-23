@@ -12,7 +12,7 @@ def secure(admin_only = False):
             if not account:
                 return '401: UNAUTHORIZED BABY, YOUR ACCOUNT DOES NOT EXIST', 401
 
-            if admin_only and account['account_type'] != 'admin':
+            if admin_only and account['accountType'] != 'admin':
                 return '401: UNAUTHORIZED BABY, YOUR ACCOUNT DOES NOT HAVE ADMIN PRIVILEGES', 401
             
             dix = partial(func, account)

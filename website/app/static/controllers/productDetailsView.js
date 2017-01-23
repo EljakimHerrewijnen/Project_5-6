@@ -72,9 +72,9 @@ function productDetailView(productId) {
         user.then((user) => {
             console.log(user);
             if (user.hasWish(product)) {
-                return user.removeWish(product).then(() => button.html("ADD TO WISHLIST"));}
+                return user.removeWish(product).then(() => button.html("ADD TO wishlist"));}
             else
-                return user.addWish(product).then(() => button.html("REMOVE FROM WISHLIST"));
+                return user.addWish(product).then(() => button.html("REMOVE FROM wishlist"));
         }, (jqXHR, textStatus, errorThrown) => {
             if (jqXHR.status == 400){
                 alert(jqXHR.responseText);
@@ -124,7 +124,7 @@ function storedata()
     //window.alert(namestorage);
 }
 
-function setupWishListButton() {
+function setupwishlistButton() {
     var button = $('#wishlist_button');
     var user = authenticationService.User();
     
@@ -137,7 +137,7 @@ function setupWishListButton() {
     }
 
     // Set up initial state
-    if (user.wishList.map(function(x) {return x.id}).includes(parseInt(id))) {
+    if (user.wishlist.map(function(x) {return x.id}).includes(parseInt(id))) {
         button.html("REMOVE FROM WISHLIST");
     } else {
         button.html("ADD TO WISHLIST")
@@ -147,7 +147,7 @@ function setupWishListButton() {
         var user = authenticationService.User();
         var _id = parseInt(id)
         e.preventDefault();
-        if (user.wishList.map(function(x) {return x.id}).includes(parseInt(id))) {
+        if (user.wishlist.map(function(x) {return x.id}).includes(parseInt(id))) {
             authenticationService.removeWish(_id, function(success) {
                 if (success) {
                     button.html("ADD TO WISHLIST");

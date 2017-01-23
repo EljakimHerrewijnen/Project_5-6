@@ -21,10 +21,10 @@ function adminDashboard() {
         var products = stateManager.getProducts();
 
         promise = Promise.all([html, users, products]).then(([html, users, products]) => {
-            allUsers = users;
+            allUsers = users.filter((u) => u.accountType != "admin");
             html = Handlebars.compile(html);
-            container.append(html(users));
-            createChart(users);
+            container.append(html(allUsers));
+            createChart(allUsers);
             createProductChart(products);
             createAromaChart(products);
             setupUserTable();
@@ -149,7 +149,7 @@ function adminDashboard() {
             $(this).on("click", activateEditor);
         });
         var form = container.find('#admin-user-form');
-        form.submit(submitForm);
+        form.submit(submitForm);   
     }
 
     var toggleDisabled = function() {
@@ -166,9 +166,10 @@ function adminDashboard() {
         buttons.each(toggleDisabled);
         labels.each(toggleDisabled);
         var username = $(this).attr('user');
-        var user = new User(allUsers.find((user) => user.username == username));
+        var user = allUsers.find((user) => user.username == username);
         fillForm(form, user);
         fillForm(form, user.birthDate);
+        setupBanButton(user);
     }
 
     var fillForm = function(form, values) {
@@ -179,6 +180,32 @@ function adminDashboard() {
         }
     }
 
+    var setupBanButton = function(user) {
+        var btn = container.find('#ban-user');
+        btn.attr("username", user.username)
+        btn.off("click");
+        btn.click(toggleBan);
+       if (+user.banned) {
+            btn.html("Unban user");
+        } else {
+            btn.html("Ban user");
+        }
+    }
+
+    var toggleBan = function(e) {
+        e.preventDefault()
+        var username = $(this).attr('username');
+        var user = allUsers.find((user) => user.username == username);
+        var json = {"banned" : 1, "username" : username};
+        if (user.banned) {
+            json.banned = 0;
+        }
+        updateUser(json).then((u) => {
+            user.banned = -!+user.banned
+            setupBanButton(user);
+        });
+    }
+
     var submitForm = function(e) {
         e.preventDefault();
         var values = {}
@@ -187,11 +214,14 @@ function adminDashboard() {
         for (key in values) {
             user[key] = values[key]
         }
-        user['birth_date'] = {
+        user['birthDate'] = {
             day : values.day,
             month : values.month,
             year: values.year
         }
+        delete user['year']
+        delete user['month']
+        delete user['day']
         updateUser(user);
         var z = container.find('[user=' + user.username + ']').children().get(1);
         $(z).html(user.name + " " + user.surname);
@@ -202,17 +232,7 @@ function adminDashboard() {
     }
 
     var formatUser = function(userInfo) {
-        return {
-            username : userInfo.username,
-            name : userInfo.name,
-            surname: userInfo.surname,
-            email: userInfo.email,
-            account_type : userInfo.accountType,
-            banned : userInfo.banned,
-            birth_date : userInfo.birth_date,
-            register_date : userInfo.register_date,
-            wishlist_public : userInfo.wishlist_public
-        }
+        return userInfo
     }
 
     var updateUser = function(userInfo) {
