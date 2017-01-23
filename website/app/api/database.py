@@ -5,6 +5,7 @@ import sys
 class Database(object):
 	# Contructior opens database
 	def __init__(self):
+		self.databasePath = "app/data.db"
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
@@ -14,9 +15,7 @@ class Database(object):
 
 	def open_conn(self):
 		# api route
-		self.conn = sqlite3.connect("app/data.db")
-		# this file test use route
-		# self.conn = sqlite3.connect("data.db")
+		self.conn = sqlite3.connect(self.databasePath)
 
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
@@ -140,7 +139,6 @@ class Database(object):
 		querry += "FROM " + self.froms + " \n"
 		if self.joins != "":
 			querry += self.joins
-
 		if self.wheres != "":
 			querry += self.wheres
 		if self.groupBy != "":
@@ -162,7 +160,6 @@ class Database(object):
 		querry += "FROM " + self.froms + " \n"
 		if self.joins != "":
 			querry += self.joins
-
 		if self.wheres != "":
 			querry += self.wheres
 		if self.groupBy != "":
@@ -177,7 +174,6 @@ class Database(object):
 	# Add joins to querry
 	def join(self, table, condition, type = "INNER"):
 		self.joins += type + " JOIN " + table +" ON " + condition +"\n"
-		# print self.joins
 
 	# add conditions to querry
 	def where(self, column, value, comparator = "="):
@@ -230,9 +226,6 @@ class Database(object):
 				updates += '"' + values[key] +'"'
 			elif isinstance(values[key], int):
 				updates += "'" + str(values[key]) + "'"
-			# columns += key + ', '
-			# if isinstance(values[key], str):
-			# 	value += '"' + str(values[key]) + '", '
 			else:
 				updates += values[key]
 
@@ -267,17 +260,6 @@ class Database(object):
 			self.orderBy += "ORDER BY " + column
 		else:
 			self.orderBy += " , "+ column
-	
-	# ===depricated===
-	# def createJson(arg):
-	# 	db = Database()
-	# 	Query = db.get_all(arg)
-	# 	location = "website/"+arg
-	# 	extention = ".json"
-	# 	total = location + extention
-
-	# 	with open(total, 'w') as outfile:
-	# 		json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 
 	# Converts given to json.
 	def to_jsonarray(self, array):
