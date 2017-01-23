@@ -1,6 +1,7 @@
 import sqlite3
 import json
 import sys
+import os
 
 class Database(object):
 	# Contructior opens database
@@ -14,7 +15,9 @@ class Database(object):
 
 	def open_conn(self):
 		# api route
-		self.conn = sqlite3.connect("app/data.db")
+		path = os.path.join(os.path.dirname(__file__), "..\data.db")		
+		print(path)
+		self.conn = sqlite3.connect(path)
 		# this file test use route
 		# self.conn = sqlite3.connect("data.db")
 
