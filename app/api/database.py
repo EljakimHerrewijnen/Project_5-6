@@ -15,8 +15,8 @@ class Database(object):
 
 	def open_conn(self):
 		# api route
-		path = os.path.join(os.path.dirname(__file__), "..\data.db")		
-		print(path)
+		#path = os.path.join(os.path.dirname(__file__), "..\data.db")
+		path = (os.getcwd() + "/app/data.db")		
 		self.conn = sqlite3.connect(path)
 		# this file test use route
 		# self.conn = sqlite3.connect("data.db")
