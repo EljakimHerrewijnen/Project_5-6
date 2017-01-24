@@ -1,12 +1,13 @@
 import sqlite3
 import json
 import sys
+import os
 
 
 class Database(object):
 	# Contructior opens database
-	def __init__(self, database_path = "app/data.db"):
-		self.databasePath = database_path
+	def __init__(self, databasePath = "app/data.db"):
+		self.databasePath = databasePath
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
@@ -16,7 +17,11 @@ class Database(object):
 
 	def open_conn(self):
 		# api route
-		self.conn = sqlite3.connect(self.databasePath)
+		sumpath = os.path.realpath(__file__)
+		dirpath = os.path.dirname(sumpath) + "/../../"
+		shortpath = (os.getcwd())
+		relpath = dirpath[(len(shortpath) + 1):] + self.databasePath
+		self.conn = sqlite3.connect(relpath)
 
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
