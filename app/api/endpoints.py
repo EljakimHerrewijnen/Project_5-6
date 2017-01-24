@@ -13,8 +13,6 @@ import datetime
 import time
 import sys
 
-ts = URLSafeTimedSerializer('dixdixdix')
-
 
 """
 PRODUCTS
@@ -47,6 +45,8 @@ def login_account():
     username = post_data['username']
     password = post_data['password']
     account = accountDAO.Find(username)
+    if not account:
+        return "Account not found", 404
     if password != account['password']:
         return "Invalid password", 403
     session['username'] = username
@@ -58,8 +58,11 @@ ACCOUNT
 
 @api.route('/account', methods=['POST'])
 def create_account():
-    result = accountDAO.Create(request.get_json())
-    return "success", 200
+    try:
+        result = accountDAO.Create(request.get_json())
+        return "success", 200
+    except Exception as e:
+        return str(sys.exc_info()), 500
 
 @api.route('/account', methods=['GET'])
 @secure()

@@ -50,8 +50,9 @@ var loginRegisterView = (() => {
             response = auth.createUser(values);
             response.then((success) => {
                 alert("Created your account")
-            }, (failure) => {
-                alert("Failed to create your account: " + jqXHR.responseText)
+            }, (jqXHR) => {
+                var errorBox = container.find('#register-error-box');
+                errorBox.html("Failed to create your account: " + jqXHR.responseText)
             });
         }
 
@@ -61,8 +62,9 @@ var loginRegisterView = (() => {
             response = auth.login(username, password);
             response.then((success) => {
                 viewManager.changeView(new accountView());
-            }, (failure) => {
-                alert("Incorrect username or password");
+            }, (jqXHR) => {
+                var errorBox = container.find('#login-error-box');
+                errorBox.html("Failed to login: " + jqXHR.responseText)
             });
         }
 
