@@ -3,6 +3,7 @@
         <p id='login-error-box' class='error-box'></p>
         <h2>Login</h2>
         <form id='login-form'>
+            <p class='error-box'></p>
             <div>
                 <label>Username</label>
                 <input type='text' placeholder='username' name='username' required>
@@ -16,12 +17,13 @@
     </div>
     <div class='generic-panel'>
         <h2>Register</h2>
-        <form id='register-form'>
+        <form id='register-form' form-verify>
+            <p class='error-box'></p>
             <p id='register-error-box'></p>
             <h3>Account info</h3>
             <div>
                 <label>Username</label>
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" verification='.+' placeholder="Username" name="username" required>
             </div>
             <div>
                 <label>Email</label>

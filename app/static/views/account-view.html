@@ -105,8 +105,8 @@
                 </tr>
             {{/each}}
         </table>
-        <p class='hidden error-box' id='user-address-error-text'>
         <form id="user-address-form">
+            <p class='hidden error-box'></p>
             <label>Add address:</label>
             <input type='text' placeholder='Country' verification='\D{3,}' name='country' required>
             <input type='text' placeholder='City' verification='\D{3,}' name='city' required>

@@ -35,41 +35,61 @@ var stateManager = (() => {
             return cart;
         }
 
-        this.verifyForm = function verifyForm(form, errorBox) {
+        this.submitVerify = function(form) {
+            form = $(form);
             var inputs = form.find('input');
-            r = true
-            if (errorBox) {
-                errorBox.html("");
-                errorBox.addClass('hidden');
-            }
-            for (var i = 0; i < inputs.length; i++) {
-                console.log(inputs[i]);
-                var input = $(inputs[i]);
-                var required = input.is(':required');
+            var errorBox = form.find('.error-box');
+            var validated = true;
+            inputs.each((x) => {
+                var input = $(inputs[x]);
+
                 var verificationRegex = input.attr('verification');
-                var value = input.val()
-                input.removeClass("error");
-                if (required && (value == undefined || value == ""))
-                {
-                    r = false
-                    input.addClass("error");
-                }   
-                if (verificationRegex)
-                {
-                    re = new RegExp("^" + verificationRegex + "$");
-                    if (!re.test(value)) {         
-                        input.addClass("error");
-                        r = false
-                    }
-                }
-            }
-            if (errorBox && !r) {
-                errorBox.html("Please check if all fields are and filled in and have a correct value.");
+                if (validated)
+                    validated = verifyInputField(input);
+                else
+                    verifyInputField(input);
+            });
+            if (errorBox) {
                 errorBox.removeClass('hidden');
+                if (!validated)
+                    errorBox.html("Please check if all fields are and filled in and have a correct value.");
+                else
+                    errorBox.removeClass('hidden');
             }
-            return r;
+            return validated;
         }
 
+        var verifyInputField = function(input) {
+            input = $(input);
+            var value = input.val();
+            var verificationRegex = input.attr('verification');
+            var re = new RegExp("^" + verificationRegex + "$");
+            var isRequired = input.is(':required');
+            if ((verificationRegex && !re.test(value)) || (isRequired && !value)) {    
+                input.addClass("error");
+                return false;
+            } else {
+                input.removeClass("error");
+                return true;
+            }
+        }
+
+        var jqueryFix = function() {
+            verifyInputField(this);
+        }
+
+        this.addRealtimeVerify = function(form) {
+            form = $(form);
+            var inputs = form.find('input');
+            inputs.each((x) => {
+                var input = $(inputs[x]);
+                var isRequired = input.is(':required');
+                var verificationRegex = input.attr('verification');
+                if (isRequired && verificationRegex)
+                    input.on('change', jqueryFix);
+            });
+        }
     }
     return new singleton();
 })();
+

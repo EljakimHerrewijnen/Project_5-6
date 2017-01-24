@@ -21,6 +21,10 @@ var loginRegisterView = (() => {
                 container.css({opacity: 0})
                 container.append(html);
                 attachListeners();
+                var forms = container.find('form');
+                forms.each((x) => {
+                    stateManager.addRealtimeVerify(forms[x]);
+                });
             })
             return Promise.resolve(html);
         }
@@ -37,7 +41,8 @@ var loginRegisterView = (() => {
 
         var register = function(form) {
             values = {}
-            if(!stateManager.verifyForm(form)) {
+            var errorBox = container.find('#register-error-box');
+            if(!stateManager.submitVerify(form)) {
                 return;
             };
 
@@ -63,10 +68,10 @@ var loginRegisterView = (() => {
         }
 
         var login = function(form) {
-            if(!stateManager.verifyForm(form)) {
+            var errorBox = container.find('#login-error-box');
+            if (!stateManager.submitVerify(form)) {
                 return;
             };
-
             var username = form.find('input[name=username]').val();
             var password = form.find('input[name=password]').val();
             response = auth.login(username, password);
@@ -81,7 +86,6 @@ var loginRegisterView = (() => {
         attachListeners = function() {
             var registrationForm = container.find('#register-form');
             var loginForm = container.find('#login-form');
-            
             registrationForm.on('submit', (e) => {e.preventDefault(); register(registrationForm)});
             loginForm.on('submit', (e) => {e.preventDefault(); login(loginForm)});
         }    
