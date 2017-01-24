@@ -11,6 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import datetime
 import time
+import pdfkit
 import sys
 ts = URLSafeTimedSerializer("SECRET KEY FOR ENCRYPTING THE EMAIL")
 
@@ -269,3 +270,24 @@ def reset_password():
         return "Success", 200
     except:
         return "Could not update user, are you sure it exists?", 500
+
+
+@api.route('/test')
+def get_stuff():
+    str = render_template("order-pdf.html")
+    options = {
+        'page-size' : 'a5',
+        'margin-top' : '0in',
+        'margin-left' : '0in',
+        'margin-right' : '0in',
+        'margin-bottom' : '0in',
+        'encoding': "UTF-8",
+        'no-outline': None,
+        'zoom': 1.5,
+        'disable-smart-shrinking' : None,
+        'footer-center' : 'kvk dingen'
+    }
+
+
+    pdfkit.from_string(str, 'out.pdf', options=options)
+    return str

@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    </head>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <style>
+            body {
+                font-family: "Roboto";
+                color: rgba(0,0,0,0.9);
+                font-weight: 300;
+                margin: 0px;
+                height: 100%;
+                font-size: 20px;
+            }
+
+            #coffee-supreme-info {
+                float: right;
+            }
+
+            #coffee-supreme-info h1 {
+                margin-top: 0px;
+                font-size: 54px;
+                font-weight: 300;
+                color: #74AB82;
+            }
+
+            #coffee-supreme-info h1 b {
+                font-weight: 800;
+                color: #3BA757;
+            }
+
+            #coffee-supreme-info p {
+                font-size: 18px;
+                text-align: right;
+                line-height: 24px;
+            }
+
+            #coffee-supreme-info p b {
+                font-weight: 800;
+            }
+
+            h1 {
+                font-size: 54px;
+                display: inline-block;
+                margin-top: 0px;
+            }
+
+            #container {
+                padding: 120px;
+            }
+
+            #receiver-address {
+                color: rgba(0,0,0,0.8);
+                margin-bottom: 80px;
+                font-weight: 400;
+            }
+
+            #order-info {
+                margin-bottom: 80px;
+            }
+
+            #order-info td {
+                padding-right: 30px;
+                color: rgba(0,0,0,0.8);
+                text-align: left;
+            }
+
+            #order-info td:first-child {
+                font-weight: 400;
+            }
+            
+            #content-table thead {
+                border-bottom: 1px solid rgba(0,0,0,0.3);
+                
+            }
+
+            #content-table th {
+                padding-bottom: 10px;
+                font-weight: 400;
+            }
+
+            #content-table table {
+                width: 100%;
+                border-collapse: collapse;    
+                border-spacing: 0;
+            }
+
+            #content-table tbody {
+                padding-top: 10px;
+            }
+
+            #content-table td {
+                padding: 10px 0px;
+            }
+
+            #content-table tfoot tr td {
+                padding-top: 60px;
+            }
+
+            td {
+                text-align: right;
+            }
+            
+            .left-align {
+                text-align: left;
+            }
+
+            #footer {
+                width: 100%;
+                position: absolute;
+                bottom: 0px;
+                font-size: 16px;
+                color: rgba(0,0,0,0.5);
+            }
+
+        </style>
+    <body>
+        <div id='container'>
+            <h1>Invoice</h1>
+            <div id='coffee-supreme-info'>
+                <h1><b>Coffee</b>supreme</h1>
+                <p>
+                    <b>COFFEESUPREME INCORPORATED</b><br>
+                    A DIVISION OF A.C.M.E.<br>
+                    Laan op Zuid 45<br>
+                    3072 DB Rotterdam<br>
+                    <a href='https://coffeesupre.me'>https://coffeesupre.me</a>
+                </p>
+            </div>
+
+
+            <div id='receiver-address'>
+                <p>
+                    Firstname Lastname<br>
+                    Street 300<br>
+                    3030AA City<br>
+                </p>
+            </div>
+            <div id='order-info'>
+                <table>
+                    <tr>
+                        <td>Customer:</td>
+                        <td>Username</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice code:</td>
+                        <td>94028592</td>
+                    </tr>
+                    <tr>
+                        <td>Order code:</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>Order date:</td>
+                        <td>23-5-1955</td>
+                    </tr>
+                    
+                </table>
+            </div>
+
+            <div id='content-table'>
+                <table>
+                    <thead>
+                        <th style='width: 50%'>Product</th>
+                        <th>Tax</th>
+                        <th>Price per product</th>
+                        <th>Quantity</th>
+                        <th>Total price</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class='left-align'>Coffee</td>
+                            <td>21%</td>
+                            <td>€15</td>
+                            <td>3</td>
+                            <td>€45</td>
+                        <tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan='3'></td>
+                            <td>Total</td>
+                            <td>€45</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div id='footer'>
+                KvK Rotterdam: 24330087 BTW: NL810433941B01 IBAN NL: NL86 INGB 0002 4455 88
+            </div>
+        </div>
+    </body>
+</html>
