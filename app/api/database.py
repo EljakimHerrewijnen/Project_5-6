@@ -16,20 +16,18 @@ class Database(object):
 	def open_conn(self):
 		# api route
 		#path = os.path.join(os.path.dirname(__file__), "..\data.db")
-		sumpath = os.path.realpath(__file__)
-		dirpath = os.path.dirname(sumpath) + "\.."
-		shortpath = (os.getcwd())
 
-		relpath = dirpath[(len(shortpath) + 1):] + "\data.db"
+		dirpath = os.path.dirname(os.path.realpath(__file__)) + "/.."
+		pathlength = len(os.getcwd())
 
-		# print(shortpath)
-		# print(sumpath)
-		# print(dirpath)
-		# print(relpath)
+		if(pathlength != 1): skipchars = pathlength + 1
+		else: skipchars = 1
+
+		relpath = dirpath[skipchars:] + "/data.db"
 		path = (sys.path[0] + "/app/data.db")
 
 		# print(path)
-		self.conn = sqlite3.connect(relpath)
+		self.conn = sqlite3.connect((relpath))
 		# this file test use route
 		# self.conn = sqlite3.connect("data.db")
 
