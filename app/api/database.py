@@ -6,7 +6,7 @@ import os
 
 class Database(object):
 	# Contructior opens database
-	def __init__(self, databasePath = "/data.db"):
+	def __init__(self, databasePath = "app/data.db"):
 		self.databasePath = databasePath
 		self.select = ""
 		self.froms = ""
@@ -14,16 +14,17 @@ class Database(object):
 		self.wheres = ""
 		self.groupBy = ""
 		self.orderBy = ""
-		self.databaseRelativeLocation = ""
 
 	def open_conn(self):
 		# api route
 
-		dirpath = os.path.dirname(os.path.realpath(__file__)) + "/.."
+		dirpath = os.path.dirname(os.path.realpath(__file__)) + "/../../"
 		pathlength = len(os.getcwd())
 
-		if(pathlength != 1): skipchars = pathlength + 1
-		else: skipchars = 1
+		if(pathlength != 1): 
+			skipchars = pathlength + 1
+		else: 
+			skipchars = 1
 		
 		self.databaseRelativeLocation = dirpath[skipchars:] + self.databasePath
 

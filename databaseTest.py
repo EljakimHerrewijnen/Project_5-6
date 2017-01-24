@@ -6,13 +6,12 @@ import os
 class TestMethods(unittest.TestCase):
     # create database to test with
     def setUp(self):
-        self.testDBFileLocation = "/test_db.db"
+        self.testDBFileLocation = "app/test_db.db"
         self.db = Database(self.testDBFileLocation)
         self.db.reset_database()
     # delete test database to prevent errors
     def tearDown(self):
-        os.remove(self.db.databaseRelativeLocation)
-        # os.remove("app/test_db.db")
+        os.remove(self.testDBFileLocation)
 
     # actual tests
     # get all products
