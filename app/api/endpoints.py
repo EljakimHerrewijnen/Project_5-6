@@ -12,6 +12,7 @@ from email.mime.text import MIMEText
 import datetime
 import time
 import sys
+ts = URLSafeTimedSerializer("SECRET KEY FOR ENCRYPTING THE EMAIL")
 
 
 """
