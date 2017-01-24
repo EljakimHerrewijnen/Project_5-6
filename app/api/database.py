@@ -3,34 +3,33 @@ import json
 import sys
 import os
 
+
 class Database(object):
 	# Contructior opens database
-	def __init__(self):
+	def __init__(self, databasePath = "/data.db"):
+		self.databasePath = databasePath
 		self.select = ""
 		self.froms = ""
 		self.joins = ""
 		self.wheres = ""
 		self.groupBy = ""
 		self.orderBy = ""
+		self.databaseRelativeLocation = ""
 
 	def open_conn(self):
 		# api route
-		#path = os.path.join(os.path.dirname(__file__), "..\data.db")
 
 		dirpath = os.path.dirname(os.path.realpath(__file__)) + "/.."
 		pathlength = len(os.getcwd())
 
 		if(pathlength != 1): skipchars = pathlength + 1
 		else: skipchars = 1
+		
+		self.databaseRelativeLocation = dirpath[skipchars:] + self.databasePath
 
-		relpath = dirpath[skipchars:] + "/data.db"
-		path = (sys.path[0] + "/app/data.db")
+		self.conn = sqlite3.connect(self.databaseRelativeLocation)
 
-		# print(path)
-		self.conn = sqlite3.connect((relpath))
 		# this file test use route
-		# self.conn = sqlite3.connect("data.db")
-
 		self.c = self.conn.cursor()
 		self.conn.row_factory = sqlite3.Row
 
@@ -45,20 +44,23 @@ class Database(object):
 		for table in tables:
 			query = "DROP TABLE IF EXISTS " + table
 			self.raw_querry(query)
-		print("tables deleted")
-		querrys = open('createdb.sql', 'r').read()
+		# print("tables deleted")
+		queryFile = open('app/api/createdb.sql', 'r')
+		querrys = queryFile.read()
+		queryFile.close()
 		querrys = querrys.split(';')
 		for querry in querrys:
 			try:
-				print (self.raw_querry(querry))
+				self.raw_querry(querry)
 			except (sqlite3.OperationalError, msg):
 				print ("command skipped: ", msg)
 
 	# Gets json and inserts values into databse
 	def insert_coffee(self):
 		self.open_conn()
-		data = open("products.json", 'r')
+		data = open("app/products.json", 'r')
 		jsonData = json.load(data)
+		data.close()
 		# return jsonData
 		for item in jsonData:
 			# insert coffees
@@ -153,7 +155,6 @@ class Database(object):
 		querry += "FROM " + self.froms + " \n"
 		if self.joins != "":
 			querry += self.joins
-
 		if self.wheres != "":
 			querry += self.wheres
 		if self.groupBy != "":
@@ -175,7 +176,6 @@ class Database(object):
 		querry += "FROM " + self.froms + " \n"
 		if self.joins != "":
 			querry += self.joins
-
 		if self.wheres != "":
 			querry += self.wheres
 		if self.groupBy != "":
@@ -190,7 +190,6 @@ class Database(object):
 	# Add joins to querry
 	def join(self, table, condition, type = "INNER"):
 		self.joins += type + " JOIN " + table +" ON " + condition +"\n"
-		# print self.joins
 
 	# add conditions to querry
 	def where(self, column, value, comparator = "="):
@@ -243,9 +242,6 @@ class Database(object):
 				updates += '"' + values[key] +'"'
 			elif isinstance(values[key], int):
 				updates += "'" + str(values[key]) + "'"
-			# columns += key + ', '
-			# if isinstance(values[key], str):
-			# 	value += '"' + str(values[key]) + '", '
 			else:
 				updates += values[key]
 
@@ -280,17 +276,6 @@ class Database(object):
 			self.orderBy += "ORDER BY " + column
 		else:
 			self.orderBy += " , "+ column
-
-	# ===depricated===
-	# def createJson(arg):
-	# 	db = Database()
-	# 	Query = db.get_all(arg)
-	# 	location = "website/"+arg
-	# 	extention = ".json"
-	# 	total = location + extention
-
-	# 	with open(total, 'w') as outfile:
-	# 		json.dump(Query, outfile, ensure_ascii=False, indent=2, sort_keys=True)
 
 	# Converts given to json.
 	def to_jsonarray(self, array):
