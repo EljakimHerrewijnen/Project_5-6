@@ -16,8 +16,20 @@ class Database(object):
 	def open_conn(self):
 		# api route
 		#path = os.path.join(os.path.dirname(__file__), "..\data.db")
-		path = (os.getcwd() + "/app/data.db")		
-		self.conn = sqlite3.connect(path)
+		sumpath = os.path.realpath(__file__)
+		dirpath = os.path.dirname(sumpath) + "\.."
+		shortpath = (os.getcwd())
+
+		relpath = dirpath[(len(shortpath) + 1):] + "\data.db"
+
+		# print(shortpath)
+		# print(sumpath)
+		# print(dirpath)
+		# print(relpath)
+		path = (sys.path[0] + "/app/data.db")
+
+		# print(path)
+		self.conn = sqlite3.connect(relpath)
 		# this file test use route
 		# self.conn = sqlite3.connect("data.db")
 
@@ -270,7 +282,7 @@ class Database(object):
 			self.orderBy += "ORDER BY " + column
 		else:
 			self.orderBy += " , "+ column
-	
+
 	# ===depricated===
 	# def createJson(arg):
 	# 	db = Database()
