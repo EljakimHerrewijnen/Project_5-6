@@ -5,21 +5,21 @@
             <h2>Personal info</h2>
             <div>
                 <label>Email</label>
-                <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' value='{{email}}' name='email' required>
+                <input type='text' verification="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' value='{{email}}' name='email' required>
             </div>
             <div>
                 <label>Name</label>
-                <input type='text' placeholder='Name' value='{{name}}'name='name'>
+                <input type='text' verification='\D+' placeholder='Name' value='{{name}}'name='name' required>
             </div>
             <div>
                 <Label>Surname</label>
-                <input type='text' placeholder='Surname' value='{{surname}}'name='surname'>
+                <input type='text' verification='\D+' placeholder='Surname' value='{{surname}}'name='surname' required>
             </div>
             <div>
                 <label>Birthdate</label>
-                <input type='text' placeholder='Year' value='{{birthDate.year}}'name='year'>
-                <input type='text' placeholder='Month' value='{{birthDate.month}}' name='month'>
-                <input type='text' placeholder='Day' value='{{birthDate.day}}' name='day'>
+                <input type='text' placeholder='Year' verification='\d{4}' value='{{birthDate.year}}'name='year' required>
+                <input type='text' placeholder='Month' verification='\d{1,2}' value='{{birthDate.month}}' name='month' required>
+                <input type='text' placeholder='Day' verification='\d{1,2}' value='{{birthDate.day}}' name='day' required>
             </div>
             <button id='login-button'>Update</button>
         </form>
@@ -106,12 +106,13 @@
             {{/each}}
         </table>
         <form id="user-address-form">
+            <p class='hidden error-box'></p>
             <label>Add address:</label>
-            <input type='text' placeholder='Country' name='country'>
-            <input type='text' placeholder='City' name='city'>
-            <input type='text' placeholder='Street' name='street'>
-            <input type='text' placeholder='Number' name='houseNumber'>
-            <input type='text' placeholder='Postal code' name='postalCode'>
+            <input type='text' placeholder='Country' verification='\D{3,}' name='country' required>
+            <input type='text' placeholder='City' verification='\D{3,}' name='city' required>
+            <input type='text' placeholder='Street' verification='\D{3,}' name='street' required>
+            <input type='text' placeholder='Number' verification='\d+[a-zA-Z]?'name='houseNumber' required>
+            <input type='text' placeholder='Postal code' verification='\d{4}[a-zA-Z]{2}' name='postalCode' required>
             <button id='login-button'>Add</button>
         </form>
     </div>

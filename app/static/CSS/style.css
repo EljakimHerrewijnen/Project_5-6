@@ -280,6 +280,10 @@ input[type=checkbox]:checked {
     color: red;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -293,6 +297,7 @@ svg {
 .panel-heading {
     min-height: 2em;
 }
+
 
 .view-container {
     padding: 60px;
@@ -554,6 +559,10 @@ nav a :hover{
     display: flex;
     margin-bottom: 10px;   
     justify-content: space-between;
+}
+
+input.error {
+    border: 1px solid rgba(255,0,0,0.5) !important;
 }
 
 #account-info-container input {

@@ -1,5 +1,8 @@
 from app.api.models.address import Address
 from app.api.database import Database
+import re
+
+postal_code_pattern = re.compile("\d{4}[a-zA-Z]{2}")
 
 def convert_to_json(db_dict):
     db_dict["postalCode"] = db_dict.pop("postal_code")
@@ -8,13 +11,26 @@ def convert_to_json(db_dict):
 
 
 def convert_from_json(json):
-    json["postal_code"] = json.pop("postalCode")
+    json["postal_code"] = json.pop("postalCode").upper()
     json["house_number"] = json.pop("houseNumber")
     return json
 
+def verify_address(address):
+    fields = ["postalCode", "houseNumber", "city", "street", "country"]
+    print(address)
+    for key in fields:
+        if not key in address:
+            raise KeyError("Address does not contain " + key)
+        if not address[key]:
+            raise ValueError(key + " cannot be empty.")
+    #if type(address['houseNumber']) != int:
+        #raise ValueError("House number is not an integer value.")
+    if not re.match(address['postalCode']):
+        raise ValueError("Postal code is of the incorrect format.");
 
 def Create(address):
     db = Database()
+    verify_address(address)
     address = convert_from_json(address)
     return db.insert("address", address)
 
