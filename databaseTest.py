@@ -5,12 +5,15 @@ import os
 
 class TestMethods(unittest.TestCase):
     # create database to test with
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.testDBFileLocation = "app/test_db.db"
         self.db = Database(self.testDBFileLocation)
         self.db.reset_database()
+
     # delete test database to prevent errors
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(self):
         os.remove(self.testDBFileLocation)
 
     # actual tests
