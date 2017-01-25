@@ -1,4 +1,5 @@
 import unittest
+import HTMLTestRunner
 from app.api.database import Database
 from app.api.DAO import *
 import os
@@ -49,6 +50,10 @@ class TestMethods(unittest.TestCase):
         self.assertDictEqual(self.db.get_one("account"), {})
 
 
-# run tests
 if __name__ == '__main__':
-    unittest.main()
+    loader = unittest.TestLoader()
+    suite = unittest.TestSuite(loader.loadTestsFromTestCase(TestMethods))
+    htmlfile = open('app/static/views/unittest.html', 'w')
+    runner = HTMLTestRunner.HTMLTestRunner(stream=htmlfile, verbosity=2, title='Report', description='This is areport')
+    runner.run(suite)
+    
