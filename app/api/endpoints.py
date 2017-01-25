@@ -9,12 +9,12 @@ from itsdangerous import URLSafeTimedSerializer
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
 import datetime
 import time
 import pdfkit
 import sys
 ts = URLSafeTimedSerializer("SECRET KEY FOR ENCRYPTING THE EMAIL")
-
 
 """
 PRODUCTS
@@ -168,7 +168,8 @@ def delete_wishlist(account):
 def add_order(account):
     postData = request.get_json()
     print(postData)
-    result = orderDAO.Create(account['username'], postData)
+    order = orderDAO.Create(account['username'], postData)
+    sendOrderMail(account, order)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 @api.route('/account/order', methods=['GET'])
@@ -272,9 +273,8 @@ def reset_password():
         return "Could not update user, are you sure it exists?", 500
 
 
-@api.route('/test')
-def get_stuff():
-    str = render_template("order-pdf.html")
+def senderOrderMail(account, order):
+    str = render_template("order-pdf.html", order = order)
     options = {
         'page-size' : 'a5',
         'margin-top' : '0in',
@@ -287,7 +287,35 @@ def get_stuff():
         'disable-smart-shrinking' : None,
         'footer-center' : 'kvk dingen'
     }
+    pdf = pdfkit.from_string(str, False, options=options)
+    from_address = "noreply@coffeesupre.me"
+    to_addresss = account['email']
+    msg = MIMEMultipart("mixed")
+    msg['Subject'] = 'Coffeesupreme password reset'
+    msg['From'] = from_address
+    msg['To'] = to_addresss
 
+    pdfAttachment = MIMEApplication(pdf, _subtype = "pdf")
+    pdfAttachment.add_header('content-disposition', 'attachment', filename = ('utf-8', '', 'out.pdf'))
 
-    pdfkit.from_string(str, 'out.pdf', options=options)
-    return str
+    text_version = "test"
+    part1 = MIMEText(text_version, "text")
+
+    msg.attach(part1)
+    msg.attach(pdfAttachment)
+
+    server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
+    server.login("noreply@coffeesupre.me", "password")
+    server.sendmail(from_address, to_addresss, msg.as_string())
+    server.quit()
+
+@api.route('/test')
+def testOrder():
+    account = {
+        'email' : 'bartrijnders14@gmail.com'
+    }
+    order = {
+        'id' : '3'
+    }
+    senderOrderMail(account, order)
+    return "finished"
