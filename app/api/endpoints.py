@@ -274,7 +274,7 @@ def reset_password():
 
 
 def senderOrderMail(account, order):
-    str = render_template("order-pdf.html", order = order)
+    str = render_template("order-pdf.html", order = order, account=account)
     options = {
         'page-size' : 'a5',
         'margin-top' : '0in',
@@ -296,12 +296,14 @@ def senderOrderMail(account, order):
     msg['To'] = to_addresss
 
     pdfAttachment = MIMEApplication(pdf, _subtype = "pdf")
-    pdfAttachment.add_header('content-disposition', 'attachment', filename = ('utf-8', '', 'out.pdf'))
+    pdfAttachment.add_header('content-disposition', 'attachment', filename = ('utf-8', '', 'invoice.pdf'))
 
-    text_version = "test"
+    text_version = render_template("invoice-email.txt", user = {"name" : account['name'], "surname" : account['surname']})
+    html_version = render_template("invoice-email.html", user = {"name" : account['name'], "surname" : account['surname']})
     part1 = MIMEText(text_version, "text")
+    part2 = MIMEText(html_version, "html")
 
-    msg.attach(part1)
+    msg.attach(part2)
     msg.attach(pdfAttachment)
 
     server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
@@ -312,7 +314,9 @@ def senderOrderMail(account, order):
 @api.route('/test')
 def testOrder():
     account = {
-        'email' : 'bartrijnders14@gmail.com'
+        'email' : 'bartrijnders14@gmail.com',
+        'name' : 'Bart',
+        'surname' : 'Rijnders'
     }
     order = {
         'id' : '3'
