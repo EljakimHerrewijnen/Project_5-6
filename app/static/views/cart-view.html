@@ -1,0 +1,34 @@
+<div id='cart-view-container'>
+    <div id='cart-header'>
+        <h1>Cart</h1>
+        <p id='emptyCart' style="display:none">No products in cart</p> 
+    </div>
+    <table id='orderTable'>
+        <thead>
+        <tr id='order-table-header'>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th></th>
+        </tr>                
+        </thead>
+        <tbody id='#cart-view-tbody'>
+        {{#each this}}
+            <tr class='row'>
+                <td><a onclick="viewManager.redirect('/details/{{this.product.id}}')">{{this.product.name}}</a></td>
+                <td>
+                    <p class='amount-counter' id='cart-row-amount-{{this.product.id}}'>{{this.quantity}}</p>
+                    <p class='incrementer' onclick="_cartDecrement({{this.product.id}})">-</p>
+                    <p class='incrementer' onclick="_cartIncrement({{this.product.id}})">+</p>
+                </td>
+                <td id='cart-row-price-{{this.product.id}}' style="width: 8em">€{{cartLineTotal this.product.price this.quantity}}</td>
+                <td><a onclick='_cartRemoveItem({{this.product.id}})'>Remove</a></td>
+            </tr>
+        {{/each}}
+        </tbody>
+        <tfoot><tr><td></td><td>Total price</td><td id='totalprice'>€{{cartOrderTotal}}</td></tr></tfoot>
+    </table>
+    <div id='order-button-container'>
+        <div id='goToOrderButton' class='hidden' onclick='ViewManager.redirect("/placeorder")'>Checkout >> </div>
+    </div>
+</div>
