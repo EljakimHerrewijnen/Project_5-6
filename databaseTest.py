@@ -9,9 +9,24 @@ class TestMethods(unittest.TestCase):
         self.testDBFileLocation = "app/test_db.db"
         self.db = Database(self.testDBFileLocation)
         self.db.reset_database()
+
+        #Create User to user
+        accountjson = {
+            "username" : "testuser",
+            "password" : "testuser",
+            "surname"  : "testuser",
+            "birthDate": {"year":1990, "month":12, "day":12},
+            "email": "testuser@coffeesupre.me",
+            "banned": 0,
+            "account_type": 0,
+        }
+
     # delete test database to prevent errors
     def tearDown(self):
         os.remove(self.testDBFileLocation)
+
+        #Delete user to prevent errors
+        accountDAO.Delete("testuser")
 
     # actual tests
     # get all products
@@ -48,6 +63,15 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(self.db.delete("account"), 1)
         self.assertDictEqual(self.db.get_one("account"), {})
 
+    #Tests the favoritesDAO.py Tests 3 functions in one Function
+    def test_favortiesDAO(self):
+        #add item to favorites for user: testuser
+        
+        favoritesDAO.Create("testuser", 2)
+        #Find the item previously created for user:testuser
+        self.assertIsInstance(favoritesDAO.FindByUser("testuser"), list)
+        # self.assertEqual(favoritesDAO.FindByUser("testuser"),expectedResult)
+        favoritesDAO.Delete("testuser", 2)
 
 # run tests
 if __name__ == '__main__':

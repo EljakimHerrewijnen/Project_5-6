@@ -53,7 +53,7 @@ def Find(username):
 def Delete(username):
     db = Database()
     db.where("username", username)
-    db.delete("username")
+    db.delete("account")
 
 
 # Update has all optional arguments!
