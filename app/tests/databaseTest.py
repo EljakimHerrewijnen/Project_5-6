@@ -1,17 +1,19 @@
 import unittest
-import HTMLTestRunner
 from app.api.database import Database
 from app.api.DAO import *
 import os
 
 class TestMethods(unittest.TestCase):
     # create database to test with
-    def setUp(self):
+    @classmethod
+    def setUpClass(self):
         self.testDBFileLocation = "app/test_db.db"
         self.db = Database(self.testDBFileLocation)
         self.db.reset_database()
+
     # delete test database to prevent errors
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(self):
         os.remove(self.testDBFileLocation)
 
     # actual tests
@@ -50,10 +52,6 @@ class TestMethods(unittest.TestCase):
         self.assertDictEqual(self.db.get_one("account"), {})
 
 
+# run tests
 if __name__ == '__main__':
-    loader = unittest.TestLoader()
-    suite = unittest.TestSuite(loader.loadTestsFromTestCase(TestMethods))
-    htmlfile = open('app/static/views/unittest.html', 'w')
-    runner = HTMLTestRunner.HTMLTestRunner(stream=htmlfile, verbosity=2, title='Report', description='This is areport')
-    runner.run(suite)
-    
+    unittest.main()
