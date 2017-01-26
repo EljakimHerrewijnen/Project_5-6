@@ -29,7 +29,7 @@ class TestMethods(unittest.TestCase):
             "aromas": ['Chocolate', "Nutty"]
         }
         self.assertIsInstance(productDAO.Find(1), dict)
-        self.assertDictEqual(productDAO.Find(1), expectedResult, None)
+        self.assertDictEqual(productDAO.Find(1), expectedResult)
 
 
     def test_FindAll(self):

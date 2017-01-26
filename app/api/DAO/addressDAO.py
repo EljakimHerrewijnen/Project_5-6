@@ -22,8 +22,8 @@ def Create(address):
 def Delete(address):
     db = Database()
     address = convert_from_json(address)
-    db.where("postal_code", address.postal_code)
-    db.where("house_number", street_number)
+    db.where("postal_code", address["postal_code"])
+    db.where("house_number", address["house_number"])
     return db.delete("address")
 
 
