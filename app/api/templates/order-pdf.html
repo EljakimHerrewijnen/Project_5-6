@@ -35,6 +35,10 @@
                 line-height: 24px;
             }
 
+            .item-row td {
+                font-size: 16px;
+            }
+
             #coffee-supreme-info p b {
                 font-weight: 800;
             }
@@ -131,7 +135,7 @@
 
             <div id='receiver-address'>
                 <p>
-                    Firstname Lastname<br>
+                    {{account.name}} {{account.surname}}<br>
                     Street 300<br>
                     3030AA City<br>
                 </p>
@@ -140,19 +144,15 @@
                 <table>
                     <tr>
                         <td>Customer:</td>
-                        <td>Username</td>
-                    </tr>
-                    <tr>
-                        <td>Invoice code:</td>
-                        <td>94028592</td>
+                        <td>{{account.username}}</td>
                     </tr>
                     <tr>
                         <td>Order code:</td>
-                        <td>30</td>
+                        <td>{{order.id}}</td>
                     </tr>
                     <tr>
                         <td>Order date:</td>
-                        <td>23-5-1955</td>
+                        <td>{{order.orderDate.year}}-{{order.orderDate.month}}-{{order.orderDate.day}}</td>
                     </tr>
                     
                 </table>
@@ -168,19 +168,21 @@
                         <th>Total price</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class='left-align'>Coffee</td>
+                        {% for row in order.products %}
+                        <tr class='item-row'>
+                            <td class='left-align'>{{row.product.name}}</td>
                             <td>21%</td>
-                            <td>€15</td>
-                            <td>3</td>
-                            <td>€45</td>
+                            <td>€{{row.product.price}}</td>
+                            <td>{{row.quantity}}</td>
+                            <td>€{{'{:.2f}'.format(row.product.price * row.quantity)}}</td>
                         <tr>
+                        {% endfor %}
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan='3'></td>
                             <td>Total</td>
-                            <td>€45</td>
+                            <td>€{{order_total}}</td>
                         </tr>
                     </tfoot>
                 </table>
