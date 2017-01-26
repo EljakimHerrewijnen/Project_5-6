@@ -6,7 +6,10 @@ var Cart = (() => {
             items = []
             localStorage.setItem("cartItems", "[]");
         };
-        
+
+        Object.defineProperty(this, "isEmpty", {
+            get : () => items.length == 0
+        });
 
         Object.defineProperty(this, "items", {
             get : () => items

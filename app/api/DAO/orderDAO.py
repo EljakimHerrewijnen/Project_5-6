@@ -5,13 +5,15 @@ from app.api.helpers import convert_iso_to_json
 from datetime import date
 import sqlite3
 
+order_cache = {}
+order_username_cache = {}
+
 def convert_to_json(order):
     order["address"] = addressDAO.Find(order.pop('postal_code'), order.pop("house_number"))
     order['id'] = order.pop('orders_id')
     order['orderDate'] = convert_iso_to_json(order.pop('orders_date'))
     order['products'] = productDAO.FindByOrder(order["id"])
     return order
-
 
 def Create(username, order_content):
     db = Database()
@@ -33,10 +35,14 @@ def Create(username, order_content):
 
 
 def Find(order_id):
+    if order_id in order_cache:
+        print("USED ORDER CACHE")
+        return order_cache[order_id]
     db = Database()
     db.where("orders_id", order_id)
     order = db.get_one("orders")
-    convert_to_json(order)
+    order = convert_to_json(order)
+    order_cache[order_id] = order
     return order
 
 
@@ -48,10 +54,14 @@ def FindAll():
 
 
 def FindByUser(username):
+    if username in order_username_cache:
+        print("USED ORDER CACHE")
+        return order_username_cache[username]
     db = Database()
     db.where("username", username)
     orders = db.get_all("orders")
     orders = [convert_to_json(order) for order in orders]
+    order_username_cache[username] = orders
     return orders
 
 

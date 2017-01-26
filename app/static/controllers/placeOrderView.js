@@ -32,8 +32,14 @@ function placeOrderView() {
     var getHtml = () => $.ajax({url: "/static/views/place-order-view.html",contentType: "text"});
 
     this.placeOrder = function() {
+        var errorBox = $("#place-order-error-box");
         var postalCode = $("#dropDownAddres option:selected").attr('postal-code');
         var streetNumber = $("#dropDownAddres option:selected").attr('street-number');
+        if (postalCode == undefined || streetNumber == undefined) {
+            errorBox.removeClass('hidden');
+            errorBox.html("No address selected. You can add a new address in your account settings page.");
+            return;
+        }
         var order = {
             address: {
                 postalCode : postalCode,
@@ -48,6 +54,9 @@ function placeOrderView() {
         }).done( function(x) {
             alert("Placed order!");
             Cart.empty();
+            stateManager.getUser().then((user) => {
+                user.orders.push(x);
+            });
             viewManager.redirect('/order/' + x.id)
         }).error((jqXHR) => {
             console.log(jqXHR);

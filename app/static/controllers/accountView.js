@@ -41,6 +41,7 @@ function accountView() {
         wishlist_toggle.on("change", () => {
             user.setwishlistPublic(wishlist_toggle.is(':checked'));
         });
+        stateManager.addRealtimeVerify(container.find('#user-address-form'));
         container.find('#user-address-form').on('submit', this.submitAddressForm(user));
         container.find('#user-info-form').on('submit', this.submitUserInfoForm(user));
     }
@@ -48,9 +49,14 @@ function accountView() {
     this.submitAddressForm = (user) => function(e) {
         e.preventDefault();
         var values = {};
-        container.find("#user-address-form").serializeArray().map( function(field) {
+        var form = container.find('#user-address-form');
+        if (!stateManager.submitVerify(form)) {
+            return;
+        };
+        form.serializeArray().map( function(field) {
             values[field.name] = field.value;
         });
+
         user.addAddress(values).then(() => {
             var table = container.find('#account-address-container tbody')[0];
             var row = table.insertRow(1);
@@ -68,7 +74,12 @@ function accountView() {
     this.submitUserInfoForm = (user) => function(e) {
         e.preventDefault();
         var formValues = {};
-        container.find('#user-info-form').serializeArray().map( function(field) {
+        var form = container.find('#user-info-form');
+        if (!stateManager.submitVerify(form)) {
+            return;
+        };
+
+        form.serializeArray().map( function(field) {
             formValues[field.name] = field.value;
         });
         var updatedUser = {};

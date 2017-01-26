@@ -2,12 +2,14 @@
     <div id='cart-header'>
         <h1>Place order</h1>
         <p id='emptyCart' style="display:none">No products in cart</p> 
+        <p class='hidden error-box' id='place-order-error-box'></p>
     </div>
     <table id='orderTable'>
+        
         <thead>
         <tr id='order-table-header'>
             <th>Name</th>
-            <th>Amount</th>
+            <th>Quantity</th>
             <th>Price</th>
         </tr>                
         </thead>
@@ -15,8 +17,8 @@
         {{#each this.items}}
             <tr class='row'>
                 <td><a href="/products/{{this.product.id}}">{{this.product.name}}</a></td>
-                <td>{{this.amount}}</td>
-                <td style="width: 2em">€{{cartLineTotal this.product.price this.amount}}</td>
+                <td>{{this.quantity}}</td>
+                <td style="width: 2em">€{{cartLineTotal this.product.price this.quantity}}</td>
             </tr>
         {{/each}}
         </tbody>

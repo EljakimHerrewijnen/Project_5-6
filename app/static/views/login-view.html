@@ -3,48 +3,47 @@
         <p id='login-error-box' class='error-box'></p>
         <h2>Login</h2>
         <form id='login-form'>
+            <p class='error-box'></p>
             <div>
                 <label>Username</label>
-                <input type='text' placeholder='username' name='username'>
+                <input type='text' placeholder='username' name='username' required>
             </div>
             <div>
                 <label>Password</label>
-                <input type='password' placeholder='password' name='password'>
+                <input type='password' placeholder='password' name='password' required>
             </div>
             <button id='login-button'>Login</button>
         </form>
+        <a onclick='viewManager.redirect("/request-reset-password")'>Reset password</a>
     </div>
     <div class='generic-panel'>
         <h2>Register</h2>
-        <form id='register-form'>
+        <form id='register-form' form-verify>
+            <p class='error-box'></p>
             <p id='register-error-box'></p>
             <h3>Account info</h3>
             <div>
                 <label>Username</label>
-                <input type="text" placeholder="Username" name="username" required>
+                <input type="text" verification='.+' placeholder="Username" name="username" required>
             </div>
             <div>
                 <label>Email</label>
-                <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' name='email' required>
+                <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" verification='^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$' placeholder='email@domain.com' name='email' required>
             </div>
             <div>
                 <label>Password</label>
-                <input type='password' placeholder='password' name='password'>
-            </div>
-            <div>
-                <label>Password (again)</label>
-                <input type='password' placeholder='password (again)' name='password_verify'>
+                <input type='password' placeholder='password' name='password' required>
             </div>
             <div>
                 <label>Name</label>
-                <input type='text' placeholder='Name' name='name'>
-                <input type='text' placeholder='Surname' name='surname'>
+                <input type='text' verification='\D+' placeholder='Name' name='name' required>
+                <input type='text' verification='\D+' placeholder='Surname' name='surname' required>
             </div>
             <div>
-                <label>Date of birth</label>
-                <input type='text' placeholder='Year' name='year'>
-                <input type='text' placeholder='Month' name='month'>
-                <input type='text' placeholder='Day' name='day'>
+                <label>Date of Birth</label>
+                <input type='text' verification='\d{4}' placeholder='Year' name='year' required>
+                <input type='text' verification='\d{1,2}' placeholder='Month' name='month' required>
+                <input type='text' verification='\d{1,2}' placeholder='Day' name='day' required>
             </div>
             <button id='login-button'>Register</button>
         </form>
