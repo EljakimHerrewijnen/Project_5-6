@@ -1,0 +1,43 @@
+@media only screen and (max-width: 1024px) {
+    #navbar {
+        display: none;
+    }
+
+    #mobile-menu {
+        display: flex;
+        justify-content: space-around;
+        align-items: baseline;
+    }
+
+    #mobile-menu-left-block, #mobile-menu-right-block, #mobile-menu h1 {
+        display: inline-block;
+    }
+
+    #products-container {
+        padding-left: 0px;
+    }
+
+    #products-filter {
+        width: 100%;
+        height: auto;
+    }
+
+    #products-filter.open {
+        transform: translateY(-150%);
+    }
+
+    #products-filter #svgitem {
+        display: none;
+    }
+
+    .item-panel {
+        flex-basis: 90%;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    #mobile-menu {
+        display: none;
+    }
+}
+

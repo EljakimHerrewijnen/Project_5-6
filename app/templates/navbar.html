@@ -10,3 +10,14 @@
     <a onclick='auth.logout()' id='logout-button'></a>
     <a onclick="viewManager.changeView(new cartView())"><li class='nav-item nav-right'>CART</li></a>
 </nav>
+
+
+<nav id='mobile-menu' class="navbar">
+    <div id='mobile-menu-left-block'>
+        <a onclick="viewManager.changeView(ProductListView)">PRODUCTS</a>
+    </div>
+    <a onclick="viewManager.changeView(ProductListView)"><h1><b>Coffee</b>supreme</h1></a>
+    <div id='mobile-menu-right-block'>
+        <a onclick="viewManager.changeView(new cartView())">CART</a>
+    </div>
+</nav>
