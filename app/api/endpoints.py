@@ -294,7 +294,6 @@ def send_order_mail(account, order):
             'disable-smart-shrinking' : None,
         }
         pdf = pdfkit.from_string(string, False, options=options)
-        sys.exit()
         from_address = "noreply@coffeesupre.me"
         to_addresss = "bartrijnders14@gmail.com"
         msg = MIMEMultipart("mixed")
