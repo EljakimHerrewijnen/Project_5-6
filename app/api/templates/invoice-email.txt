@@ -1,0 +1,8 @@
+Hey {{ user.name }}
+
+Thanks for placing an order at coffeesupre.me!
+Once your payment has been received you will receive a confirmation mail in your inbox. After which we will get your product, package it and ship it to you. For now please check the added invoice in the attachment of this email.
+
+Cheers,
+
+The Coffeesupreme team.
