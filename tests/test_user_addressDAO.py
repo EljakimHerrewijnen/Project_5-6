@@ -6,10 +6,14 @@ from app.api.database import Database
 class TestUserAddress(unittest.TestCase):
     def test_create(self):
         create = Create("0999AZ", 109, "test_user_address")
-        result = 10
+        result = 9
         self.assertEqual(create, result)
 
     def test_delete(self):
         delete = Delete("0999AZ", 109, "test_user_address")
         result = 1
         self.assertEqual(delete, result)
+
+class TestClass(unittest.TestCase):
+    def test_test(self):
+        self.assertEqual(1,1)

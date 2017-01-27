@@ -2,28 +2,36 @@ import os
 import sys
 import unittest
 import tests.HTMLTestRunner
-from tests.test_user_addressDAO import TestUserAddress
+from tests.test_user_addressDAO import TestUserAddress, TestClass
 #import all classes to test here ^^^
 
-def htmlgenerator():
+def htmlgenerator(classnames):
+    suites_list = []
+    for test_class in classnames:
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(test_class)
+        suites_list.append(suite)
+
+    big_suite = unittest.TestSuite(suites_list)
     loader = unittest.TestLoader()
-
-    #Create new test suites to test.
-    #To run multiple suites you have to create one suite combining all suites.
-    finalsuite = unittest.TestSuite(loader.loadTestsFromTestCase(TestUserAddress))
-
     htmlfile = open('app/static/views/unittest-result-view.html', 'w') #path to html
     runner = tests.HTMLTestRunner.HTMLTestRunner(stream=htmlfile, verbosity=2, title='Test report')
-    result = runner.run(finalsuite) #Run the suites here
+    runner.run(big_suite)
 
-def results():
-    test_suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestUserAddress)
+def results(classnames):
+    suites_list = []
+    for test_class in classnames:
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(test_class)
+        suites_list.append(suite)
+
+    big_suite = unittest.TestSuite(suites_list)
     test_runner = unittest.TextTestRunner(resultclass=unittest.TextTestResult)
-    result2 = test_runner.run(test_suite)
+    result2 = test_runner.run(big_suite)
     sys.exit(not result2.wasSuccessful())
 
 if __name__ == '__main__':
-    htmlgenerator()
-    results()
+    test_classes_to_run = [TestUserAddress, TestClass]
+    
+    htmlgenerator(test_classes_to_run)
+    results(test_classes_to_run)
     
     
