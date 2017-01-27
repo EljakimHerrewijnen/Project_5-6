@@ -3,6 +3,7 @@ import sys
 import unittest
 import tests.HTMLTestRunner
 from tests.test_user_addressDAO import TestUserAddress, TestClass
+from tests.test_helpers import TestHelper
 #import all classes to test here ^^^
 
 def htmlgenerator(classnames):
@@ -29,8 +30,8 @@ def results(classnames):
     sys.exit(not result2.wasSuccessful())
 
 if __name__ == '__main__':
-    test_classes_to_run = [TestUserAddress, TestClass]
-    
+    test_classes_to_run = [TestUserAddress, TestClass, TestHelper]
+
     htmlgenerator(test_classes_to_run)
     results(test_classes_to_run)
     

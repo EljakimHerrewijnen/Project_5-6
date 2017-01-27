@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>Test report</h1>
-<p class='attribute'><strong>Start Time:</strong> 2017-01-27 12:02:16</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.056121</p>
-<p class='attribute'><strong>Status:</strong> Pass 1 Failure 1</p>
+<p class='attribute'><strong>Start Time:</strong> 2017-01-27 13:41:03</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.033014</p>
+<p class='attribute'><strong>Status:</strong> Pass 5</p>
 
 <p class='description'></p>
 </div>
@@ -221,41 +221,18 @@ function showOutput(id, name) {
     <td>View</td>
 </tr>
 
-<tr class='failClass'>
+<tr class='passClass'>
     <td>tests.test_user_addressDAO.TestUserAddress</td>
     <td>2</td>
-    <td>1</td>
-    <td>1</td>
+    <td>2</td>
+    <td>0</td>
     <td>0</td>
     <td><a href="javascript:showClassDetail('c1',2)">Detail</a></td>
 </tr>
 
-<tr id='ft1.1' class='none'>
-    <td class='failCase'><div class='testcase'>test_create</div></td>
-    <td colspan='5' align='center'>
-
-    <!--css div popup start-->
-    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
-        fail</a>
-
-    <div id='div_ft1.1' class="popup_window">
-        <div style='text-align: right; color:red;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
-           [x]</a>
-        </div>
-        <pre>
-        
-ft1.1: Traceback (most recent call last):
-  File "c:\Users\Chiel\Documents\GitHub\Project_5-6\tests\test_user_addressDAO.py", line 10, in test_create
-    self.assertEqual(create, result)
-AssertionError: 9 != 10
-
-
-        </pre>
-    </div>
-    <!--css div popup end-->
-
-    </td>
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_create</div></td>
+    <td colspan='5' align='center'>pass</td>
 </tr>
 
 <tr id='pt1.2' class='hiddenRow'>
@@ -263,11 +240,44 @@ AssertionError: 9 != 10
     <td colspan='5' align='center'>pass</td>
 </tr>
 
+<tr class='passClass'>
+    <td>tests.test_user_addressDAO.TestClass</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_test</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>tests.test_helpers.TestHelper</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',2)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_convert_iso_to_json</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt3.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_convert_json_to_iso</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
 <tr id='total_row'>
     <td>Total</td>
-    <td>2</td>
-    <td>1</td>
-    <td>1</td>
+    <td>5</td>
+    <td>5</td>
+    <td>0</td>
     <td>0</td>
     <td>&nbsp;</td>
 </tr>
