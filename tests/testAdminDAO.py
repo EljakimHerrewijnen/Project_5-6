@@ -49,4 +49,8 @@ class AdminDAOTest():
             "password": "Lullerz"
         }
 
-    
+    def testDateConversion(self):
+        newDate = self.AdminDAO.ConvertDateToObject(self.Date)
+        if(newDate == self.CorrectDate):
+            return True
+        return False
