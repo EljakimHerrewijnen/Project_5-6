@@ -64,8 +64,8 @@ class AdminDAOTest():
 
 
     def TestAdmin(self):
-        if not(self.testDateConversion):
+        if not(self.testDateConversion()):
             return False
-        if not(self.testJsonConversion):
+        if not(self.testJsonConversion()):
             return False
         return True
