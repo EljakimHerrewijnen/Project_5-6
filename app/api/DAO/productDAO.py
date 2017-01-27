@@ -14,13 +14,13 @@ def convert_to_json(db_dict):
 
 def Find(id):
     db = Database()
-    if id in cache:
+    if id in product_cache:
         print("RETRIEVED CACHE")
-        return cache[id]
+        return product_cache[id]
     db.where("product_id", id)
     product = db.get_one("product")
     product = convert_to_json(product)
-    cache[product.id] = product
+    product_cache[product.id] = product
     return product
 
 
