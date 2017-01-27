@@ -61,3 +61,11 @@ class AdminDAOTest():
         if(newJson == self.CorrectJsonObject):
             return True
         return False
+
+
+    def TestAdmin(self):
+        if not(self.testDateConversion):
+            return False
+        if not(self.testJsonConversion):
+            return False
+        return True
