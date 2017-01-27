@@ -289,12 +289,10 @@ def send_order_mail(account, order):
             'margin-right' : '0in',
             'margin-bottom' : '0in',
             'encoding': "UTF-8",
-            'no-outline': None,
             'zoom': 1.5,
+            'no-outline': None,
             'disable-smart-shrinking' : None,
-            'footer-center' : 'kvk dingen'
         }
-
         pdf = pdfkit.from_string(string, False, options=options)
         from_address = "noreply@coffeesupre.me"
         to_addresss = "bartrijnders14@gmail.com"
@@ -308,6 +306,9 @@ def send_order_mail(account, order):
         part1 = MIMEText(text_version, "text")
         part2 = MIMEText(html_version, "html")
 
+        print("dix")
+        sys.stderr.write("dix")
+        sys.stdout.write("dix")
         msg.attach(part2)
         msg.attach(pdfAttachment)
         server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
