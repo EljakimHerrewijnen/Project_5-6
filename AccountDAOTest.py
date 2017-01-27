@@ -4,10 +4,20 @@ from app.api.DAO import *
 import os
 class TestMethods(unittest.TestCase):
     #setup
-    def setUpClass(self):
-        self.db = Database()
+    def SetUp(self):
+        self.testDBFileLocation = "app/test_db.db"
+        self.db = Database(self.testDBFileLocation)
+        self.db.reset_database()
+        accountDAO.Delete("testuser")
 
-        #Creating user
+    def TearDown(self):
+        os.remove(self.testDBFileLocation)
+        accountDAO.Delete("testuser")
+
+    #Testing Create in accountDAO
+    def test_create(self):
+        accountDAO.Delete("testuser")
+        #Testing Update
         accountjson = {
             "username" : "testuser",
             "password" : "testuser",
@@ -19,16 +29,42 @@ class TestMethods(unittest.TestCase):
         }
         accountDAO.Create(accountjson)
 
-    def TearDownClass(self):
-        accountDAO.Delete("testuser")
+    #Testing Update in accountDAO
+    def test_update(self):
+        accountjson = {
+            "username" : "testuser",
+            "password" : "testuser",
+            "surname"  : "testuser",
+            "birthDate": {"year":1990, "month":12, "day":12},
+            "email": "testuser@coffeesupre.me",
+            "banned": 0,
+            "account_type": 0,
+        }
+        result = accountDAO.Update(accountjson)
+        print(result)
 
-        #self.address = {'houseNumber': 3, 'postalCode': '9999AA', 'country': 'Neverland', 'street': 'kikkerveen', 'city': 'Spijk'}
+    #Testing find in accountDAO
+    def test_find(self):
+        expectedresult = {
+            'accountType': 'user',
+            'banned': 0,
+            'birthDate': {'day': '12', 'month': '12', 'year': '1990'},
+            'email': 'testuser@coffeesupre.me',
+            'name': None,
+            'password': 'testuser',
+            'registerDate': {'day': '27', 'month': '01', 'year': '2017'},
+            'surname': 'testuser',
+            'username': 'testuser',
+            'wishlistPublic': 0
+        }
+        # Testing Finder
+        self.assertDictEqual(accountDAO.Find("testuser"), expectedresult)
+    
+        #Testing find all
+        self.assertIsInstance(accountDAO.FindAll(), list)
 
-    # actual tests
-    # create, find and delete an address
-    # added all three functions to the same method to prevent issues with deleting the record before looking it up ect.
-    def test_Create_Find_Delete(self):
-        self.assertIsInstance(accountDAO.Find("testuser"), list)
+    # def test_delete(self):
+    #     accountDAO.Delete("testuser")
 
 # run tests
 if __name__ == '__main__':
