@@ -4,14 +4,13 @@ from app.api.DAO import productDAO
 
 def Create(username, productId):
     db = Database()
-    db.insert("wishes", {"username" : username, "product_id" : productId})
-
+    return db.insert("wishes", {"username" : username, "product_id" : productId})
 
 def Delete(username, productId):
     db = Database()
     db.where("username", username)
     db.where("product_id", productId)
-    db.delete("wishes")
+    return db.delete("wishes")
 
 
 def FindByUser(username):
@@ -25,7 +24,7 @@ def FindByUser(username):
 
 def FindAll():
     db = Database()
-    db.where("w.wishlist_public", 1)
+    db.where("a.wishlist_public", 1)
     db.join("product p", "p.product_id = w.product_id")
     db.join("account a", "a.username = w.username")
     products = db.get_all("wishes w", "DISTINCT p.*")
