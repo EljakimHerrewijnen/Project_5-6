@@ -21,6 +21,7 @@ class TestMethods(unittest.TestCase):
             "banned": 0,
             "account_type": 0,
         }
+        accountDAO.Create(accountjson)
 
     # delete test database to prevent errors
     @classmethod
@@ -74,6 +75,7 @@ class TestMethods(unittest.TestCase):
         self.assertIsInstance(favoritesDAO.FindByUser("testuser"), list)
         # self.assertEqual(favoritesDAO.FindByUser("testuser"),expectedResult)
         favoritesDAO.Delete("testuser", 2)
+
 
 # run tests
 if __name__ == '__main__':
