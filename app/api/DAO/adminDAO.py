@@ -110,7 +110,7 @@ def RemoveUser(username):
 # Converts the object received from the database to the expected json format
 def ToJsonObject(databaseAccount):
     jsonRet = {}
-    
+
     jsonRet['username'] = databaseAccount['username']
     jsonRet['name'] = databaseAccount['name']
     jsonRet['surname'] = databaseAccount['surname']
@@ -125,7 +125,7 @@ def ToJsonObject(databaseAccount):
     jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
     jsonRet['password'] = databaseAccount['password']
 
-    return databaseAccount
+    return jsonRet
 
 def ConvertDateToObject(dateString):
     date = {}
