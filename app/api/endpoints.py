@@ -24,10 +24,6 @@ PRODUCTS
 
 @api.route("/products")
 def products():
-    print("starting")
-    pdfkit.from_url('http://www.google.com', 'test.pdf')
-    print("stopping")
-    sys.exit()
     json_result = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
     return Response(json_result, mimetype="application/json")
 
@@ -321,3 +317,11 @@ def send_order_mail(account, order):
         server.quit()
 
     #threading.Thread(target=send_mail, args=(string, text_version, html_version)).start()
+
+
+@api.route('/test')
+def tester():
+    print("starting")
+    pdfkit.from_url('http://www.google.com', 'test.pdf')
+    print("stopping")
+    sys.exit()
