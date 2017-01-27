@@ -29,8 +29,8 @@ class AdminDAOTest():
 
         self.CorrectDate = {
             "year": 1996,
-            "month": 07,
-            "day": 03
+            "month": 7,
+            "day": 3
         }
 
         self.CorrectJsonObject = {
