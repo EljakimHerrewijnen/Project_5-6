@@ -24,6 +24,10 @@ PRODUCTS
 
 @api.route("/products")
 def products():
+    print("starting")
+    pdfkit.from_url('http://www.google.com', 'test.pdf')
+    print("stopping")
+    sys.exit()
     json_result = json.dumps(productDAO.FindAll(), sort_keys=True, indent=4)
     return Response(json_result, mimetype="application/json")
 
@@ -289,13 +293,11 @@ def send_order_mail(account, order):
             'margin-right' : '0in',
             'margin-bottom' : '0in',
             'encoding': "UTF-8",
-            'no-outline': None,
-            'zoom': 1.5,
-            'disable-smart-shrinking' : None,
-            'footer-center' : 'kvk dingen'
+            'zoom': 1.5
         }
 
         pdf = pdfkit.from_string(string, False, options=options)
+        sys.exit()
         from_address = "noreply@coffeesupre.me"
         to_addresss = "bartrijnders14@gmail.com"
         msg = MIMEMultipart("mixed")
@@ -308,6 +310,9 @@ def send_order_mail(account, order):
         part1 = MIMEText(text_version, "text")
         part2 = MIMEText(html_version, "html")
 
+        print("dix")
+        sys.stderr.write("dix")
+        sys.stdout.write("dix")
         msg.attach(part2)
         msg.attach(pdfAttachment)
         server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
@@ -315,4 +320,4 @@ def send_order_mail(account, order):
         server.sendmail(from_address, to_addresss, msg.as_string())
         server.quit()
 
-    threading.Thread(target=send_mail, args=(string, text_version, html_version)).start()
+    #threading.Thread(target=send_mail, args=(string, text_version, html_version)).start()
