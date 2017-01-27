@@ -28,9 +28,9 @@ class AdminDAOTest():
         }
 
         self.CorrectDate = {
-            "year": 1996,
-            "month": 7,
-            "day": 3
+            "year": '1996',
+            "month": '03',
+            "day": '07'
         }
 
         self.CorrectJsonObject = {
@@ -40,7 +40,7 @@ class AdminDAOTest():
             "banned": 0,
             "email": "Lol@Lerz.com",
             "birthDate": self.CorrectDate,
-            "registerDate": {"year": 2000, "month": 11, "day": 25},
+            "registerDate": {"year": '2000', "month": '11', "day": '25'},
             "orders": {},
             "wishlist": {},
             "favorites": {},
