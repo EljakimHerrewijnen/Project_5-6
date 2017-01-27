@@ -20,7 +20,7 @@ class AdminDAOTest():
             "birth_date": self.Date,
             "register_date": "2000-11-25",
             "orders": {},
-            "wishlist": {},
+            "wishList": {},
             "favorites": {},
             "account_type": "normal",
             "wishlist_public": 0,
@@ -69,9 +69,19 @@ class AdminDAOTest():
 
     def testJsonConversion(self):
         newJson = self.AdminDAO.ToJsonObject(self.WrongJsonObject)
-        if(newJson == self.CorrectJsonObject):
-            return True
-        return False
+        keyTest = []
+
+        for key in self.CorrectJsonObject:
+            keyTest.append(key)
+
+        for key in keyTest:
+            if not (key in newJson):
+                return False
+
+            if not (newJson[key] == self.CorrectJsonObject[key]):
+                return False
+
+        return True
 
 
     def TestAdmin(self):
