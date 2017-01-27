@@ -54,3 +54,10 @@ class AdminDAOTest():
         if(newDate == self.CorrectDate):
             return True
         return False
+
+
+    def testJsonConversion(self):
+        newJson = self.AdminDAO.ToJsonObject(self.WrongJsonObject)
+        if(newJson == self.CorrectJsonObject):
+            return True
+        return False
