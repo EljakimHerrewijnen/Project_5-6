@@ -51,9 +51,20 @@ class AdminDAOTest():
 
     def testDateConversion(self):
         newDate = self.AdminDAO.ConvertDateToObject(self.Date)
-        if(newDate == self.CorrectDate):
-            return True
-        return False
+        keyTest = []
+
+        for key in self.CorrectDate:
+            keyTest.append(key)
+
+        for key in keyTest:
+            if not (key in newDate):
+                return False
+
+            if not (newDate[key] == self.CorrectDate[key]):
+                return False
+
+        return True
+
 
 
     def testJsonConversion(self):
