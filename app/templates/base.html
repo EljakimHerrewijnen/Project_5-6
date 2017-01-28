@@ -13,7 +13,10 @@
 </head>
 <body>
     {% include "navbar.html" %}
+    <div id='backdrop'></div>
     <div id='view-container'>
+        {% include "products-filter.html" %}
+        {% include "mobile-menu-sidebar.html" %}
     </div>
     <script src="/static/models/product.js"></script>
     <script src="/static/models/user.js"></script>
@@ -22,6 +25,7 @@
     <script src="/static/js/auth.js"></script>
     <script src="/static/js/stateManager.js"></script>
     <script src="/static/js/navBar.js"></script>
+    <script src="/static/js/sideBar.js"></script>
     <script src="/static/controllers/cartView.js"></script>
     <script src="/static/controllers/productDetailsView.js"></script>
     <script src="/static/controllers/accountView.js"></script>

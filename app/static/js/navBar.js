@@ -36,3 +36,17 @@ var NavBar = (() => {
     }
     return new NavBar()
 })();
+
+
+$('#mobile-search-button').load("/static/search.svg");
+$('#mobile-menu-button').load("/static/burger.svg");
+
+$('#mobile-search-button').click((e) => {
+    viewManager.changeView(ProductListView);
+    SideBar.toggle();
+})
+
+
+$('#mobile-menu-button').click((e) => {
+    MobileMenuBar.toggle();
+})

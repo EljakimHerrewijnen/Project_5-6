@@ -1,5 +1,5 @@
 <nav class="navbar" id='navbar'>
-    <a onclick="viewManager.changeView(ProductListView)"><h1 id='logo'><b>Coffee</b>supreme</h1></a>
+    <a id='nav-logo' onclick="viewManager.changeView(ProductListView)"><h1><b>Coffee</b>supreme</h1></a>
     <div class='navbar-main'>
         <a onclick="viewManager.changeView(ProductListView)"><li class='nav-item'>PRODUCTS</li></a>
         <!--<li class='nav-item'>ABOUT</li>-->
@@ -14,10 +14,10 @@
 
 <nav id='mobile-menu' class="navbar">
     <div id='mobile-menu-left-block'>
-        <a onclick="viewManager.changeView(ProductListView)">PRODUCTS</a>
+        <a id='mobile-search-button'></a>
     </div>
     <a onclick="viewManager.changeView(ProductListView)"><h1><b>Coffee</b>supreme</h1></a>
     <div id='mobile-menu-right-block'>
-        <a onclick="viewManager.changeView(new cartView())">CART</a>
+        <a id='mobile-menu-button'></a>
     </div>
 </nav>

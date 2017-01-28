@@ -17,6 +17,9 @@ var ProductListView = (() => {
             get : () => '/'
         });
 
+        addListeners();
+        $('#svgitem').load("/static/worldmap.svg");
+
         this.construct = function(newContainer) {
             container = newContainer;
             var html = self.getHtml();
@@ -26,7 +29,7 @@ var ProductListView = (() => {
                 container.append(data1);
                 var productsContainer = container.find('#products-container');
                 productsContainer.addClass('no-opacity');
-                container.find('#svgitem').load("/static/worldmap.svg");
+                $('#svgitem').load("/static/worldmap.svg");
                 products = data2;
                 panelTemplate = Handlebars.compile(data3);
                 products.forEach((product) => {
@@ -34,14 +37,13 @@ var ProductListView = (() => {
                     container.find("#products-container").append(finished_html);
                     panels.push(new Panel(product, finished_html));
                 });
-                addListeners();
             });
         }
 
         this.destruct = function() {
             var productsContainer = container.find('#products-container');
-            var vv = productsContainer.addClass('no-opacity').delay(300).promise().then(() => {productsContainer.remove()});
-            container.find('#products-filter').removeClass('open').delay(300).promise().then(() => {container.remove()});
+            var vv = productsContainer.addClass('no-opacity').delay(300).promise().then(() => {container.remove()});
+            SideBar.hide();
             return vv;
         }
 
@@ -49,7 +51,7 @@ var ProductListView = (() => {
             var productsContainer = container.find('#products-container');
             productsContainer.animate({}, 1);
             productsContainer.removeClass('no-opacity');
-            container.find('#products-filter').addClass('open');
+            SideBar.show();
         }
 
         this.getHtml = function() {
@@ -67,18 +69,19 @@ var ProductListView = (() => {
         }
 
         function addListeners() {
-            container.find("#search-bar").on("input", updateFilterSettings);
-            container.find("#country-filter").change(updateFilterSettings);
-            container.find(".aroma-box").change(updateFilterSettings);
-            container.find('.origin-box').change(updateFilterSettings);
-            container.find('.roast-box').change(updateFilterSettings);
-            container.find('#price-range').on("input", updateSlider);
-            container.find('#price-range').change(updateFilterSettings);
+            $("#search-bar").on("input", updateFilterSettings);
+            $("#country-filter").change(updateFilterSettings);
+            $(".aroma-box").change(updateFilterSettings);
+            $('.origin-box').change(updateFilterSettings);
+            $('.roast-box').change(updateFilterSettings);
+            $('#price-range').on("input", updateSlider);
+            $('#price-range').change(updateFilterSettings);
         }
+
 
         function updateSlider() {
             var value = $('#price-range').val();
-            container.find("#price-indicator").html("€" + value);
+            $("#price-indicator").html("€" + value);
         }
 
         function updateMap(maps) {
@@ -105,6 +108,7 @@ var ProductListView = (() => {
 
         // Reads the filters and updates the filter object.
         function updateFilterSettings() {
+            console.log("update");
             var searchbar = $("#search-bar");
             var priceSlider = $("#price-range");
             var originBox = $("#country-filter");
