@@ -142,3 +142,6 @@ var ProductListView = (() => {
     return new ProductListView();
 })()
 
+function AddProductToCartById(id) {
+    var product = stateManager.getProducts
+}

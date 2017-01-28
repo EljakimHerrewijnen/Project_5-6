@@ -35,6 +35,14 @@ var Cart = (() => {
             return item;
         }
 
+        this.addById = function(id) {
+            stateManager.getProducts().then((products) => {
+                var product = products.find((x) => x.id == id);
+                if (product)
+                    self.addProduct(product);
+            });
+        }
+
         this.addProduct = function(product) {
             var item = this.getItem(product.id);
             if (item != undefined) {

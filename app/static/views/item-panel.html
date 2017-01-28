@@ -4,7 +4,9 @@
                 <span>{{name}}</span>
             </a>
             <a>
-                <i class="material-icons add-to-cart-button">add_circle</i>
+                <a onclick="Cart.addById({{id}})">
+                    <i class="material-icons add-to-cart-button">add_circle</i>
+                </a>
             </a>
         </div>
         <a onclick="ViewManager.redirect('/details/{{id}}')">

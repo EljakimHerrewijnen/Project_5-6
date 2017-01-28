@@ -26,7 +26,7 @@ var stateManager = (() => {
             if (products) return Promise.resolve(products);
             rawProducts = $.ajax({url: "/api/products", contentType: "application/json"});
             return rawProducts.then((data) => {
-                products = data.map(jsonToProduct);
+                products = data.map((x) => new Product(x));
                 return products;
             });
         }

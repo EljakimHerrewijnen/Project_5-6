@@ -8,7 +8,6 @@ var ViewManager = (function() {
         Object.defineProperty(this, "activeView", {
             get : () => activeView
         });
-    
 
         this.addRoute = function(pathAsRegex, routeFunction) {
             var re = new RegExp(pathAsRegex + "$");

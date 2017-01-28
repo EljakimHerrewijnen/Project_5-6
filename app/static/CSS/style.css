@@ -160,7 +160,7 @@ g {
 
 #mobile-menu-sidebar {
     background-color: white;
-    display: block;
+    display: none;
     z-index: 5;
     position: fixed;
     right: 0;
@@ -212,7 +212,7 @@ g {
     background-color: #323232;
     position: fixed;
     bottom: 0px;
-    left: 60%;
+    right: 10%;
     color: white;
     display: flex;
     padding: 0px 24px;
