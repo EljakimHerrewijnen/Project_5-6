@@ -37,12 +37,14 @@ var ProductListView = (() => {
                     container.find("#products-container").append(finished_html);
                     panels.push(new Panel(product, finished_html));
                 });
+                console.log(panels.length);
             });
         }
 
         this.destruct = function() {
             var productsContainer = container.find('#products-container');
             var vv = productsContainer.addClass('no-opacity').delay(300).promise().then(() => {container.remove()});
+            panels = [];
             SideBar.hide();
             return vv;
         }
