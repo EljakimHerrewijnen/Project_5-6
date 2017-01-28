@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 </head>
 <body>
     {% include "navbar.html" %}
@@ -18,9 +19,11 @@
         {% include "products-filter.html" %}
         {% include "mobile-menu-sidebar.html" %}
     </div>
+    {% include "snackbar.html" %}
     <script src="/static/models/product.js"></script>
     <script src="/static/models/user.js"></script>
     <script src="/static/js/viewManager.js"></script>
+    <script src='/static/js/snackbar.js'></script>
     <script src='/static/js/cart.js'></script>
     <script src="/static/js/auth.js"></script>
     <script src="/static/js/stateManager.js"></script>

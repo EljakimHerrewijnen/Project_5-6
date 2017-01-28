@@ -1,8 +1,20 @@
-<div class="item-panel">
-    <a onclick="ViewManager.redirect('/test/details/{{id}}')">
-        <div class="panel-heading">{{name}}</div>
-        <img src="/static/{{image}}" class="img-responsive" style="display:block; margin: auto;" alt="Image">
-        <p>€{{formatPrice}}</p>
-        <p class='show-on-hover'>VIEW DETAILS<p>
+<div class="item-panel md-card">
+        <div class="panel-heading">
+            <a onclick="ViewManager.redirect('/details/{{id}}')">
+                <span>{{name}}</span>
+            </a>
+            <a>
+                <i class="material-icons add-to-cart-button">add_circle</i>
+            </a>
+        </div>
+        <a onclick="ViewManager.redirect('/details/{{id}}')">
+            <img src="/static/{{image}}" class="img-responsive" style="display:block; margin: auto;" alt="Image">
+        </a>
+        <div class='panel-footer'>
+            <a onclick="ViewManager.redirect('/details/{{id}}')">
+                <span  id='see-details'>READ MORE</span>
+            </a>
+            <span id='price'>€ {{formatPrice}}</span>
+        </div>
     </a>
 </div>

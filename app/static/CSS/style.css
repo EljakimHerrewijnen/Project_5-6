@@ -200,29 +200,101 @@ g {
     flex-flow: row wrap;
     justify-content: space-around;
     display: flex;
-    padding-top: 18px;
     transition: opacity 0.3s ease;
+    
+}
+
+/*------------------------------------*\
+    SNACKBAR
+\*------------------------------------*/
+
+#snackbar {
+    background-color: #323232;
+    position: fixed;
+    bottom: 0px;
+    left: 60%;
+    color: white;
+    display: flex;
+    padding: 0px 24px;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 288px;
+    max-width: 568px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size: 14px;
+    transform: translateY(48px);
+    transition: transform 0.3s ease, color 1s ease;
+}
+
+#snackbar-action {
+    color: rgba(69,177,97,0.87);
+}
+
+#snackbar.open {
+    transform: translateY(0px);
+}
+
+#snackbar .glow {
+    transition: color 0.1 ease;
+    color: rgba(69,177,97,0.87);
+}
+
+/*------------------------------------*\
+    ITEM PANEL
+\*------------------------------------*/
+
+
+.md-card {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .item-panel {
     margin-top: 35px;
-    padding-top: 10px;
     flex-basis: 30%;
     font-size: 14px;
-    border-top: thin solid rgba(0, 0, 0, 0.25);
+    height: 400px;
 }
 
-.item-panel a {
-    text-decoration: none;
-    color: rgba(0,0,0,0.70);
-    
+.item-panel .panel-heading {
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
-.item-panel p {
-    display: inline;
-    float: right;
+.item-panel .panel-heading span {
+    display: inline-block;
+    width: 80%;
+}
+
+.item-panel .add-to-cart-button {
+    color: #3BA757;
+}
+
+.item-panel .panel-footer {
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
     padding: 10px;
 }
+
+.item-panel #see-details {
+    color: rgba(59,167,87,0);
+    transition: color 0.2s linear;
+}
+.item-panel:hover #see-details {
+    color: rgba(59,167,87,0.87);
+}
+
+.item-panel 
 
 .item-panel .show-on-hover {
     font-weight: 600;

@@ -15,6 +15,10 @@ var Cart = (() => {
             get : () => items
         });
 
+        Object.defineProperty(this, "quantity", {
+            get : () => items.reduce((acc, item) => acc + item.quantity, 0)
+        });
+
         this.getTotalPrice = function() {
             var total = items.map((item) => 
                 item.product.price * item.quantity
@@ -43,6 +47,7 @@ var Cart = (() => {
                 items.push(item);
             }
             this.saveInLocalStorage();
+            Snackbar.update(this.quantity);
         }
 
         this.increment = function(id, quantity) {
@@ -51,6 +56,7 @@ var Cart = (() => {
             if (item.quantity < 1)
                 this.removeProduct(item.product.id);
             this.saveInLocalStorage();
+            Snackbar.update(this.quantity);
         }
 
         this.removeProduct = function(id) {
@@ -58,6 +64,7 @@ var Cart = (() => {
                 item.product.id != id
             )
             this.saveInLocalStorage();
+            Snackbar.update(this.quantity);
         }
         
         this.getquantity = function(id) {
@@ -88,6 +95,7 @@ var Cart = (() => {
                 console.log("Could not get cart items from local storage, setting to empty cart!");
                 items = [];
             }
+            Snackbar.update(this.quantity);
             return items;
         };
 
