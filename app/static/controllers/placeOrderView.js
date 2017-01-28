@@ -23,9 +23,11 @@ function placeOrderView() {
     }
 
     this.destruct = function() {
+        Snackbar.update();
         return container.animate({opacity:0}, 150).promise().then(() => container.remove());
     }
     this.transitionIn =function() {
+        Snackbar.hide();
         container.animate({opacity: 1}, 150);
     }
     

@@ -1,4 +1,3 @@
-
 var Snackbar = (() => {
     function Snackbar() {
         var self = this;
@@ -11,6 +10,12 @@ var Snackbar = (() => {
         }
 
         this.show = function() {
+            var activeView = ViewManager.activeView;
+            if (activeView) {
+                var url = activeView.url
+                if (url == '/placeorder' || url == '/cart')
+                    return;
+            }
             snackbar.addClass('open');
         }
 
@@ -19,24 +24,24 @@ var Snackbar = (() => {
             backDrop.toggleClass('open');
         }
 
+        this.tickle = function() {
+        }
+
         this.update = function(amount) {
-            if (amount < 1) {
+            amount = Cart.quantity;
+            if (amount < 1 || amount == undefined) {
                 this.hide();
             } else if (amount == 1) {
                 this.show();
                 text.addClass('glow');
                 text.removeClass('glow');
-                text.html(amount + " item in your cart")
+                text.html("<b>" + amount + "</b>&#160;Item in your cart")
             } else {
                 this.show();
                 text.addClass('glow');
                 text.removeClass('glow');
-                text.html("<b>" + amount + "</b> items in your cart")
+                text.html("<b>" + amount + "</b>&#160;Items in your cart")
             }
-        }
-
-        this.setMessage = function(message) {
-
         }
 
         this.setAction = function(action) {

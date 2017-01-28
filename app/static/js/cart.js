@@ -47,7 +47,7 @@ var Cart = (() => {
                 items.push(item);
             }
             this.saveInLocalStorage();
-            Snackbar.update(this.quantity);
+            Snackbar.update();
         }
 
         this.increment = function(id, quantity) {
@@ -56,7 +56,7 @@ var Cart = (() => {
             if (item.quantity < 1)
                 this.removeProduct(item.product.id);
             this.saveInLocalStorage();
-            Snackbar.update(this.quantity);
+            Snackbar.update();
         }
 
         this.removeProduct = function(id) {
@@ -64,7 +64,7 @@ var Cart = (() => {
                 item.product.id != id
             )
             this.saveInLocalStorage();
-            Snackbar.update(this.quantity);
+            Snackbar.update();
         }
         
         this.getquantity = function(id) {
@@ -94,11 +94,9 @@ var Cart = (() => {
             } catch(err) {
                 console.log("Could not get cart items from local storage, setting to empty cart!");
                 items = [];
-            }
-            Snackbar.update(this.quantity);
+            }  
             return items;
         };
-
         items = this.getFromLocalStorage();
     }
     return new Cart()

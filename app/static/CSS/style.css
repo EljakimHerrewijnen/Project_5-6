@@ -236,6 +236,11 @@ g {
     transform: translateY(0px);
 }
 
+#snackbar-text b {
+    font-weight: 5s00;
+    color: #ff4081;
+}
+
 #snackbar .glow {
     transition: color 0.1 ease;
     color: rgba(69,177,97,0.87);
