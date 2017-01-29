@@ -27,6 +27,65 @@
         box-sizing: border-box;
         border-radius: 0px;
     }
+
+    /*------------------------------------*\
+    $PRODUCTDETAILSVIEW
+    \*------------------------------------*/
+    
+    #detail-header {
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    #product-details-container {
+        margin: 15px 15px 0px 15px;
+    }
+
+    #detail-header h1 {
+        flex-basis: 100%;
+    }
+
+    #detail-body #package-panel, #detail-bodu #package-panel img {
+        width: 100%;
+        max-height: 10000;
+        text-align: center;
+    }
+
+    #detail-body #about-panel {
+        flex-basis: 40%;
+        flex-grow: 4;
+        flex-shrink: 4;
+        min-width: 0px;
+    }
+
+    #detail-body #price-panel {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #detail-body #price-panel div {
+        border-top: 0px;
+        flex-basis: 100%;
+    }
+
+    #detail-body #price-panel .add-button {
+        border-top: 1px solid rgba(0,0,0,0.3);
+    }
+
+    #detail-body span {
+        width: 100%;
+    }
+
+    #detail-body #origin-panel {
+        display: none;
+    }
+
+    #suggestion-container .item-panel {
+        flex-basis: 100%;
+    }
+
 }
 
 @media only screen and (max-width: 1500px) and (min-width: 740px) {
@@ -135,6 +194,53 @@
         font-weight: 500;
         font-size: 14px;
     }
+
+
+    /*------------------------------------*\
+    $PRODUCTDETAILSVIEW
+    \*------------------------------------*/
+
+    #
+
+    #detail-body #package-panel {
+        min-width: 295px;
+    }
+
+    #detail-body #about-panel {
+        flex-basis: 40%;
+        flex-grow: 4;
+        flex-shrink: 4;
+        min-width: 0px;
+    }
+
+    #detail-body #price-panel {
+        display: flex;
+        justify-content: space-around;
+        border-top: 0px;
+        width: 100%;
+    }
+
+    #detail-body #price-panel div {
+        border-top: 1px solid rgba(0,0,0,0.3);
+        margin: 0px 5px;
+    }
+
+    #detail-body #price-panel .add-button{
+        border: 0px;
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+    }
+
+    #detail-body span {
+        width: 100%;
+    }
+
+    #detail-body #origin-panel {
+        max-width: 224px;
+        min-width: 10px;
+        width: auto;
+        flex-shrink: 2;
+    }
+
 }
 
 @media only screen and (min-width: 1025px) {

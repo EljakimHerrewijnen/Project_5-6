@@ -3,8 +3,12 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto';
-    color: rgba(0, 0, 0, 0.54); 
+    color: rgba(0, 0, 0, 0.87); 
     background-color: #fafafa;
+    -webkit-font-smoothing: antialiased;
+    font-smooth: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -22,7 +26,6 @@ a {
 #orderChart {
     height: 900px;
 }
-
 
 #admin-user-container {
     flex-basis: 62%;
@@ -400,53 +403,130 @@ svg {
 \*------------------------------------*/
 
 #product-details-container {
-    padding-top: 35px;
-    margin: 0px 45px 0px 45px;
+    margin: 45px 45px 0px 45px;
+    font-weight: normal;
+    font-size: 14px;
+    letter-spacing: normal;
+    font-family: "Roboto", sans-serif;
+
 }
 
-#product-details-container #price-panel h2 {
-    font-family: "Roboto";
-    font-weight: 400;
-    font-size: 24px;
-    text-align: center;
-    margin: 15px;
-}
-
-#product-details-container h1 {
-    border-top: 1px solid rgba(0,0,0,0.3);
-    padding-top: 15px;
-    margin-bottom: 40px;
-    font-size: 24px;
-}
-
-#product-details-container h2 {
-    font-size: 16px;
-}
-
-.detail-column-container {
+#detail-header {
+    border-top: 2px solid rgba(0,0,0,0.3);
     display: flex;
-    justify-content: space-around;
-    clear: both;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    margin-bottom: 80px;
+}
+
+#detail-header h1 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+#detail-header #add-to-cart-button {
+    display: flex;
+    align-items: center;
+    color: rgba(69,177,97,1);
+}
+
+#detail-header #add-to-cart-button span {
+    padding-left: 10px;
+    font-weight: 500;
+}
+
+#detail-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#detail-body h2 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#detail-body #package-panel {
+    min-width: 295px;
+}
+
+#detail-body #about-panel {
+    flex-basis: 10%;
+    flex-grow: 4;
+    flex-shrink: 4;
+    min-width: 0px;
+}
+
+#detail-body #price-panel {
+    width: 224px;
+}
+
+#detail-body .add-button {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    color: rgba(69,177,97,1);
+    padding: 10px 0px;
+}
+
+#detail-body .add-button span {
+    padding-left: 10px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+#detail-body #price-panel h3 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 72px;
+    font-weight: 100;
 }
 
 .detail-panel {
     border-top: 1px solid rgba(0,0,0,0.3);
-    display: block;
-    overflow: visible;
-    clear: both;
-    padding-bottom: 10px;
+    display: inline-block;
+    margin: 0px 15px;
 }
 
-.detail-panel a {
-    transition: background 0.5s ease;
-    display: block;
-    text-align: center;
-    color: #3BA757;
-    text-decoration: none;
-    padding: 10px;
-    margin: 0px;
-    padding-left: 0px;
+#detail-body #origin-panel {
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.3);
 }
+
+#product-detail-suggestions {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    flex-wrap: wrap;
+    margin-top: 85px;
+}
+
+#product-detail-suggestions #product-suggestion-header {
+    width: 100%;
+    
+}
+
+#product-detail-suggestions #product-suggestion-header h1 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+#suggestion-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#product-details-container .item-panel {
+    margin-top: 0px;
+    flex-basis: 33%;
+}
+
 
 .RemoveButton a {
     cursor: pointer;
@@ -454,11 +534,6 @@ svg {
 
 .RemoveButton a:hover{
     color: #FF0000;
-}
-
-.detail-panel a:hover {
-    cursor: pointer;
-    background-color: rgba(59, 167, 87, 0.2);
 }
 
 .detail-panel img{
@@ -469,6 +544,10 @@ svg {
 
 #favorites_button{
     display: none;
+}
+
+#package-panel img {
+    max-height: 295px;
 }
 
 .item-panel img {
