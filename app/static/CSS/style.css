@@ -212,6 +212,56 @@ g {
 }
 
 /*------------------------------------*\
+    $TABLE
+\*------------------------------------*/
+
+table {
+    position: relative;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+th {
+    position: relative;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0;
+    height: 48px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, .54);
+    padding-bottom: 8px;
+    box-sizing: border-box
+}
+
+tbody tr {
+    height: 48px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+tbody tr td:first-of-type, tr th:first-of-type {
+    padding-left: 20px;
+}
+
+tbody tr td:last-of-type, tr th:last-of-type {
+    padding-right: 20px;
+}
+
+tbody tr:hover {
+    background-color: #eee
+}
+
+tr.clickable:hover {
+    color: rgba(49,157,77,1);
+    cursor: pointer;
+}
+
+td {
+}
+
+/*------------------------------------*\
     SNACKBAR
 \*------------------------------------*/
 
@@ -577,6 +627,7 @@ nav a :hover{
 
 #account-view-container {
     padding: 60px;
+    padding-top: 20px;
     display:flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -604,7 +655,6 @@ nav a :hover{
     width: 100%;
     margin: 0px;
     border-collapse:collapse;
-    font-size: 13px;
     text-align: left;
 }
 
@@ -621,6 +671,18 @@ nav a :hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.account-panel-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+.account-panel-header h2 {
+    margin: 0px;
 }
 
 .pull-right { 
@@ -647,25 +709,28 @@ nav a :hover{
 }
 
 #account-info-container {
-    flex-basis: 30%;
+    flex-basis: 40%;
+    box-sizing: border-box;
 }
 
 #account-address-container {
     margin-top: 50px;
-    flex-basis: 65%;
+    flex-basis: 100%;
 }
 
 #account-wishlist-container {
-    flex-basis: 30%;
+    padding: 0px;
+    flex-basis: 40%;
 }
 
 #account-favorites-container {
-    flex-basis: 30%;
+    padding: 0px;
+    flex-basis: 40%;
 }
 
 #account-orders-container {
-    margin-top: 50px;
-    flex-basis: 30%;
+    padding: 0px;
+    flex-basis: 40%;
 }
 
 #logout-button {
@@ -826,11 +891,9 @@ input:checked ~ .slider-thumb {
     color: rgba(0,0,0,0.70);
     font-weight: normal;
     padding-bottom: 5px;
-    
     z-index: 2;
     background-color: rgba(0,0,0,0.0);
     transition: border 0.3s ease;
-    flex-shrink: 5;
 }
 
 .md-input-field input:focus {

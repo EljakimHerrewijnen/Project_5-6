@@ -33,7 +33,7 @@
         </form>
     </div>
     <div id="account-wishlist-container" class='md-panel'>
-        <div id='wishlist-header'>
+        <div class='account-panel-header'>
             <h2>wishlist</h2>
             <div style='display: flex; align-items:center'>
                 <span style='padding-right: 25px'>Publicly viewable:</span>
@@ -45,83 +45,102 @@
             </div>
         </div>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-            {{#each wishlist}}
+            <thead>
                 <tr>
-                    <td><a href='/products/{{this.id}}'>{{this.name}}</a></td>
-                    <td>€{{this.price}}</td>
-                    <td><a onclick='removeWishItem({{this.id}}, this)'>Remove</a></td>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
                 </tr>
-            {{/each}}
+            </thead>
+            <tbody>
+                {{#each wishlist}}
+                    <tr class='clickable'>
+                        <td onclick='viewManager.redirect("/details/{{this.id}}")'>{{this.name}}</td>
+                        <td onclick='viewManager.redirect("/details/{{this.id}}")'>€{{this.price}}</td>
+                        <td ><a onclick='removeWishItem({{this.id}}, this)'>Remove</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
         </table>
     </div>
     <div id="account-favorites-container" class='md-panel'>
-        <h2>Favorites</h2>
+        <div class='account-panel-header'>
+            <h2>Favorites</h2>
+        </div>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th></th>
-            </tr>
-            {{#each favorites}}
+            <thead>
                 <tr>
-                    <td><a href='/products/{{this.id}}'>{{this.name}}</a></td>
-                    <td>€{{this.price}}</td>
-                    <td ><a onclick='removeFavoriteItem({{this.id}}, this)'>Remove</a></td>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
                 </tr>
-            {{/each}}
+            </thead>
+            <tbody>
+                {{#each favorites}}
+                    <tr class='clickable'>
+                        <td onclick='viewManager.redirect("/details/{{this.id}}")'>{{this.name}}</td>
+                        <td onclick='viewManager.redirect("/details/{{this.id}}")'>€{{this.price}}</td>
+                        <td ><a onclick='removeFavoriteItem({{this.id}}, this)'>Remove</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
         </table>
     </div>
     <div id="account-orders-container" class='md-panel'>
-        <h2>Order history</h2>
+        <div class='account-panel-header'>
+            <h2>Order history</h2>
+        </div>
         <table>
-            <tr>
-                <th>Number</th>
-                <th>Date</th>
-            </tr>
-            {{#each orders}}
+            <thead>
                 <tr>
-                    <td><a onclick='viewManager.redirect("/order/{{this.id}}")'>{{this.id}}</a></td>
-                    <td><a onclick='viewManager.redirect("/order/{{this.id}}")'>{{this.orderDate.year}}-{{this.orderDate.month}}-{{this.orderDate.day}}</a></td>
+                    <th>Number</th>
+                    <th>Date</th>
                 </tr>
-            {{/each}}
+            </thead>
+            <tbody>
+                {{#each orders}}
+                        <tr onclick='viewManager.redirect("/order/{{this.id}}")' class='clickable'>
+                            <td>{{this.id}}</td>
+                            <td>{{this.orderDate.year}}-{{this.orderDate.month}}-{{this.orderDate.day}}</td>
+                        </tr>
+                    
+                {{/each}}
+            </tbody>
         </table>
     </div>
         <div id='account-address-container' class='md-panel'>
-        <h2>Addresses</h2>
-        <table>
-            <tr>
-                <th>Country</th>
-                <th>City</th>
-                <th>Street</th>
-                <th>Number</th>
-                <th>Postal Code</th>
-                <th></th>
-            </tr>
-            {{#each addresses}}
+            <div class='account-panel-header'>
+                <h2>Addresses</h2>
+            </div>
+            <table>
                 <tr>
-                    <td>{{this.country}}</td>
-                    <td>{{this.city}}</td>
-                    <td>{{this.street}}</td>
-                    <td>{{this.houseNumber}}</td>
-                    <td>{{this.postalCode}}</td>
-                    <td><a onclick='removeAddress("{{this.postalCode}}", {{this.houseNumber}}, this)'>Delete</a></td>
+                    <th class='big-only'>Country</th>
+                    <th class='big-only'>City</th>
+                    <th>Street</th>
+                    <th>Number</th>
+                    <th>Postal Code</th>
+                    <th></th>
                 </tr>
-            {{/each}}
-        </table>
-        <form id="user-address-form">
-            <p class='hidden error-box'></p>
-            <label>Add address:</label>
-            <input type='text' placeholder='Country' verification='\D{3,}' name='country' required>
-            <input type='text' placeholder='City' verification='\D{3,}' name='city' required>
-            <input type='text' placeholder='Street' verification='\D{3,}' name='street' required>
-            <input type='text' placeholder='Number' verification='\d+[a-zA-Z]?'name='houseNumber' required>
-            <input type='text' placeholder='Postal code' verification='\d{4}[a-zA-Z]{2}' name='postalCode' required>
-            <button id='login-button'>Add</button>
-        </form>
+                {{#each addresses}}
+                    <tr>
+                        <td class='big-only'>{{this.country}}</td>
+                        <td class='big-only'>{{this.city}}</td>
+                        <td>{{this.street}}</td>
+                        <td>{{this.houseNumber}}</td>
+                        <td>{{this.postalCode}}</td>
+                        <td><a onclick='removeAddress("{{this.postalCode}}", {{this.houseNumber}}, this)'>Delete</a></td>
+                    </tr>
+                {{/each}}
+            </table>
+            <form id="user-address-form">
+                <p class='hidden error-box'></p>
+                <label>Add address:</label>
+                <input type='text' placeholder='Country' verification='\D{3,}' name='country' required>
+                <input type='text' placeholder='City' verification='\D{3,}' name='city' required>
+                <input type='text' placeholder='Street' verification='\D{3,}' name='street' required>
+                <input type='text' placeholder='Number' verification='\d+[a-zA-Z]?'name='houseNumber' required>
+                <input type='text' placeholder='Postal code' verification='\d{4}[a-zA-Z]{2}' name='postalCode' required>
+                <button id='login-button'>Add</button>
+            </form>
     </div>
 </div>

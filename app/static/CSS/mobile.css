@@ -257,8 +257,13 @@
     $ACCOUNTVIEW
     \*------------------------------------*/
 
+    #account-view-container {
+        padding: 20px 10px 10px 10px;
+    }
+
     #account-info-container {
         flex-basis: 100%;
+        
     }
 
     #account-address-container {
@@ -281,6 +286,18 @@
         margin-top: 50px;
         min-height: 150px;
         flex-basis: 100%;
+    }
+
+    .big-only {
+        display: none;
+    }
+
+    /*------------------------------------*\
+    $TABLE
+    \*------------------------------------*/
+    #table {
+        line-height: 34px;
+        font-size: 20px;
     }
 }
 
