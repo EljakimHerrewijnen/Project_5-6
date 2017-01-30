@@ -91,16 +91,11 @@ def ToggleUserBan(username):
     account = accountDAO.Find(username)
     db = Database()
     if(account["banned"] == 0):
-        # account["banned"] = 1
         db.where("username", username)
         db.update("account", {'banned': 1})
-        # accountDAO.Update(account)
     else:
-        # account["banned"] = 0
         db.where("username", username)
         db.update("account", {'banned': 0})
-        # accountDAO.Update(account)
-    print("Success")
 
 def RemoveUser(username):
     accountDAO.Delete(username)
