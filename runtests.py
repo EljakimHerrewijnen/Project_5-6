@@ -4,6 +4,7 @@ import unittest
 import tests.HTMLTestRunner
 from tests.test_user_addressDAO import TestUserAddress, TestClass
 from tests.test_helpers import TestHelper
+from tests.test_endpoint import TestEndpointProducts, TestEndpointAuthentication, TestEndpointAccount
 #import all classes to test here ^^^
 
 def htmlgenerator(classnames):
@@ -30,9 +31,7 @@ def results(classnames):
     sys.exit(not result2.wasSuccessful())
 
 if __name__ == '__main__':
-    test_classes_to_run = [TestUserAddress, TestClass, TestHelper]
+    test_classes_to_run = [TestUserAddress, TestClass, TestHelper, TestEndpointProducts, TestEndpointAuthentication, TestEndpointAccount]
 
     htmlgenerator(test_classes_to_run)
-    results(test_classes_to_run)
-    
-    
+    results(test_classes_to_run)    

@@ -189,9 +189,9 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>Test report</h1>
-<p class='attribute'><strong>Start Time:</strong> 2017-01-27 13:41:03</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.033014</p>
-<p class='attribute'><strong>Status:</strong> Pass 5</p>
+<p class='attribute'><strong>Start Time:</strong> 2017-01-30 12:52:39</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.055145</p>
+<p class='attribute'><strong>Status:</strong> Pass 29</p>
 
 <p class='description'></p>
 </div>
@@ -273,10 +273,177 @@ function showOutput(id, name) {
     <td colspan='5' align='center'>pass</td>
 </tr>
 
+<tr class='passClass'>
+    <td>tests.test_endpoint.TestEndpointProducts</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',2)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_product</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt4.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_products</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>tests.test_endpoint.TestEndpointAuthentication</td>
+    <td>2</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',2)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_login_account</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+
+    <div id='div_pt5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.1: {'password': 'admin', 'username': 'admin'}
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt5.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_logout</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr class='passClass'>
+    <td>tests.test_endpoint.TestEndpointAccount</td>
+    <td>20</td>
+    <td>20</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c6',20)">Detail</a></td>
+</tr>
+
+<tr id='pt6.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_BanUser</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_add_address</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_add_favorite</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_add_order</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_add_wishlisht</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_create_account</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.7' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_address</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.8' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_favorite</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.9' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_wishlist</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.10' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_account</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.11' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_address</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.12' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_favorite</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.13' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_order</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.14' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_orders</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.15' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_password_reset_token</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.16' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_public_wishlist</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.17' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_public_wishlists</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.18' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_get_wishlist</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.19' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_reset_password</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
+<tr id='pt6.20' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_update_account</div></td>
+    <td colspan='5' align='center'>pass</td>
+</tr>
+
 <tr id='total_row'>
     <td>Total</td>
-    <td>5</td>
-    <td>5</td>
+    <td>29</td>
+    <td>29</td>
     <td>0</td>
     <td>0</td>
     <td>&nbsp;</td>
