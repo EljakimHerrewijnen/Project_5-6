@@ -70,7 +70,6 @@ function productDetailView(productId) {
         user = stateManager.getUser();
         button = container.find('#wishlist_button')
         user.then((user) => {
-            console.log(user);
             if (user.hasWish(product)) {
                 return user.removeWish(product).then(() => button.html("ADD TO WISHLIST"));}
             else

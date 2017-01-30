@@ -18,7 +18,6 @@ function browseWishlistView() {
             html = Handlebars.compile(html);
             container.append(html(wishlists));
             container.css({opacity: 0});
-            console.log(wishlists); 
         });
 
         return promise;

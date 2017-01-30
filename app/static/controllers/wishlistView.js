@@ -23,7 +23,6 @@ function wishlistView(username) {
 
             container.append(html(wishlist));
             container.css({opacity: 0});
-            console.log(wishlist);
         });
 
         return promise;
