@@ -59,3 +59,6 @@ class TestMethods(unittest.TestCase):
         self.assertNotEqual(adminDAO.Find("LolLerz")["banned"], banned)
         adminDAO.ToggleUserBan("LolLerz")
         self.assertEqual(adminDAO.Find("LolLerz")["banned"], banned)
+
+    def TearDown(self):
+        adminDAO.Delete("LolLerz")
