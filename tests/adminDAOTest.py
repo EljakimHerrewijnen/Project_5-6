@@ -51,11 +51,4 @@ class TestMethods(unittest.TestCase):
     def test_json_conversion(self):
         newJson = self.adminDAO.ToJsonObject(self.WrongJsonObject)
         self.assertEqual(newJson, self.CorrectJsonObject)
-
-
-    def TestAdmin(self):
-        if not(self.testDateConversion()):
-            return False
-        if not(self.testJsonConversion()):
-            return False
-        return True
+    
