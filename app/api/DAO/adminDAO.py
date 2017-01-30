@@ -51,7 +51,7 @@ def Find(username):
 def Delete(username):
     db = Database()
     db.where("username", username)
-    db.delete("username")
+    db.delete("account")
 
 # update information in admin
 def Update(account):
