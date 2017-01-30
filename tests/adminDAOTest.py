@@ -53,4 +53,9 @@ class TestMethods(unittest.TestCase):
         admin = adminDAO.Find("LolLerz")
         self.assertEqual(admin, self.CorrectJsonObject)
 
-    # def test_user_ban(self):
+    def test_user_ban(self):
+        banned = adminDAO.Find("LolLerz")["banned"]
+        adminDAO.ToggleUserBan("LolLerz")
+        self.assertNotEqual(adminDAO.Find("LolLerz")["banned"], banned)
+        adminDAO.ToggleUserBan("LolLerz")
+        self.assertEqual(adminDAO.Find("LolLerz")["banned"], banned)
