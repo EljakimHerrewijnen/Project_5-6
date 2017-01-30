@@ -7,22 +7,20 @@ from app import app
 
 class TestEndpointProducts(unittest.TestCase):
     def setUp(self):
-        # creates a test client
         self.app = app.test_client()
-        # propagate the exceptions to the test client
         self.app.testing = True
 
     def test_products(self):
-        self.assertEqual(1,1)
+        resp = self.app.get('/products')
+        self.assertEqual(resp.status_code, 200)
         
     def test_product(self):
-        self.assertEqual(1,1)
+        resp = self.app.get('/products/1')
+        self.assertEqual(resp.status_code, 200)
 
 class TestEndpointAuthentication(unittest.TestCase):
     def setUp(self):
-        # creates a test client
         self.app = app.test_client()
-        # propagate the exceptions to the test client
         self.app.testing = True
 
     def test_logout(self):
@@ -35,15 +33,12 @@ class TestEndpointAuthentication(unittest.TestCase):
 
 class TestEndpointAccount(unittest.TestCase):
     def setUp(self):
-        # creates a test client
         self.app = app.test_client()
-        # propagate the exceptions to the test client
         self.app.testing = True
 
     def test_create_account(self):
-        # resp = self.app.post('/api/account', data=json.dumps(dict()), content_type='application/json')
-        # self.assertEqual(resp.status_code, 200)
-        self.assertEqual(1,1)
+        resp = self.app.post('/api/account', data=json.dumps(dict(birthDate={"day": 1, "month": 1, "year": 2016}, email='test3@testmail.com', name='tester', password='tester', surname='supertester', username='tester3')), content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
 
     def test_get_account(self):
         resp = self.app.get('/api/account')

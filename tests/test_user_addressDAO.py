@@ -13,7 +13,3 @@ class TestUserAddress(unittest.TestCase):
         delete = Delete("0999AZ", 109, "test_user_address")
         result = 1
         self.assertEqual(delete, result)
-
-class TestClass(unittest.TestCase):
-    def test_test(self):
-        self.assertEqual(1,1)
