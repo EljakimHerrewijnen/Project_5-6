@@ -1,8 +1,6 @@
 from app.api.models.account import Account
 from app.api.database import Database
-from app.api.DAO import productDAO
-from app.api.DAO import accountDAO
-from app.api.DAO import orderDAO
+from app.api.DAO import *
 from datetime import date
 
 global orders
