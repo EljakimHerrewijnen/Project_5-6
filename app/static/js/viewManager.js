@@ -59,6 +59,7 @@ var ViewManager = (function() {
                 self.container.append(newContainer);
                 activeView.transitionIn();
                 Snackbar.update();
+                setupTextfields();
             }).catch((e) => {
                 console.log(e)
                 console.log(e.responseText)

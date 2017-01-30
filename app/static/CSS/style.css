@@ -60,6 +60,10 @@ a {
     justify-content: space-between;
 }
 
+#view-container {
+    padding-top: 67px;
+}
+
 #admin-product-chart {
     flex-basis: 35%;
 }
@@ -555,38 +559,7 @@ svg {
     max-height: 295px;
 }
 
-#view-container {
-    padding-top: 67px;
-}
 
-.login-view-container {
-    display: flex;
-    padding: 60px;
-    justify-content: space-between;
-}
-
-.generic-panel {
-    border-top: 1px solid rgba(0,0,0,0.3);
-    display: block;
-    overflow: visible;
-    clear: both;
-    flex-basis: 45%;
-}
-
-.login-view-container input {
-    display: block;
-    border: 1px solid rgba(0,0,0,0.3);
-    transition: border 0.2s;
-}
-
-.login-view-container input:focus {
-    border: 1px solid #3BA757;
-    outline: none;
-}
-
-#register-error-box {
-    color: red;
-}
 
 
 nav a {
@@ -597,27 +570,12 @@ nav a :hover{
     color: #3BA757;
 }
 
-
-
-.login-view-container input {
-    display: block;
-    font-size: 20px;
-    padding: 4px;
-    border: 1px solid rgba(0,0,0,0.3);
-    padding-bottom: 8px;
-    box-shadow: none;
-    z-index: 1;
-}
-
-.login-view-container input:focus {
-    border: 1px solid #3BA757;
-    outline: none;
-}
-
-
 /*------------------------------------*\
     $ACCOUNTVIEW
 \*------------------------------------*/
+
+
+
 
 #account-view-container {
     padding: 60px;
@@ -733,7 +691,8 @@ nav a :hover{
 }
 
 input.error {
-    border: 1px solid rgba(255,0,0,0.5) !important;
+    color: solid rgba(255,0,0,0.5);
+    border-bottom: 1px solid rgba(255,0,0,0.5) !important;
 }
 
 #account-info-container input {
@@ -835,39 +794,108 @@ input:checked ~ .slider-thumb {
 /*------------------------------------*\
     $LOGINVIEW
 \*------------------------------------*/
-#register-form div, #login-form div {
-    display: flex;
-    margin-bottom: 10px;   
-    justify-content: space-between;
+
+.login-view-container input {
+    display: block;
+    border: 1px solid rgba(0,0,0,0.3);
+    transition: border 0.2s;
 }
 
-#register-form input, #login-form input {
+.login-view-container input:focus {
+    border: 1px solid #3BA757;
+    outline: none;
+}
+
+#register-error-box {
+    color: red;
+}
+
+#login-view-container {
+    display: flex;
+    padding: 60px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+#login-panel {
+    flex-basis: 40%;
+    box-sizing: border-box;
+}
+
+#register-panel {
+    flex-basis: 55%;
+    box-sizing: border-box;
+}
+
+#register-panel div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#register-form div, #login-form div {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#register-form .md-input-field {
+    flex-grow: 20;
+    
+}
+
+.md-input-field {
+    position: relative;
+    margin-top: 30px;
+}
+
+.md-input-field input {
+    flex-basis: 100%;
     border: none;
-    border: 1px solid rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     display: inline-block;
-    flex-basis: 80%;
-    font-size:14px;
+    font-size:16px;
     outline:none;
     font-family: 'Roboto';
     color: rgba(0,0,0,0.70);
-    font-weight: 300;
-    padding: 5px;
-    margin: 0px;
-    flex-shrink: 100;
+    font-weight: normal;
+    padding-bottom: 5px;
+    margin: 0px 10px 0px 0px;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.0);
+    transition: border 0.3s ease;
+    flex-shrink: 5;
 }
 
-#register-form  label, #login-form  label {
-    margin: 0px;
-    font-family: 'Roboto Condensed';
-    font-weight: 300;
-    flex-basis: 20%;
-    display: inline-block;
-    padding:5px;
+.md-input-field input:focus {
+    border-color: rgba(59,167,87,0.87);
 }
 
-#register-form  input:focus, #login-form  input:focus{
-    border-color: rgba(0,100,0,0.5);
+.md-input-field label {
+    color: rgba(0,0,0,0.3);
+    font-weight: 300;
+    font-size: 16px;
+    position: absolute;
+    left: 2px;
+    transition: transform 0.2s ease, color 0.3s ease;
 }
+
+.md-input-field.active label {
+    color: rgba(59,167,87,0.87) !important;
+}
+
+.md-input-field.filled label {
+    transform: translateY(-20px) scale(0.85, 0.85) translateX(-8%);
+    font-weight: normal;
+}
+
+.md-input-field.error input {
+    border-bottom: 1px solid rgba(255,0,0,0.5) !important;
+}
+
+.md-input-field.error label {
+    color: rgba(255,0,0,0.5);
+}
+
 
 #register-form  button, #login-form  button {
     -webkit-appearance: none;
@@ -892,7 +920,6 @@ input:checked ~ .slider-thumb {
     cursor: pointer;
     background-color: rgba(59, 167, 87, 0.2);
 }
-
 
 
 /*------------------------------------*\

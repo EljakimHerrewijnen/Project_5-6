@@ -1,51 +1,67 @@
-<div class='login-view-container'>
-    <div class='generic-panel'>
+<div id='login-view-container'>
+    <div class='md-panel' id='login-panel'>
         <p id='login-error-box' class='error-box'></p>
         <h2>Login</h2>
         <form id='login-form'>
             <p class='error-box'></p>
-            <div>
+            <div class='md-input-field'>
                 <label>Username</label>
-                <input type='text' placeholder='username' name='username' required>
+                <input type='text' name='username' required>
             </div>
-            <div>
+            <div class='md-input-field'>
                 <label>Password</label>
-                <input type='password' placeholder='password' name='password' required>
+                <input type='password' name='password' required>
             </div>
             <button id='login-button'>Login</button>
         </form>
         <a onclick='viewManager.redirect("/request-reset-password")'>Reset password</a>
     </div>
-    <div class='generic-panel'>
+    <div class='md-panel' id='register-panel'>
         <h2>Register</h2>
         <form id='register-form' form-verify>
-            <p class='error-box'></p>
-            <p id='register-error-box'></p>
-            <h3>Account info</h3>
             <div>
-                <label>Username</label>
-                <input type="text" verification='.+' placeholder="Username" name="username" required>
+                <div class='md-input-field'>
+                    <label>Username</label>
+                    <input type="text" verification='.+' name="username" required>
+                </div>
+
+                <div class='md-input-field'>
+                    <label>Password</label>
+                    <input type='password' name='password' required>
+                </div>
+                <div class='md-input-field'>
+                    <label>Email@domain.com</label>
+                    <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" verification='^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$' name='email' required>
+                </div>
             </div>
             <div>
-                <label>Email</label>
-                <input type='text' pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" verification='^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$' placeholder='email@domain.com' name='email' required>
+                <div class='md-input-field'>
+                    <label>Name</label>
+                    <input type='text' verification='\D+' name='name' required>
+                </div>
+                <div class='md-input-field'>
+                    <label>Surname</label>
+                    <input type='text' verification='\D+' name='surname' required>
+                </div>
             </div>
             <div>
-                <label>Password</label>
-                <input type='password' placeholder='password' name='password' required>
+                <div class='md-input-field'>
+                    <label>Year</label>
+                    <input type='text' verification='\d{4}' Name='year' required>
+                </div>
+                <div class='md-input-field'>
+                    <label>Month</label>
+                    <input type='text' verification='\d{1,2}' name='month' required>
+                </div>
+                <div class='md-input-field'>
+                    <label>Day</label>
+                    <input type='text' verification='\d{1,2}' name='day' required>
+                </div>
             </div>
             <div>
-                <label>Name</label>
-                <input type='text' verification='\D+' placeholder='Name' name='name' required>
-                <input type='text' verification='\D+' placeholder='Surname' name='surname' required>
+                <p class='error-box'></p>
+                <button id='login-button'>Register</button>
             </div>
-            <div>
-                <label>Date of Birth</label>
-                <input type='text' verification='\d{4}' placeholder='Year' name='year' required>
-                <input type='text' verification='\d{1,2}' placeholder='Month' name='month' required>
-                <input type='text' verification='\d{1,2}' placeholder='Day' name='day' required>
-            </div>
-            <button id='login-button'>Register</button>
         </form>
     </div>
     </div>

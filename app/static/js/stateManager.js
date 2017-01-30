@@ -60,16 +60,16 @@ var stateManager = (() => {
         }
 
         var verifyInputField = function(input) {
-            input = $(input);
+            var input = $(input);
             var value = input.val();
             var verificationRegex = input.attr('verification');
             var re = new RegExp("^" + verificationRegex + "$");
             var isRequired = input.is(':required');
-            if ((verificationRegex && !re.test(value)) || (isRequired && !value)) {    
-                input.addClass("error");
+            if ((verificationRegex && !re.test(value)) || (isRequired && !value)) {
+                input.closest('.md-input-field').addClass('error');
                 return false;
             } else {
-                input.removeClass("error");
+                input.closest('.md-input-field').removeClass('error');
                 return true;
             }
         }
@@ -79,7 +79,7 @@ var stateManager = (() => {
         }
 
         this.addRealtimeVerify = function(form) {
-            form = $(form);
+            var form = $(this);
             var inputs = form.find('input');
             inputs.each((x) => {
                 var input = $(inputs[x]);

@@ -241,6 +241,18 @@
         flex-shrink: 2;
     }
 
+    /*------------------------------------*\
+    $LOGINVIEW
+    \*------------------------------------*/
+
+    #login-panel {
+        flex-basis: 100%;
+    }
+
+    #register-panel {
+        flex-basis: 100%;
+    }
+
 }
 
 @media only screen and (min-width: 1025px) {

@@ -22,9 +22,7 @@ var loginRegisterView = (() => {
                 container.append(html);
                 attachListeners();
                 var forms = container.find('form');
-                forms.each((x) => {
-                    stateManager.addRealtimeVerify(forms[x]);
-                });
+                $.each(forms, stateManager.addRealtimeVerify)
             })
             return Promise.resolve(html);
         }
