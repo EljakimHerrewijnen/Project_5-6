@@ -39,6 +39,9 @@ class TestMethods(unittest.TestCase):
         }
 
     def test_create(self):
+        print(adminDAO.Find("LolLerz"))
+        if(adminDAO.Find("LolLerz") != {}):
+            adminDAO.Delete("LolLerz")
         self.assertIsInstance(self.adminDAO.Create(self.account), int)
 
     def test_date_conversion(self):
