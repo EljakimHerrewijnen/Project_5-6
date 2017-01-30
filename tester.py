@@ -1,4 +1,4 @@
-from tests.testAdminDAO import AdminDAOTest
+from tests.adminDAOTest import AdminDAOTest
 
 def Test():
     testing = AdminDAOTest()
