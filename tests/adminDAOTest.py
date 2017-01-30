@@ -1,30 +1,25 @@
 import unittest
 from app.api.DAO import adminDAO
+from app.api.models.account import Account
+from app.api.database import Database
 
 class TestMethods(unittest.TestCase):
     def setUp(self):
         self.adminDAO = adminDAO
-        self.Date = "1996-03-07"
-        self.WrongJsonObject = {
-            "username": "LolLerz",
-            "name": "Lol",
-            "surname": "Lerz",
-            "banned": 0,
-            "email": "Lol@Lerz.com",
-            "birth_date": self.Date,
-            "register_date": "2000-11-25",
-            "orders": {},
-            "wishList": {},
-            "favorites": {},
-            "account_type": "normal",
-            "wishlist_public": 0,
-            "password": "Lullerz"
-        }
-
         self.CorrectDate = {
             "year": '1996',
             "month": '03',
             "day": '07'
+        }
+
+        self.account = {
+            "username": "LolLerz",
+            "name": "Lol",
+            "surname": "Lerz",
+            "password": "Lullerz",
+            "email": "Lol@Lerz.com",
+            "birth_date": self.CorrectDate,
+            "account_type": "admin"
         }
 
         self.CorrectJsonObject = {
@@ -34,21 +29,25 @@ class TestMethods(unittest.TestCase):
             "banned": 0,
             "email": "Lol@Lerz.com",
             "birthDate": self.CorrectDate,
-            "registerDate": {"year": '2000', "month": '11', "day": '25'},
-            "orders": {},
-            "wishlist": {},
-            "favorites": {},
-            "accountType": "normal",
+            "registerDate": {"year": '2017', "month": '01', "day": '30'},
+            "orders": [],
+            "wishlist": [],
+            "favorites": [],
+            "accountType": "admin",
             "wishlistPublic": 0,
             "password": "Lullerz"
         }
 
+    def test_create(self):
+        self.assertIsInstance(self.adminDAO.Create(self.account), int)
 
     def test_date_conversion(self):
-        newDate = self.adminDAO.ConvertDateToObject(self.Date)
+        WrongDate = "1996-03-07"
+        newDate = self.adminDAO.ConvertDateToObject(WrongDate)
         self.assertEqual(newDate, self.CorrectDate)
 
     def test_json_conversion(self):
-        newJson = self.adminDAO.ToJsonObject(self.WrongJsonObject)
-        self.assertEqual(newJson, self.CorrectJsonObject)
-    
+        admin = adminDAO.Find("LolLerz")
+        self.assertEqual(admin, self.CorrectJsonObject)
+
+    # def test_user_ban(self):
