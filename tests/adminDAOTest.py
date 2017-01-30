@@ -1,15 +1,9 @@
+import unittest
 from app.api.DAO import adminDAO
 
-class AdminDAOTest():
-    def __init__(self):
-        self.AdminDAO = adminDAO
-        self.Date = ""
-        self.WrongJsonObject = None
-
-        self.CorrectDate = {}
-        self.CorrectJsonObject = {}
-
+class TestMethods(unittest.TestCase):
     def setUp(self):
+        self.adminDAO = adminDAO
         self.Date = "1996-03-07"
         self.WrongJsonObject = {
             "username": "LolLerz",
@@ -49,39 +43,14 @@ class AdminDAOTest():
             "password": "Lullerz"
         }
 
-    def testDateConversion(self):
-        newDate = self.AdminDAO.ConvertDateToObject(self.Date)
-        keyTest = []
 
-        for key in self.CorrectDate:
-            keyTest.append(key)
+    def test_date_conversion(self):
+        newDate = self.adminDAO.ConvertDateToObject(self.Date)
+        self.assertEqual(newDate, self.CorrectDate)
 
-        for key in keyTest:
-            if not (key in newDate):
-                return False
-
-            if not (newDate[key] == self.CorrectDate[key]):
-                return False
-
-        return True
-
-
-
-    def testJsonConversion(self):
-        newJson = self.AdminDAO.ToJsonObject(self.WrongJsonObject)
-        keyTest = []
-
-        for key in self.CorrectJsonObject:
-            keyTest.append(key)
-
-        for key in keyTest:
-            if not (key in newJson):
-                return False
-
-            if not (newJson[key] == self.CorrectJsonObject[key]):
-                return False
-
-        return True
+    def test_json_conversion(self):
+        newJson = self.adminDAO.ToJsonObject(self.WrongJsonObject)
+        self.assertEqual(newJson, self.CorrectJsonObject)
 
 
     def TestAdmin(self):
