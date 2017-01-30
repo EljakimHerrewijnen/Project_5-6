@@ -17,7 +17,6 @@ def convert_from_json(json):
 
 def verify_address(address):
     fields = ["postalCode", "houseNumber", "city", "street", "country"]
-    print(address)
     for key in fields:
         if not key in address:
             raise KeyError("Address does not contain " + key)
@@ -25,7 +24,7 @@ def verify_address(address):
             raise ValueError(key + " cannot be empty.")
     #if type(address['houseNumber']) != int:
         #raise ValueError("House number is not an integer value.")
-    if not re.match(address['postalCode']):
+    if not re.match(postal_code_pattern, address['postalCode']):
         raise ValueError("Postal code is of the incorrect format.");
 
 def Create(address):
