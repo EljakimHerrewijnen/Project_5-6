@@ -575,27 +575,23 @@ nav a :hover{
 \*------------------------------------*/
 
 
-
-
 #account-view-container {
     padding: 60px;
-    padding-top: 40px;
     display:flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-#account-view-container h1 {
-    flex-basis:100%;
-    font-weight: 300;
+
+#account-view-container .md-panel {
+    margin: 0px 10px 15px 10px;
+    flex-grow: 100;
+    flex-shrink: 100;
 }
+
 #account-view-container h2 {
     margin-top: 10px;
     font-size: 16px;
     font-weight: 400;
-}
-
-#account-wishlist-container h2 {
-    display: inline-block;
 }
 
 #account-view-container span {
@@ -641,21 +637,13 @@ nav a :hover{
     cursor: pointer;
 }
 
-#account-view-container, #account-view-container th, #account-view-container td {
+#account-view-container th, #account-view-container td {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 #account-view-container tr {
     border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.generic-panel {
-    border-top: 1px solid rgba(0,0,0,0.3);
-    display: block;
-    overflow: visible;
-    clear: both;
-    flex-basis: 45%;
 }
 
 #account-info-container {
@@ -688,35 +676,12 @@ nav a :hover{
     display: flex;
     margin-bottom: 10px;   
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 input.error {
     color: solid rgba(255,0,0,0.5);
     border-bottom: 1px solid rgba(255,0,0,0.5) !important;
-}
-
-#account-info-container input {
-    border: none;
-    border: 1px solid rgba(0,0,0,0.3);
-    display: inline-block;
-    flex-basis: 80%;
-    font-size:14px;
-    outline:none;
-    font-family: 'Roboto';
-    color: rgba(0,0,0,0.70);
-    font-weight: 300;
-    padding: 5px;
-    margin: 0px;
-    flex-shrink: 100;
-}
-
-#account-info-container label {
-    margin: 0px;
-    font-family: 'Roboto Condensed';
-    font-weight: 300;
-    flex-basis: 20%;
-    display: inline-block;
-    padding:5px;
 }
 
 #account-info-container input:focus{
@@ -840,12 +805,14 @@ input:checked ~ .slider-thumb {
 
 #register-form .md-input-field {
     flex-grow: 20;
-    
 }
 
 .md-input-field {
     position: relative;
     margin-top: 30px;
+    flex-grow: 100;
+    flex-shrink: 100;
+    margin: 30px 10px 0px 0px;
 }
 
 .md-input-field input {
@@ -859,7 +826,7 @@ input:checked ~ .slider-thumb {
     color: rgba(0,0,0,0.70);
     font-weight: normal;
     padding-bottom: 5px;
-    margin: 0px 10px 0px 0px;
+    
     z-index: 2;
     background-color: rgba(0,0,0,0.0);
     transition: border 0.3s ease;
@@ -895,7 +862,6 @@ input:checked ~ .slider-thumb {
 .md-input-field.error label {
     color: rgba(255,0,0,0.5);
 }
-
 
 #register-form  button, #login-form  button {
     -webkit-appearance: none;

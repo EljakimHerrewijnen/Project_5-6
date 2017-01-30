@@ -86,6 +86,7 @@
         flex-basis: 100%;
     }
 
+
 }
 
 @media only screen and (max-width: 1500px) and (min-width: 740px) {
@@ -252,7 +253,35 @@
     #register-panel {
         flex-basis: 100%;
     }
+    /*------------------------------------*\
+    $ACCOUNTVIEW
+    \*------------------------------------*/
 
+    #account-info-container {
+        flex-basis: 100%;
+    }
+
+    #account-address-container {
+        margin-top: 50px;
+        flex-basis: 100%;
+        min-height: 150px;
+    }
+
+    #account-wishlist-container {
+        flex-basis: 100%;
+        min-height: 150px;
+    }
+
+    #account-favorites-container {
+        flex-basis: 100%;
+        min-height: 150px;
+    }
+
+    #account-orders-container {
+        margin-top: 50px;
+        min-height: 150px;
+        flex-basis: 100%;
+    }
 }
 
 @media only screen and (min-width: 1025px) {

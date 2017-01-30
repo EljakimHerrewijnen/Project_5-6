@@ -1,30 +1,38 @@
 <div id='account-view-container'>
-    <h1>Hello, {{username}}</h1>
-    <div id='account-info-container' class='generic-panel'>
+    <div id='account-info-container' class='md-panel'>
         <form id="user-info-form">
-            <h2>Personal info</h2>
-            <div>
+            <div class='md-input-field filled'>
                 <label>Email</label>
-                <input type='text' verification="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" placeholder='email@domain.com' value='{{email}}' name='email' required>
+                <input type='text' verification="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" value='{{email}}' name='email' required>
             </div>
             <div>
-                <label>Name</label>
-                <input type='text' verification='\D+' placeholder='Name' value='{{name}}'name='name' required>
+                <div class='md-input-field filled'>
+                    <label>Name</label>
+                    <input type='text' verification='\D+' placeholder='Name' value='{{name}}'name='name' required>
+                </div>
+                <div class='md-input-field filled'>
+                    <Label>Surname</label>
+                    <input type='text' verification='\D+' placeholder='Surname' value='{{surname}}'name='surname' required>
+                </div>
             </div>
             <div>
-                <Label>Surname</label>
-                <input type='text' verification='\D+' placeholder='Surname' value='{{surname}}'name='surname' required>
-            </div>
-            <div>
-                <label>Birthdate</label>
-                <input type='text' placeholder='Year' verification='\d{4}' value='{{birthDate.year}}'name='year' required>
-                <input type='text' placeholder='Month' verification='\d{1,2}' value='{{birthDate.month}}' name='month' required>
-                <input type='text' placeholder='Day' verification='\d{1,2}' value='{{birthDate.day}}' name='day' required>
+                <div class='md-input-field filled'>
+                    <label>Year</label>
+                    <input type='text' placeholder='Year' verification='\d{4}' value='{{birthDate.year}}'name='year' required>
+                </div>
+                <div class='md-input-field filled'>
+                    <label>Month</label>
+                    <input type='text' placeholder='Month' verification='\d{1,2}' value='{{birthDate.month}}' name='month' required>
+                </div>
+                <div class='md-input-field filled'>
+                    <label>Day</label>
+                    <input type='text' placeholder='Day' verification='\d{1,2}' value='{{birthDate.day}}' name='day' required>
+                </div>
             </div>
             <button id='login-button'>Update</button>
         </form>
     </div>
-    <div id="account-wishlist-container" class='generic-panel'>
+    <div id="account-wishlist-container" class='md-panel'>
         <div id='wishlist-header'>
             <h2>wishlist</h2>
             <div style='display: flex; align-items:center'>
@@ -51,7 +59,7 @@
             {{/each}}
         </table>
     </div>
-    <div id="account-favorites-container" class='generic-panel'>
+    <div id="account-favorites-container" class='md-panel'>
         <h2>Favorites</h2>
         <table>
             <tr>
@@ -68,7 +76,7 @@
             {{/each}}
         </table>
     </div>
-    <div id="account-orders-container" class='generic-panel'>
+    <div id="account-orders-container" class='md-panel'>
         <h2>Order history</h2>
         <table>
             <tr>
@@ -83,7 +91,7 @@
             {{/each}}
         </table>
     </div>
-        <div id='account-address-container' class='generic-panel'>
+        <div id='account-address-container' class='md-panel'>
         <h2>Addresses</h2>
         <table>
             <tr>
