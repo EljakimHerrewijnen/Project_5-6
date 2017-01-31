@@ -56,14 +56,23 @@ class TestEndpointAccount(unittest.TestCase):
     def test_delete_address(self):
         self.assertEqual(1,1)
         
+    def test_delete_favorite(self):
+        resp = self.app.post('/api/login', data=json.dumps(dict(username='admin', password='admin')), content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
+        resp1 = self.app.delete('api/account/favorites', data=json.dumps(dict(product_id=1, id=1, productid=1)), content_type='application/json')
+        self.assertEqual(resp1.status_code, 200)
+        
     def test_add_favorite(self):
-        self.assertEqual(1,1)
+        resp = self.app.post('/api/login', data=json.dumps(dict(username='admin', password='admin')), content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
+        resp2 = self.app.post('api/account/favorites', data=json.dumps(dict(product_id=1, id=1, productid=1)), content_type='application/json')
+        self.assertEqual(resp2.status_code, 200)
         
     def test_get_favorite(self):
-        self.assertEqual(1,1)
-        
-    def test_delete_favorite(self):
-        self.assertEqual(1,1)
+        resp = self.app.post('/api/login', data=json.dumps(dict(username='admin', password='admin')), content_type='application/json')
+        self.assertEqual(resp.status_code, 200)
+        resp3 = self.app.get('api/account/favorites', content_type='application/json')
+        self.assertEqual(resp3.status_code, 200) 
 
     def test_add_wishlisht(self):
         self.assertEqual(1,1)
