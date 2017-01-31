@@ -28,7 +28,7 @@
         {{/each}}
         </tbody>
         <tfoot class='hidden'>
-            <tr><td></td><td>Total price</td><td id='totalprice'>€{{cartOrderTotal}}</td></tr></tfoot>
+            <tr><td colspan='2'><span style='margin-left: 20px'>Total price</span></td><td id='totalprice'>€{{cartOrderTotal}}</td></tr></tfoot>
     </table>
     <div id='order-button-container'>
         <div id='goToOrderButton' class='hidden md-button' onclick='ViewManager.redirect("/placeorder")'>CHECKOUT</div>

@@ -11,6 +11,7 @@ var NavBar = (() => {
         });
 
         this.toggleLogoutButton = function(turnOn) {
+            MobileNavBar.toggleLogoutButton(turnOn);
             var logoutButton = $('#logout-button');
             if (turnOn) {
                 logoutButton.css({opacity: 0, width: 0});
@@ -23,6 +24,7 @@ var NavBar = (() => {
         }
 
         this.toggleAdminButton = function(turnOn) {
+            MobileNavBar.toggleAdminButton(turnOn);
             var adminButton = $('#admin-button');
             if (turnOn) {
                 adminButton.css({opacity: 0, width: 0});

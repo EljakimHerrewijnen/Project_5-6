@@ -23,6 +23,10 @@
         flex-basis: 90%;
     }
 
+        #login-view-container {
+        padding: 20px;
+    }   
+
     #snackbar {
         width: 100%;
         min-width: 100%;
@@ -30,6 +34,10 @@
         left: 0;
         box-sizing: border-box;
         border-radius: 0px;
+    }
+
+    .mobile-hidden {
+        display: none;
     }
 
     /*------------------------------------*\
@@ -108,6 +116,27 @@
     #cart-view-container {
         margin: 10px;
     }
+
+    #cart-view-tbody i {
+        display: none;
+    }
+
+    /*------------------------------------*\
+    $LOGINVIEW
+    \*------------------------------------*/
+
+    #login-view-container {
+        padding: 20px;
+    }
+
+    /*------------------------------------*\
+    $ORDERVIEW
+    \*------------------------------------*/
+
+    #order-details-container {
+        padding: 20px;
+    }
+
 }
 
 @media only screen and (max-width: 1500px) and (min-width: 740px) {

@@ -7,11 +7,17 @@
         <a onclick="viewManager.redirect('/wishlists')">
             <span>Wishlists</span>
         </a>
+        <a onclick="viewManager.redirect('/cart')">
+            <span>Cart</span>
+        </a>
         <a onclick="viewManager.redirect('/account')">
             <span>Account</span>
         </a>
-        <a onclick="viewManager.redirect('/cart')">
-            <span>Cart</span>
+        <a id='mobile-logout-button' onclick="auth.logout()">
+            <span></span>
+        </a>
+        <a onclick='viewManager.changeView(new adminDashboard())' id='mobile-admin-button'>
+            <span></span>
         </a>
     </div>
 </div>

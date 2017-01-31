@@ -25,6 +25,7 @@ function orderView(orderId) {
             container.css({opacity: 0})
             html = Handlebars.compile(html);
             order['total_price'] = order.products.reduce((total, product) => total + product.product.price * product.quantity, 0);
+            order.totalPrice = order.total_price.toFixed(2);
             container.append(html(order));
         });
     }
