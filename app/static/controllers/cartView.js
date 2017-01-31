@@ -64,7 +64,7 @@ function _cartIncrement(id) {
 function _cartDecrement(id) {
     var item = Cart.getItem(id);
     Cart.increment(id, -1);
-    if (item.amount < 1){
+    if (item.quantity < 1){
         _cartRemoveItem(id);
         return;
     }

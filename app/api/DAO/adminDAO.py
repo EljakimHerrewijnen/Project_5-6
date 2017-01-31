@@ -1,8 +1,6 @@
 from app.api.models.account import Account
 from app.api.database import Database
-from app.api.DAO import productDAO
-from app.api.DAO import accountDAO
-from app.api.DAO import orderDAO
+from app.api.DAO import *
 from datetime import date
 
 global orders
@@ -53,7 +51,7 @@ def Find(username):
 def Delete(username):
     db = Database()
     db.where("username", username)
-    db.delete("username")
+    db.delete("account")
 
 # update information in admin
 def Update(account):
@@ -93,16 +91,11 @@ def ToggleUserBan(username):
     account = accountDAO.Find(username)
     db = Database()
     if(account["banned"] == 0):
-        # account["banned"] = 1
         db.where("username", username)
         db.update("account", {'banned': 1})
-        # accountDAO.Update(account)
     else:
-        # account["banned"] = 0
         db.where("username", username)
         db.update("account", {'banned': 0})
-        # accountDAO.Update(account)
-    print("Success")
 
 def RemoveUser(username):
     accountDAO.Delete(username)
@@ -110,7 +103,7 @@ def RemoveUser(username):
 # Converts the object received from the database to the expected json format
 def ToJsonObject(databaseAccount):
     jsonRet = {}
-    
+
     jsonRet['username'] = databaseAccount['username']
     jsonRet['name'] = databaseAccount['name']
     jsonRet['surname'] = databaseAccount['surname']
@@ -125,7 +118,7 @@ def ToJsonObject(databaseAccount):
     jsonRet['wishlistPublic'] = databaseAccount['wishlist_public']
     jsonRet['password'] = databaseAccount['password']
 
-    return databaseAccount
+    return jsonRet
 
 def ConvertDateToObject(dateString):
     date = {}

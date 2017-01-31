@@ -21,7 +21,6 @@ function User(user) {
                 contentType : "application/json",
                 data: JSON.stringify({"id" : product.id})
         }).then(() => {
-            console.log('dix');
             self.wishlist = self.wishlist.filter((item) => item.id != product.id);
             return false;
         });

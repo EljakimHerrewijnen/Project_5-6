@@ -83,7 +83,6 @@ function productDetailView(productId) {
         user = stateManager.getUser();
         button = container.find('#wishlist_button')
         user.then((user) => {
-            console.log(user);
             if (user.hasWish(product)) {
                 return user.removeWish(product).then(() => button.html("<i class='material-icons add-to-cart-button'>add_circle</i><span>ADD PRODUCT TO WISHLIST</span>"));}
             else
