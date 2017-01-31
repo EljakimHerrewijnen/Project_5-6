@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 import tests.HTMLTestRunner
-from tests.test_user_addressDAO import TestUserAddress, TestClass
+from tests.test_user_addressDAO import TestUserAddress
 from tests.test_helpers import TestHelper
 from tests.test_endpoint import TestEndpointProducts, TestEndpointAuthentication, TestEndpointAccount
 #import all classes to test here ^^^
