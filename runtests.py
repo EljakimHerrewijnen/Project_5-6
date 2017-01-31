@@ -3,6 +3,12 @@ import sys
 import unittest
 import tests.HTMLTestRunner
 from tests.test_user_addressDAO import TestUserAddress
+from tests.AccountDAOTest import TestAccountDAO
+from tests.addressDAOTest import TestAddressDAO
+from tests.adminDAOTest import TestAdminDAO
+from tests.orderDAOTest import TestOrderDAO
+from tests.productDAOTest import TestProductDAO
+from tests.wishDAOTest import TestWishDAO
 from tests.test_helpers import TestHelper
 from tests.test_endpoint import TestEndpointProducts, TestEndpointAuthentication, TestEndpointAccount
 #import all classes to test here ^^^
@@ -31,7 +37,6 @@ def results(classnames):
     sys.exit(not result2.wasSuccessful())
 
 if __name__ == '__main__':
-    test_classes_to_run = [TestUserAddress, TestHelper, TestEndpointProducts, TestEndpointAuthentication, TestEndpointAccount]
+    test_classes_to_run = [TestAccountDAO, TestAddressDAO, TestAdminDAO, TestEndpointAccount, TestEndpointAuthentication, TestEndpointProducts, TestHelper, TestHelper, TestOrderDAO, TestProductDAO, TestUserAddress, TestWishDAO]
 
-    #htmlgenerator(test_classes_to_run)
     results(test_classes_to_run)    
