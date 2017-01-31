@@ -8,7 +8,6 @@ var ViewManager = (function() {
         Object.defineProperty(this, "activeView", {
             get : () => activeView
         });
-    
 
         this.addRoute = function(pathAsRegex, routeFunction) {
             var re = new RegExp(pathAsRegex + "$");
@@ -33,6 +32,7 @@ var ViewManager = (function() {
         this.changeView = function(newActiveView, ignoreHistory) {
             if (newActiveView == activeView) return;
             var newContainer = $('<div></div>');
+            MobileMenuBar.hide();
             newActiveView.construct(newContainer)
             .catch((jqXHR) => {
                 console.log(jqXHR);
@@ -58,6 +58,8 @@ var ViewManager = (function() {
                 }
                 self.container.append(newContainer);
                 activeView.transitionIn();
+                Snackbar.update();
+                setupTextfields();
             }).catch((e) => {
                 console.log(e)
                 console.log(e.responseText)

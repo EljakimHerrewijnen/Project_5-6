@@ -29,9 +29,11 @@ function cartView() {
     }
 
     this.destruct = function() {
+        Snackbar.update()
         return container.animate({opacity:0}, 150).promise().then(() => container.remove());
     }
     this.transitionIn =function() {
+        Snackbar.hide();
         container.animate({opacity: 1}, 150);
     }
     
@@ -62,7 +64,7 @@ function _cartIncrement(id) {
 function _cartDecrement(id) {
     var item = Cart.getItem(id);
     Cart.increment(id, -1);
-    if (item.amount < 1){
+    if (item.quantity < 1){
         _cartRemoveItem(id);
         return;
     }

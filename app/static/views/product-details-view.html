@@ -1,39 +1,83 @@
 <div id='product-details-container'>
-    <h1>{{name}}</h2>
-    <div class='detail-column-container'>
-        <div class='detail-column' style="flex-basis: 20%">
-            <div class='detail-panel'>
+    <div id=product-detail-panel class='md-panel'>
+        <div id='detail-header'>
+            <h1>{{product.name}}</h2>
+            <a id='add-to-cart-button'>
+                <i class="material-icons add-to-cart-button">add_shopping_cart</i>
+                <span>ADD PRODUCT TO CART</span>
+            </a>
+        </div>
+        <div id='detail-body'>
+            <div id='package-panel' class='detail-panel'>
                 <h2>Package</h2>
-                <img src="/static/{{image}}">
+                <img src="/static/{{product.image}}">
             </div>
-        </div>
-        <div class='detail-column' style="flex-basis: 55%">
-            <div class='detail-panel'>
-                <h2>About</h2>
-                <p>{{description}}</p>
-                <h2>Roast</h2>
-                <p style="padding-left: 20px;">{{roast}}</p>
-                <h2>Aromas</h2>
-                <ul>
-                {{#each aromas}}
-                    <li>{{this}}</li>
-                {{/each}}
-                </ul>
+            <div id='about-panel' class='detail-panel'>
+                    <h2>About</h2>
+                    <p>{{product.description}}</p>
+                    <h2>Roast</h2>
+                    <p style="padding-left: 20px;">{{product.roast}}</p>
+                    <h2>Aromas</h2>
+                    <ul>
+                    {{#each product.aromas}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                    </ul>
             </div>
-        </div>
-        <div class='detail-column' style="flex-basis: 20%">
-            <div class='detail-panel' id='price-panel'>
-                <h2>€ {{formatPrice}}</h2>            
-                <a id='addtocart_button'>ADD TO CART</a>
+            <div id='price-panel' class='detail-panel' >
+                <div>
+                    <h2>Price</h2>
+                <h3>€{{product.formatPrice}}</h3>       
+                </div>
+                <div>     
+                <a id='add-to-cart-button' class='add-button'>
+                    <i class="material-icons add-to-cart-button">add_shopping_cart</i>
+                    <span>ADD PRODUCT TO CART</span>
+                </a>
                 <!--<a id='instantorder_button'>BUY INSTANTLY</a>-->   
-                <a id='wishlist_button'>ADD TO WISHLIST</a>
-                <a id='favorites_button'>ADD TO FAVORITES</a>
+                <a id='wishlist_button' class='add-button'>
+                    <i class="material-icons add-to-cart-button">add_circle</i>
+                    <span>ADD PRODUCT TO WISHLIST</span>
+                </a>
+                <a id='favorites_button' class='add-button'>
+                    <i class="material-icons add-to-cart-button">favorite</i>
+                    <span>ADD PRODUCT TO FAVORITES</span>
+                </a>
+                </div>
+                <div id='origin-panel'>
+                    <h2>Origin</h2>
+                    <img src="/static/images/{{product.origin}}.png">
+                </div>
             </div>
-            <div class='detail-panel' >
-                <h2>Origin</h2>
-                <img src="/static/images/{{origin}}.png">
+        </div>
+        <div id='product-detail-suggestions'>
+            <div id='product-suggestion-header'>
+                <h1>Other coffee you may be interested in</h1>
             </div>
-            <img>
+            <div id='suggestion-container'>
+            {{#each suggestions}}
+            <div class="item-panel">
+                <div class="panel-heading">
+                    <a onclick="ViewManager.redirect('/details/{{id}}')">
+                        <span>{{this.name}}</span>
+                    </a>
+                    <a>
+                        <a onclick="Cart.addById({{this.id}})">
+                            <i class="material-icons add-to-cart-button">add_shopping_cart</i>
+                        </a>
+                    </a>
+                </div>
+                <a onclick="ViewManager.redirect('/details/{{this.id}}')">
+                    <img src="/static/{{this.image}}" class="img-responsive" style="display:block; margin: auto;" alt="Image">
+                </a>
+                <div class='panel-footer'>
+                    <a onclick="ViewManager.redirect('/details/{{this.id}}')">
+                        <span  id='see-details'>READ MORE</span>
+                    </a>
+                    <span id='price'>€ {{formatPrice}}</span>
+                </div>
+            </div>
+            {{/each}}
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 [{
     "ID": 1,
-    "Name": "Olympia Coffee Roasting - El Salvador Ricardo Ariz - Pacamara",
+    "Name": "El Salvador Ricardo Ariz - Pacamara",
+    "Company" : "Olympia Coffee Roasting",
     "Description": "This single origin is the product of a close relationship between Olympia Coffee and the grower, Ricardo Ariz. Over the years both have worked together to continue improving everything from the coffee cherries themselves to how the harvested cherries are processed. This varietal in particular takes a lot of extra attention and care, making it also more expensive. For Ricardo, it's all worth it because, put simply, 'It makes an awesome cup'. Enjoy this delicious coffee with us as we continue to follow along on this amazing process.",
     "Price": 19.00,
     "Roast": "Medium",
@@ -10,7 +11,8 @@
 },
 {
     "ID": 2,
-    "Name": "Olympia Coffee Roasting - Kenya Tegu Reserve",
+    "Name": "Kenya Tegu Reserve",
+    "Company" : "Olympia Coffee Roasting",
     "Description": "One of the best selections coming from the Tegu Washing Station located close to Mount Kenya, this amazing single origin coffee represents the hard work and dedication of the farmers behind it. As a group the Tegu farmers work to maximize their returns on coffee by working together to raise quality standards. Through continued training and education their efforts pay off year after year and this new crop is no exception. With delicious notes of citrus and summer fruits, this coffee is sure to be a new favorite.",
     "Price": 23.50,
     "Roast": "Medium",

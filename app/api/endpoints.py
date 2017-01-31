@@ -9,11 +9,14 @@ from itsdangerous import URLSafeTimedSerializer
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
 import datetime
 import time
+import pdfkit
 import sys
+from functools import reduce
+import threading
 ts = URLSafeTimedSerializer("SECRET KEY FOR ENCRYPTING THE EMAIL")
-
 
 """
 PRODUCTS
@@ -166,15 +169,16 @@ def delete_wishlist(account):
 @secure()
 def add_order(account):
     postData = request.get_json()
-    print(postData)
-    result = orderDAO.Create(account['username'], postData)
-    return Response(json.dumps(result), 200, mimetype='application/json')
+    order = orderDAO.Create(account['username'], postData)
+    send_order_mail(account, order)
+    return Response(json.dumps(order), 200, mimetype='application/json')
 
 @api.route('/account/order', methods=['GET'])
 @secure()
 def get_orders(account):
     orders = orderDAO.FindByUser(account['username'])
-    return Response(json.dumps(orders), 200, mimetype='application/json')
+    response = Response(json.dumps(orders), 200, mimetype='application/json')
+    return response
 
 @api.route('/account/order/<order_id>')
 @secure()
@@ -191,6 +195,7 @@ PUBLIC WISH LISTS
 
 @api.route('/wishlist')
 def get_public_wishlists():
+    db = Database()
     db.where("wishlist_public", 1)
     accounts = db.get_all("account", select = "username, name")
     json_result = json.dumps(accounts, sort_keys=True, indent=4)
@@ -269,3 +274,47 @@ def reset_password():
         return "Success", 200
     except:
         return "Could not update user, are you sure it exists?", 500
+
+
+def send_order_mail(account, order):
+    order_total = reduce(lambda x, y: x + y['quantity'] * y['product']['price'], order['products'], 0)
+    string = render_template("order-pdf.html", order = order, account=account, order_total=order_total)
+    text_version = render_template("invoice-email.txt", user = account, order=order)
+    html_version = render_template("invoice-email.html", user = account, order=order)
+    
+    def send_mail(string, text_versiom, html_version):
+        options = {
+            'page-size' : 'a5',
+            'margin-top' : '0in',
+            'margin-left' : '0in',
+            'margin-right' : '0in',
+            'margin-bottom' : '0in',
+            'encoding': "UTF-8",
+            'zoom': 1.5,
+            'no-outline': None,
+            'disable-smart-shrinking' : None,
+        }
+        pdf = pdfkit.from_string(string, False, options=options)
+        from_address = "noreply@coffeesupre.me"
+        to_addresss = "bartrijnders14@gmail.com"
+        msg = MIMEMultipart("mixed")
+        msg['Subject'] = 'Coffeesupreme order ' + str(order['id'])
+        msg['From'] = from_address
+        msg['To'] = to_addresss
+
+        pdfAttachment = MIMEApplication(pdf, _subtype = "pdf")
+        pdfAttachment.add_header('content-disposition', 'attachment', filename = ('utf-8', '', 'invoice_' + str(order['id']) +'.pdf'))
+        part1 = MIMEText(text_version, "text")
+        part2 = MIMEText(html_version, "html")
+
+        print("dix")
+        sys.stderr.write("dix")
+        sys.stdout.write("dix")
+        msg.attach(part2)
+        msg.attach(pdfAttachment)
+        server = smtplib.SMTP_SSL("mail.privateemail.com", 465)
+        server.login("noreply@coffeesupre.me", "password")
+        server.sendmail(from_address, to_addresss, msg.as_string())
+        server.quit()
+
+    threading.Thread(target=send_mail, args=(string, text_version, html_version)).start()

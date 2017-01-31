@@ -3,8 +3,12 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: 'Roboto';
-    color: rgba(0, 0, 0, 0.54); 
+    color: rgba(0, 0, 0, 0.87); 
     background-color: #fafafa;
+    -webkit-font-smoothing: antialiased;
+    font-smooth: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -22,7 +26,6 @@ a {
 #orderChart {
     height: 900px;
 }
-
 
 #admin-user-container {
     flex-basis: 62%;
@@ -57,6 +60,10 @@ a {
     justify-content: space-between;
 }
 
+#view-container {
+    padding-top: 67px;
+}
+
 #admin-product-chart {
     flex-basis: 35%;
 }
@@ -85,7 +92,7 @@ a:hover {
     cursor: pointer;
 }
 
-#logo {
+nav h1 {
     font-family: 'Roboto Condensed';
     font-size: 24pt;
     color: #757575;
@@ -106,14 +113,17 @@ nav {
     font-family: 'Roboto';
     font-weight: 400;
     color: rgba(0, 0, 0, 0.54);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
     align-items: baseline;
     border-bottom: 1px solid rgba(0,0,0,0.15);
     padding: 15px 0px 15px 0px;
-    z-index: 1;
+    z-index: 3;
     box-shadow: 10px 0px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: row;
+}
+
+#navbar {
+    
 }
 
 g {
@@ -146,17 +156,29 @@ g {
     border-top: 1px solid rgba(0,0,0,0.15);
     margin-top: 1px;
     height: 100%;
-    width: 254px;
+    width: 256px;
     border-right: 1px solid rgba(0,0,0,0.15);
     display: block;
     background-color: white;
     top: auto;
-    transform: translateX(-280px);
+    transform: translateX(-300px);
     transition: transform 0.3s ease-in-out;
 }
 
-#products-filter.open {
-    transform: translateX(0px);
+#mobile-menu-sidebar {
+    background-color: white;
+    display: none;
+    z-index: 5;
+    position: fixed;
+    right: 0;
+    width: 332px;
+    height: auto;
+    top: -2px;
+    height: 100%;
+    border-left: 1px solid rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 50px rgba(0,0,0,0.8);
+    transform: translateX(350px);
+    transition: transform 0.3s ease-in-out;
 }
 
 .no-opacity {
@@ -185,29 +207,156 @@ g {
     flex-flow: row wrap;
     justify-content: space-around;
     display: flex;
-    padding-top: 18px;
     transition: opacity 0.3s ease;
+    
+}
+
+/*------------------------------------*\
+    $TABLE
+\*------------------------------------*/
+
+table {
+    position: relative;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+th {
+    position: relative;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0;
+    height: 48px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, .54);
+    padding-bottom: 8px;
+    box-sizing: border-box
+}
+
+tbody tr {
+    height: 48px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+tbody tr td:first-of-type, tr th:first-of-type {
+    padding-left: 20px;
+}
+
+tbody tr td:last-of-type, tr th:last-of-type {
+    padding-right: 20px;
+}
+
+tbody tr:hover {
+    background-color: #eee
+}
+
+tr.clickable:hover {
+    color: rgba(49,157,77,1);
+    cursor: pointer;
+}
+
+td {
+}
+
+/*------------------------------------*\
+    SNACKBAR
+\*------------------------------------*/
+
+#snackbar {
+    background-color: #323232;
+    position: fixed;
+    bottom: 0px;
+    right: 10%;
+    color: white;
+    display: flex;
+    padding: 0px 24px;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 288px;
+    max-width: 568px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size: 14px;
+    transform: translateY(48px);
+    transition: transform 0.3s ease, color 1s ease;
+}
+
+#snackbar-action {
+    color: rgba(69,177,97,0.87);
+}
+
+#snackbar.open {
+    transform: translateY(0px);
+}
+
+#snackbar-text b {
+    font-weight: 5s00;
+    color: #ff4081;
+}
+
+#snackbar .glow {
+    transition: color 0.1 ease;
+    color: rgba(69,177,97,0.87);
+}
+
+/*------------------------------------*\
+    ITEM PANEL
+\*------------------------------------*/
+
+
+.md-card {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .item-panel {
     margin-top: 35px;
-    padding-top: 10px;
     flex-basis: 30%;
     font-size: 14px;
-    border-top: thin solid rgba(0, 0, 0, 0.25);
+    height: 400px;
 }
 
-.item-panel a {
-    text-decoration: none;
-    color: rgba(0,0,0,0.70);
-    
+.item-panel .panel-heading {
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
-.item-panel p {
-    display: inline;
-    float: right;
+.item-panel .panel-heading span {
+    display: inline-block;
+    width: 80%;
+}
+
+.item-panel .add-to-cart-button {
+    color: #3BA757;
+}
+
+.item-panel .panel-footer {
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
     padding: 10px;
 }
+
+.item-panel #see-details {
+    color: rgba(59,167,87,0);
+    transition: color 0.2s linear;
+}
+.item-panel:hover #see-details {
+    color: rgba(59,167,87,0.87);
+}
+
+.item-panel 
 
 .item-panel .show-on-hover {
     font-weight: 600;
@@ -308,53 +457,130 @@ svg {
 \*------------------------------------*/
 
 #product-details-container {
-    padding-top: 35px;
-    margin: 0px 45px 0px 45px;
+    margin: 45px 45px 0px 45px;
+    font-weight: normal;
+    font-size: 14px;
+    letter-spacing: normal;
+    font-family: "Roboto", sans-serif;
+
 }
 
-#product-details-container #price-panel h2 {
-    font-family: "Roboto";
-    font-weight: 400;
-    font-size: 24px;
-    text-align: center;
-    margin: 15px;
-}
-
-#product-details-container h1 {
-    border-top: 1px solid rgba(0,0,0,0.3);
-    padding-top: 15px;
-    margin-bottom: 40px;
-    font-size: 24px;
-}
-
-#product-details-container h2 {
-    font-size: 16px;
-}
-
-.detail-column-container {
+#detail-header {
+    border-top: 2px solid rgba(0,0,0,0.3);
     display: flex;
-    justify-content: space-around;
-    clear: both;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    margin-bottom: 80px;
+}
+
+#detail-header h1 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+#detail-header #add-to-cart-button {
+    display: flex;
+    align-items: center;
+    color: rgba(69,177,97,1);
+}
+
+#detail-header #add-to-cart-button span {
+    padding-left: 10px;
+    font-weight: 500;
+}
+
+#detail-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#detail-body h2 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#detail-body #package-panel {
+    min-width: 295px;
+}
+
+#detail-body #about-panel {
+    flex-basis: 10%;
+    flex-grow: 4;
+    flex-shrink: 4;
+    min-width: 0px;
+}
+
+#detail-body #price-panel {
+    width: 224px;
+}
+
+#detail-body .add-button {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    color: rgba(69,177,97,1);
+    padding: 10px 0px;
+}
+
+#detail-body .add-button span {
+    padding-left: 10px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+#detail-body #price-panel h3 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 72px;
+    font-weight: 100;
 }
 
 .detail-panel {
     border-top: 1px solid rgba(0,0,0,0.3);
-    display: block;
-    overflow: visible;
-    clear: both;
-    padding-bottom: 10px;
+    display: inline-block;
+    margin: 0px 15px;
 }
 
-.detail-panel a {
-    transition: background 0.5s ease;
-    display: block;
-    text-align: center;
-    color: #3BA757;
-    text-decoration: none;
-    padding: 10px;
-    margin: 0px;
-    padding-left: 0px;
+#detail-body #origin-panel {
+    width: 100%;
+    border-top: 1px solid rgba(0,0,0,0.3);
 }
+
+#product-detail-suggestions {
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    flex-wrap: wrap;
+    margin-top: 85px;
+}
+
+#product-detail-suggestions #product-suggestion-header {
+    width: 100%;
+    
+}
+
+#product-detail-suggestions #product-suggestion-header h1 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+#suggestion-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#product-details-container .item-panel {
+    margin-top: 0px;
+    flex-basis: 33%;
+}
+
 
 .RemoveButton a {
     cursor: pointer;
@@ -362,11 +588,6 @@ svg {
 
 .RemoveButton a:hover{
     color: #FF0000;
-}
-
-.detail-panel a:hover {
-    cursor: pointer;
-    background-color: rgba(59, 167, 87, 0.2);
 }
 
 .detail-panel img{
@@ -379,43 +600,16 @@ svg {
     display: none;
 }
 
+#package-panel img {
+    max-height: 295px;
+}
+
 .item-panel img {
     max-width: 100%;
     max-height: 295px;
 }
 
-#view-container {
-    padding-top: 67px;
-}
 
-.login-view-container {
-    display: flex;
-    padding: 60px;
-    justify-content: space-between;
-}
-
-.generic-panel {
-    border-top: 1px solid rgba(0,0,0,0.3);
-    display: block;
-    overflow: visible;
-    clear: both;
-    flex-basis: 45%;
-}
-
-.login-view-container input {
-    display: block;
-    border: 1px solid rgba(0,0,0,0.3);
-    transition: border 0.2s;
-}
-
-.login-view-container input:focus {
-    border: 1px solid #3BA757;
-    outline: none;
-}
-
-#register-error-box {
-    color: red;
-}
 
 
 nav a {
@@ -426,47 +620,29 @@ nav a :hover{
     color: #3BA757;
 }
 
-
-
-.login-view-container input {
-    display: block;
-    font-size: 20px;
-    padding: 4px;
-    border: 1px solid rgba(0,0,0,0.3);
-    padding-bottom: 8px;
-    box-shadow: none;
-    z-index: 1;
-}
-
-.login-view-container input:focus {
-    border: 1px solid #3BA757;
-    outline: none;
-}
-
-
 /*------------------------------------*\
     $ACCOUNTVIEW
 \*------------------------------------*/
 
+
 #account-view-container {
     padding: 60px;
-    padding-top: 40px;
+    padding-top: 20px;
     display:flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-#account-view-container h1 {
-    flex-basis:100%;
-    font-weight: 300;
+
+#account-view-container .md-panel {
+    margin: 0px 10px 15px 10px;
+    flex-grow: 100;
+    flex-shrink: 100;
 }
+
 #account-view-container h2 {
     margin-top: 10px;
     font-size: 16px;
     font-weight: 400;
-}
-
-#account-wishlist-container h2 {
-    display: inline-block;
 }
 
 #account-view-container span {
@@ -479,7 +655,6 @@ nav a :hover{
     width: 100%;
     margin: 0px;
     border-collapse:collapse;
-    font-size: 13px;
     text-align: left;
 }
 
@@ -498,6 +673,18 @@ nav a :hover{
     align-items: center;
 }
 
+.account-panel-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+.account-panel-header h2 {
+    margin: 0px;
+}
+
 .pull-right { 
     float: right;
 }
@@ -512,7 +699,7 @@ nav a :hover{
     cursor: pointer;
 }
 
-#account-view-container, #account-view-container th, #account-view-container td {
+#account-view-container th, #account-view-container td {
     padding-top: 5px;
     padding-bottom: 5px;
 }
@@ -521,34 +708,29 @@ nav a :hover{
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-.generic-panel {
-    border-top: 1px solid rgba(0,0,0,0.3);
-    display: block;
-    overflow: visible;
-    clear: both;
-    flex-basis: 45%;
-}
-
 #account-info-container {
-    flex-basis: 30%;
+    flex-basis: 40%;
+    box-sizing: border-box;
 }
 
 #account-address-container {
     margin-top: 50px;
-    flex-basis: 65%;
+    flex-basis: 100%;
 }
 
 #account-wishlist-container {
-    flex-basis: 30%;
+    padding: 0px;
+    flex-basis: 40%;
 }
 
 #account-favorites-container {
-    flex-basis: 30%;
+    padding: 0px;
+    flex-basis: 40%;
 }
 
 #account-orders-container {
-    margin-top: 50px;
-    flex-basis: 30%;
+    padding: 0px;
+    flex-basis: 40%;
 }
 
 #logout-button {
@@ -559,34 +741,12 @@ nav a :hover{
     display: flex;
     margin-bottom: 10px;   
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 input.error {
-    border: 1px solid rgba(255,0,0,0.5) !important;
-}
-
-#account-info-container input {
-    border: none;
-    border: 1px solid rgba(0,0,0,0.3);
-    display: inline-block;
-    flex-basis: 80%;
-    font-size:14px;
-    outline:none;
-    font-family: 'Roboto';
-    color: rgba(0,0,0,0.70);
-    font-weight: 300;
-    padding: 5px;
-    margin: 0px;
-    flex-shrink: 100;
-}
-
-#account-info-container label {
-    margin: 0px;
-    font-family: 'Roboto Condensed';
-    font-weight: 300;
-    flex-basis: 20%;
-    display: inline-block;
-    padding:5px;
+    color: solid rgba(255,0,0,0.5);
+    border-bottom: 1px solid rgba(255,0,0,0.5) !important;
 }
 
 #account-info-container input:focus{
@@ -664,38 +824,106 @@ input:checked ~ .slider-thumb {
 /*------------------------------------*\
     $LOGINVIEW
 \*------------------------------------*/
-#register-form div, #login-form div {
-    display: flex;
-    margin-bottom: 10px;   
-    justify-content: space-between;
+
+.login-view-container input {
+    display: block;
+    border: 1px solid rgba(0,0,0,0.3);
+    transition: border 0.2s;
 }
 
-#register-form input, #login-form input {
+.login-view-container input:focus {
+    border: 1px solid #3BA757;
+    outline: none;
+}
+
+#register-error-box {
+    color: red;
+}
+
+#login-view-container {
+    display: flex;
+    padding: 60px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+#login-panel {
+    flex-basis: 40%;
+    box-sizing: border-box;
+}
+
+#register-panel {
+    flex-basis: 55%;
+    box-sizing: border-box;
+}
+
+#register-panel div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#register-form div, #login-form div {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#register-form .md-input-field {
+    flex-grow: 20;
+}
+
+.md-input-field {
+    position: relative;
+    margin-top: 30px;
+    flex-grow: 100;
+    flex-shrink: 100;
+    margin: 30px 10px 0px 0px;
+}
+
+.md-input-field input {
+    flex-basis: 100%;
     border: none;
-    border: 1px solid rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     display: inline-block;
-    flex-basis: 80%;
-    font-size:14px;
+    font-size:16px;
     outline:none;
     font-family: 'Roboto';
     color: rgba(0,0,0,0.70);
-    font-weight: 300;
-    padding: 5px;
-    margin: 0px;
-    flex-shrink: 100;
+    font-weight: normal;
+    padding-bottom: 5px;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.0);
+    transition: border 0.3s ease;
 }
 
-#register-form  label, #login-form  label {
-    margin: 0px;
-    font-family: 'Roboto Condensed';
-    font-weight: 300;
-    flex-basis: 20%;
-    display: inline-block;
-    padding:5px;
+.md-input-field input:focus {
+    border-color: rgba(59,167,87,0.87);
 }
 
-#register-form  input:focus, #login-form  input:focus{
-    border-color: rgba(0,100,0,0.5);
+.md-input-field label {
+    color: rgba(0,0,0,0.3);
+    font-weight: 300;
+    font-size: 16px;
+    position: absolute;
+    left: 2px;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.md-input-field.active label {
+    color: rgba(59,167,87,0.87) !important;
+}
+
+.md-input-field.filled label {
+    transform: translateY(-20px) scale(0.85, 0.85) translateX(-8%);
+    font-weight: normal;
+}
+
+.md-input-field.error input {
+    border-bottom: 1px solid rgba(255,0,0,0.5) !important;
+}
+
+.md-input-field.error label {
+    color: rgba(255,0,0,0.5);
 }
 
 #register-form  button, #login-form  button {
@@ -721,7 +949,6 @@ input:checked ~ .slider-thumb {
     cursor: pointer;
     background-color: rgba(59, 167, 87, 0.2);
 }
-
 
 
 /*------------------------------------*\

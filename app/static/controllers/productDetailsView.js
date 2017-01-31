@@ -31,21 +31,34 @@ function productDetailView(productId) {
             product = products.find((product) => {
                 return product.id == productId
             });
-            container.append(view(product));
+            var rProducts = []
+            for (var i = 0; i < 3; i++) {
+                var rProduct = products[Math.floor(Math.random() * products.length)];
+                if (rProduct.id == product.id)
+                    i--;
+                else
+                    rProducts.push(rProduct);
+            }
+            var content = {
+                product: product,
+                suggestions: rProducts
+            }
+
+            container.append(view(content));
         }).then(() => {
-            container.find('#addtocart_button').on('click', onAddToCartButtonPressed);
+            container.find('#add-to-cart-button').on('click', onAddToCartButtonPressed);
             container.find('#wishlist_button').on('click', onWishButtonPressed);
             container.find('#favorites_button').on('click', onFavoritesButtonPressed);
             user = stateManager.getUser().then((user) => {
                 if (user.hasWish(product)){
-                    container.find('#wishlist_button').html("REMOVE FROM WISHLIST");
+                    container.find('#wishlist_button').html("<i class='material-icons add-to-cart-button'>add_circle_outline</i><span>REMOVE FROM WISHLIST</span>");
                 }
                 //If user has not bought the product do not display option to add to favorits
                 if (user.hasBought(product)){
-                    container.find('#favorites_button').css({"display" : "block"});
+                    container.find('#favorites_button').css({"display" : "flex"});
                     //if user has favorited the product chance text to remove
                     if (user.hasFavorite(product)){
-                        container.find('#favorites_button').html("REMOVE FROM FAVORITES");
+                        container.find('#favorites_button').html("<i class='material-icons add-to-cart-button'>favorite_border</i><span>REMOVE FROM FAVORITES</span>");
                     }
                 }else{
                     // hide element
@@ -70,11 +83,10 @@ function productDetailView(productId) {
         user = stateManager.getUser();
         button = container.find('#wishlist_button')
         user.then((user) => {
-            console.log(user);
             if (user.hasWish(product)) {
-                return user.removeWish(product).then(() => button.html("ADD TO WISHLIST"));}
+                return user.removeWish(product).then(() => button.html("<i class='material-icons add-to-cart-button'>add_circle</i><span>ADD PRODUCT TO WISHLIST</span>"));}
             else
-                return user.addWish(product).then(() => button.html("REMOVE FROM WISHLIST"));
+                return user.addWish(product).then(() => button.html("<i class='material-icons add-to-cart-button'>add_circle_outline</i><span>REMOVE FROM WISHLIST</span>"));
         }, (jqXHR, textStatus, errorThrown) => {
             if (jqXHR.status == 400){
                 alert(jqXHR.responseText);
@@ -90,10 +102,10 @@ function productDetailView(productId) {
         button = container.find('#favorites_button')
         user.then((user) => {
             if (user.hasFavorite(product)){
-                return user.removeFavorite(product).then(() => {button.html("ADD TO FAVORITES")});
+                return user.removeFavorite(product).then(() => {button.html("<i class='material-icons add-to-cart-button'>favorite</i><span>ADD PRODUCT TO FAVORITES</span>")});
             }
             else{
-                return user.addFavorite(product).then(() => {button.html("REMOVE FROM FAVORITES")});
+                return user.addFavorite(product).then(() => {button.html("<i class='material-icons add-to-cart-button'>favorite_border</i><span>REMOVE FROM FAVORITES</span>")});
             }
         }, (jqXHR, textStatus, errorThrown) => {
             if (jqXHR.status == 400){
