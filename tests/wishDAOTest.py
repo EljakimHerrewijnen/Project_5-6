@@ -3,7 +3,7 @@ from app.api.database import Database
 from app.api.DAO import *
 import os
 
-class TestMethods(unittest.TestCase):
+class TestWishDAO(unittest.TestCase):
     # actual tests
     def test_Create_Delete(self):
         self.assertIsInstance(wishDAO.Create("Leeroy Jenkins", 3), int)

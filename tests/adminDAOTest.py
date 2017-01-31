@@ -1,11 +1,15 @@
 import unittest
+import time
 from app.api.DAO import adminDAO
 from app.api.models.account import Account
 from app.api.database import Database
 
-class TestMethods(unittest.TestCase):
+class TestAdminDAO(unittest.TestCase):
     def setUp(self):
         self.adminDAO = adminDAO
+        self.day = time.strftime("%d")
+        self.month = time.strftime("%m")
+        self.year = time.strftime("%Y")
         self.CorrectDate = {
             "year": '1996',
             "month": '03',
@@ -29,7 +33,7 @@ class TestMethods(unittest.TestCase):
             "banned": 0,
             "email": "Lol@Lerz.com",
             "birthDate": self.CorrectDate,
-            "registerDate": {"year": '2017', "month": '01', "day": '30'},
+            "registerDate": {"year": self.year, "month": self.month, "day": self.day},
             "orders": [],
             "wishlist": [],
             "favorites": [],

@@ -3,7 +3,7 @@ from app.api.database import Database
 from app.api.DAO import *
 import os
 
-class TestMethods(unittest.TestCase):
+class TestOrderDAO(unittest.TestCase):
 	# database connection
     @classmethod
     def setUpClass(self):
