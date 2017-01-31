@@ -45,12 +45,23 @@
         margin: 15px 15px 0px 15px;
     }
 
+    #detail-header {
+        text-align: center;
+    }
+
+    #detail-header #add-to-cart-button {
+        display: none;
+    }
+
     #detail-header h1 {
         flex-basis: 100%;
+        font-size: 14px;
+        text-align: center;
     }
 
     #detail-body #package-panel, #detail-bodu #package-panel img {
         width: 100%;
+        min-width: 10px !important;
         max-height: 1000px;
         text-align: center;
     }
@@ -90,7 +101,13 @@
         flex-basis: 100%;
     }
 
+    /*------------------------------------*\
+    $CARTVIEW
+    \*------------------------------------*/
 
+    #cart-view-container {
+        margin: 10px;
+    }
 }
 
 @media only screen and (max-width: 1500px) and (min-width: 740px) {
@@ -108,7 +125,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0px 10px 0px 10px;
+        padding: 0px 15px 0px 15px;
         height: 64px;
         box-sizing: border-box;
     }
@@ -117,8 +134,17 @@
         font-size: 24px;
     }
 
+    nav h1 {
+        margin-right: 0px;
+    }
+
     #mobile-menu-left-block, #mobile-menu-right-block, #mobile-menu h1 {
         display: inline-block;
+    }
+
+    #mobile-menu-left-block, #mobile-menu-right-block {
+        height: 24px;
+        width: 24px;
     }
 
     #products-container {
@@ -132,9 +158,9 @@
 
     #products-filter {
         width: 256px;
-        height: auto;
-        top: -2px;
         height: 100%;
+        overflow-y: scroll;
+        top: -2px;
         box-shadow: 2px 2px 50px rgba(0,0,0,0.8);
         border-top: 0px;
     }
@@ -150,13 +176,17 @@
         transform: translateX(0px);
     }
 
+    #products-filter #svgitem {
+        display: none;  
+    }
+
     #mobile-menu-sidebar {
         background-color: white;
         display: block;
         z-index: 5;
         position: fixed;
         right: 0px;
-        width: 332px;
+        width: 200px;
         height: auto;
         top: 0px;
         height: 100%;
@@ -171,6 +201,7 @@
     }
 
     #mobile-menu-sidebar h1 {
+        font-family: 'Roboto Condensed';
         font-size: 24px;
         border-bottom: 1px solid rgba(0,0,0,0.15);
         line-height: 64px;
@@ -301,6 +332,8 @@
         line-height: 34px;
         font-size: 20px;
     }
+
+
 }
 
 @media only screen and (min-width: 1025px) {

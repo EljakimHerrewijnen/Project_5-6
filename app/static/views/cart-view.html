@@ -1,34 +1,37 @@
-<div id='cart-view-container'>
-    <div id='cart-header'>
+<div style='display: flex; justify-content: space-around'>
+<div id='cart-view-container' class='md-panel'>
+    <div id='cart-header' class='table-header'>
         <h1>Cart</h1>
         <p id='emptyCart' style="display:none">No products in cart</p> 
     </div>
-    <table id='orderTable'>
+    <table>
         <thead>
         <tr id='order-table-header'>
             <th>Name</th>
             <th>Amount</th>
             <th>Price</th>
-            <th></th>
         </tr>                
         </thead>
-        <tbody id='#cart-view-tbody'>
+        <tbody id='cart-view-tbody'>
         {{#each this}}
             <tr class='row'>
                 <td><a onclick="viewManager.redirect('/details/{{this.product.id}}')">{{this.product.name}}</a></td>
                 <td>
+                    <div style='display:flex; align-items:center;'>
                     <p class='amount-counter' id='cart-row-amount-{{this.product.id}}'>{{this.quantity}}</p>
-                    <p class='incrementer' onclick="_cartDecrement({{this.product.id}})">-</p>
-                    <p class='incrementer' onclick="_cartIncrement({{this.product.id}})">+</p>
+                    <i class='incrementer material-icons' onclick="_cartDecrement({{this.product.id}})">remove_circle_outline</i>
+                    <i class='incrementer material-icons' onclick="_cartIncrement({{this.product.id}})">add_circle</i>
+                    </div>
                 </td>
-                <td id='cart-row-price-{{this.product.id}}' style="width: 8em">€{{cartLineTotal this.product.price this.quantity}}</td>
-                <td><a onclick='_cartRemoveItem({{this.product.id}})'>Remove</a></td>
+                <td id='cart-row-price-{{this.product.id}}'>€{{cartLineTotal this.product.price this.quantity}}</td>
             </tr>
         {{/each}}
         </tbody>
-        <tfoot><tr><td></td><td>Total price</td><td id='totalprice'>€{{cartOrderTotal}}</td></tr></tfoot>
+        <tfoot class='hidden'>
+            <tr><td></td><td>Total price</td><td id='totalprice'>€{{cartOrderTotal}}</td></tr></tfoot>
     </table>
     <div id='order-button-container'>
-        <div id='goToOrderButton' class='hidden' onclick='ViewManager.redirect("/placeorder")'>Checkout >> </div>
+        <div id='goToOrderButton' class='hidden md-button' onclick='ViewManager.redirect("/placeorder")'>CHECKOUT</div>
     </div>
+</div>
 </div>

@@ -50,14 +50,19 @@ function adminDashboard() {
             responsive: true,
             maintainAspectRatio: false
         };
+        var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        users.forEach((x) => {
+            data[x.birthDate.month - 1]++;
+        });
+
 
         var data = {
-            labels: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dev"],
+            labels: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
             datasets: [
                 {
                     backgroundColor: "rgba(0,0,0,0)",
                     borderColor: "#00bfc7",
-                    data: [52, 66, 40, 29, 50, 75, 67, 38, 55, 77, 66, 39]
+                    data: data
                 },
             ]
         };
