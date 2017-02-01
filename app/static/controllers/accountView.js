@@ -60,13 +60,13 @@ function accountView() {
         user.addAddress(values).then(() => {
             var table = container.find('#account-address-container tbody')[0];
             var row = table.insertRow(1);
-            var i = 0;
-            for (var k in values) {
-                var cell = row.insertCell(i);
-                cell.innerHTML = values[k];
-                i = i + 1;
-            }
-            var cell = row.insertCell(i);
+            var cell = row.insertCell(0);
+            cell.innerHTML = values['street']
+            var cell = row.insertCell(1);
+            cell.innerHTML = values['houseNumber']
+            var cell = row.insertCell(2);
+            cell.innerHTML = values['postalCode']
+            var cell = row.insertCell(3);
             cell.innerHTML = `<a onclick='removeAddress("${values.postal_code}", ${values.house_number}, this)'>Delete</a>`
         });
     }

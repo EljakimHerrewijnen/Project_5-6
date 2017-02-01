@@ -1,4 +1,4 @@
-<div style='padding: 35px;' class='admin-container'>
+<div class='admin-container'>
     <div class='md-panel' id='admin-order-chart'>
         <h3>Registered users</h3>
         <div style='height: 400px'>
@@ -38,13 +38,19 @@
         <div id='admin-user-form-container'>
             <form id='admin-user-form'>
                 <input name='username' hidden>
-                <div><button id='ban-user'>Ban user</button><button id='reset-password' disabled>Reset password</button></div>
-                <div><label class='disabled'>Name</label><input name='name' disabled></div>
-                <div><label class='disabled'>Surname</label><input name='surname' disabled></div>
-                <div><label class='disabled'>Email</label><input name='email'disabled></div>
-                <div><label class='disabled'>Birthdate</label><input name='year' disabled><input name='month' disabled><input name='day' disabled></div>
-                <div><label class='disabled'>Account type</label><input name='accountType' disabled></div>
-                <div><button id='submit-user-button' disabled value='submit'>Submit</button></div>
+                <div></div>
+                <div class='md-input-field'><label class='disabled'>Name</label><input name='name' disabled></div>
+                <div class='md-input-field'><label class='disabled'>Surname</label><input name='surname' disabled></div>
+                <div class='md-input-field'><label class='disabled'>Email</label><input name='email'disabled></div>
+                <div class='md-input-field'><label class='disabled'>Birthyear</label><input name='year' disabled></div>
+                <div class='md-input-field'><label class='disabled'>Birthmonth</label><input name='month' disabled></div>
+                <div class='md-input-field'><label class='disabled'>Birthday</label><input name='day' disabled></div>
+                <div class='md-input-field'><label class='disabled'>Account type</label><input name='accountType' disabled></div>
+                <div id='admin-user-button-row'>
+                    <button class='md-button' id='submit-user-button' disabled value='submit'>Submit</button>
+                    <button class='md-button' id='ban-user'>Ban user</button>
+                    <button class='md-button' id='reset-password' disabled>Reset password</button>
+                </div>
             </form>
         </div>
     </div>

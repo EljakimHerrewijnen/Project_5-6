@@ -141,7 +141,21 @@
         width: 100% !important;
     }
 
- 
+    #productChart{
+        width: 100% !important;
+    }
+
+     #admin-product-chart {
+        flex-basis: 100%;
+    }
+
+    #admin-aroma-chart {
+        flex-basis: 100%;
+    }
+
+    #aromaChart{
+        width: 100% !important;
+    }
 }
 
 @media only screen and (max-width: 1500px) and (min-width: 740px) {
@@ -151,12 +165,36 @@
 }
 
 @media only screen and (max-width: 1024px) {
-   #admin-order-chart {
+    #admin-product-chart, #admin-aroma-chart, #admin-order-chart {
         flex-basis: 100%;
+        padding: 5px;
+    }
+
+    #admin-aroma-chart h3, #admin-order-chart h3, #admin-product-chart h3 {
+        padding-left: 15px;
     }
 
     #navbar {
         display: none;
+    }
+
+    .admin-container{
+        padding: 10px;
+    }
+
+    #admin-user-container {
+        flex-wrap: wrap;
+        width: 100%;
+        flex-basis: 100%;
+        overflow: hidden;
+    }
+
+    #admin-user-table-container {
+        flex-basis: 100%;
+        border-left: 0px solid white;
+        max-height: 100px;
+        border: 1px solid rgba(0,0,0,0.3);
+        margin: 20px;
     }
 
     #mobile-menu {

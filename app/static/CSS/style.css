@@ -30,6 +30,32 @@ i {
     user-select: none;
 }
 
+.admin-container {
+    padding: 35px;
+}
+
+.admin-container input {
+    width: 100%;
+}
+
+#admin-user-form-container {
+    width: 100%;
+}
+
+#admin-user-button-row {
+    padding-top: 20px;
+}
+
+
+
+#admin-user-button-row button {
+    margin: 10px;
+}
+
+#admin-user-button-row button:active {
+    box-shadow: 0px 0px 0px rgba(0,0,0,0.3);
+}
+
 .md-panel {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
     border-radius: 2px;
@@ -76,6 +102,15 @@ i {
     padding-top: 67px;
 }
 
+button {
+    background-color: white;
+    box-sizing: border-box;
+    border-width: 0px;
+    border-style: outset;
+    border-color: buttonface;
+    border-image: none;
+}
+
 #admin-product-chart {
     flex-basis: 35%;
 }
@@ -85,8 +120,9 @@ i {
 }
 
 #admin-user-form-container {
-    flex-basis: 40%;
+    flex-basis: 70%;
     padding-left: 30px;
+    padding-right: 20px;
 }
 
 #admin-user-form {
@@ -722,6 +758,8 @@ nav a :hover{
 
 #account-address-container form {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #account-view-container #wishlist-header {

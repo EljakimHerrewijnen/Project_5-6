@@ -132,15 +132,15 @@
                     </tr>
                 {{/each}}
             </table>
+            <div style='padding-top: 30px'>Addresses</div>
             <form id="user-address-form">
                 <p class='hidden error-box'></p>
-                <label>Add address:</label>
-                <input type='text' placeholder='Country' verification='\D{3,}' name='country' required>
-                <input type='text' placeholder='City' verification='\D{3,}' name='city' required>
-                <input type='text' placeholder='Street' verification='\D{3,}' name='street' required>
-                <input type='text' placeholder='Number' verification='\d+[a-zA-Z]?'name='houseNumber' required>
-                <input type='text' placeholder='Postal code' verification='\d{4}[a-zA-Z]{2}' name='postalCode' required>
-                <button id='login-button'>Add</button>
+                <div class='md-input-field'><label>Country</label><input type='text' verification='\D{3,}' name='country' required></div>
+                <div class='md-input-field'><label>City</label><input type='text'verification='\D{3,}' name='city' required></div>
+                <div class='md-input-field'><label>Street</label><input type='text' verification='\D{3,}' name='street' required></div>
+                <div class='md-input-field'><label>Number</label><input type='text' verification='\d+[a-zA-Z]?'name='houseNumber' required></div>
+                <div class='md-input-field'><label>Postal code</label><input type='text' verification='\d{4}[a-zA-Z]{2}' name='postalCode' required></div>
+                <button class='md-button' id='login-button'>Add</button>
             </form>
     </div>
 </div>

@@ -181,8 +181,10 @@ function adminDashboard() {
     var fillForm = function(form, values) {
         for (key in values) {
             var field = form.find('[name=' + key + ']');
-            if (field)
+            if (field){
                 field.val(values[key])
+                field.trigger('change');
+            }
         }
     }
 

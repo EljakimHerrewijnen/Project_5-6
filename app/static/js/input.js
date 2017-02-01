@@ -8,6 +8,7 @@ function addListenerToTextfield() {
     var input = field.find('input');
     field.unbind("focusin");
     field.unbind("focusout");
+    field.unbind("change");
     field.focusin(function() {
         field.addClass('active');
         field.addClass('filled');
@@ -18,6 +19,14 @@ function addListenerToTextfield() {
             field.removeClass('filled');
         field.removeClass('active');
         verifyInput(field, input);
+    });
+
+    field.on('change', () => {
+        field.addClass('active');
+        field.addClass('filled');
+        if (!input.val())
+            field.removeClass('filled');
+        field.removeClass('active');
     });
 }
 
