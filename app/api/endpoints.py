@@ -45,12 +45,13 @@ def logout():
 @api.route('/login', methods=['POST'])
 def login_account():
     post_data = request.get_json()
-    print(post_data)
     username = post_data['username']
     password = post_data['password']
     account = accountDAO.Find(username)
     if not account:
         return "Account not found", 404
+    if (account['banned']):
+        return "It seems you are banned", 403
     if password != account['password']:
         return "Invalid password", 403
     session['username'] = username
