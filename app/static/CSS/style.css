@@ -40,27 +40,24 @@ i {
 
 #orderChart {
     height: 900px;
+    
 }
 
 #admin-user-container {
     flex-basis: 62%;
     display: flex;
+    padding: 0px;
+    
 }
 
 #admin-user-table-container {
     flex-basis: 40%;
-    border-right: 1px solid rgba(0,0,0,0.2);
-    padding-right: 30px;
+    border-right: 1px solid rgba(0,0,0,0.2);    
+    overflow: scroll;
 }
 
 #admin-user-table {
     width: 100%;
-}
-
-.admin-user-row:hover {
-    cursor: pointer;
-    background-color: #fafafa;
-    color: #3BA757;
 }
 
 #admin-order-chart {
@@ -100,8 +97,6 @@ i {
 #admin-user-form .disabled {
     opacity: 0.5;
 }
-
-
 
 a:hover { 
     cursor: pointer;
@@ -255,6 +250,7 @@ th {
 tbody tr {
     height: 48px;
     transition: background 0.2s ease, color 0.2s ease;
+    border-top: 1px solid rgba(0,0,0,0.1);
 }
 
 tbody tr td:first-of-type, tr th:first-of-type {

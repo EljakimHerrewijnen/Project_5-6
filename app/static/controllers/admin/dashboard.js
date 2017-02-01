@@ -175,6 +175,7 @@ function adminDashboard() {
         fillForm(form, user);
         fillForm(form, user.birthDate);
         setupBanButton(user);
+        setupPasswordResetButton(user);
     }
 
     var fillForm = function(form, values) {
@@ -195,6 +196,28 @@ function adminDashboard() {
         } else {
             btn.html("Ban user");
         }
+    }
+
+    var setupPasswordResetButton = function(user) {
+        var xxx = container.find('#reset-password');
+        xxx.off("click");
+        xxx.click(function(e) {
+            e.preventDefault();
+            $.post({
+                url: "/api/request-password-reset",
+                contentType: "application/json",
+                data: JSON.stringify({email: user.email})
+            }).then((a, b, c) => {
+                alert("Password change is sent");
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }, (jqXHR) => {
+                alert("Failed to modify password: " + jqXHR.responseText);
+                var errorBox = container.find('#user-error-box');
+                errorBox.html("Failed to modify password: " + jqXHR.responseText)
+            });
+        })
     }
 
     var toggleBan = function(e) {
