@@ -1,33 +1,40 @@
 <div id='order-details-container'>
-    <h1>Order number: {{this.id}}</h2>
-    <p>Purchase made by:<br>{{username}}</p>
-    <p><b>Order date:</b><br>{{this.orderDate.year}}-{{this.orderDate.month}}-{{this.orderDate.day}}</p>
-    <p><b>Delivery address:</b><br>{{this.address.street}} {{this.address.houseNumber}}<br>{{this.address.postalCode}}  {{this.address.city}}</p>
+    <div class='md-panel' id='order-info-panel'>
+        <h1>Order number: {{this.id}}</h2>
+        <p>Purchase made by:<br>{{username}}</p>
+        <p><b>Order date:</b><br>{{this.orderDate.year}}-{{this.orderDate.month}}-{{this.orderDate.day}}</p>
+        <p><b>Delivery address:</b><br>{{this.address.street}} {{this.address.houseNumber}}<br>{{this.address.postalCode}}  {{this.address.city}}</p>
+    </div>
+    <div id='order-items-panel' class='md-panel'>
+    <div id='cart-header' class='table-header'>
+        <h1>Content</h1>
+    </div>
     <table>
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Quantity</th>
+        <thead>
+        <tr id='order-table-header'>
+            <th>
+            <th class='mobile-hidden'>Name</th>
+            <th>Amount</th>
             <th>Price</th>
-            <th></th>
-        </tr>
+        </tr>                
+        </thead>
+        <tbody id='cart-view-tbody'>
         {{#each products}}
-            <tr>
-                <td id='image-row'><a href='/details/{{this.id}}'><img src='/static/images/{{this.product.id}}.jpg'></a>
-                <td><a href='/details/{{this.product.id}}'>{{this.product.name}}</a></td>
-                <td>{{this.quantity}}</td>
-                <td>€{{this.product.price}}</td>
+            <tr class='row' onclick='viewManager.redirect("/details/{{this.id}}")'>
+                <td id='image-row'><img src='/static/images/{{this.product.id}}.jpg'>
+                <td class='mobile-hidden'>{{this.product.name}}</td>
+                <td>
+                    <div style='display:flex; align-items:center;'>
+                    <p class='amount-counter' id='cart-row-amount-{{this.product.id}}'>{{this.quantity}}</p>
+                    </div>
+                </td>
+                <td id='cart-row-price-{{this.product.id}}'>
+                    €{{cartLineTotal this.product.price this.quantity}}</td>
             </tr>
         {{/each}}
-        <tr id='total-row'>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-                <h4>Total:</h4>
-                <h3>€ {{this.total_price}}</h3>
-            </td>
-        </tr>
-    </table>  
-    </div>
+        </tbody>
+        <tfoot>
+            <tr><td></td><td>Total price</td><td id='totalprice'>{{this.totalPrice}}</td><td></td></tr>
+        </tfoot>
+    </table>
 </div>

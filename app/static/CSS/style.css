@@ -9,10 +9,25 @@ body {
     font-smooth: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-user-select: none;
+    padding-bottom: 50px;
 }
 
 a {
     text-decoration: none;
+}
+
+p {
+    user-select: none;
+}
+
+span {
+    user-select: none;
+}
+
+i {
+    
+    user-select: none;
 }
 
 .md-panel {
@@ -220,6 +235,7 @@ table {
     border-collapse: collapse;
     font-size: 13px;
     line-height: 20px;
+    width: 100%;
 }
 
 th {
@@ -258,7 +274,52 @@ tr.clickable:hover {
     cursor: pointer;
 }
 
-td {
+.table-header h1 {
+    display: block;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.table-header h2 {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+tfoot{
+    margin-top: 30px;
+    border-top: 1px solid rgba(0,0,0,0.3);
+    font-size: 18px;
+}
+
+tfoot td {
+    line-height: 40px;
+}
+
+
+.empty-row {
+    min-height: 30px;
+}
+
+.empty-row::before {
+    content: "";
+    min-height: 30px;
+}
+
+/*------------------------------------*\
+    $BUTTON
+\*------------------------------------*/
+
+.md-button {
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    background-color: white;
+    padding: 15px;
+    color: rgba(0,0,0,0.77);
+    font-size: 14px;
+    display: inline-block;
+    font-weight: normal;
 }
 
 /*------------------------------------*\
@@ -1057,8 +1118,20 @@ input[type=range]:focus::-ms-fill-upper {
 \*------------------------------------*/
 
 #order-details-container {
-    padding: 50px;
-    padding-top: 10px;
+    padding: 30px;
+    padding-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
+}
+
+#order-info-panel {
+    flex-basis: 100%;
+}
+
+#order-items-panel {
+    flex-basis: 100%;
 }
 
 #order-details-container img {
@@ -1129,12 +1202,17 @@ input[type=range]:focus::-ms-fill-upper {
 #cart-view-container {
     display: flex;
     flex-wrap: wrap;
-    padding: 40px;
+    padding: 0px;
+    margin: 40px;
+    height: 100%;
+    min-height: 100%;
+    flex-basis: 100%;
+    max-width: 1280px;
 }
 
 #cart-header {
     flex-basis: 100%;
-    margin-left: 10%;
+    padding-left: 15px;
 }
 
 #cart-container {
@@ -1143,6 +1221,26 @@ input[type=range]:focus::-ms-fill-upper {
 
 #order-table-header {
     border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+#cart-view-container table {
+    width: 100%;
+    overflow: hidden;
+}
+
+#cart-view-container td {
+    overflow: hidden;
+}
+
+#cart-view-tbody p {
+    display: inline;
+    padding-right: 5px;
+}
+
+#cart-view-tbody .incrementer {
+    color: rgba(69,177,97,0.87);
+    cursor: pointer;
+    padding-left: 5px;
 }
 
 #orderTable {
@@ -1157,16 +1255,13 @@ input[type=range]:focus::-ms-fill-upper {
 
 #cart-view-container table {
     border-collapse:collapse;
+    text-align: left;
 }
 
 #orderTable tbody td {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-#orderTable tfoot td {
-    padding-top: 10px;
 }
 
 #orderTable a {
@@ -1193,43 +1288,14 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 #order-button-container {
-    flex-basis: 100%;
     text-align: right;
-    margin-right: 10%;
+    margin: 20px;
     margin-top: 30px;
-}
-
-#goToOrderButton {
-    position: relative;
-    border: 1px solid #3BA757;
-    border-radius: 5px;
-    padding: 10px;
-    color: #3BA757; 
-    display: inline-block;
-    transition: background-color 0.2s ease;
-    font-weight: 600;
+    width: 100%;
 }
 
 #goToOrderButton:hover {
     cursor: pointer;
-}
-
-#goToOrderButton::before {
-    position: absolute;
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border: 0px solid #3BA757;
-    transition: border 0.2s ease;
-}
-
-
-#goToOrderButton:hover::before {
-    border: 2px solid #3BA757;
-    border-radius: 5px;
-    
 }
 
 #drop-down-address-container {

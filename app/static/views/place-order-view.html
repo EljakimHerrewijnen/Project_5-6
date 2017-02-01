@@ -1,28 +1,31 @@
-<div id='cart-view-container'>
-    <div id='cart-header'>
-        <h1>Place order</h1>
+<div style='display: flex; justify-content: space-around'>
+<div id='cart-view-container' class='md-panel'>
+    <div id='cart-header' class='table-header'>
+        <h1>Cart</h1>
         <p id='emptyCart' style="display:none">No products in cart</p> 
-        <p class='hidden error-box' id='place-order-error-box'></p>
     </div>
-    <table id='orderTable'>
-        
+    <table>
         <thead>
         <tr id='order-table-header'>
             <th>Name</th>
-            <th>Quantity</th>
+            <th>Amount</th>
             <th>Price</th>
         </tr>                
         </thead>
-        <tbody>
+        <tbody id='cart-view-tbody'>
         {{#each this.items}}
             <tr class='row'>
-                <td><a href="/products/{{this.product.id}}">{{this.product.name}}</a></td>
-                <td>{{this.quantity}}</td>
-                <td style="width: 2em">€{{cartLineTotal this.product.price this.quantity}}</td>
+                <td><a onclick="viewManager.redirect('/details/{{this.product.id}}')">{{this.product.name}}</a></td>
+                <td>
+                    <div style='display:flex; align-items:center;'>
+                    <p class='amount-counter' id='cart-row-amount-{{this.product.id}}'>{{this.quantity}}</p>
+                    </div>
+                </td>
+                <td id='cart-row-price-{{this.product.id}}'>€{{cartLineTotal this.product.price this.quantity}}</td>
             </tr>
         {{/each}}
         </tbody>
-        <tfoot><tr><td></td><td>Total price</td><td id='totalprice'>{{this.totalPrice}}</td></tr></tfoot>
+<tfoot><tr><td></td><td>Total price</td><td id='totalprice'>{{this.totalPrice}}</td></tr></tfoot>
     </table>
     <div id='order-button-container'>
         <p style="display: inline-block; margin-right: 10px">Delivery address:</p>
@@ -35,6 +38,6 @@
                 {{/each}}
             </select>
         </div>
-        <div id='goToOrderButton' onclick='viewManager.activeView.placeOrder()'>Place Order</div>
+        <div id='goToOrderButton' class='md-button' onclick='viewManager.activeView.placeOrder()'>Place Order</div>
     </div>
 </div>

@@ -3,7 +3,7 @@ from app.api.database import Database
 from app.api.DAO import *
 import os
 
-class TestMethods(unittest.TestCase):
+class TestProductDAO(unittest.TestCase):
     # create database to test with
     # @classmethod
     # def setUpClass(self):

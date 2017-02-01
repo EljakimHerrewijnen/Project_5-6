@@ -21,6 +21,7 @@ function cartView() {
             container.css({opacity: 0});
             if (!cart.isEmpty){
                 container.find('#goToOrderButton').removeClass('hidden');
+                container.find('tfoot').removeClass('hidden');
             }
             
         });
@@ -41,16 +42,16 @@ function cartView() {
 }
 
 function _CartUpdateTotal() {
-    $("#totalprice").html("€" + Cart.getTotalPrice());
+    $("#totalprice").html("€" + Cart.getTotalPrice().toFixed(2));
 }
 
 
 Handlebars.registerHelper("cartLineTotal", function(price, amount) {
-    return price * amount
+    return (price * amount).toFixed(2);
 });
 
 Handlebars.registerHelper("cartOrderTotal", function() {
-    return Cart.getTotalPrice();
+    return Cart.getTotalPrice().toFixed(2);
 })
 
 function _cartIncrement(id) {
@@ -58,7 +59,7 @@ function _cartIncrement(id) {
     Cart.addProduct(item.product);
     _CartUpdateTotal();
     $("#cart-row-amount-" + id).html(item.quantity);
-    $("#cart-row-price-" + id).html("€" + Cart.getItemPrice(id));
+    $("#cart-row-price-" + id).html("€" + Cart.getItemPrice(id).toFixed(2));
 }
 
 function _cartDecrement(id) {
@@ -70,11 +71,18 @@ function _cartDecrement(id) {
     }
     _CartUpdateTotal();
     $("#cart-row-amount-" + id).html(item.quantity);
-    $("#cart-row-price-" + id).html("€" + Cart.getItemPrice(id));
+    $("#cart-row-price-" + id).html("€" + Cart.getItemPrice(id).toFixed(2));
 }
 
 function _cartRemoveItem(id) {
     Cart.removeProduct(id);
     $("#cart-row-amount-" + id).closest('tr').remove()
     _CartUpdateTotal();
+    if (Cart.isEmpty) {
+        $('#goToOrderButton').addClass('hidden');
+        $('tfoot').addClass('hidden');
+    } else {
+        $('#goToOrderButton').removeClass('hidden');
+        $('tfoot').removeClass('hidden');
+    }
 }

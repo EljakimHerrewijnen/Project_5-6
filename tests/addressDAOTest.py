@@ -3,7 +3,7 @@ from app.api.database import Database
 from app.api.DAO import *
 import os
 
-class TestMethods(unittest.TestCase):
+class TestAddressDAO(unittest.TestCase):
     #setup
     def setUp(self):
         self.address = {'houseNumber': 3, 'postalCode': '9999AA', 'country': 'Neverland', 'street': 'kikkerveen', 'city': 'Spijk'}

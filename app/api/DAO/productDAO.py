@@ -2,6 +2,7 @@ from app.api.database import Database
 
 product_cache = {}
 order_line_cache = {}
+cache = {}
 db = Database()
 total_products = int(db.get_one("product", "COUNT(*) as c")['c'])
 
@@ -20,7 +21,10 @@ def Find(id):
     db.where("product_id", id)
     product = db.get_one("product")
     product = convert_to_json(product)
-    product_cache[product.id] = product
+    try:
+        cache[product.id] = product
+    except:     
+        print("caching product failed")
     return product
 
 

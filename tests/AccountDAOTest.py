@@ -1,8 +1,10 @@
 import unittest
 from app.api.database import Database
 from app.api.DAO import *
+import time
 import os
-class TestMethods(unittest.TestCase):
+
+class TestAccountDAO(unittest.TestCase):
     #setup
     def SetUp(self):
         self.testDBFileLocation = "app/test_db.db"
@@ -45,6 +47,9 @@ class TestMethods(unittest.TestCase):
 
     #Testing find in accountDAO
     def test_find(self):
+        self.day = time.strftime("%d")
+        self.month = time.strftime("%m")
+        self.year = time.strftime("%Y")
         expectedresult = {
             'accountType': 'user',
             'banned': 0,
@@ -52,7 +57,7 @@ class TestMethods(unittest.TestCase):
             'email': 'testuser@coffeesupre.me',
             'name': None,
             'password': 'testuser',
-            'registerDate': {'day': '27', 'month': '01', 'year': '2017'},
+            'registerDate': {'day': self.day, 'month': self.month, 'year': self.year},
             'surname': 'testuser',
             'username': 'testuser',
             'wishlistPublic': 0
