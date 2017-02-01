@@ -61,12 +61,18 @@ function accountView() {
             var table = container.find('#account-address-container tbody')[0];
             var row = table.insertRow(1);
             var cell = row.insertCell(0);
-            cell.innerHTML = values['street']
+            cell.addClass('big-only');
+            cell.innerHTML = values['country']
             var cell = row.insertCell(1);
-            cell.innerHTML = values['houseNumber']
+            cell.addClass('big-only');
+            cell.innerHTML = values['city']
             var cell = row.insertCell(2);
-            cell.innerHTML = values['postalCode']
+            cell.innerHTML = values['street']
             var cell = row.insertCell(3);
+            cell.innerHTML = values['houseNumber']
+            var cell = row.insertCell(4);
+            cell.innerHTML = values['postalCode']
+            var cell = row.insertCell(5);
             cell.innerHTML = `<a onclick='removeAddress("${values.postal_code}", ${values.house_number}, this)'>Delete</a>`
         });
     }
