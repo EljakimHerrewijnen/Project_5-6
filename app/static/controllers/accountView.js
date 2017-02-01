@@ -107,21 +107,18 @@ function accountView() {
 }
 
 function removeAddress(postalCode, houseNumber, button) {
-    user = stateManager.getUser((user) => {    
-        var row = button.closest('tr');
-        values = JSON.stringify({
-            "postalCode" : postalCode,
-            "houseNumber" : houseNumber
-        });
-        $.ajax({
-            url: "/api/account/address",
-            method: "DELETE",
-            contentType : "application/json",
-            data: values
-        }).then(() => {
-            row.remove();
-            user.addresses = user.addresses.filter((x) => x.postalCode == postalCode && x.houseNumber == houseNumber);
-        });
+    var row = button.closest('tr');
+    values = JSON.stringify({
+        "postalCode" : postalCode,
+        "houseNumber" : houseNumber
+    });
+    $.ajax({
+        url: "/api/account/address",
+        method: "DELETE",
+        contentType : "application/json",
+        data: values
+    }).then(() => {
+        row.remove();
     });
 }
 
