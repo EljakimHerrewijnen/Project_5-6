@@ -61,10 +61,10 @@ function accountView() {
             var table = container.find('#account-address-container tbody')[0];
             var row = table.insertRow(1);
             var cell = row.insertCell(0);
-            cell.addClass('big-only');
+            $(cell).addClass('big-only');
             cell.innerHTML = values['country']
             var cell = row.insertCell(1);
-            cell.addClass('big-only');
+            $(cell).addClass('big-only');
             cell.innerHTML = values['city']
             var cell = row.insertCell(2);
             cell.innerHTML = values['street']
@@ -107,18 +107,21 @@ function accountView() {
 }
 
 function removeAddress(postalCode, houseNumber, button) {
-    var row = button.closest('tr');
-    values = JSON.stringify({
-        "postalCode" : postalCode,
-        "houseNumber" : houseNumber
-    });
-    $.ajax({
-        url: "/api/account/address",
-        method: "DELETE",
-        contentType : "application/json",
-        data: values
-    }).then(() => {
-        row.remove();
+    user = stateManager.getUser((user) => {    
+        var row = button.closest('tr');
+        values = JSON.stringify({
+            "postalCode" : postalCode,
+            "houseNumber" : houseNumber
+        });
+        $.ajax({
+            url: "/api/account/address",
+            method: "DELETE",
+            contentType : "application/json",
+            data: values
+        }).then(() => {
+            row.remove();
+            user.addresses = user.addresses.filter((x) => x.postalCode == postalCode && x.houseNumber == houseNumber);
+        });
     });
 }
 

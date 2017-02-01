@@ -76,6 +76,7 @@ function User(user) {
     };
 
     this.addAddress = function(address) {
+        this.addresses.push(address);
         address = JSON.stringify(address);
         return $.ajax({
             url: "/api/account/address",
