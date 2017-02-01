@@ -20,7 +20,7 @@
         </thead>
         <tbody id='cart-view-tbody'>
         {{#each products}}
-            <tr class='row' onclick='viewManager.redirect("/details/{{this.id}}")'>
+            <tr class='row' onclick='viewManager.redirect("/details/{{this.product.id}}")'>
                 <td id='image-row'><img src='/static/images/{{this.product.id}}.jpg'>
                 <td class='mobile-hidden'>{{this.product.name}}</td>
                 <td>
