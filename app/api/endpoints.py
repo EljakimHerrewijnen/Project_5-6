@@ -53,6 +53,8 @@ def login_account():
         return "Account not found", 404
     if password != account['password']:
         return "Invalid password", 403
+    if account['banned'] == 1:
+        return "User Banned", 403
     session['username'] = username
     return "Success", 200
 
