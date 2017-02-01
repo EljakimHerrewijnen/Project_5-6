@@ -293,9 +293,7 @@ def send_order_mail(account, order):
             'margin-right' : '0in',
             'margin-bottom' : '0in',
             'encoding': "UTF-8",
-            'zoom': 1.5,
-            'no-outline': None,
-            'disable-smart-shrinking' : None,
+            'zoom':0.5
         }
         pdf = pdfkit.from_string(string, False, options=options)
         from_address = "noreply@coffeesupre.me"
