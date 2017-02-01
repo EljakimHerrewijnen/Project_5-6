@@ -4,7 +4,7 @@
     <table id='orderTable'>
         <thead>
         <tr id='order-table-header'>
-            <th></th>
+            <th class='mobile-hidden'></th>
             <th>Name</th>
             <th>Price</th>
             <th></th>
@@ -13,9 +13,9 @@
         <tbody id='#cart-view-tbody'>
         {{#each this.wishlist}}
             <tr class='row'>
-                <td id='image-row'><a onclick="viewManager.redirect('/details/{{this.id}}')"><img src='/static/images/{{this.id}}.jpg'></a>
+                <td id='image-row' class='mobile-hidden'><a onclick="viewManager.redirect('/details/{{this.id}}')"><img src='/static/images/{{this.id}}.jpg'></a>
                 <td><a onclick="viewManager.redirect('/details/{{this.id}}')">{{this.name}}</a></td>
-                <td id='cart-row-price-{{this.id}}' style="width: 8em">€ {{this.price}}</td>
+                <td id='cart-row-price-{{this.id}}'>€{{this.price}}</td>
             </tr>
         {{/each}}
         </tbody>
