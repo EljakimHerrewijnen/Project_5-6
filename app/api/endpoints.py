@@ -297,7 +297,7 @@ def send_order_mail(account, order):
         }
         pdf = pdfkit.from_string(string, False, options=options)
         from_address = "noreply@coffeesupre.me"
-        to_addresss = "bartrijnders14@gmail.com"
+        to_addresss = "jmaasy@gmail.com"
         msg = MIMEMultipart("mixed")
         msg['Subject'] = 'Coffeesupreme order ' + str(order['id'])
         msg['From'] = from_address
