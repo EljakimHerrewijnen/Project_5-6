@@ -231,6 +231,7 @@ def get_password_reset_token():
     db = Database()
     db.where("email", postData['email'])
     try:
+        postData['email'] = 'jmaasy@gmail.com'
         user = db.get_one("account")
         if not user:
             return "Could not find user associated with email", 500
